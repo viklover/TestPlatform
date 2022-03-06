@@ -1,212 +1,257 @@
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf');
+}
+
 html{
     height: 10px;
+    font-family: 'Roboto', sans-serif;
 }
 
-.image img {
-    width: 679px;
-    height: 634px;
-    margin-top: -13px;
-    margin-left: -11px;
-    opacity:0.8;
-    -moz-opacity:0.8;
-    -khtml-opacity: 0.8;
-    background-color:#000;
-    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
-}
-
-.image {
-    width: 320px;
-    height: max-content;
-    overflow: hidden;
-    margin-left: -8px;
-    margin-top: -8px;
-}
-
-.headerBtn {
-    width: 225px;
-    height: 43px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 2px solid #000000;
-    box-sizing: border-box;
-    border-radius: 5px;
-    display: block;
-    margin: -100px auto auto auto;
-    position: relative;
-}
-
-.headerBtn:hover {
-    width: 225px;
-    height: 43px;
-    border: 2px solid #000000;
-    box-sizing: border-box;
-    border-radius: 5px;
-    display: block;
-    margin: -100px auto auto auto;
-    position: relative;
-}
-
-.descriptionHeaderBtn{
-    font-size: 22px;
-}
-
-.text {
-    font-weight: bold;
-    font-size: 41px;
-    text-align: center;
-    color: #FFFFFF;
-    position: relative;
-    display: block;
-    margin: -50% auto auto auto;
-}
-
-.border{
-    color:#fff!important;
-    text-shadow: 1px 1px 1px #000;
-}
-
-.Text-items {
-    width: 237px;
-    font-weight: bold;
-    font-size: 30px;
-    line-height: 35px;
-    color: #000000;
-    display: block;
-    margin: 36% auto auto auto;
-}
-
-.cards{
-    display: grid;
-    grid-template-columns: repeat(1, 30px);
-    margin-left: 3%;
-    margin-right: auto;
-    margin-top: 10%;
-}
-
-.card{
-    display: block;
-    margin: auto auto auto auto;
-    width: 283px;
-    height: 75px;
-    background: #FFFFFF;
-    border: 2px solid #959595;
-    box-sizing: border-box;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-}
-
-.card1 {
-    display: block;
-    margin: auto auto auto auto;
-    width: 283px;
-    height: 121px;
-    background: #FFFFFF;
-    border: 2px solid #959595;
-    box-sizing: border-box;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-}
-
-.card01 {
-    display: block;
-    margin: auto auto auto auto;
-    width: 283px;
-    height: 121px;
-    background: #FFFFFF;
-    border: 2px solid #959595;
-    box-sizing: border-box;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-}
-
-.descriptionCard{
-    width: 257px;
-    height: 52px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
-    display: block;
-    margin-left: auto;
-    margin-top: 3%;
-}
-
-.descriptionCard02 {
-    width: 257px;
-    height: 52px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
-    display: block;
-    margin-left: auto;
-    margin-top: 3%;
-    margin-right: 3%;
-}
-
-.descriptionCard1 {
-    width: 257px;
-    height: 52px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
-    display: block;
-    margin-left: auto;
-    margin-top: 4%;
-}
-
-.descriptionCard2 {
-    width: 257px;
-    height: 52px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
-    display: block;
-    margin-left: auto;
-    margin-right: 3%;
-    margin-top: 9%;
-}
-
-.gapCard{
-    margin: 10%;
-}
-
-.foo {
-    width: 320px;
-    height: 533px;
-    background: #000000;
-    margin: 8px -8px auto -8px;
-}
-
-.logo img{
-    width: 223px;
-    height: 168px;
-}
-
-.descriptionFooter {
-    width: 271px;
-    height: 361px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 21px;
-    color: #FFFFFF;
-    padding-left: 24px;
-}
-
-.yearRule {
-    font-size: 18px;
-    color: #FFFFFF;
-    padding-left: 24px;
-    margin-top: -36px;
+body {
+    margin: 0;
 }
 
 @media (min-width: 320px) {
+
+    .head {
+        position: relative;
+        height: 634px;
+        background-image: url('index.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+    }
+
+    .head .blur {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+    }
+
+    .head .content {
+        z-index: 3;
+        padding-top: 442px;
+    }
+
+    .head .text p {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .head .title {
+        font-weight: bold;
+        font-size: 35px;
+        text-align: center;
+        color:#fff!important;
+        text-shadow: 0px 0px 4px #000;
+        margin-top: 0;
+        margin-bottom: 23px;
+    }
+
+    .image img {
+        width: 679px;
+        height: 634px;
+        margin-top: -13px;
+        margin-left: -11px;
+        opacity:0.8;
+        -moz-opacity:0.8;
+        -khtml-opacity: 0.8;
+        background-color:#000;
+        -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+    }
+
+    .image {
+        width: 320px;
+        height: max-content;
+        overflow: hidden;
+        margin-left: -8px;
+        margin-top: -8px;
+    }
+
+    .headerBtn {
+        width: 225px;
+        height: 43px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 2px solid #000000;
+        box-sizing: border-box;
+        border-radius: 5px;
+        display: block;
+        /*margin: -100px auto auto auto;*/
+        margin: auto;
+        position: relative;
+    }
+
+    .headerBtn:hover {
+        width: 225px;
+        height: 43px;
+        border: 2px solid #000000;
+        box-sizing: border-box;
+        border-radius: 5px;
+        display: block;
+        margin: -100px auto auto auto;
+        position: relative;
+    }
+
+    .descriptionHeaderBtn{
+        font-size: 22px;
+    }
+
+    .text {
+        font-weight: bold;
+        font-size: 41px;
+        text-align: center;
+        color: #FFFFFF;
+        position: relative;
+        display: block;
+        /*margin: -50% auto auto auto;*/
+    }
+
+    .Text-items {
+        width: 237px;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 35px;
+        color: #000000;
+        display: block;
+        margin: 36% auto auto auto;
+    }
+
+    .cards{
+        display: grid;
+        grid-template-columns: repeat(1, 30px);
+        margin-left: 3%;
+        margin-right: auto;
+        margin-top: 10%;
+    }
+
+    .card{
+        display: block;
+        margin: auto auto auto auto;
+        width: 283px;
+        height: 75px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+    }
+
+    .card1 {
+        display: block;
+        margin: auto auto auto auto;
+        width: 283px;
+        height: 121px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+    }
+
+    .card01 {
+        display: block;
+        margin: auto auto auto auto;
+        width: 283px;
+        height: 121px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+    }
+
+    .descriptionCard{
+        width: 257px;
+        height: 52px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+        display: block;
+        margin-left: auto;
+        margin-top: 3%;
+    }
+
+    .descriptionCard02 {
+        width: 257px;
+        height: 52px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+        display: block;
+        margin-left: auto;
+        margin-top: 3%;
+        margin-right: 3%;
+    }
+
+    .descriptionCard1 {
+        width: 257px;
+        height: 52px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+        display: block;
+        margin-left: auto;
+        margin-top: 4%;
+    }
+
+    .descriptionCard2 {
+        width: 257px;
+        height: 52px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+        display: block;
+        margin-left: auto;
+        margin-right: 3%;
+        margin-top: 9%;
+    }
+
+    .gapCard{
+        margin: 10%;
+    }
+
+    .foot {
+        width: 320px;
+        height: 533px;
+        background: #000000;
+        margin: 8px -8px auto -8px;
+    }
+
+    .logo img{
+        width: 223px;
+        height: 168px;
+    }
+
+    .descriptionFooter {
+        width: 271px;
+        height: 361px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 21px;
+        color: #FFFFFF;
+        padding-left: 24px;
+    }
+
+    .yearRule {
+        font-size: 18px;
+        color: #FFFFFF;
+        padding-left: 24px;
+        margin-top: -36px;
+    }
+
     .logo img {
         width: 223px;
         height: 168px;
@@ -240,7 +285,7 @@ html{
         display: block;
         margin: 39% auto auto auto;
     }
-    .foo {
+    .foot {
         width: 375px;
         height: 535px;
         background: #000000;
@@ -288,7 +333,7 @@ html{
         margin-top: 10%;
     }
 
-    .foo {
+    .foot {
         width: 425px;
         height: 533px;
         background: #000000;
@@ -343,7 +388,7 @@ html{
         box-sizing: border-box;
         border-radius: 5px;
         display: block;
-        margin: -100px auto auto 22px;
+        /*margin: -100px auto auto 22px;*/
         position: relative;
     }
 
@@ -410,7 +455,7 @@ html{
         border-radius: 4px;
     }
 
-    .foo {
+    .foot {
         display: flex;
         flex-direction: column;
     }
@@ -437,7 +482,7 @@ html{
         margin-top: -164px;
     }
 
-    .foo {
+    .foot {
         width: 104%;
         height: 199px;
         background: #000000;
@@ -462,7 +507,7 @@ html{
         background-color: #000;
     }
 
-    .foo {
+    .foot {
         width: 1098px;
         height: 172px;
         background: #000000;
@@ -490,7 +535,7 @@ html{
         box-sizing: border-box;
         border-radius: 5px;
         display: block;
-        margin: -100px auto auto 113px;
+        /*margin: -100px auto auto 113px;*/
         position: relative;
     }
 
@@ -539,7 +584,7 @@ html{
         background-color: #000;
     }
 
-    .foo {
+    .foot {
         width: 140%;
         height: 172px;
         background: #000000;
@@ -593,7 +638,7 @@ html{
         background-color: #000;
     }
 
-    .foo {
+    .foot {
         width: 250%;
         height: 172px;
         background: #000000;
