@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'Roboto';
     src: url('Roboto-Regular.ttf');
@@ -28,7 +27,6 @@ body {
         width: 100%;
         height: 100%;
         background-color: rgba(0,0,0,0.5);
-        /* z-index: 2; */
     }
 
     .head .content {
@@ -52,26 +50,6 @@ body {
         margin-bottom: 23px;
     }
 
-    .image img {
-        width: 679px;
-        height: 634px;
-        margin-top: -13px;
-        margin-left: -11px;
-        opacity:0.8;
-        -moz-opacity:0.8;
-        -khtml-opacity: 0.8;
-        background-color:#000;
-        -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
-    }
-
-    .image {
-        width: 320px;
-        height: max-content;
-        overflow: hidden;
-        margin-left: -8px;
-        margin-top: -8px;
-    }
-
     .headerBtn {
         width: 225px;
         height: 43px;
@@ -80,7 +58,6 @@ body {
         box-sizing: border-box;
         border-radius: 5px;
         display: block;
-        /*margin: -100px auto auto auto;*/
         margin: auto;
         position: relative;
     }
@@ -96,7 +73,6 @@ body {
         color: #FFFFFF;
         position: relative;
         display: block;
-        /*margin: -50% auto auto auto;*/
     }
 
     .Text-items {
@@ -106,109 +82,7 @@ body {
         line-height: 35px;
         color: #000000;
         display: block;
-        margin: 20px auto auto auto;
-    }
-
-    .cards{
-        display: grid;
-        grid-template-columns: repeat(1, 30px);
-        margin-left: 3%;
-        margin-right: auto;
-        margin-top: 10%;
-    }
-
-    .card {
-        display: block;
-        margin: auto auto auto auto;
-        width: 283px;
-        height: 84px;
-        background: #FFFFFF;
-        border: 2px solid #959595;
-        box-sizing: border-box;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-        border-radius: 4px;
-    }
-
-    .card1 {
-        display: block;
-        margin: auto auto auto auto;
-        width: 283px;
-        height: 121px;
-        background: #FFFFFF;
-        border: 2px solid #959595;
-        box-sizing: border-box;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-        border-radius: 4px;
-    }
-
-    .card01 {
-        display: block;
-        margin: auto auto auto auto;
-        width: 283px;
-        height: 121px;
-        background: #FFFFFF;
-        border: 2px solid #959595;
-        box-sizing: border-box;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-        border-radius: 4px;
-    }
-
-    .descriptionCard{
-        width: 257px;
-        height: 52px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 23px;
-        color: #000000;
-        display: block;
-        margin-left: auto;
-        margin-top: 3%;
-    }
-
-    .descriptionCard02 {
-        width: 257px;
-        height: 52px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 23px;
-        color: #000000;
-        display: block;
-        margin-left: auto;
-        margin-top: 3%;
-        margin-right: 3%;
-    }
-
-    .descriptionCard1 {
-        width: 257px;
-        height: 52px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 23px;
-        color: #000000;
-        display: block;
-        margin-left: auto;
-        margin-top: 4%;
-    }
-
-    .descriptionCard2 {
-        width: 257px;
-        height: 52px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 23px;
-        color: #000000;
-        display: block;
-        margin-left: auto;
-        margin-right: 3%;
-        margin-top: 9%;
-    }
-
-    .gapCard{
-        margin: 10%;
+        margin: 0 auto auto auto;
     }
 
     .foot {
@@ -246,37 +120,160 @@ body {
         height: 168px;
         margin-left: 13%;
     }
+    /*Карточка первая*/
+    .card1 {
+        width: 258px;
+        height: 53px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        /* box-shadow: 0 0 10px rgb(0 0 0); */
+        border-radius: 4px;
+        margin-left: 28px;
+    }
+
+    .descriptionCard1{
+        width: 257px;
+        height: 52px;
+        font-family: Roboto, serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка вторая*/
+    .card2 {
+        width: 257px;
+        height: 52px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-left: 28px;
+        margin-top: 10px;
+    }
+
+    .descriptionCard2{
+        width: 257px;
+        height: 52px;
+        font-family: Roboto, serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка третья*/
+    .card3 {
+        width: 257px;
+        height: 100px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 28px;
+    }
+
+    .descriptionCard3 {
+        width: 247px;
+        height: 52px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка четвёртая*/
+    .card4 {
+        width: 259px;
+        height: 54px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-left: 27px;
+        margin-top: 10px;
+    }
+
+    .descriptionCard4{
+        width: 257px;
+        height: 53px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка пятая*/
+    .card5 {
+        width: 260px;
+        height: 72px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 26px;
+    }
+
+    .descriptionCard5{
+        width: 257px;
+        height: 69px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка шестая*/
+    .card6 {
+        width: 261px;
+        height: 99px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 25px;
+    }
+
+    .descriptionCard6{
+        width: 257px;
+        height: 93px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
 }
 
 @media (min-width: 375px) {
-    .image {
-        width: 375px;
-        height: max-content;
-        overflow: hidden;
-        margin-left: -8px;
-        margin-top: -8px;
-    }
-
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(1, 30px);
-        margin-left: 10%;
-        margin-right: auto;
-        margin-top: 10%;
-    }
-
     .Text-items {
-        width: 237px;
+        width: 250px;
         font-weight: bold;
         font-size: 30px;
+        text-align: center;
         line-height: 35px;
         color: #000000;
         display: block;
-        margin: 39% auto auto auto;
+        margin: 0 auto auto auto;
     }
+
     .foot {
-        width: 375px;
-        height: 535px;
+        width: 383px;
+        height: max-content;
         background: #000000;
         margin: 8px -8px auto -8px;
     }
@@ -301,30 +298,163 @@ body {
     .logo img {
         width: 223px;
         height: 168px;
-        margin: auto 0% auto 19%;
+        margin: auto 0 auto 72px;
+    }
+
+    /*Карточка первая*/
+    .card1 {
+        width: 258px;
+        height: 53px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        /* box-shadow: 0 0 10px rgb(0 0 0); */
+        border-radius: 4px;
+        margin-left: 58px;
+    }
+
+    .descriptionCard1{
+        width: 257px;
+        height: 52px;
+        font-family: Roboto, serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка вторая*/
+    .card2 {
+        width: 257px;
+        height: 52px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-left: 58px;
+        margin-top: 10px;
+    }
+
+    .descriptionCard2{
+        width: 257px;
+        height: 52px;
+        font-family: Roboto, serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка третья*/
+    .card3 {
+        width: 257px;
+        height: 100px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 58px;
+    }
+
+    .descriptionCard3 {
+        width: 247px;
+        height: 52px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка четвёртая*/
+    .card4 {
+        width: 259px;
+        height: 54px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-left: 58px;
+        margin-top: 10px;
+    }
+
+    .descriptionCard4{
+        width: 257px;
+        height: 53px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка пятая*/
+    .card5 {
+        width: 260px;
+        height: 72px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 58px;
+    }
+
+    .descriptionCard5{
+        width: 257px;
+        height: 69px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка шестая*/
+    .card6 {
+        width: 261px;
+        height: 99px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 58px;
+    }
+
+    .descriptionCard6{
+        width: 257px;
+        height: 93px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
     }
 }
 
 @media (min-width: 425px) {
-    .image {
-        width: 425px;
-        height: max-content;
-        overflow: hidden;
-        margin-left: -8px;
-        margin-top: -8px;
-    }
-
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(1, 30px);
-        margin-left: 15%;
-        margin-right: auto;
-        margin-top: 10%;
+    .Text-items {
+        width: 419px;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 35px;
+        text-align: center;
+        color: #000000;
+        display: block;
+        margin: 20px auto auto auto;
     }
 
     .foot {
-        width: 425px;
-        height: 533px;
+        width: 433px;
+        height: max-content;
         background: #000000;
         margin: 8px -8px auto -8px;
     }
@@ -332,7 +462,7 @@ body {
     .logo img {
         width: 223px;
         height: 168px;
-        margin: auto 0% auto 23%;
+        margin: auto 0 auto 23%;
     }
 
     .descriptionFooter {
@@ -350,6 +480,143 @@ body {
         font-size: 18px;
         color: #FFFFFF;
         padding-left: 20%;
+    }
+
+    /*Карточка первая*/
+    .card1 {
+        width: 258px;
+        height: 53px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        border-radius: 4px;
+        margin-left: 82px;
+    }
+
+    .descriptionCard1{
+        width: 257px;
+        height: 52px;
+        font-family: Roboto, serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка вторая*/
+    .card2 {
+        width: 257px;
+        height: 52px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-left: 82px;
+        margin-top: 10px;
+    }
+
+    .descriptionCard2{
+        width: 257px;
+        height: 52px;
+        font-family: Roboto, serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка третья*/
+    .card3 {
+        width: 257px;
+        height: 100px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 82px;
+    }
+
+    .descriptionCard3 {
+        width: 247px;
+        height: 52px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка четвёртая*/
+    .card4 {
+        width: 259px;
+        height: 54px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-left: 82px;
+        margin-top: 10px;
+    }
+
+    .descriptionCard4{
+        width: 257px;
+        height: 53px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка пятая*/
+    .card5 {
+        width: 260px;
+        height: 72px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 82px;
+    }
+
+    .descriptionCard5{
+        width: 257px;
+        height: 69px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+    }
+    /*Катрочка шестая*/
+    .card6 {
+        width: 261px;
+        height: 99px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-left: 82px;
+    }
+
+    .descriptionCard6{
+        width: 257px;
+        height: 93px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
     }
 }
 
@@ -359,6 +626,18 @@ body {
         overflow: hidden;
         margin-left: -8px;
         margin-top: -8px;
+    }
+
+    .head .title {
+        font-weight: bold;
+        font-size: 35px;
+        text-align: left;
+        color: #fff!important;
+        text-shadow: 0 0 20px #000;
+        margin-top: 0;
+        position: relative;
+        margin-left: 10px;
+        margin-bottom: 23px;
     }
 
     .border {
@@ -377,7 +656,7 @@ body {
         box-sizing: border-box;
         border-radius: 5px;
         display: block;
-        /*margin: -100px auto auto 22px;*/
+        margin-left: 10px;
         position: relative;
     }
 
@@ -397,51 +676,7 @@ body {
         line-height: 35px;
         color: #000000;
         display: block;
-        margin: 16% auto auto auto;
-    }
-
-    .cards {
-        margin-left: 0%;
-        margin-right: auto;
-        margin-top: 10%;
-    }
-
-    .card {
-        display: block;
-        margin: -206% auto auto auto;
-        width: 283px;
-        height: 75px;
-        background: #FFFFFF;
-        border: 2px solid #959595;
-        box-sizing: border-box;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-        border-radius: 4px;
-    }
-
-    .card768px1 {
-        margin-left: 435px;
-        margin-top: -276%;
-    }
-
-    .card768px2 {
-        margin-left: 435px;
-        margin-top: -123px;
-    }
-
-    .card768px3{
-        margin-top: 10%;
-    }
-
-    .card1 {
-        display: block;
-        margin: -420% auto auto 433px;
-        width: 283px;
-        height: 121px;
-        background: #FFFFFF;
-        border: 2px solid #959595;
-        box-sizing: border-box;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-        border-radius: 4px;
+        margin: 16px auto auto auto;
     }
 
     .foot {
@@ -452,7 +687,7 @@ body {
     .logo img {
         width: 223px;
         height: 168px;
-        margin: auto 0% auto 0%;
+        margin: auto 0 auto 0;
     }
 
     .yearRule {
@@ -472,9 +707,25 @@ body {
     }
 
     .foot {
-        width: 104%;
-        height: 199px;
+        width: 776px;
+        height: max-content;
         background: #000000;
+    }
+
+    .InlineCard1 {
+        display: inline-flex;
+    }
+
+    .card2 {
+        width: 257px;
+        height: 52px;
+        background: #FFFFFF;
+        border: 2px solid #959595;
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin-left: 82px;
+        margin-top: 0;
     }
 }
 
@@ -510,12 +761,6 @@ body {
         margin-top: -8px;
     }
 
-    .cards {
-        margin-left: 19%;
-        margin-right: auto;
-        margin-top: 10%;
-    }
-
     .headerBtn {
         width: 225px;
         height: 43px;
@@ -541,6 +786,21 @@ body {
         margin-left: 339px;
         margin-top: 10px;
     }
+
+    .head {
+        position: relative;
+        height: 813px;
+        background-image: url('index.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+        width: 1090px;
+    }
+
+    .head .content {
+        z-index: 3;
+        padding-top: 626px;
+    }
 }
 
 @media (min-width: 1440px) {
@@ -562,15 +822,9 @@ body {
     }
 
     .foot {
-        width: 140%;
+        width: 1448px;
         height: 172px;
         background: #000000;
-    }
-
-    .cards {
-        margin-left: 35%;
-        margin-right: auto;
-        margin-top: 10%;
     }
 
     .Text-items {
@@ -586,7 +840,7 @@ body {
     .logo img {
         width: 223px;
         height: 168px;
-        margin: auto 0% auto 10%;
+        margin: auto 0 auto 10px;
     }
 
     .descriptionFooter {
@@ -594,6 +848,26 @@ body {
         padding-left: 30%;
         height: max-content;
         margin-top: -149px;
+    }
+
+    .head {
+        position: relative;
+        height: 813px;
+        background-image: url('index.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+        width: 1440px;
+    }
+
+    .head {
+        position: relative;
+        height: 1440px;
+        background-image: url('index.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+        width: 1440px;
     }
 }
 
@@ -631,12 +905,6 @@ body {
         margin: 16% auto auto 100%;
     }
 
-    .cards {
-        margin-left: 88%;
-        margin-right: auto;
-        margin-top: 10%;
-    }
-
     .descriptionFooter {
         width: 36%;
         padding-left: 30%;
@@ -663,7 +931,7 @@ body {
     .logo img {
         width: 223px;
         height: 168px;
-        margin: auto 0% auto 36%;
+        margin: auto 0 auto 36px;
     }
 
     .descriptionFooter {
