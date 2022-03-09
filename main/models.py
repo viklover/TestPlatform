@@ -1,30 +1,28 @@
-# Code Michail Vorobiev
-# from django.db import models
+from importlib._common import _
 
-# Create your models here.
-# Code Panov Georgii
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
 
-class Post(models.Model):
-    STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-    )
-    title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique_for_date='publish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='blog_posts')
-    body = models.TextField()
-    publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+class Task(models.Model):
+    number = models.IntegerField()
+    result = models.FloatField()
+    finished = models.BooleanField(default=None)
 
-    class Meta:
-        ordering = ('-publish',)
 
-    def __str__(self):
-        return self.title
+class Session(models.Model):
+    nickname = models.CharField(max_length=45)
+    points = models.FloatField(default=None)
+    tasks = models.ForeignKey(Task, on_delete=models.CASCADE)
+    finished = models.DateTimeField(default=None)
+    started = models.DateTimeField(default=timezone.now())
+
+
+class User(AbstractUser):
+    current_session = models.ForeignKey(Session, on_delete=models.CASCADE)
+
+    # class Meta:
+    #     verbose_name = _('user')
+    #     verbose_name_plural = _('users')
+
