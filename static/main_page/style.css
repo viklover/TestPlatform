@@ -1,3 +1,5 @@
+{% load statifiles %}
+
 @font-face {
     font-family: 'Roboto';
     src: url('Roboto-Regular.ttf');
@@ -16,7 +18,7 @@ body {
     .head {
         position: relative;
         height: 634px;
-        background-image: url('index.png');
+        background-image: url('{% static "main_page/index.png" %}');
         background-repeat: no-repeat;
         background-size: cover;
         z-index: 1;
@@ -790,7 +792,6 @@ body {
     .head {
         position: relative;
         height: 813px;
-        background-image: url('index.png');
         background-repeat: no-repeat;
         background-size: cover;
         z-index: 1;
@@ -853,7 +854,6 @@ body {
     .head {
         position: relative;
         height: 813px;
-        background-image: url('index.png');
         background-repeat: no-repeat;
         background-size: cover;
         z-index: 1;
@@ -863,7 +863,6 @@ body {
     .head {
         position: relative;
         height: 1440px;
-        background-image: url('index.png');
         background-repeat: no-repeat;
         background-size: cover;
         z-index: 1;
