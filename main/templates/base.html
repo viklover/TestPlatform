@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'task/header.css' %}">
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
+
+    {% block css_styles %} {% endblock %}
+</head>
+<body>
+
+    {% include 'task/header.html' %}
+
+    {% block content %} {% endblock %}
+
+    {% include 'task/footer.html' %}
+
+    {% block js_scripts %} {% endblock %}
+</body>
+</html>

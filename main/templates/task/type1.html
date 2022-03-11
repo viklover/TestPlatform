@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Первый тип {% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'task/type1' %}">
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static "task/send.js" %}"></script>
+    <script src="{% static "task/type1/script.js" %}"></script>
+{% endblock %}
