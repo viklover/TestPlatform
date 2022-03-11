@@ -344,7 +344,7 @@ body::-webkit-scrollbar {
 @media (min-width: 1024px) {
 
     .head .content {
-        width: 1024px;
+        width: 990px;
     }
 
     .head .title {
