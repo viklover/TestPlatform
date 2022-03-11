@@ -18,11 +18,12 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from PostReformRussia import settings
-from main.views import index_page
+from main.views import index_page, start_test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index_page)
+    path('', index_page),
+    path('start', start_test)
 ]
 #static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
