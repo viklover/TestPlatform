@@ -4,20 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-
     <link rel="stylesheet" href="{% static 'task/header.css' %}">
     <link rel="stylesheet" href="{% static 'footer/footer.css' %}">
-
+    <link rel="stylesheet" href="{% static '' %}">
     {% block css_styles %} {% endblock %}
 </head>
 <body>
-
     {% include 'task/header.html' %}
-
     {% block content %} {% endblock %}
-
     {% include 'footer.html' %}
-
     {% block js_scripts %} {% endblock %}
 </body>
 </html>

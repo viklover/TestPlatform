@@ -1,0 +1,22 @@
+@media (min-width: 320px) {
+     header{
+        height: 48px;
+        background: #FFFFFF;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+     }
+
+     .descriptionHeader{
+        width: 289px;
+        height: 23px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 25px;
+        line-height: 29px;
+        color: #000000;
+     }
+
+     body{
+         margin: 0;
+     }
+}
