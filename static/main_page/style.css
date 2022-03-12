@@ -160,7 +160,6 @@ body::-webkit-scrollbar {
 }
 
 @media (min-width: 768px) {
-
     .head {
         height: 557px;
         background-position: bottom 10px;
@@ -237,41 +236,6 @@ body::-webkit-scrollbar {
 
     .cards .card {
         height: calc(100% - 24px);
-    }
-
-    .logo img {
-        width: 223px;
-        height: 168px;
-        margin: auto 0 auto 0;
-    }
-
-    .yearRule {
-        font-size: 18px;
-        color: #FFFFFF;
-        text-align: center;
-        width: max-content;
-    }
-
-    .descriptionFooter {
-        font-size: 15px;
-        width: 476px;
-        height: max-content;
-    }
-
-    .foot {
-        padding-top: 10px;
-        height: max-content;
-        background: #000000;
-    }
-
-    .foot .box {
-        width: 768px;
-    }
-
-    .foot .box .flex {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
     }
 
     .InlineCard1 {
