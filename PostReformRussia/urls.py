@@ -25,6 +25,6 @@ urlpatterns = [
     path('', index_page),
     path('start', start_test)
 ]
-#static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

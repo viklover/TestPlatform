@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
@@ -16,7 +16,7 @@
 
     {% block content %} {% endblock %}
 
-    {% include 'footer.html' %}
+    {% include '../../static/task/footer/footer.html' %}
 
     {% block js_scripts %} {% endblock %}
 </body>

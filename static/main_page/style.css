@@ -91,9 +91,9 @@ body::-webkit-scrollbar {
     }
 
     .headerBtn:hover {
-        -webkit-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 0 0 18px 0 rgba(0,0,0,0.75);
+        -moz-box-shadow: 0 0 18px 0 rgba(0,0,0,0.75);
+        box-shadow: 0 0 18px 0 rgba(0,0,0,0.75);
         background-color: white;
     }
 
@@ -121,9 +121,9 @@ body::-webkit-scrollbar {
 
     .cards .card:hover {
         transform: scale(1.05);
-        -webkit-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 0 0 18px 0 rgba(0,0,0,0.75);
+        -moz-box-shadow: 0 0 18px 0 rgba(0,0,0,0.75);
+        box-shadow: 0 0 18px 0 rgba(0,0,0,0.75);
     }
 
     .cards .card p {
@@ -149,58 +149,14 @@ body::-webkit-scrollbar {
         color: #000000;
         display: block;
         margin: 23px auto;
-        /*margin: 0 auto auto auto;*/
     }
 
-    .foot {
-        margin-top: 40px;
-        height: max-content;
-        background: #000000;
-    }
-
-    .foot .box {
-        width: 300px;
-        margin: 10px auto;
-    }
-
-    .logo img{
-        width: 223px;
-        height: 168px;
-    }
-
-    .descriptionFooter {
-        width: 271px;
-        height: 361px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 21px;
-        color: #FFFFFF;
-        /*padding-left: 24px;*/
-    }
-
-    .yearRule {
-        font-size: 18px;
-        color: #FFFFFF;
-        /*padding-left: 24px;*/
-        margin: auto;
-        padding: 20px 0;
-        width: max-content;
-    }
-
-    .logo img {
-        width: 223px;
-        height: 168px;
-        /*margin-left: 13%;*/
-    }
 }
 
 @media (min-width: 600px) {
-
     .head {
         background-position: center;
     }
-
 }
 
 @media (min-width: 768px) {
@@ -294,18 +250,12 @@ body::-webkit-scrollbar {
         color: #FFFFFF;
         text-align: center;
         width: max-content;
-        /*margin-left: 205px;*/
-        /*margin-top: 10px;*/
     }
 
     .descriptionFooter {
         font-size: 15px;
         width: 476px;
         height: max-content;
-        /*width: 69%;*/
-        /*!*padding-left: 30%;*!*/
-        /*height: max-content;*/
-        /*margin-top: -164px;*/
     }
 
     .foot {
@@ -342,7 +292,6 @@ body::-webkit-scrollbar {
 }
 
 @media (min-width: 1024px) {
-
     .head .content {
         width: 990px;
     }
@@ -361,4 +310,3 @@ body::-webkit-scrollbar {
         width: 630px;
     }
 }
-
