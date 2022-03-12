@@ -5,6 +5,62 @@
     src: url('Roboto-Regular.ttf');
 }
 
-body{
+body {
     margin: 0;
+    height: 0;
+}
+
+.numberOfQuestion{
+    margin-top: 14px;
+    font-family: Roboto, serif;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.question {
+    width: max-content;
+    height: 74px;
+    font-family: Roboto, serif;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    margin: 10px auto;
+}
+
+@media (min-width: 320px) {
+    .inputs {
+        display: grid;
+        margin: auto;
+        width: max-content;
+        gap: 10px;
+    }
+
+    input{
+        width: 289px;
+        height: 41px;
+        background: #FFFFFF;
+        border: 2px solid #C9C9C9;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    .DescriptionBtnAcceptAnswer {
+        font-family: Roboto, serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 18px;
+        color: #FFFFFF;
+    }
+
+    .BtnAccept{
+        width: 289px;
+        height: 38px;
+        background: #19058F;
+        border-radius: 2px;
+    }
 }

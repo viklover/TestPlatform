@@ -8,11 +8,33 @@
 {% endblock %}
 
 {% block content %}
+    <div class="numberOfQuestion">
+        Задание № <span id="numberOfQuestion"></span>
+    </div>
+    <div class="question" id="question">
 
+    </div>
+    <div class="inputs">
+        <label>
+            <input type="text">
+        </label>
+        <label>
+            <input type="text">
+        </label>
+        <label>
+            <input type="text">
+        </label>
+        <label>
+            <input type="text">
+        </label>
+        <button class="BtnAccept">
+            <div class="DescriptionBtnAcceptAnswer">
+                Принять ответ
+            </div>
+        </button>
+    </div>
 {% endblock %}
 
 {% block js_scripts %}
-    <script src="{% static "task/send.js" %}"></script>
-    <script src="{% static "task/type1/script.js" %}"></script>
+    <script src="{% static "task/js.js" %}"></script>
 {% endblock %}
-
