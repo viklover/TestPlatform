@@ -1,0 +1,10 @@
+{% load static %}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf');
+}
+
+body{
+    margin: 0;
+}

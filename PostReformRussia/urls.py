@@ -23,7 +23,7 @@ from main.views import index_page, start_test
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_page),
-    path('base.html', start_test) # Всето base.html в этой строчке должно быть start
+    path('start', start_test) # Всето base.html в этой строчке должно быть start
 ]
 # static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
