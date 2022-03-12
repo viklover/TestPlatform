@@ -5,14 +5,14 @@
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
      }
 
-     .descriptionHeader{
-        width: 289px;
-        height: 23px;
+    .descriptionHeader {
+        width: max-content;
         font-family: Roboto;
         font-style: normal;
+        margin: auto;
         font-weight: bold;
         font-size: 25px;
         line-height: 29px;
         color: #000000;
-     }
+    }
 }
