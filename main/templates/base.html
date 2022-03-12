@@ -6,7 +6,7 @@
     <title>{% block title %} {% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'task/header.css' %}">
-    <link rel="stylesheet" href="{% static 'footer.css' %}">
+    <link rel="stylesheet" href="{% static 'footer/footer.css' %}">
 
     {% block css_styles %} {% endblock %}
 </head>
@@ -16,7 +16,7 @@
 
     {% block content %} {% endblock %}
 
-    {% include '../../static/task/footer/footer.html' %}
+    {% include 'footer.html' %}
 
     {% block js_scripts %} {% endblock %}
 </body>

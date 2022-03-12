@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'main_page/style.css' %}">
+    <link rel="stylesheet" href="{% static 'footer/footer.css' %}">
     <title>Пореформенная Россия </title>
 </head>
 <body>
@@ -63,6 +64,6 @@
         </p>
     </div>
 </div>
-{% static '../task/footer/footer.html' %}
+{% include 'footer.html' %}
 </body>
 </html>
