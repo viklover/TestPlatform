@@ -51,7 +51,8 @@ body {
         width: 95%;
     }
 
-    input{
+    input {
+        outline: none;
         width: 289px;
         height: 41px;
         background: #FFFFFF;
