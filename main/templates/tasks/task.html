@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'tasks/tasks.css' %}">
+    <link rel="stylesheet" href="{% static 'types/types.css' %}">
+{% endblock %}
+
+{% block precontent %}
+
+    <div class="numberOfQuestion">
+        Задание №{% block number_of_task %}{% endblock %}
+    </div>
+
+    <div class="question" id="question">
+        <p>{% block question %}{% endblock %}</p>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <button class="BtnAccept">
+        <div class="DescriptionBtnAcceptAnswer">
+            Принять ответ
+        </div>
+    </button>
+
+{% endblock %}
+
+{% block pre_js_scripts %}
+    <script src="{% static "tasks/send.js" %}"></script>
+    <script src="{% static "tasks/tasks.js" %}"></script>
+    {% block js_scripts %}{% endblock %}
+{% endblock %}

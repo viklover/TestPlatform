@@ -10,4 +10,4 @@ def index_page(request):
 
 
 def start_test(request):
-    return render(request, 'task/type1.html')
+    return render(request, 'tasks/task1.html')
