@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'task/header.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'tasks/header.css' %}">
     <link rel="stylesheet" href="{% static 'footer/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'task/style.css' %}">
+    <link rel="stylesheet" href="{% static 'types/types.css' %}">
     <link rel="icon" type="image/ico" href="{% static 'favicon.ico' %}"/>
     {% block css_styles %} {% endblock %}
 </head>
 <body>
-    {% include 'task/header.html' %}
-    {% block content %} {% endblock %}
+    {% include 'tasks/header.html' %}
+    {% block precontent %} {% endblock %}
     {% include 'footer.html' %}
-    {% block js_scripts %} {% endblock %}
-    <script src="{% static "task/send.js" %}"></script>
+    {% block pre_js_scripts %} {% endblock %}
 </body>
 </html>
