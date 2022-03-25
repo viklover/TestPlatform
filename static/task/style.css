@@ -10,6 +10,10 @@ body {
     height: 0;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .numberOfQuestion {
     font-family: Roboto, serif;
     font-style: italic;
