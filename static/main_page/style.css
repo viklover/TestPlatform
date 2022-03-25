@@ -5,6 +5,11 @@
     src: url('Roboto-Regular.ttf');
 }
 
+.question p{
+    width: 100%;
+    margin-left: 10px;
+}
+
 html{
     height: 10px;
 }
