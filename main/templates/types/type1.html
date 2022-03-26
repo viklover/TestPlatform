@@ -1,16 +1,9 @@
 {% load static %}
-<!-- Сооставить правильную последовательность -->
+
 <div class="inputs">
-    <label>
-        <input type="text">
-    </label>
-    <label>
-        <input type="text">
-    </label>
-    <label>
-        <input type="text">
-    </label>
-    <label>
-        <input type="text">
-    </label>
+    {% for variant in type1 %}
+        <label>
+            <input type="text" value="{{ variant }}">
+        </label>
+    {% endfor %}
 </div>
