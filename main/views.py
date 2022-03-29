@@ -31,9 +31,6 @@ def open_task(request, task_id):
     for exercise in data['exercises']:
         try:
             template = loader.get_template(f'types/{exercise["type"]}.html')
-            print(exercise)
-            con = Context(exercise['context'])
-            print(con)
             context[exercise['field_name']] = template.render(exercise['context'])
         except TemplateDoesNotExist:
             context[exercise['field_name']] = ''
