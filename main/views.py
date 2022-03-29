@@ -1,4 +1,10 @@
+import os
+import json
+
+from django.template import loader, Context, TemplateDoesNotExist
 from django.shortcuts import render
+
+from PostReformRussia.settings import BASE_DIR
 
 
 def index_page(request):
@@ -13,28 +19,23 @@ def start_test(request):
     return open_task(request, 1)
 
 
-def open_task(request, task):
+def open_task(request, task_id):
+    task = f'task{task_id}'
 
     context = {}
 
-    if task == 1:
-        context = {
-            'type1': [
-                'Начало правления Николая II',
-                'Манифест об отмене крепостного права',
-                'Крымская война',
-                'Земская реформа',
-                'Строительство Транссибирской магистрали'
-            ]
-        }
+    with open(os.path.join(BASE_DIR, 'main', 'templates', 'tasks', task, 'content.json'), 'r', encoding="utf-8") as f:
+        data = json.load(f)
 
-    # if task == 5:
-    #     context = {
-    #         'type5': [
-    #             'За счёт государственной казны',
-    #             'При помощи помещиков',
-    #             'За собственный выкуп при помощи государства'
-    #         ]
-    #     }
+    for exercise in data['exercises']:
+        try:
+            template = loader.get_template(f'types/{exercise["type"]}.html')
+            print(exercise)
+            con = Context(exercise['context'])
+            print(con)
+            context[exercise['field_name']] = template.render(exercise['context'])
+        except TemplateDoesNotExist:
+            context[exercise['field_name']] = ''
 
-    return render(request, f'tasks/task{task}.html', context)
+    return render(request, f'tasks/{task}/page.html', context)
+
