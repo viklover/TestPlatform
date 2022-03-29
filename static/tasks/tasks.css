@@ -39,21 +39,28 @@
 
     .accept-button {
         display: block;
-        width: 320px;
-        /*height: 38px;*/
+        width: 314px;
         background: #19058F;
         border-radius: 2px;
-        border: 0;
         margin: 15px auto auto;
+        border: 3px solid #19058F;
+    }
+
+    .accept-button:hover{
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    .accept-button:hover .text{
+        color: #19058F;
     }
 
     .accept-button:hover {
         cursor: pointer;
-
     }
 
     .accept-button .text {
-        padding: 12px 0;
+        padding: 8px 0;
         font-family: Roboto, serif;
         font-style: normal;
         font-weight: bold;

@@ -7,7 +7,7 @@
 
     .foot .box {
         width: 300px;
-        margin: 10px auto;
+        margin: 10px auto auto;
     }
 
     .logo img{

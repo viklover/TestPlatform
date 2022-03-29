@@ -21,4 +21,43 @@
         font-size: 20px;
     }
 
+    .borders {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .borders .border {
+        height: 112px;
+        background: #FFFFFF;
+        border: 2px solid #C9C9C9;
+        border-radius: 5px;
+    }
+
+    .content1 {
+        font-weight: 700;
+        font-size: 20px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .line1 {
+        border: 1px solid #C9C9C9;
+    }
+
+    .block{
+        width: 80%;
+        height: 37px;
+        margin: auto;
+        background: #FFFFFF;
+        border: 2px solid #C9C9C9;
+        border-radius: 5px;
+    }
+
+    .content2 {
+        margin: auto;
+        font-weight: 700;
+        padding: 10px;
+        font-size: 17px;
+    }
 }
