@@ -1,3 +1,24 @@
 /*
     ЭТОТ CSS-ФАЙЛ ДЛЯ ВСЕХ ТИПОВ ЗАДАНИЙ
 */
+
+@media(min-width: 320px) {
+
+    .variants {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .variants .variant {
+        border: 2px solid #C9C9C9;
+        border-radius: 5px;
+    }
+
+    .variants .variant p {
+        padding: 18px;
+        margin: 0;
+        font-size: 20px;
+    }
+
+}

@@ -27,79 +27,66 @@
 /*    margin: 10px;*/
 /*}*/
 
-.question p {
-    width: 100%;
-    height: 74px;
-    font-family: Roboto, serif;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
-}
-
 @media (min-width: 320px) {
-    .inputs {
-        display: grid;
-        margin: auto;
-        width: max-content;
-        gap: 10px;
-        width: 95%;
+
+    .content {
+        width: 320px;
+        margin: 15px auto auto;
+        animation: appear 1s ease-in-out;
     }
 
-    input {
-        outline: none;
-        width: 289px;
-        height: 41px;
-        background: #FFFFFF;
-        border: 2px solid #C9C9C9;
-        box-sizing: border-box;
-        border-radius: 5px;
+    .content .question-list {
+
     }
 
-    .DescriptionBtnAcceptAnswer {
-        font-family: Roboto, serif;
-        font-style: normal;
+    .content .question {
+    }
+
+    .content .question p {
         font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
-        color: #FFFFFF;
+        font-size: 23px;
+        margin: 15px 0;
     }
 
-    .BtnAccept{
-        width: 289px;
-        height: 38px;
+    .accept-button {
+        display: block;
+        width: 320px;
+        /*height: 38px;*/
         background: #19058F;
         border-radius: 2px;
         border: 0;
+        margin: 15px auto auto;
     }
 
-    .descriptionHeader {
-        width: max-content;
-        font-family: Roboto;
+    .accept-button:hover {
+        cursor: pointer;
+
+    }
+
+    .accept-button .text {
+        padding: 12px 0;
+        font-family: Roboto, serif;
         font-style: normal;
-        margin: 10px auto;
         font-weight: bold;
-        font-size: 25px;
-        line-height: 29px;
-        color: #000000;
+        font-size: 18px;
+        line-height: 18px;
+        color: #FFFFFF;
     }
 }
 
 @media (min-width: 768px) {
-    input {
-        width: 96%;
-        height: 41px;
-        background: #FFFFFF;
-        border: 2px solid #C9C9C9;
-        box-sizing: border-box;
-        border-radius: 5px;
+
+    .content {
+        width: 600px;
     }
 
-    .BtnAccept {
-        width: 96%;
-        height: 38px;
-        background: #19058F;
-        border-radius: 2px;
-        border: 0;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

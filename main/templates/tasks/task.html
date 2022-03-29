@@ -7,21 +7,27 @@
 
 {% block precontent %}
 
-    <div class="numberOfQuestion">
-        Задание №{% block number_of_task %}{% endblock %}
-    </div>
+    <div class="content">
 
-    <div class="question" id="question">
-        <p>{% block question %}{% endblock %}</p>
-    </div>
-
-    {% block content %}{% endblock %}
-
-    <button class="BtnAccept">
-        <div class="DescriptionBtnAcceptAnswer">
-            Принять ответ
+        <div class="question-list">
+            <div class="current-question">
+                Задание №{% block number_of_task %}{% endblock %}
+            </div>
+        <hr color="gray">
         </div>
-    </button>
+
+        <div class="question" id="question">
+            <p>{% block question %}{% endblock %}</p>
+        </div>
+
+        {% block content %}{% endblock %}
+
+        <button class="accept-button">
+            <div class="text">
+                Принять ответ
+            </div>
+        </button>
+    </div>
 
 {% endblock %}
 

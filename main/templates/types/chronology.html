@@ -1,10 +1,9 @@
 {% load static %}
 
-<div class="inputs">
+<div class="variants">
     {% for variant in variants %}
-        <!-- HELLO WORLD -->
-        <label>
-            <input type="text" value="{{ variant }}">
-        </label>
+        <div class="variant">
+            <p>{{ variant }}</p>
+        </div>
     {% endfor %}
 </div>
