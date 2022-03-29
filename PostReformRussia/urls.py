@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_page),
     path('start', start_test),
-    path('tasks/<int:task>', open_task)
+    path('tasks/<int:task_id>', open_task)
 ]
 # static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

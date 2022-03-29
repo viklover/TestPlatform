@@ -2,7 +2,7 @@ import os
 import json
 
 from django.template import loader, Context, TemplateDoesNotExist
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from PostReformRussia.settings import BASE_DIR
 
@@ -16,7 +16,8 @@ def index_page(request):
 
 
 def start_test(request):
-    return open_task(request, 1)
+    return redirect('tasks/1')
+    # return open_task(request, 1)
 
 
 def open_task(request, task_id):
