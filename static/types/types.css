@@ -21,6 +21,10 @@
         font-size: 20px;
     }
 
+    input{
+        padding-left: 10px;
+    }
+
     .borders {
         display: flex;
         flex-direction: column;
@@ -64,11 +68,6 @@
 
 @media (min-width: 768px) {
     .block {
-        width: 80%;
-        height: 37px;
         margin-left: 0;
-        background: #FFFFFF;
-        border: 2px solid #C9C9C9;
-        border-radius: 5px;
     }
 }
