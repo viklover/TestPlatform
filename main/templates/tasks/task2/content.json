@@ -1,0 +1,25 @@
+{
+    "exercises": [
+        {
+            "field_name":"exercise_1",
+            "type": "answer",
+            "context": {
+                "question": "Введите название войны"
+            }
+        },
+        {
+            "field_name":"exercise_2",
+            "type": "answer",
+            "context": {
+                "question": "Какой император закончил эту войну?"
+            }
+        },
+        {
+            "field_name":"exercise_3",
+            "type": "input",
+            "context": {
+                "question": "О каких причинах поражения в войне говорит П. Алабин?"
+            }
+        }
+    ]
+}
