@@ -74,11 +74,3 @@
         justify-content: center;
     }
 }
-
-@media(min-height: 900px) {
-    .foot {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-    }
-}
