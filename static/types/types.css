@@ -4,21 +4,28 @@
 
 @media(min-width: 320px) {
 
-    .variants {
+    .chronology {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        position: relative;
     }
 
-    .variants .variant {
+    .chronology .variant {
+        width: 280px;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
-    }
-
-    .variants .variant p {
         padding: 18px;
         margin: 0;
         font-size: 20px;
+    }
+
+    .chronology .hover {
+        opacity: 0.8;
+    }
+
+    .chronology .empty {
+        opacity: 0;
     }
 
     .borders {
@@ -60,4 +67,12 @@
         padding: 10px;
         font-size: 17px;
     }
+}
+
+@media(min-width: 768px) {
+
+    .chronology .variant {
+        width: 560px;
+    }
+
 }
