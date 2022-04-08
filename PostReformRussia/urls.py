@@ -18,13 +18,14 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from PostReformRussia import settings
-from main.views import index_page, start_test, open_task
+from main.views import index_page, start_test, open_task, check_answer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_page),
     path('start', start_test),
-    path('tasks/<int:task_id>', open_task)
+    path('tasks/<int:task_id>/send', check_answer),
+    path('tasks/<int:task_id>/', open_task)
 ]
 # static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
