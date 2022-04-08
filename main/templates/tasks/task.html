@@ -32,7 +32,9 @@
 {% endblock %}
 
 {% block pre_js_scripts %}
-    <script src="{% static "tasks/send.js" %}"></script>
-    <script src="{% static "tasks/tasks.js" %}"></script>
+    <script src="{% static "types/types.js" %}"></script>
+    {% block types_scripts %}{% endblock %}
+     <script src="{% static "tasks/tasks.js" %}"></script>
     {% block js_scripts %}{% endblock %}
+    <script src="{% static "tasks/send.js" %}"></script>
 {% endblock %}
