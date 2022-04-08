@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'tasks/task.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}Задание 17{% endblock %}
+
+{% block number_of_task %}17{% endblock %}
+{% block question %}Соотнесите года правления с императорами Российской империи{% endblock %}
+
+{% block content %}
+    {{ exercise_1 }}
+    {{ exercise_2 }}
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static "types/type1.js" %}"></script>
+{% endblock %}
