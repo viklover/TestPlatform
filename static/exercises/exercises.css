@@ -52,9 +52,10 @@
         border: 1px solid #C9C9C9;
     }
 
-    .block{
+    .block {
+        padding-top: 10px;
         width: 80%;
-        height: 37px;
+        height: 40px;
         margin: auto;
         background: #FFFFFF;
         border: 2px solid #C9C9C9;
