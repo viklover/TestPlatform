@@ -10,3 +10,11 @@ class Exercise {
     }
 
 }
+
+let variants = document.querySelectorAll('.variant');
+
+for (let variant of variants){
+    variant.addEventListener('click', function (){
+        variant.classList.toggle('blue');
+    })
+}

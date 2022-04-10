@@ -20,6 +20,19 @@
         font-size: 20px;
     }
 
+    .statements .variant {
+        width: 268px;
+        border: 2px solid #C9C9C9;
+        border-radius: 5px;
+        padding: 18px;
+        font-size: 20px;
+        margin: 0 0 23px;
+    }
+
+    .statements{
+        margin: 10px 0;
+    }
+
     .chronology .hover {
         opacity: 0.8;
     }
@@ -68,6 +81,14 @@
         padding: 10px;
         font-size: 17px;
     }
+
+    .block {
+        margin: 0 23px;
+    }
+
+    .statements .variant {
+        margin: 0 6px 23px;
+    }
 }
 
 @media(min-width: 768px) {
@@ -76,4 +97,13 @@
         width: 560px;
     }
 
+    .statements {
+        display: grid;
+        grid-template-columns: 336px 2fr;
+    }
 }
+
+.statements .blue {
+    border: 2px solid blue;
+}
+

@@ -1,5 +1,9 @@
-<p style="margin-bottom: 10px;">
-    <b style="font-size: 20px;">
-        {{ variants }}
-    </b>
-</p>
+{% load static %}
+
+<div class="statements" id="{{ field_name }}">
+    {% for variant, variant_id in variants %}
+        <div class="variant" data-id="{{ variant_id }}">
+            {{ variant }}
+        </div>
+    {% endfor %}
+</div>
