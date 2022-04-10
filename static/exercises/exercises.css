@@ -29,7 +29,20 @@
         margin: 0 0 23px;
     }
 
+    .radio .variantes {
+        width: 268px;
+        border: 2px solid #C9C9C9;
+        border-radius: 5px;
+        padding: 18px;
+        font-size: 20px;
+        margin: 0 0 23px;
+    }
+
     .statements{
+        margin: 10px 0;
+    }
+
+    .radio{
         margin: 10px 0;
     }
 
@@ -89,6 +102,10 @@
     .statements .variant {
         margin: 0 6px 23px;
     }
+
+    .radio .variantes {
+        margin: 0 6px 23px;
+    }
 }
 
 @media(min-width: 768px) {
@@ -97,13 +114,26 @@
         width: 560px;
     }
 
+    .radio .variantes {
+        width: 560px;
+    }
+
     .statements {
+        display: grid;
+        grid-template-columns: 336px 2fr;
+    }
+
+    .variantes {
         display: grid;
         grid-template-columns: 336px 2fr;
     }
 }
 
 .statements .blue {
+    border: 2px solid blue;
+}
+
+.radio .blue {
     border: 2px solid blue;
 }
 

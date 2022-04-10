@@ -18,3 +18,11 @@ for (let variant of variants){
         variant.classList.toggle('blue');
     })
 }
+
+let variantes = document.querySelectorAll('.variantes')
+
+for (let varianter of variantes){
+    varianter.addEventListener('click', function (event) {
+        varianter.classList.toggle('blue');
+    })
+}
