@@ -21,7 +21,7 @@
     }
 
     .statements .variant {
-        width: 268px;
+        width: 100%;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
         padding: 18px;
@@ -79,7 +79,7 @@
     }
 
     .block {
-        padding-top: 10px;
+        /*padding-top: 10px;*/
         width: 80%;
         height: 40px;
         margin: auto;
@@ -119,7 +119,6 @@
     }
 
     .statements {
-        display: grid;
         grid-template-columns: 336px 2fr;
     }
 
