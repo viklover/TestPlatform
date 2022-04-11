@@ -78,6 +78,13 @@
 
 }
 
+
+@media (min-width: 1024px) {
+    .content {
+        width: 900px;
+    }
+}
+
 @keyframes appear {
     from {
         opacity: 0;
