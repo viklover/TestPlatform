@@ -35,8 +35,7 @@ class Chronology extends Exercise {
 
     constructor(exercise_id) {
         super(exercise_id)
-        this.variantList = document.querySelector('#'+exercise_id);
-        this.variants = Array.from(this.variantList.querySelectorAll('.variant'));
+        this.variants = Array.from(this.body.querySelectorAll('.variant'));
         this.initEventListeners();
     }
 
@@ -136,26 +135,26 @@ class Chronology extends Exercise {
             variant.draggable = true;
         }
 
-        this.variantList.addEventListener('dragstart', (evt) => {
+        this.body.addEventListener('dragstart', (evt) => {
             if (evt.target.classList.contains('variant')) {
                 evt.target.classList.add('selected');
             }
         });
 
-        this.variantList.addEventListener('dragend', (evt) => {
+        this.body.addEventListener('dragend', (evt) => {
             if (evt.target.classList.contains('variant')) {
                 evt.target.classList.remove('selected');
             }
         });
 
-        this.variantList.addEventListener('dragover', (evt) => {
+        this.body.addEventListener('dragover', (evt) => {
             evt.preventDefault();
 
             if (!evt.target.classList.contains('variant')) {
                 return;
             }
 
-            let activeElement = this.variantList.querySelector('.selected');
+            let activeElement = this.body.querySelector('.selected');
             let currentElement = evt.target;
 
             const isMoveable = activeElement !== currentElement &&
@@ -175,12 +174,12 @@ class Chronology extends Exercise {
                 return;
             }
 
-            this.variantList.insertBefore(activeElement, nextElement);
+            this.body.insertBefore(activeElement, nextElement);
         });
     }
 
     getData() {
-        let variants = this.variantList.querySelectorAll('.variant');
+        let variants = this.body.querySelectorAll('.variant');
 
         let data = [];
         for (let variant of variants) {

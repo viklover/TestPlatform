@@ -29,7 +29,7 @@
         margin: 0 0 23px;
     }
 
-    .radio .variantes {
+    .radio .variant {
         width: 268px;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
@@ -114,26 +114,21 @@
         width: 560px;
     }
 
-    .radio .variantes {
+    .radio .variant {
         width: 560px;
     }
 
     .statements {
         display: grid;
-        grid-template-columns: 336px 2fr;
-    }
-
-    .variantes {
-        display: grid;
-        grid-template-columns: 336px 2fr;
+        grid-template-columns: repeat(4, 2fr);
     }
 }
 
-.statements .blue {
+.statements .selected {
     border: 2px solid blue;
 }
 
-.radio .blue {
+.radio .selected {
     border: 2px solid blue;
 }
 
