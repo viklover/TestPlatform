@@ -7,9 +7,14 @@
     src: url('Roboto-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'ProximaNova';
+    src: url('proximanova_regular.ttf');
+}
+
 body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'ProximaNova', sans-serif;
     background-color: white;
     overflow: overlay;
 }
