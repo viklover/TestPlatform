@@ -8,8 +8,12 @@
 
 {% block content %}
     {{ exercise_1 }}
-    {{ exercise_2 }}
+{% endblock %}
+
+{% block types_scripts %}
+    <script src="{% static "exercises/chronology.js" %}"></script>
 {% endblock %}
 
 {% block js_scripts %}
+    <script src="{% static "tasks/task1.js" %}"></script>
 {% endblock %}

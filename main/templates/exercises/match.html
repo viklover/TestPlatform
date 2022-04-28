@@ -1,18 +1,22 @@
-{#Сюда подключен type.css#}
-<div class="borders">
-    {% for variant in variants_col1 %}
-        <div class="border">
-            <div class="content1">
+<div class="match" id="{{ field_name }}" draggable="false">
+    <div class="elements">
+        {% for variant in variants_col1 %}
+            <div class="element">
+                <div class="content">
+                    {{ variant }}
+                </div>
+                <div class="line"></div>
+                <div class="cell" draggable="true">
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="variants">
+        {% for variant in variants_col2 %}
+            <div class="variant">
                 {{ variant }}
             </div>
-            <div class="line1"></div>
-        </div>
-    {% endfor %}
-    {% for variant in variants_col2 %}
-        <div class="block">
-            <div class="content2">
-                {{ variant }}
-            </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>

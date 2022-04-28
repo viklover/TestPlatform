@@ -20,6 +20,23 @@
         font-size: 20px;
     }
 
+    .chronology .hover {
+        opacity: 0.8;
+    }
+
+    .chronology .empty {
+        opacity: 0;
+    }
+
+
+    .statements{
+        margin: 10px 0;
+    }
+
+    .statements .variant {
+        margin: 0 6px 23px;
+    }
+
     .statements .variant {
         width: 100%;
         border: 2px solid #C9C9C9;
@@ -27,6 +44,11 @@
         padding: 18px;
         font-size: 20px;
         margin: 0 0 23px;
+    }
+
+
+    .radio{
+        margin: 10px 0;
     }
 
     .radio .variant {
@@ -38,73 +60,64 @@
         margin: 0 0 23px;
     }
 
-    .statements{
-        margin: 10px 0;
-    }
 
-    .radio{
-        margin: 10px 0;
-    }
-
-    .chronology .hover {
-        opacity: 0.8;
-    }
-
-    .chronology .empty {
-        opacity: 0;
-    }
-
-    .borders {
+    .match {
         display: flex;
         flex-direction: column;
         gap: 10px;
     }
 
-    .borders .border {
+    .match .elements {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 14px;
+    }
+
+    .match .element .cell {
+        height: 50px;
+    }
+
+    .match .element {
         height: 112px;
         background: #FFFFFF;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
     }
 
-    .content1 {
+    .match .element .content {
+        width: calc(100% - 20px);
+        margin-top: 0;
         font-weight: 700;
         font-size: 20px;
         text-align: center;
         padding: 10px;
     }
 
-    .line1 {
+    .match .element .line {
         border: 1px solid #C9C9C9;
     }
 
-    .block {
-        /*padding-top: 10px;*/
+    .match .variants {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .match .variant {
         width: 80%;
-        height: 40px;
-        margin: auto;
         background: #FFFFFF;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
     }
 
-    .content2 {
+    .match .variant {
+        width: calc(100% - 20px);
         margin: auto;
         font-weight: 700;
         padding: 10px;
         font-size: 17px;
-    }
-
-    .block {
-        margin: 0 23px;
-    }
-
-    .statements .variant {
-        margin: 0 6px 23px;
-    }
-
-    .radio .variantes {
-        margin: 0 6px 23px;
     }
 }
 
@@ -117,6 +130,24 @@
     .radio .variant {
         width: 560px;
     }
+
+    /*.match .element {*/
+    /*    width: 600px;*/
+    /*    margin: 0 auto;*/
+    /*}*/
+
+    .match .variant {
+        width: 484px;
+        margin: 0 auto;
+    }
+}
+
+@media(min-width: 1024px) {
+
+    /*.match {*/
+    /*    flex-direction: row;*/
+    /*}*/
+
 }
 
 .statements .selected {

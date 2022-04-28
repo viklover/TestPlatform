@@ -35,6 +35,9 @@ class Chronology extends Exercise {
 
     constructor(exercise_id) {
         super(exercise_id)
+        if (!this.body.classList.contains('variants')) {
+            this.body = this.body.querySelector('.variants');
+        }
         this.variants = Array.from(this.body.querySelectorAll('.variant'));
         this.initEventListeners();
     }
@@ -173,6 +176,8 @@ class Chronology extends Exercise {
             ) {
                 return;
             }
+
+            console.log(activeElement, nextElement)
 
             this.body.insertBefore(activeElement, nextElement);
         });
