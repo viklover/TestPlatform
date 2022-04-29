@@ -15,9 +15,11 @@
         width: 280px;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
+        background: #FFFFFF;
         padding: 18px;
         margin: 0;
-        font-size: 20px;
+        font-size: 18px;
+        font-weight: 600;
     }
 
     .chronology .hover {
@@ -75,11 +77,15 @@
     }
 
     .match .element .cell {
-        height: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        position: relative;
     }
 
     .match .element {
-        height: 112px;
+        min-height: 112px;
         background: #FFFFFF;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
@@ -103,28 +109,43 @@
         flex-direction: column;
         justify-content: space-between;
         gap: 10px;
+        padding: 15px;
+        position: relative;
+    }
+
+    .match .variants-section {
+        min-height: 40px;
+        border: 2px solid #C9C9C9;
+        /*box-shadow: 0px 0px 22px -2px rgba(34, 60, 80, 0.2);*/
+    }
+
+    .match header h2 {
+        text-align: center;
+        margin-bottom: 5px;
     }
 
     .match .variant {
-        width: 80%;
-        background: #FFFFFF;
+        width: 270px;
+        padding: 10px;
+        margin: auto;
         border: 2px solid #C9C9C9;
         border-radius: 5px;
+        background: #FFFFFF;
+        font-weight: 700;
+        font-size: 17px;
+        text-align: center;
+        box-shadow: 0px 0px 22px -2px rgba(34, 60, 80, 0.2);
     }
 
-    .match .variant {
-        width: calc(100% - 20px);
-        margin: auto;
-        font-weight: 700;
-        padding: 10px;
-        font-size: 17px;
+    .cell .variant {
+        box-shadow: 0px 0px 0px 0px rgba(34, 60, 80, 0.2);
     }
 }
 
 @media(min-width: 768px) {
 
     .chronology .variant {
-        width: 560px;
+        width: calc(100% - 36px);
     }
 
     .radio .variant {
@@ -137,7 +158,7 @@
     /*}*/
 
     .match .variant {
-        width: 484px;
+        width: 836px;
         margin: 0 auto;
     }
 }
@@ -148,6 +169,22 @@
     /*    flex-direction: row;*/
     /*}*/
 
+}
+
+.chronology .selected {
+    z-index: 5;
+}
+
+.chronology .hover {
+    box-shadow: 0px 0px 2px 6px rgba(25, 5, 143, 0.33);
+}
+
+.match .selected {
+    z-index: 5;
+}
+
+.match .hover {
+    box-shadow: 0px 0px 2px 6px rgba(25, 5, 143, 0.33);
 }
 
 .statements .selected {
