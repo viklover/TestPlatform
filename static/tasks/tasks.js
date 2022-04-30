@@ -21,7 +21,7 @@ class Task {
     getData() {
         let data = {};
         for (let exercise of this.exercises) {
-            data[exercise.get_id()] = exercise.getData();
+            data[exercise.getId()] = exercise.getData();
         }
         return data;
     }

@@ -6,7 +6,7 @@ class Exercise {
         this.body = document.querySelector('#'+exercise_id);
     }
 
-    get_id() {
+    getId() {
         return this.exercise_id;
     }
 

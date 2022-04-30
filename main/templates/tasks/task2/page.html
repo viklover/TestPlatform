@@ -13,5 +13,11 @@
     {{ exercise_3 }}
 {% endblock %}
 
+{% block types_scripts %}
+    <script src="{% static "exercises/input.js" %}"></script>
+    <script src="{% static "exercises/answer.js" %}"></script>
+{% endblock %}
+
 {% block js_scripts %}
+    <script src="{% static "tasks/task2.js" %}"></script>
 {% endblock %}
