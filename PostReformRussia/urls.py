@@ -14,11 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls.static import static
 from django.urls import path
 
-from main.views import index_page
+from PostReformRussia import settings
+from main.views import index_page, start_test, open_task, check_answer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index_page)
+    path('', index_page),
+    path('start', start_test),
+    path('tasks/<int:task_id>/send', check_answer),
+    path('tasks/<int:task_id>/', open_task)
 ]
+# static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+

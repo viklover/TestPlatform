@@ -1,0 +1,28 @@
+{
+    "exercises": [
+        {
+            "field_name":"exercise_1",
+            "type": "answer",
+            "context": {
+                "question": "Введите название войны",
+                "hint" : "Введите название войны"
+            }
+        },
+        {
+            "field_name":"exercise_2",
+            "type": "answer",
+            "context": {
+                "question": "Какой император закончил эту войну?",
+                "hint" : "Введите имя императора"
+            }
+        },
+        {
+            "field_name":"exercise_3",
+            "type": "answer",
+            "context": {
+                "question": "О созыве какого конгресса идет речь в отрывке из работы российского историка?",
+                "hint" : "Введите название конгресса"
+            }
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "exercises": [
+        {
+            "field_name":"exercise_1",
+            "type": "answer",
+            "context": {
+                "question": "Какой император произнёс эту цитату?",
+                "hint" : "Введите имя императора"
+            }
+        },
+        {
+            "field_name":"exercise_2",
+            "type": "input",
+            "context": {
+                "question": "В связи с какими событиями он произнес эту цитату?",
+                "hint" : "Напишите своё предположение"
+            }
+        }
+    ]
+}

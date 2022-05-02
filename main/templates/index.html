@@ -1,12 +1,72 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пореформенная Россия</title>
+    <link rel="stylesheet" href="{% static 'main_page/style.css' %}">
+    <link rel="stylesheet" href="{% static 'footer/footer.css' %}">
+    <link rel="icon" type="image/ico" href="{% static 'favicon.ico' %}"/>
+    <title>Пореформенная Россия </title>
 </head>
 <body>
+<header class="head">
+    <div class="blur"></div>
+    <div class="content">
+        <p class="title">Пореформенная Россия</p>
+        <a href="/start" style="text-decoration: none;">
+            <button class="headerBtn">
+                <b class="descriptionHeaderBtn">
+                    Пройти тест
+                </b>
+            </button>
+        </a>
+    </div>
+</header>
 
+{#<div class="colider">#}
+{#    <div class="collision"></div>#}
+{#</div>#}
+
+<div class="Text-items">
+    Темы, которые затрагивает тест
+</div>
+
+<div class="cards">
+    <div class="card">
+        <p class="description">
+            Отмена крепостного права. Реформа 1861 года
+        </p>
+    </div>
+    <div class="card">
+        <p class="description">
+            Эпоха Великих реформ Александра Второго
+        </p>
+    </div>
+    <div class="card">
+        <p class="description">
+            Социально-экономическое развитие пореформенной
+            России в второй половине 19 века
+        </p>
+    </div>
+    <div class="card">
+        <p class="description">
+            Внутренняя политика Александра Третьего
+        </p>
+    </div>
+    <div class="card">
+        <p class="description">
+            Внешняя политика России во второй половине 19 века
+        </p>
+    </div>
+    <div class="card">
+        <p class="description">
+            Общественно-политические движения в России во второй
+            половине 19 века
+        </p>
+    </div>
+</div>
+{% include 'footer.html' %}
 </body>
 </html>
