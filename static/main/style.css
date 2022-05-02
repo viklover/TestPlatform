@@ -1,0 +1,30 @@
+
+.tests-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.tests-list .test-card {
+    padding: 20px 15px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.tests-list .test-card .name {
+    margin: 0;
+}
+
+.tests-list .test-card .button {
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    margin: 0;
+    background-color: blue;
+    cursor: pointer;
+}
+
+main {
+    width: 600px;
+    margin: 0 auto;
+}

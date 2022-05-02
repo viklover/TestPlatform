@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ЧТО-ТО{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'tests/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <main>
+        <h2 align="left">{{ test.name }}</h2>
+        <p align="left">{{ test.description }}</p>
+        <a href="/tests/{{ test.id }}/start"><p class="button">Начать прохождение</p></a>
+    </main>
+
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}
