@@ -1,9 +1,0 @@
-{% load static %}
-
-<div class="chronology variants" id="{{ field_name }}">
-    {% for variant, variant_id in variants %}
-        <div class="variant" data-id="{{ variant_id }}">
-            {{ variant }}
-        </div>
-    {% endfor %}
-</div>

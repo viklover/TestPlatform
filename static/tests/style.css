@@ -1,0 +1,14 @@
+
+main {
+    width: 768px;
+    margin: auto;
+}
+
+.button {
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    margin: 0;
+    background-color: blue;
+    cursor: pointer;
+}
