@@ -20,9 +20,19 @@
                         <label class="label" for="{{ f.id_for_label }}">{{ f.label }} </label>
                         {{ f }}
                 {% endfor %}
-              <button class="submit-button" type="submit" name="submit-button">Войти</button>
+                <p class="label_ava">Аватарка</p>
+                <div class="image_desktop_ava">
+                    <img src="../../static/img_registration/desktop_ava.png" alt="">
+                    <button class="download_ava">
+                        <p>Загрузить свою</p>
+                    </button>
+                </div>
+              <button class="submit-button" type="submit" name="submit-button">Зарегистрироваться</button>
             </form>
         </div>
+    <div class="href_enter">
+        <p>или <a href="/accounts/login">Войдите на сайт</a></p>
+    </div>
     </main>
     {% include 'footer.html' %}
 {% endblock %}

@@ -18,7 +18,7 @@
                 {% csrf_token %}
                 <div class="flex-row nickname">
                     <label for="username">Логин</label>
-                    <input type="text" id="username" name="username" placeholder="Введите ваш логин" required>
+                    <input type="text" id="username" name="username" placeholder="Введите ваш логин или email" required>
                 </div>
                 <div class="flex-row password">
                     <label for="password">Пароль</label>
@@ -27,6 +27,9 @@
               <button class="submit-button" type="submit" name="submit-button">Войти</button>
             </form>
         </div>
+    <div class="href_enter">
+        <p>или <a href="/registration">Войдите на сайт</a></p>
+    </div>
     </main>
     {% include 'footer.html' %}
 {% endblock %}

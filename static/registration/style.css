@@ -1,12 +1,10 @@
-
 .form-login {
+    width: 245px;
     box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
-    width: 320px;
     padding: 20px;
-    margin: 0 auto;
+    margin: 20px auto;
     font-size: 19px;
-    border-radius: 3px;
-    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .form-login form {
@@ -16,10 +14,19 @@
 }
 
 .form-login input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 30px;
+    border: 0 solid #E1E1E1;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
     padding: 5px;
     font-size: 17px;
-    border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 5px;
+    background: #e8f0fe;
+}
+
+input {
+    outline: none;
 }
 
 .form-login .auth-label {
@@ -38,13 +45,13 @@
 }
 
 .form-login .submit-button {
-    background-color: #19058F;
+    background-color: #3300FF;
     font-size: 17px;
     font-weight: bold;
     color: white;
     padding: 7px 0;
     border: 2px solid #19058F;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -52,4 +59,61 @@
     color: #19058F;
     background-color: white;
     border: 2px solid #19058F;
+}
+
+.label_ava {
+    width: 235px;
+    height: 25px;
+    font-weight: 400;
+    line-height: 18px;
+    font-family: 'ProximaNova';
+    padding: 0 0 0 0;
+}
+
+.image_desktop_ava img{
+    width: 85px;
+    height: 85px;
+    border-radius: 5px;
+}
+
+.download_ava {
+    width: 121px;
+    height: 29px;
+    background: #3300FF;
+    border-radius: 5px;
+    border: 0;
+    margin: 0 0 0 23px;
+}
+
+.image_desktop_ava {
+    display: flex;
+    flex-direction: row;
+}
+
+.download_ava p {
+    font-family: 'ProximaNova';
+    font-weight: 700;
+    line-height: 0;
+    color: #FFFFFF;
+}
+
+.href_enter p {
+    text-align: center;
+    padding-bottom: 165px;
+}
+
+.href_enter a {
+    text-decoration: none;
+    color: blue;
+}
+
+@media (min-width: 768px) {
+    .form-login {
+        width: 532px;
+        box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        margin: 20px auto;
+        font-size: 19px;
+        border-radius: 5px;
+    }
 }
