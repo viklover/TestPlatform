@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from .views import index, login, logout, register_request
+from .views import index, logout, register_request, user_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/<int:user_id>', user_page),
     path('', index),
     path('accounts/', include('django.contrib.auth.urls')),
     path('registration/', register_request),

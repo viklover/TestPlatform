@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <p>Имя пользователя: {{ user.first_name }}</p>
+    <p>Фамилия пользователя: {{ user.last_name }}</p>
+    <p>Зарегистрирован: {{ user.date_joined }}</p>
+
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

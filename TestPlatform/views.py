@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -6,7 +7,7 @@ from django.contrib import messages
 
 # Create your views here.
 from TestPlatform.forms import RegistrationForm
-from tests.models import Test
+from tests.models import Test, User
 
 
 def index(request):
@@ -29,6 +30,14 @@ def register_request(request):
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = RegistrationForm()
     return render(request=request, template_name="registration/registration.html", context={"register_form": form})
+
+
+@login_required
+def user_page(request, user_id):
+    context = {
+        'user': User.objects.get(id=user_id)
+    }
+    return render(request=request, template_name="users/user.html", context=context)
 
 
 def logout(request):
