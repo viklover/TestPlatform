@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Новый тест{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'editor_header.html' %}
+
+    <div class="content">
+
+        {% if not published_tests|length and not development_tests|length %}
+
+            <h2>Добро пожаловать в редактор тестов!</h2>
+            <p>
+                В этом разделе сайта вы можете реализовывать свои тесты на основе заготовленных
+                типов заданий. Создайте свой первый проект и опубликуйте, когда посчитаете его готовым.
+            </p>
+
+        {% endif %}
+
+        {% if published_tests|length %}
+
+            <section class="published-tests">
+                <h2>Ваши тесты</h2>
+            </section>
+
+        {% endif %}
+
+        {% if development_tests|length %}
+
+            <section class="development-tests">
+                <h2>Неопубликованные тесты</h2>
+            </section>
+
+        {% endif %}
+
+        <div class="button" data-url="/editor/create_test">
+            Создать новый проект
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static 'buttons.js' %}"></script>
+{% endblock %}

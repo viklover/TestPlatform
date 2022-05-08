@@ -12,7 +12,7 @@ from tests.models import Test, User
 
 def index(request):
     context = {
-        'tests': Test.objects.all()
+        'tests': Test.objects.filter(published=True).order_by('-count_of_passes')[:3]
     }
     for test in context['tests']:
         print(test.name, test.description)

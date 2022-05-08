@@ -9,6 +9,9 @@ class Test(models.Model):
     description = models.TextField(verbose_name='Описание')
     author = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True, verbose_name='Автор')
     icon_url = models.TextField(null=True, verbose_name='Путь к иконке')
+    published = models.BooleanField(default=False)
+    date_published = models.DateField(null=True)
+    count_of_passes = models.IntegerField(default=0)
 
     def finish(self, user):
         TestFact.objects.get(test=self.id, user=user.id).finish()

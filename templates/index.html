@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Платформа тестов{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'header.html' %}
+
+    <main>
+        <h3>Что это за платформа такая?</h3>
+    </main>
+
+    {% for test in tests %}
+        <div>
+            <h3>{{ test.name }}</h3>
+            <p>{{ test.description }}</p>
+            <div class="button" data-url="/tests/{{ test.id }}">
+                Начать прохождение
+            </div>
+            <div style="margin-top: 20px"></div>
+        </div>
+    {% endfor %}
+
+    <div class="button new-window" data-url="/tests/{{ test.id }}">
+        Перейти к списку тестов
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

@@ -4,6 +4,13 @@ from django.shortcuts import render
 from tests.models import Test, Task
 
 
+def tests_page(request):
+    context = {
+        'tests': Test.objects.filter(published=True)
+    }
+    return render(request, 'tests_page.html', context)
+
+
 def test_page(request, test_id):
     context = {
         'test': Test.objects.get(id=test_id)
