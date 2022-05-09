@@ -31,51 +31,20 @@
             <p>Популярные тесты на нашем сайте</p>
         </div>
         <div class="cards">
-            <div class="card">
-                <div class="icon"></div>
-                <div class="title">
-                    Пореформенная Россия
+            {% for test in tests %}
+                <div class="card">
+                    <div class="icon"></div>
+                    <div class="title">
+                        {{ test.name }}
+                    </div>
+                    <div class="description_card">
+                        {{ test.description }}
+                    </div>
+                    <div class="button button_start_page" data-url="/tests/{{ test.id }}">
+                            Начать прохождение
+                    </div>
                 </div>
-                <div class="description_card">
-                    Очень даже хороший тест.
-                    Здесь написано описание теста.
-                    Он подохдит для всех и пройти его
-                    нужно всем
-                </div>
-                <div class="button button_start_page" data-url="/tests/{{ test.id }}">
-                        Начать прохождение
-                </div>
-            </div>
-            <div class="card">
-                <div class="icon"></div>
-                <div class="title">
-                    Пореформенная Россия
-                </div>
-                <div class="description_card">
-                    Очень даже хороший тест.
-                    Здесь написано описание теста.
-                    Он подохдит для всех и пройти его
-                    нужно всем
-                </div>
-                <div class="button button_start_page" data-url="/tests/{{ test.id }}">
-                        Начать прохождение
-                </div>
-            </div>
-            <div class="card">
-                <div class="icon"></div>
-                <div class="title">
-                    Пореформенная Россия
-                </div>
-                <div class="description_card">
-                    Очень даже хороший тест.
-                    Здесь написано описание теста.
-                    Он подохдит для всех и пройти его
-                    нужно всем
-                </div>
-                <div class="button button_start_page" data-url="/tests/{{ test.id }}">
-                        Начать прохождение
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div style="width: 233px;" class="button new-window" data-url="/tests/{{ test.id }}">
             Перейти к списку тестов
@@ -93,17 +62,6 @@
         </div>
 
     </div>
-
-{#    {% for test in tests %}#}
-{#        <div>#}
-{#            <h3>{{ test.name }}</h3>#}
-{#            <p>{{ test.description }}</p>#}
-{#            <div class="button" data-url="/tests/{{ test.id }}">#}
-{#                Начать прохождение#}
-{#            </div>#}
-{#            <div style="margin-top: 20px"></div>#}
-{#        </div>#}
-{#    {% endfor %}#}
 
     {% include 'footer.html' %}
 {% endblock %}
