@@ -8,26 +8,97 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'header.html' %}
+{#    {% include 'header.html' %}#}
 
-    <main>
-        <h3>Что это за платформа такая?</h3>
-    </main>
-
-    {% for test in tests %}
-        <div>
-            <h3>{{ test.name }}</h3>
-            <p>{{ test.description }}</p>
-            <div class="button" data-url="/tests/{{ test.id }}">
-                Начать прохождение
+    <div class="image"></div>
+    <div class="adaptive_768px">
+        <div class="text_adaptive_768px">
+            <div class="about_platform">
+                <h3>Что это за платформа такая?</h3>
             </div>
-            <div style="margin-top: 20px"></div>
+            <div class="description_about_platform">
+                <p>
+                    Это открытый сайт для прохождения и создания тестов. Каждый пользователь имеет возможность делиться своей статистикой с остальными пользователями и сорвеноваться в рейтинге
+                </p>
+            </div>
         </div>
-    {% endfor %}
-
-    <div class="button new-window" data-url="/tests/{{ test.id }}">
+        <div class="image_1"></div>
+    </div>
+    <div class="popular_test_our">
+        <p>Популярные тесты на нашем сайте</p>
+    </div>
+    <div class="cards">
+        <div class="card">
+        <div class="icon"></div>
+        <div class="title">
+            Пореформенная Россия
+        </div>
+        <div class="description_card">
+            Очень даже хороший тест.
+            Здесь написано описание теста.
+            Он подохдит для всех и пройти его
+            нужно всем
+        </div>
+        <div class="button_start_page" data-url="/tests/{{ test.id }}">
+                Начать прохождение
+        </div>
+    </div>
+        <div class="card">
+            <div class="icon"></div>
+            <div class="title">
+                Пореформенная Россия
+            </div>
+            <div class="description_card">
+                Очень даже хороший тест.
+                Здесь написано описание теста.
+                Он подохдит для всех и пройти его
+                нужно всем
+            </div>
+            <div class="button_start_page" data-url="/tests/{{ test.id }}">
+                    Начать прохождение
+            </div>
+        </div>
+        <div class="card">
+            <div class="icon"></div>
+            <div class="title">
+                Пореформенная Россия
+            </div>
+            <div class="description_card">
+                Очень даже хороший тест.
+                Здесь написано описание теста.
+                Он подохдит для всех и пройти его
+                нужно всем
+            </div>
+            <div class="button_start_page" data-url="/tests/{{ test.id }}">
+                    Начать прохождение
+            </div>
+        </div>
+    </div>
+    <div style="width: 233px;" class="button new-window" data-url="/tests/{{ test.id }}">
         Перейти к списку тестов
     </div>
+    <div class="what_wait">
+        Чего вы ждёте? Зарегистрируйтесь прямо сейчас!
+    </div>
+    <div class="buttons">
+        <div style="margin-bottom: 9px; width: 233px;" class="button new-window" data-url="/registration/{{ test.id }}">
+        Регистрация
+    </div>
+        <div style="width: 233px;" class="button new-window" data-url="/accounts/login/{{ test.id }}">
+        У меня уже есть аккаунт
+    </div>
+    </div>
+
+{#    {% for test in tests %}#}
+{#        <div>#}
+{#            <h3>{{ test.name }}</h3>#}
+{#            <p>{{ test.description }}</p>#}
+{#            <div class="button" data-url="/tests/{{ test.id }}">#}
+{#                Начать прохождение#}
+{#            </div>#}
+{#            <div style="margin-top: 20px"></div>#}
+{#        </div>#}
+{#    {% endfor %}#}
 
     {% include 'footer.html' %}
 {% endblock %}

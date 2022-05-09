@@ -1,6 +1,12 @@
 
 @media(min-width: 700px) {
 
+    .image img {
+        width: 237px;
+        height: 262px;
+        margin: auto;
+    }
+
     .head {
         height: 72px;
         background-color: #C9C9C9;

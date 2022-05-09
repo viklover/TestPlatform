@@ -35,7 +35,6 @@ body {
 }
 
 .button {
-    display: inline-block;
     background-color: #3300FF;
     font-size: 17px;
     font-weight: bold;
@@ -45,4 +44,5 @@ body {
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
+    margin: auto;
 }

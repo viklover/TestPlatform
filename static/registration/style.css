@@ -50,7 +50,7 @@ input {
     font-weight: bold;
     color: white;
     padding: 7px 0;
-    border: 2px solid #19058F;
+    border: 0px solid #19058F;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -105,6 +105,10 @@ input {
 .href_enter a {
     text-decoration: none;
     color: blue;
+}
+
+@media (min-width: 320px) {
+
 }
 
 @media (min-width: 768px) {
