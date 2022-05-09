@@ -32,15 +32,15 @@ main {
     width: 100%;
     height: 310px;
     background: url("../img_index_start_header/icon_ourPlatform.png") no-repeat center;
-    background-size: 300px;
+    background-size: 230px;
 }
 
 .about_platform {
-    font-size: 27px;
+    font-size: 20px;
 }
 
 .about_platform h3 {
-    padding: 0 27px 0 11px;
+    padding: 0 16px;
 }
 
 .description_about_platform {
@@ -50,11 +50,11 @@ main {
 }
 
 .description_about_platform p {
-    padding-left: 16px;
+    padding: 0 16px;
 }
 
 .image_1 {
-    height: 399px;
+    height: 269px;
     background: url("../img_index_start_header/icon_test_platform.png") no-repeat center;
     background-size: 293px;
 }
@@ -62,7 +62,6 @@ main {
 .popular_test_our {
     font-size: 27px;
     width: 100%;
-    height: 104px;
     font-weight: 700;
     line-height: 32px;
     text-align: center;
@@ -70,7 +69,7 @@ main {
 
 .card {
     width: 263px;
-    height: 370px;
+    padding: 15px;
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
@@ -103,19 +102,16 @@ main {
     width: 224px;
     border-radius: 5px;
     color: white;
-    display: inline-block;
     background-color: #3300FF;
     font-size: 17px;
     font-weight: bold;
     padding: 7px 12px;
     border: 2px solid #19058F;
     text-align: center;
-    margin: 0 0 21px 5px;
 }
 
 .what_wait {
     width: 281px;
-    height: 97px;
     font-weight: 700;
     font-size: 27px;
     line-height: 32px;
@@ -123,12 +119,34 @@ main {
     padding: 41px 0 29px;
 }
 
+.content {
+    width: 320px;
+    margin: 0 auto;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+}
+
+.button_end_page {
+    display: block;
+    margin: auto;
+}
+
 @media (min-width: 768px) {
+
+    .content {
+        width: 700px;
+    }
+
     .image {
         width: 100%;
         height: 310px;
         background: url("../img_index_start_header/icon_ourPlatform_768px.png") no-repeat center;
-        background-size: 494px;
+        background-size: 390px;
     }
 
     .adaptive_768px {
@@ -137,7 +155,7 @@ main {
     }
 
     .image_1 {
-        width: 100%;
+        width: 730px;
     }
 
     .text_adaptive_768px {
@@ -154,8 +172,9 @@ main {
 
     .cards {
         display: grid;
-        margin-bottom: 18px;
         grid-template-columns: repeat(2, 1fr);
+        width: 630px;
+        margin: auto;
     }
 
     .what_wait {
@@ -164,14 +183,19 @@ main {
     }
 
     .buttons {
-        display: flex;
         flex-direction: row;
+        gap: 9px;
+    }
+
+    .button_end_page {
+        margin: 0;
     }
 }
 
 @media (min-width: 1024px) {
-    .image {
-        background-size: 595px;
+
+    .content {
+        width: 1024px;
     }
 
     .image_1 {
@@ -186,5 +210,6 @@ main {
 
     .cards {
         grid-template-columns: repeat(3, 1fr);
+        width: 950px;
     }
 }
