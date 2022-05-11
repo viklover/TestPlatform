@@ -44,10 +44,11 @@
 }
 
 .card .line {
+    --max-width: 243px;
     height: 5px;
     margin: 0 10px;
     width: calc(100% - 20px);
-    max-width: 243px;
+    max-width: var(--max-width);
 }
 
 .card .progress-bar .background {
@@ -57,7 +58,7 @@
 .card .progress-bar .progress {
     position: absolute;
     background: #2C00DE;
-    width: var(--progress);
+    width: calc(var(--max-width) * var(--progress));
 }
 
 .card .stats-label {
