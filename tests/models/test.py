@@ -12,7 +12,7 @@ class Test(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     author = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True, verbose_name='Автор')
-    icon = models.ImageField(upload_to=user_media_path)
+    icon = models.ImageField(upload_to=user_media_path, default='icon.ico')
     published = models.BooleanField(default=False)
     date_published = models.DateField(null=True)
     number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
