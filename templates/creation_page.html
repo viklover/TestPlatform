@@ -6,47 +6,27 @@
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/creation_page/style.css' %}">
 {% endblock %}
 
 {% block content %}
     {% include 'editor_header.html' %}
 
     <div class="content">
-
-        {% if not published_tests|length and not development_tests|length %}
-
-            <h2>Добро пожаловать в редактор тестов!</h2>
-            <p>
-                В этом разделе сайта вы можете реализовывать свои тесты на основе заготовленных
-                типов заданий. Создайте свой первый проект и опубликуйте, когда посчитаете его готовым.
-            </p>
-
-        {% endif %}
-
-        {% if published_tests|length %}
-
-            <section class="published-tests">
-                <h2>Ваши тесты</h2>
-            </section>
-
-        {% endif %}
-
-        {% if development_tests|length %}
-
-            <section class="development-tests">
-                <h2>Неопубликованные тесты</h2>
-            </section>
-
-        {% endif %}
-
-        <div class="button" data-url="/editor/create_test">
-            Создать новый проект
-        </div>
-
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for f in form %}
+                <div class="field">
+                    <label class="label" for="{{ f.id_for_label }}">{{ f.label }} </label><br>
+                    {{ f }}<br>
+                </div>
+            {% endfor %}
+            <button type="submit" name="submit-button" class="button"/>Создать проект</button>
+        </form>
     </div>
 
 {% endblock %}
 
 {% block js_scripts %}
-    <script src="{% static 'buttons.js' %}"></script>
+
 {% endblock %}

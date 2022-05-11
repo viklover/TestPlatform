@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from editor.forms import CreationTestForm
 from tests.models import Test
 
 
@@ -16,7 +17,22 @@ def editor_page(request):
 
 @login_required
 def creation_test(request):
+
     if not request.POST:
+        context = {
+            'form': CreationTestForm(
+                initial={
+                  'author': request.user
+                }
+            )
+        }
         return render(request, template_name='creation_page.html', context=context)
 
-    return HttpResponse()
+    test = Test(author=request.user)
+    form = CreationTestForm(request.POST, request.FILES, instance=test)
+
+    if form.is_valid():
+        test = form.save(commit=False)
+        test.save()
+        return redirect(f'/editor/tests/{test.id}')
+

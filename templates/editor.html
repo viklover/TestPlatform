@@ -33,7 +33,7 @@
                 <div>
                     <h3>{{ test.name }}</h3>
                     <p>{{ test.description }}</p>
-{#                    <img src="{% static 'default_test_icon.png' %}">#}
+                    <img src="/media/{{ test.icon }}">
                 </div>
             {% endfor %}
 
@@ -45,7 +45,7 @@
                 <h2>Неопубликованные тесты</h2>
             </section>
 
-            {% for test in published_tests %}
+            {% for test in development_tests %}
                 <div>
                     <h3>{{ test.name }}</h3>
                     <p>{{ test.description }}</p>
