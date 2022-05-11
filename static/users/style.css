@@ -40,13 +40,17 @@
     margin: auto;
 }
 
+.created_tests .label {
+    margin-top: 0;
+}
+
 .label {
     width: 263px;
     height: 30px;
     font-weight: 700;
     font-size: 25px;
     line-height: 29px;
-    margin: auto auto 31px;
+    margin: 40px auto 20px;
     text-align: center;
 }
 
