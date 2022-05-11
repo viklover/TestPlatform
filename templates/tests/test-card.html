@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
+    <div class="title">
+        {{ test.name }}
+    </div>
+    {% if not with_statistics %}
+        <div class="description">
+            {{ test.description }}
+        </div>
+    {% endif %}
+    {% if with_statistics %}
+        <div class="statistics">
+            {% if user %}
+                <div class="stats user">
+                    <div class="stats-label">Пройдено 16%</div>
+                    <div class="progress-bar">
+                        <div class="line background"></div>
+                        <div class="line progress"></div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if user_page %}
+                <div class="stats current_user">
+                    <div class="stats-label">Пройдено 68%</div>
+                    <div class="progress-bar">
+                        <div class="line background"></div>
+                        <div class="line progress"></div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="button button_start_page" data-url="/tests/{{ test.id }}">
+            Начать прохождение
+    </div>
+</div>

@@ -33,11 +33,11 @@
         <div class="cards">
             {% for test in tests %}
                 <div class="card">
-                    <div class="icon"></div>
+                    <div class="icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
                     <div class="title">
                         {{ test.name }}
                     </div>
-                    <div class="description_card">
+                    <div class="description">
                         {{ test.description }}
                     </div>
                     <div class="button button_start_page" data-url="/tests/{{ test.id }}">

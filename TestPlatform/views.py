@@ -35,8 +35,14 @@ def register_request(request):
 @login_required
 def user_page(request, user_id):
     context = {
-        'user': User.objects.get(id=user_id)
+        'user_page': User.objects.get(id=user_id),
+        'created_tests': Test.objects.filter(author=user_id),
+        'finished_tests': []
     }
+
+    for test in Test.objects.all():
+        context['finished_tests'].append(test.get_statistics_differences(request.user, context['user_page']))
+
     return render(request=request, template_name="users/user.html", context=context)
 
 

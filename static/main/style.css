@@ -75,30 +75,37 @@ main {
     border-radius: 5px;
     margin: auto;
     margin-bottom: 16px;
+    min-height: 340px;
+    height: calc(100% - 45px);
+    position: relative;
 }
 
-.icon {
-    background: url("../img_index_start_header/icon.png") no-repeat center 23px;
+.card .icon {
+    background: var(--icon-url) no-repeat center 23px;
     height: 130px;
     background-size: 100px;
 }
 
 .card .title {
-    width: 221px;
+    width: 240px;
     font-weight: 700;
     font-size: 23px;
     text-align: center;
     margin: auto;
-    height: 75px;
+    padding-bottom: 10px;
 }
 
-.description_card {
+.card .description {
     height: 76px;
+    width: 230px;
+    margin: 0 auto;
     text-align: center;
     padding-bottom: 29px;
 }
 
-.button_start_page {
+.card .button_start_page {
+    position: absolute;
+    bottom: 15px;
     width: 224px;
     border-radius: 5px;
     color: white;

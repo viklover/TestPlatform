@@ -1,3 +1,11 @@
-<header class="head">
-    <h1 align="center">Платформа тестов</h1>
-</header>
+<div class="head">
+    <div class="burger-menu" id="burger"></div>
+    <div class="current_user-bar">
+        {% if user.is_authenticated %}
+            <p class="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+            <div class="current-user_avatar"></div>
+        {% else %}
+
+        {% endif %}
+    </div>
+</div>

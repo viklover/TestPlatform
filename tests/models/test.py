@@ -2,6 +2,8 @@ import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.template import loader
+from django.template.defaulttags import register
 
 
 def user_media_path(instance, filename):
@@ -20,6 +22,29 @@ class Test(models.Model):
 
     def finish(self, user):
         TestFact.objects.get(test=self.id, user=user.id).finish()
+
+    def __render_template(self, context=None):
+        if context is None:
+            context = {}
+        template = loader.get_template('tests/test-card.html')
+        return template.render({'test': self, **context})
+
+    def __str__(self):
+        return self.__render_template()
+
+    def get_statistics(self, user):
+        return self.__render_template(
+            context={
+                'with_statistics': True, 'user': user
+            }
+        )
+
+    def get_statistics_differences(self, user, user_page):
+        return self.__render_template(
+            context={
+                'with_statistics': True, 'user': user, 'user_page': user_page
+            }
+        )
 
 
 class TestFact(models.Model):

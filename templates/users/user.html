@@ -5,71 +5,72 @@
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'users/style.css' %}">
+    <link rel="stylesheet" href="{% static 'test-card.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<div class="header">
-    <div class="burger" id="burger"></div>
-    <div class="icon" id="icon"></div>
-</div>
+    {% include 'header.html' %}
 
-<div class="image"></div>
-<div class="border">
-    1 место
-</div>
-<p class="user_name">{{ user.first_name }} {{ user.last_name }}</p>
-<p class="registration_when">{{ user.date_joined }}</p>
-<p class="created_tests">Созданные тесты</p>
-<div class="borders">
-    <div class="border_1">
-        <div class="image_icon"></div>
-        <div class="index_text_border_1">
-            Пореформенная Россия
+    <div class="user">
+        <div class="avatar" style="--avatar-url: url('/media/{{ user_page.avatar }}')">
+            <div class="rating">1 место</div>
         </div>
-        <div class="description_test">
-            Очень даже хороший тест.
-            Здесь написано описание теста.
-            Он подохдит для всех и пройти его
-            нужно всем
-        </div>
-        <div class="button" style="width: 224px; border: 0;">
-            Начать прохождение
+        <div class="user-info">
+            <p class="user_name">{{ user_page.first_name }} {{ user_page.last_name }}</p>
+            <p class="registration_when">{{ user_page.date_joined }}</p>
         </div>
     </div>
-</div>
-<p class="created_tests">Пройденные тесты</p>
-<div class="borders">
-    <div class="border_1">
-        <div class="image_icon"></div>
-        <div class="index_text_border_1">
-            Пореформенная Россия
+
+    <section class="created_tests">
+        <p class="label">Созданные тесты</p>
+        <div class="created_tests-list">
+            {% for test in created_tests %}
+                {{ test }}
+            {% endfor %}
         </div>
-        <div class="completed">Пройдено 93%</div>
-        <div class="hr"></div>
-        <div class="hr_2"></div>
-        <div class="button" style="width: 224px; border: 0;">
-            Начать прохождение
+    </section>
+
+    <section class="finished_tests">
+        <p class="label">Пройденные тесты</p>
+        <div class="finished_tests-list">
+            {% for test in finished_tests %}
+                {{ test }}
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="borders">
+        <div class="border_1">
+            <div class="image_icon"></div>
+            <div class="index_text_border_1">
+                Пореформенная Россия
+            </div>
+            <div class="completed">Пройдено 93%</div>
+            <div class="hr"></div>
+            <div class="hr_2"></div>
+            <div class="button" style="width: 224px; border: 0;">
+                Начать прохождение
+            </div>
         </div>
     </div>
-</div>
-<div class="borders">
-    <div class="border_1">
-        <div class="image_icon"></div>
-        <div class="index_text_border_1">
-            Пореформенная Россия
-        </div>
-        <div class="completed">Пройдено 68%</div>
-        <div class="hr"></div>
-        <div class="hr_2"></div>
-        <div class="completed">Вы прошли на 55%</div>
-        <div class="hr"></div>
-        <div class="hr_2"></div>
-        <div class="button" style="width: 224px; border: 0;">
-            Начать прохождение
+    <div class="borders">
+        <div class="border_1">
+            <div class="image_icon"></div>
+            <div class="index_text_border_1">
+                Пореформенная Россия
+            </div>
+            <div class="completed">Пройдено 68%</div>
+            <div class="hr"></div>
+            <div class="hr_2"></div>
+            <div class="completed">Вы прошли на 55%</div>
+            <div class="hr"></div>
+            <div class="hr_2"></div>
+            <div class="button" style="width: 224px; border: 0;">
+                Начать прохождение
+            </div>
         </div>
     </div>
-</div>
 
 
 
@@ -79,6 +80,6 @@
 
 {% endblock %}
 
-{#<p>Имя пользователя: {{ user.first_name }}</p>#}
-{#    <p>Фамилия пользователя: {{ user.last_name }}</p>#}
-{#    <p>Зарегистрирован: {{ user.date_joined }}</p>#}
+{#<p>Имя пользователя: {{ user_page.first_name }}</p>#}
+{#    <p>Фамилия пользователя: {{ user_page.last_name }}</p>#}
+{#    <p>Зарегистрирован: {{ user_page.date_joined }}</p>#}

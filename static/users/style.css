@@ -1,39 +1,18 @@
-.header {
-    width: 100%;
-    height: 72px;
-    background: #FFFFFF;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: row;
-    gap: 150px;
-}
 
-.burger {
-    width: 100%;
-    height: 75px;
-    background: url("burger.png") no-repeat left;
-    background-size: 41px;
-    margin-left: 10px;
-}
 
-.icon {
-    width: 100%;
-    background: url("default_avatar.png") no-repeat center;
-    background-size: 55px;
-    border-radius: 5px;
-}
-
-.image {
-    width: 100%;
+.avatar {
+    position: relative;
+    width: 256px;
     height: 256px;
     background: url("image_Panov_Georgii.png") no-repeat center;
     background-size: 267px;
     border-radius: 5px;
-    margin: 10px 0;
+    margin: 10px auto;
 }
 
-.border {
-    width: 267px;
+.avatar .rating {
+    position: absolute;
+    padding: 0 10px;
     height: 22px;
     background: #FFFFFF;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -41,6 +20,8 @@
     border-radius: 5px;
     text-align: center;
     margin: auto;
+    right: -10px;
+    bottom: 0;
 }
 
 .user_name {
@@ -60,13 +41,14 @@
     margin: auto;
 }
 
-.created_tests {
+.label {
     width: 263px;
     height: 30px;
     font-weight: 700;
     font-size: 25px;
     line-height: 29px;
     margin: auto auto 31px;
+    text-align: center;
 }
 
 .border_1 {
@@ -103,16 +85,6 @@
     line-height: 18px;
     text-align: center;
     margin: 17px auto auto 29px;
-}
-
-.completed {
-    width: 100%;
-    height: 26px;
-    font-weight: 700;
-    line-height: 15px;
-    color: #2C00DE;
-    margin: 34px auto auto auto;
-    padding-left: 10px;
 }
 
 .hr {
