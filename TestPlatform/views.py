@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib import messages
 
-# Create your views here.
 from TestPlatform.forms import RegistrationForm
 from tests.models import Test, User
 

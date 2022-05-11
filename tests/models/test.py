@@ -42,7 +42,11 @@ class Test(models.Model):
     def get_statistics_differences(self, user, user_page):
         return self.__render_template(
             context={
-                'with_statistics': True, 'user': user, 'user_page': user_page
+                'with_statistics': True,
+                'user': user,
+                'user_res': 0.16,
+                'user_page': user_page,
+                'user_page_res': 0.687431
             }
         )
 
