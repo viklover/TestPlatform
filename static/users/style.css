@@ -1,0 +1,130 @@
+.header {
+    width: 100%;
+    height: 72px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+}
+
+.burger {
+    width: 100%;
+    height: 75px;
+    background: url("burger.png") no-repeat left;
+    background-size: 41px;
+    margin-left: 10px;
+}
+
+.icon {
+    width: 100%;
+    background: url("default_avatar.png") no-repeat center;
+    background-size: 55px;
+    border-radius: 5px;
+}
+
+.image {
+    width: 100%;
+    height: 256px;
+    background: url("image_Panov_Georgii.png") no-repeat center;
+    background-size: 267px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.border {
+    width: 267px;
+    height: 22px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    /*filter: blur(4px);*/
+    border-radius: 5px;
+    text-align: center;
+    margin: auto;
+}
+
+.user_name {
+    width: 263px;
+    font-weight: 700;
+    font-size: 25px;
+    margin: auto;
+}
+
+.registration_when {
+    width: 263px;
+    height: 84px;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    margin: auto;
+}
+
+.created_tests {
+    width: 263px;
+    height: 30px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    margin: auto auto 31px;
+}
+
+.border_1 {
+    width: 263px;
+    height: 343px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin: auto auto 28px;
+}
+
+.image_icon {
+    width: 100%;
+    height: 130px;
+    background: url("icon_Proreform_Russia.png") no-repeat center 22px;
+    background-size: 90px;
+}
+
+.index_text_border_1 {
+    width: 221px;
+    height: 52px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    text-align: center;
+    margin: auto auto auto 20px;
+}
+
+.description_test {
+    width: 221px;
+    height: 76px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    margin: 17px auto auto 29px;
+}
+
+.completed {
+    width: 100%;
+    height: 26px;
+    font-weight: 700;
+    line-height: 15px;
+    color: #2C00DE;
+    margin: 34px auto auto auto;
+    padding-left: 10px;
+}
+
+.hr {
+    width: 189px;
+    height: 5px;
+    background: #2C00DE;
+    margin: auto auto 28px 10px;
+}
+
+.hr_2 {
+    width: 223px;
+    height: 5px;
+    background: #A6A6A6;
+    margin: auto auto 28px 10px;
+}
