@@ -22,6 +22,29 @@
         </div>
     </div>
 
+    <div class="burger_border_js" id="burger_1">
+        <p class="index_page_href">Главная страница</p>
+        <div class="hr_burger"></div>
+        <p class="index_page_href">Список всех тестов</p>
+        <div class="hr_burger"></div>
+        <p class="index_page_href">Рейтинг</p>
+    </div>
+
+
+    <div class="settings" id="settings">
+        {% if user.is_authenticated %}
+            <p class="name_surname" id="name_surname">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+        {% else %}{% endif %}
+        <div class="hr_account_settings"></div>
+        <p class="myPage">Моя страница</p>
+        <div class="hr_account_settings"></div>
+        <p class="">Настройки</p>
+        <div class="hr_account_settings"></div>
+        <p class="">Мастерская тестов</p>
+        <div class="hr_account_settings"></div>
+        <p class="log_out_account">Выйти из аккаунта</p>
+    </div>
+
     <section class="created_tests">
         <p class="label">Созданные тесты</p>
         <div class="created_tests-list">
@@ -43,7 +66,8 @@
 {% endblock %}
 
 {% block js_scripts %}
-
+<script src="/static/users/user.js"></script>
+<script src="/static/users/user_2.js"></script>
 {% endblock %}
 
 {#<p>Имя пользователя: {{ user_page.first_name }}</p>#}

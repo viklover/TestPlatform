@@ -1,8 +1,8 @@
 <div class="head">
     <div class="burger-menu" id="burger"></div>
-    <div class="current_user-bar">
+    <div class="current_user-bar" id="current-user_avatar">
         {% if user.is_authenticated %}
-            <p class="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+            <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
             <div class="current-user_avatar"></div>
         {% else %}
 
