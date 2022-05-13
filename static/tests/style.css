@@ -1,8 +1,3 @@
-
-main {
-    margin: auto;
-}
-
 .button {
     display: inline-block;
     padding: 5px 10px;
@@ -10,4 +5,358 @@ main {
     margin: 0;
     background-color: blue;
     cursor: pointer;
+}
+
+.header {
+    width: 100% ;
+    height: 72px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.burger {
+    width: 41px;
+    height: 100%;
+    background: url("../users/burger.png") no-repeat center 21px;
+    background-size: 41px;
+    margin: 0 10px;
+}
+
+a .default_avatar {
+    width: 80px;
+    height: 100%;
+    background: url("../users/default_avatar.png") no-repeat center;
+    background-size: 55px;
+    border-radius: 5px;
+}
+
+.min_border {
+    margin-top: 22px;
+    width: 100%;
+    height: 283px;
+    background: linear-gradient(180.81deg, #FFFFFF 0.69%, rgba(246, 246, 246, 0.964497) 0.69%, rgba(246, 246, 246, 0.964497) 0.69%, #FFFFFF 0.69%, #FFFFFF 0.7%, #FFFFFF 3.01%, rgba(0, 0, 0, 0) 45.15%);
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+    margin-bottom: 177px;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+}
+
+.tags .tag_1 {
+    width: 111px;
+    height: 13px;
+    background: linear-gradient(269.61deg, #FF8A00 26.56%, #FF0099 103.97%);
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 10px;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 6px 0;
+    margin: 12px 2px;
+}
+
+.tags .tag_2 {
+    width: 111px;
+    height: 13px;
+    background: linear-gradient(90.39deg, #6100FF 5.24%, #00FF66 100.05%);
+    border-radius: 5px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 6px 0;
+    margin-top: 12px;
+}
+
+.tags_new .tag_1_new {
+    width: 165px;
+    height: 20px;
+    background: linear-gradient(269.61deg, #0038FF 26.56%, #00A3FF 103.97%);
+    border-radius: 5px;
+    margin: 12px 2px;
+    padding: 6px 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.tags_new .tag_1_new p {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 0;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 6px;
+}
+
+.hr {
+    width: 20px;
+    border: 4px solid #FFFFFF;
+    transform: rotate(90deg);
+}
+
+.tags_new .tag_2_new {
+    width: 142px;
+    height: 20px;
+    background: linear-gradient(269.61deg, #0038FF 26.56%, #00A3FF 103.97%);
+    border-radius: 5px;
+    margin: 12px 2px;
+    padding: 6px 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.tags_new .tag_2_new p {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 0;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 6px;
+}
+
+.tags_new {
+    display: flex;
+    gap: 14px;
+}
+
+.min_border .border_top {
+    width: 100%;
+    height: 320px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin: auto;
+}
+
+.icon_reform_Russia {
+    width: 100%;
+    height: 130px;
+    background: url("../users/icon_Proreform_Russia.png") no-repeat center 24px;
+    background-size: 99px;
+}
+
+.name_test {
+    width: 100%;
+    height: 34px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    text-align: center;
+    color: #000000;
+    margin: auto;
+}
+
+.description_test {
+    width: 100%;
+    height: 86px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    color: #000000;
+    margin: auto;
+}
+
+.button_start_test {
+    display: grid;
+    padding: 5px 10px;
+    color: white;
+    width: 224px;
+    background-color: blue;
+    cursor: pointer;
+    margin: auto;
+}
+
+.button_start_test {
+    background-color: #3300FF;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.border_open_file {
+    width: 100%;
+    height: 179px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-bottom: 17px;
+}
+
+.open_description_file {
+    width: 301px;
+    height: 33px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    padding: 24px 0 0 19px;
+}
+
+.comment {
+    width: 174px;
+    height: 39px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    padding: 36px;
+    margin: auto;
+    text-align: center;
+}
+
+.border_comment {
+    width: 100%;
+    height: max-content;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.border_comment input {
+    box-sizing: border-box;
+    width: 296px;
+    height: 62px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    margin: 11px auto;
+    display: grid;
+}
+
+.hr_border_comment {
+    width: 295px;
+    border: 2px solid #D5D5D5;
+    margin: 11px auto 11px auto;
+}
+
+input {
+    outline: blue;
+}
+
+@media (min-width: 320px) {
+    .icon_Platform {
+        display: none;
+    }
+    .content {
+        margin: auto;
+    }
+
+    .icon_tests {
+        display: none;
+    }
+
+    .icon_ratings {
+        display: none;
+    }
+
+    .header {
+        justify-content: space-between;
+    }
+
+    .first_comment {
+        display: flex;
+        flex-direction: row;
+        gap: 9px;
+        width: 296px;
+        margin: auto auto 21px;
+    }
+
+    .first_comment .default_avatar {
+        width: 45px;
+        height: 45px;
+        background: url("../users/default_avatar.png") no-repeat center;
+        background-size: 45px;
+        border-radius: 5px;
+    }
+
+    .name {
+        width: 130px;
+        height: 15px;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+        color: #000000;
+    }
+
+    .description_comment_index {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        justify-content: space-around;
+    }
+
+    .burger {
+        display: none;
+    }
+
+    .icon_Platform {
+        display: block;
+        width: 168px;
+        height: 70px;
+        background: url("../logos/logo_short.png") no-repeat center 11px;
+        background-size: 168px;
+    }
+
+    .icon_tests {
+        display: block;
+        width: 45px;
+        height: 70px;
+        background: url("../users/icon_tests.png") no-repeat center 11px;
+        background-size: 45px;
+    }
+
+    .icon_ratings {
+        display: block;
+        width: 45px;
+        height: 70px;
+        background: url("../users/ratings.png") no-repeat center 11px;
+        background-size: 45px;
+    }
+
+    .tags_top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .min_border {
+        width: 602px;
+        margin: 67px auto 177px;
+    }
+
+    .border_open_file {
+        width: 602px;
+        margin: auto;
+    }
+
+    .border_comment {
+        width: 602px;
+        margin: auto;
+    }
 }
