@@ -12,56 +12,61 @@
 
     {% include 'header.html' %}
 
-    <div class="user">
-        <div class="avatar" style="--avatar-url: url('/media/{{ user_page.avatar }}')">
-            <div class="rating">1 место</div>
+    <div class="content">
+
+        <div class="user">
+            <div class="avatar" style="--avatar-url: url('/media/{{ user_page.avatar }}')">
+                <div class="rating">1 место</div>
+            </div>
+            <div class="user-info">
+                <p class="user_name">{{ user_page.first_name }} {{ user_page.last_name }}</p>
+                <p class="registration_when">{{ user_page.date_joined }}</p>
+            </div>
         </div>
-        <div class="user-info">
-            <p class="user_name">{{ user_page.first_name }} {{ user_page.last_name }}</p>
-            <p class="registration_when">{{ user_page.date_joined }}</p>
+
+        <div class="burger_border_js" id="burger_1">
+            <p class="index_page_href">Главная страница</p>
+            <div class="hr_burger"></div>
+            <p class="index_page_href">Список всех тестов</p>
+            <div class="hr_burger"></div>
+            <p class="index_page_href">Рейтинг</p>
         </div>
+
+
+        <div class="settings" id="settings">
+            {% if user.is_authenticated %}
+                <p class="name_surname" id="name_surname">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+            {% else %}{% endif %}
+            <div class="hr_account_settings"></div>
+            <p class="myPage">Моя страница</p>
+            <div class="hr_account_settings"></div>
+            <p class="">Настройки</p>
+            <div class="hr_account_settings"></div>
+            <p class="">Мастерская тестов</p>
+            <div class="hr_account_settings"></div>
+            <p class="log_out_account">Выйти из аккаунта</p>
+        </div>
+
+        <section class="created_tests">
+            <p class="label">Созданные тесты</p>
+            <div class="created_tests-list">
+                {% for test in created_tests %}
+                    {{ test }}
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="finished_tests">
+            <p class="label">Пройденные тесты</p>
+            <div class="finished_tests-list">
+                {% for test in finished_tests %}
+                    {{ test }}
+                {% endfor %}
+            </div>
+        </section>
+
     </div>
 
-    <div class="burger_border_js" id="burger_1">
-        <p class="index_page_href">Главная страница</p>
-        <div class="hr_burger"></div>
-        <p class="index_page_href">Список всех тестов</p>
-        <div class="hr_burger"></div>
-        <p class="index_page_href">Рейтинг</p>
-    </div>
-
-
-    <div class="settings" id="settings">
-        {% if user.is_authenticated %}
-            <p class="name_surname" id="name_surname">{{ request.user.first_name }} {{ request.user.last_name }}</p>
-        {% else %}{% endif %}
-        <div class="hr_account_settings"></div>
-        <p class="myPage">Моя страница</p>
-        <div class="hr_account_settings"></div>
-        <p class="">Настройки</p>
-        <div class="hr_account_settings"></div>
-        <p class="">Мастерская тестов</p>
-        <div class="hr_account_settings"></div>
-        <p class="log_out_account">Выйти из аккаунта</p>
-    </div>
-
-    <section class="created_tests">
-        <p class="label">Созданные тесты</p>
-        <div class="created_tests-list">
-            {% for test in created_tests %}
-                {{ test }}
-            {% endfor %}
-        </div>
-    </section>
-
-    <section class="finished_tests">
-        <p class="label">Пройденные тесты</p>
-        <div class="finished_tests-list">
-            {% for test in finished_tests %}
-                {{ test }}
-            {% endfor %}
-        </div>
-    </section>
     {% include 'footer.html' %}
 {% endblock %}
 

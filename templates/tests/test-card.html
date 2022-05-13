@@ -4,13 +4,13 @@
         <div class="icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
         <div class="title_description">
             <div class="title">
-            {{ test.name }}
-        </div>
-            {% if not with_statistics %}
-            <div class="description">
-                {{ test.description }}
+                {{ test.name }}
             </div>
-        {% endif %}
+            {% if not with_statistics %}
+                <div class="description">
+                    {{ test.description }}
+                </div>
+            {% endif %}
         </div>
     </div>
     {% if with_statistics %}

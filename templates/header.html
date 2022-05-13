@@ -1,20 +1,24 @@
 <div class="head">
-    <div class="burger-menu" id="burger"></div>
-    <a href="/">
-        <div class="our_icon" id="our_icon"></div>
-    </a>
-    <a href="#">
-        <div class="icon_tests" id="icon_tests"></div>
-    </a>
-    <a href="#">
-        <div class="ratings" id="ratings"></div>
-    </a>
+    <div class="content">
+        <div class="burger-menu" id="burger"></div>
+        <a href="/">
+            <div class="our_icon" id="our_icon"></div>
+        </a>
+        <div class="pages">
+            <a href="#">
+                <div class="icon_tests" id="icon_tests"></div>
+            </a>
+            <a href="#">
+                <div class="ratings" id="ratings"></div>
+            </a>
+        </div>
         <div class="current_user-bar" id="current-user_avatar">
-        {% if user.is_authenticated %}
-            <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
-            <div class="current-user_avatar"></div>
-        {% else %}
+            {% if user.is_authenticated %}
+                <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                <div class="current-user_avatar"></div>
+            {% else %}
 
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 </div>

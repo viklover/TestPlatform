@@ -182,10 +182,16 @@ a {
     }
 }
 
-@media (min-width: 768px) {
-    .head .burger-menu {
-        display: none;
+@media(min-width: 700px) {
+
+    .content {
+        width: 700px;
+        margin: auto;
     }
+
+}
+
+@media (min-width: 768px) {
 
     .our_icon {
         width: 197px;
@@ -224,11 +230,6 @@ a {
         width: 100%;
     }
 
-    .label {
-        margin: 40px auto 20px 68px;
-        text-align: left;
-    }
-
     .card .icon {
         background: url("../users/icon_tests.png") no-repeat center;
         height: 110px;
@@ -248,5 +249,17 @@ a {
     .progress_beau {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .label {
+        margin-left: 20px;
+        text-align: left;
+    }
+}
+
+@media(min-width: 1024px) {
+
+    .content {
+        width: 900px;
     }
 }

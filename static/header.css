@@ -9,6 +9,14 @@
     justify-content: space-between;
 }
 
+.head .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+}
+
 .head .burger-menu {
     width: 50px;
     height: 75px;
@@ -36,8 +44,36 @@
     border-radius: 5px;
 }
 
+.head .pages {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
 @media(min-width: 700px) {
+
+    .head .content {
+        width: 700px;
+    }
+
+    .head .burger-menu {
+        display: none;
+    }
+
     .head .current_user-bar .username {
         display: block;
     }
+}
+
+
+@media(min-width: 1024px) {
+
+    .head .content {
+        width: 900px;
+    }
+
+    .head .pages {
+        padding-right: 240px;
+    }
+
 }
