@@ -1,6 +1,15 @@
 <div class="head">
     <div class="burger-menu" id="burger"></div>
-    <div class="current_user-bar" id="current-user_avatar">
+    <a href="/">
+        <div class="our_icon" id="our_icon"></div>
+    </a>
+    <a href="#">
+        <div class="icon_tests" id="icon_tests"></div>
+    </a>
+    <a href="#">
+        <div class="ratings" id="ratings"></div>
+    </a>
+        <div class="current_user-bar" id="current-user_avatar">
         {% if user.is_authenticated %}
             <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
             <div class="current-user_avatar"></div>

@@ -1,18 +1,22 @@
 {% load test_math %}
 <div class="card">
-    <div class="icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
-    <div class="title">
-        {{ test.name }}
-    </div>
-    {% if not with_statistics %}
-        <div class="description">
-            {{ test.description }}
+    <div class="image_card">
+        <div class="icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
+        <div class="title_description">
+            <div class="title">
+            {{ test.name }}
         </div>
-    {% endif %}
+            {% if not with_statistics %}
+            <div class="description">
+                {{ test.description }}
+            </div>
+        {% endif %}
+        </div>
+    </div>
     {% if with_statistics %}
         <div class="statistics">
             {% if user %}
-                <div class="stats user">
+                <div class="stats progress_beau">
                     <div class="stats-label">Пройдено {% multiply user_page_res 100 %}%</div>
                     <div class="progress-bar">
                         <div class="line progress" style="--progress: {% to_str user_page_res %};"></div>
@@ -20,7 +24,6 @@
                     </div>
                 </div>
             {% endif %}
-
             {% if user_page %}
                 <div class="stats current_user">
                     <div class="stats-label">Вы прошли на {% multiply user_res 100 %}%</div>

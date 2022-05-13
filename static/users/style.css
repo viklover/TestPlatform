@@ -166,3 +166,87 @@
 .log_out_account {
     color: #FF0000;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+@media (min-width: 320px) {
+    .icon_tests {
+        display: none;
+    }
+
+    .ratings {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .head .burger-menu {
+        display: none;
+    }
+
+    .our_icon {
+        width: 197px;
+        height: 100%;
+        background: url("../logos/logo_short.png") no-repeat center 10px;
+        background-size: 168px;
+    }
+
+    .icon_tests {
+        width: 45px;
+        height: 100%;
+        background: url("../users/icon_tests.png") no-repeat center 10px;
+        background-size: 45px;
+        display: block;
+    }
+
+    .ratings {
+        width: 45px;
+        height: 100%;
+        background: url("../users/ratings.png") no-repeat center 10px;
+        background-size: 45px;
+        display: block;
+    }
+
+    .head {
+        justify-content: space-around;
+    }
+
+    .user {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 33px auto;
+    }
+
+    .user_name, .registration_when {
+        width: 100%;
+    }
+
+    .label {
+        margin: 40px auto 20px 68px;
+        text-align: left;
+    }
+
+    .card .icon {
+        background: url("../users/icon_tests.png") no-repeat center;
+        height: 110px;
+        width: 110px;
+        background-size: 100px;
+        margin: 0;
+    }
+
+    .card .title {
+        width: 100%;
+    }
+
+    .card {
+        min-height: 182px;
+    }
+
+    .progress_beau {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

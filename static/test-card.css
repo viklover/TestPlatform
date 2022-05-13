@@ -1,4 +1,3 @@
-
 .card {
     width: 263px;
     background: #FFFFFF;
@@ -84,4 +83,42 @@
     text-align: center;
     left: 0;
     right: 0;
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: 637px;
+    }
+
+    .card .icon {
+        background: url("../static/users/icon_Proreform_Russia.png") no-repeat center;
+        height: 110px;
+        width: 110px;
+        background-size: 100px;
+        margin: 0;
+    }
+
+    .image_card {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .card .title {
+        width: 100%;
+    }
+
+    .card {
+        min-height: 182px;
+    }
+
+    .card .description {
+        width: 100%;
+        text-align: left;
+    }
+
+    .card .statistics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr)
+    }
 }
