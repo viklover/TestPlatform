@@ -1,23 +1,87 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}ЧТО-ТО{% endblock %}
+{% block title %}{{ test.name }}{% endblock %}
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'tests/style.css' %}">
 {% endblock %}
 
 {% block content %}
-
-    <main>
-        <h2 align="left">{{ test.name }}</h2>
-        <p align="left">{{ test.description }}</p>
-        <a href="/tests/{{ test.id }}/start"><p class="button">Начать прохождение</p></a>
-    </main>
-
+    <div class="header">
+        <div class="burger"></div>
+        <div class="icon_Platform"></div>
+        <div class="icon_tests"></div>
+        <div class="icon_ratings"></div>
+        <a href="/users/{{ user.id }}">
+            <div class="default_avatar"></div>
+        </a>
+    </div>
+    <div class="content">
+        <div class="min_border">
+        <div class="tags_top">
+            <div class="tags">
+            <div class="tag_1">
+                Средняя сложность
+            </div>
+            <div class="tag_2">
+                Заданий: 20
+            </div>
+        </div>
+        <div class="tags_new">
+            <div class="tag_1_new">
+                <p>Колличество прохождений</p>
+                <svg width="4" height="32px" viewBox="20px 0 4 20" fill="" xmlns="http://www.w3.org/2000/svg" style="">
+                    <line x1="2" y1="8.74228e-08" x2="2" y2="20" stroke="white" stroke-width="4" style=""></line>
+                </svg>
+                <p>4</p>
+            </div>
+            <div class="tag_2_new">
+                <p>Средний результат: </p>
+                <svg width="4" height="32px" viewBox="20px 0 4 20" fill="" xmlns="http://www.w3.org/2000/svg" style="">
+                    <line x1="2" y1="8.74228e-08" x2="2" y2="20" stroke="white" stroke-width="4" style=""></line>
+                </svg>
+                <p>57%</p>
+            </div>
+        </div>
+        </div>
+        <div class="border_top">
+            <div class="icon_reform_Russia"></div>
+            <h2 class="name_test">{{ test.name }}</h2>
+            <p class="description_test">{{ test.description }}</p>
+            <a href="/tests/{{ test.id }}/start">
+                <div class="button_start_test">Начать прохождение</div>
+            </a>
+        </div>
+    </div>
+        <div class="border_open_file">
+            <p class="open_description_file">
+                Здесь открывается MarkDown-документ (как в GitHub и GitBucket) (README.md) и.т.д.
+            </p>
+        </div>
+        <div class="comment">Коментарии</div>
+        <div class="border_comment">
+            <input type="text">
+            <a href="/tests/{{ test.id }}/start">
+                    <div class="button_start_test">Отправить</div>
+            </a>
+            <div class="hr_border_comment"></div>
+            <div class="first_comment">
+                <div class="default_avatar"></div>
+                <div class="description_comment_index">
+                    <div class="name">Михаил Воробьёв</div>
+                    <div class="description_comment">Михаил Воробьёв</div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% include 'footer.html' %}
 {% endblock %}
 
 {% block js_scripts %}
-
+<script src=""></script>
 {% endblock %}
+
+{#        <h2 align="left">{{ test.name }}</h2>#}
+{#        <p align="left">{{ test.description }}</p>#}
+{#        <a href="/tests/{{ test.id }}/start"><p class="button">Начать прохождение</p></a>#}
