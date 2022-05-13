@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ user_page.first_name }} {{ user_page.last_name }}{% endblock %}
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'users/style.css' %}">

@@ -40,9 +40,15 @@ body {
     font-weight: bold;
     color: white;
     padding: 7px 12px;
-    border: 2px solid #19058F;
+    border: 2px solid #2C00DE;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     margin: auto;
+    transition: 0.17s;
+}
+
+.button:hover {
+    background-color: white;
+    color: #2C00DE;
 }

@@ -178,15 +178,6 @@ a {
     grid-row-gap: 20px;
 }
 
-@media (min-width: 320px) {
-    .icon_tests {
-        display: none;
-    }
-
-    .ratings {
-        display: none;
-    }
-}
 
 @media(min-width: 700px) {
 
@@ -204,22 +195,6 @@ a {
         height: 100%;
         background: url("../logos/logo_short.png") no-repeat center 10px;
         background-size: 168px;
-    }
-
-    .icon_tests {
-        width: 45px;
-        height: 100%;
-        background: url("../users/icon_tests.png") no-repeat center 10px;
-        background-size: 45px;
-        display: block;
-    }
-
-    .ratings {
-        width: 45px;
-        height: 100%;
-        background: url("../users/ratings.png") no-repeat center 10px;
-        background-size: 45px;
-        display: block;
     }
 
     .head {
