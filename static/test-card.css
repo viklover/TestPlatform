@@ -3,9 +3,9 @@
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
-    margin: auto auto 16px;
+    margin: auto;
     min-height: 340px;
-    height: calc(100% - 45px);
+    height: calc(100% - 55px);
     position: relative;
     padding: 15px 15px 40px;
 }
@@ -35,6 +35,9 @@
 }
 
 .card .statistics {
+    position: absolute;
+    top: 220px;
+    width: 263px;
     display: flex;
     gap: 10px;
     flex-direction: column;
@@ -86,11 +89,12 @@
 }
 
 @media (min-width: 768px) {
-    .card {
+
+    .card-tablet {
         width: 637px;
     }
 
-    .card .icon {
+    .card-tablet .icon {
         background: url("../static/users/icon_Proreform_Russia.png") no-repeat center;
         height: 110px;
         width: 110px;
@@ -98,26 +102,26 @@
         margin: 0;
     }
 
-    .image_card {
+    .card-tablet .image_card {
         display: flex;
         flex-direction: row;
         gap: 20px;
     }
 
-    .card .title {
+    .card-tablet .title {
         width: 100%;
     }
 
-    .card {
+    .card-tablet {
         min-height: 182px;
     }
 
-    .card .description {
+    .card-tablet .description {
         width: 100%;
         text-align: left;
     }
 
-    .card .statistics {
+    .card-tablet .statistics {
         display: grid;
         grid-template-columns: repeat(2, 1fr)
     }

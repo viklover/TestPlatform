@@ -49,7 +49,7 @@
 
         <section class="created_tests">
             <p class="label">Созданные тесты</p>
-            <div class="created_tests-list">
+            <div class="tests-list created_tests-list">
                 {% for test in created_tests %}
                     {{ test }}
                 {% endfor %}
@@ -58,7 +58,7 @@
 
         <section class="finished_tests">
             <p class="label">Пройденные тесты</p>
-            <div class="finished_tests-list">
+            <div class="tests-list finished_tests-list">
                 {% for test in finished_tests %}
                     {{ test }}
                 {% endfor %}

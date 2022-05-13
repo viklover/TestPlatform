@@ -172,6 +172,12 @@ a {
     color: black;
 }
 
+.tests-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-row-gap: 20px;
+}
+
 @media (min-width: 320px) {
     .icon_tests {
         display: none;
@@ -222,8 +228,13 @@ a {
 
     .user {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 300px 400px;
         margin: 33px auto;
+        width: max-content;
+    }
+
+    .user-info {
+        margin-top: 10px;
     }
 
     .user_name, .registration_when {
@@ -252,8 +263,12 @@ a {
     }
 
     .label {
-        margin-left: 20px;
+        margin-left: 25px;
         text-align: left;
+    }
+
+    .tests-list {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -261,5 +276,18 @@ a {
 
     .content {
         width: 900px;
+    }
+
+    .tests-list {
+        margin-left: -10px;
+    }
+
+    .label {
+        margin-left: 0;
+    }
+
+    .tests-list {
+        grid-template-columns: repeat(3, 2fr);
+        grid-column-gap: 20px;
     }
 }

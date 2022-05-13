@@ -5,6 +5,7 @@
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'test-card.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -32,18 +33,7 @@
         </div>
         <div class="cards">
             {% for test in tests %}
-                <div class="card">
-                    <div class="icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
-                    <div class="title">
-                        {{ test.name }}
-                    </div>
-                    <div class="description">
-                        {{ test.description }}
-                    </div>
-                    <div class="button button_start_page" data-url="/tests/{{ test.id }}">
-                            Начать прохождение
-                    </div>
-                </div>
+                {{ test }}
             {% endfor %}
         </div>
         <div style="width: 233px;" class="button new-window" data-url="/tests/{{ test.id }}">

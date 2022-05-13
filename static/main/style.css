@@ -67,56 +67,6 @@ main {
     text-align: center;
 }
 
-.card {
-    width: 263px;
-    padding: 15px;
-    background: #FFFFFF;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    margin: auto;
-    margin-bottom: 16px;
-    min-height: 340px;
-    height: calc(100% - 45px);
-    position: relative;
-}
-
-.card .icon {
-    background: var(--icon-url) no-repeat center 23px;
-    height: 130px;
-    background-size: 100px;
-}
-
-.card .title {
-    width: 240px;
-    font-weight: 700;
-    font-size: 23px;
-    text-align: center;
-    margin: auto;
-    padding-bottom: 10px;
-}
-
-.card .description {
-    height: 76px;
-    width: 230px;
-    margin: 0 auto;
-    text-align: center;
-    padding-bottom: 29px;
-}
-
-.card .button_start_page {
-    position: absolute;
-    bottom: 15px;
-    width: 224px;
-    border-radius: 5px;
-    color: white;
-    background-color: #3300FF;
-    font-size: 17px;
-    font-weight: bold;
-    padding: 7px 12px;
-    border: 2px solid #19058F;
-    text-align: center;
-}
-
 .what_wait {
     width: 281px;
     font-weight: 700;
@@ -141,6 +91,12 @@ main {
 .button_end_page {
     display: block;
     margin: auto;
+}
+
+.cards {
+    display: grid;
+    row-gap: 30px;
+    margin: auto auto 15px;
 }
 
 @media (min-width: 768px) {
@@ -178,10 +134,9 @@ main {
     }
 
     .cards {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
+        row-gap: 30px;
         width: 630px;
-        margin: auto;
     }
 
     .what_wait {
