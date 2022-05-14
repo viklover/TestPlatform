@@ -99,7 +99,6 @@ input {
 
 .href_enter p {
     text-align: center;
-    padding-bottom: 165px;
 }
 
 .href_enter a {
@@ -119,5 +118,11 @@ input {
         margin: 20px auto;
         font-size: 19px;
         border-radius: 5px;
+    }
+}
+
+@media (min-width: 1024px) {
+    main {
+        margin-bottom: 189px;
     }
 }
