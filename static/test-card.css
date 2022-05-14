@@ -10,6 +10,11 @@
     padding: 15px 15px 40px;
 }
 
+.tests-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .card .icon {
     background: var(--icon-url) no-repeat center;
     height: 110px;
