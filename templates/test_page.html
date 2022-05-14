@@ -65,16 +65,14 @@
         </div>
         <div class="comment">Коментарии</div>
         <div class="border_comment">
-            <input type="text">
-            <a href="/tests/{{ test.id }}/start">
-                    <div class="button_start_test">Отправить</div>
-            </a>
+            <input type="text" id="input">
+            <div class="button_start_test" id="sent_comment">Отправить</div>
             <div class="hr_border_comment"></div>
             <div class="first_comment">
                 <div class="default_avatar"></div>
                 <div class="description_comment_index">
                     <div class="name">Михаил Воробьёв</div>
-                    <div class="description_comment">Михаил Воробьёв</div>
+                    <div class="description_comment" id="description_comment"></div>
                 </div>
             </div>
         </div>
@@ -83,7 +81,7 @@
 {% endblock %}
 
 {% block js_scripts %}
-<script src=""></script>
+<script src="/static/tests/comments.js"></script>
 {% endblock %}
 
 {#        <h2 align="left">{{ test.name }}</h2>#}
