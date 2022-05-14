@@ -3,7 +3,7 @@
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
-    margin: auto;
+    margin: auto auto;
     min-height: 340px;
     height: calc(100% - 55px);
     position: relative;
@@ -82,10 +82,17 @@
     font-size: 17px;
     font-weight: bold;
     padding: 7px 12px;
-    border: 2px solid #19058F;
     text-align: center;
     left: 0;
     right: 0;
+    border: 2px solid #2C00DE;
+}
+
+.card .button_start_page:hover {
+    background-color: #FFFFFF;
+    border: 2px solid #2C00DE;
+    border-radius: 5px;
+    color: #3300FF;
 }
 
 @media (min-width: 768px) {
