@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import include, path
 
 from . import settings
-from .views import index, register_request, user_page, your_page
+from .views import index, register_request, user_page, your_page, users_page, ratings_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/', users_page),
     path('users/<int:user_id>', user_page),
     path('users/you', your_page),
+    path('ratings/', ratings_page),
     path('tests/', include('tests.urls')),
     path('editor/', include('editor.urls')),
     path('accounts/', include('django.contrib.auth.urls')),

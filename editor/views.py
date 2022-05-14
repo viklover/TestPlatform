@@ -12,7 +12,7 @@ def editor_page(request):
         'published_tests': Test.objects.filter(author_id=request.user.id, published=True),
         'development_tests': Test.objects.filter(author_id=request.user.id, published=False)
     }
-    return render(request, template_name='editor.html', context=context)
+    return render(request, template_name='editor/editor.html', context=context)
 
 
 @login_required
@@ -26,7 +26,7 @@ def creation_test(request):
                 }
             )
         }
-        return render(request, template_name='creation_page.html', context=context)
+        return render(request, template_name='editor/creation_page.html', context=context)
 
     test = Test(author=request.user)
     form = CreationTestForm(request.POST, request.FILES, instance=test)

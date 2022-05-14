@@ -5,6 +5,7 @@
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'test-card.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,11 +14,7 @@
     <main>
         <div class="tests-list">
             {% for test in tests %}
-                <div class="test-card">
-                    <h2 class="name">{{ test.name }}</h2>
-                    <p class="description">{{ test.description }}</p>
-                    <a href="/tests/{{ test.id }}"><p class="button">Перейти к тесту</p></a>
-                </div>
+                {{ test }}
             {% endfor %}
         </div>
     </main>

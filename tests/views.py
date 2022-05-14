@@ -2,20 +2,22 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from tests.models import Test, Task
+from tests.models.test import TestComment
 
 
 def tests_page(request):
     context = {
         'tests': Test.objects.filter(published=True)
     }
-    return render(request, 'tests_page.html', context)
+    return render(request, 'tests/tests_page.html', context)
 
 
 def test_page(request, test_id):
     context = {
-        'test': Test.objects.get(id=test_id)
+        'test': Test.objects.get(id=test_id),
+        'comments': TestComment.objects.filter(test_id=test_id).order_by('-published')
     }
-    return render(request, 'test_page.html', context)
+    return render(request, 'tests/test_page.html', context)
 
 
 @login_required
@@ -26,7 +28,20 @@ def open_test(request, test_id):
         'task': tasks.first(),
         'tasks': tasks
     }
-    return render(request, 'task.html', context)
+    return render(request, 'tests/task.html', context)
+
+
+@login_required
+def upload_comment(request, test_id):
+
+    if request.POST and request.POST.get('text', None) is not None:
+        comment = TestComment()
+        comment.test = Test.objects.get(id=test_id)
+        comment.user = request.user
+        comment.text = request.POST['text']
+        comment.save()
+
+    return open_test(request, test_id)
 
 
 @login_required
@@ -37,4 +52,4 @@ def open_task(request, test_id, task_number):
         'task': tasks.get(task_number),
         'tasks': tasks
     }
-    return render(request, 'task.html', context)
+    return render(request, 'tests/task.html', context)

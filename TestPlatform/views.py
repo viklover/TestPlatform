@@ -35,6 +35,12 @@ def register_request(request):
 
 
 @login_required
+def users_page(request):
+    context = {}
+    return render(request, "users/users_page.html", context)
+
+
+@login_required
 def user_page(request, user_id):
     context = {
         'user_page': User.objects.get(id=user_id),
@@ -51,6 +57,12 @@ def user_page(request, user_id):
 @login_required
 def your_page(request):
     return user_page(request, request.user.id)
+
+
+@login_required
+def ratings_page(request):
+    context = {}
+    return render(request, "ratings/ratings_page.html", context)
 
 
 def logout(request):
