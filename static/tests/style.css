@@ -186,6 +186,14 @@ a .default_avatar {
     cursor: pointer;
     text-align: center;
     margin: auto;
+    border: 2px solid #2C00DE;
+}
+
+.button_start_test:hover {
+    background-color: #FFFFFF;
+    border: 2px solid #2C00DE;
+    border-radius: 5px;
+    color: #3300FF;
 }
 
 a {
@@ -255,7 +263,7 @@ input {
 }
 
 @media (min-width: 320px) {
-    .icon_Platform {
+    a .icon_Platform {
         display: none;
     }
     .content {
@@ -315,7 +323,7 @@ input {
         display: none;
     }
 
-    .icon_Platform {
+    a .icon_Platform {
         display: block;
         width: 168px;
         height: 70px;
