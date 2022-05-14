@@ -262,7 +262,7 @@ input {
         margin: auto;
     }
 
-    .icon_tests {
+    a .icon_tests {
         display: none;
     }
 
@@ -323,7 +323,7 @@ input {
         background-size: 168px;
     }
 
-    .icon_tests {
+    a .icon_tests {
         display: block;
         width: 45px;
         height: 70px;
@@ -358,5 +358,44 @@ input {
     .border_comment {
         width: 602px;
         margin: auto;
+    }
+
+    .border_comment input {
+        width: 556px;
+    }
+
+    .first_comment {
+        gap: 58px;
+        width: 554px;
+    }
+
+    .hr_border_comment {
+        width: 554px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .min_border {
+        width: 819px;
+    }
+
+    .border_open_file {
+        width: 819px;
+    }
+
+    .border_comment {
+        width: 819px;
+    }
+
+    .border_comment input {
+        width: 770px;
+    }
+
+    .hr_border_comment {
+        width: 762px;
+    }
+
+    .first_comment {
+        width: 762px;
     }
 }
