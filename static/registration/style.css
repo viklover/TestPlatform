@@ -50,7 +50,7 @@ input {
     font-weight: bold;
     color: white;
     padding: 7px 0;
-    border: 0px solid #19058F;
+    border: 2px solid #19058F;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -79,10 +79,12 @@ input {
 .download_ava {
     width: 121px;
     height: 29px;
+    color: white;
     background: #3300FF;
     border-radius: 5px;
-    border: 0;
+    border: 0 solid #19058F;
     margin: 0 0 0 23px;
+    text-align: center;
 }
 
 .image_desktop_ava {
@@ -115,6 +117,11 @@ input {
 @media (min-width: 768px) {
     .form-login {
         width: 534px;
+    }
+
+    .download_ava {
+        width: 346px;
+        margin: 0 auto;
     }
 }
 
