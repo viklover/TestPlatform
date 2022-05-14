@@ -1,12 +1,19 @@
 
 .head {
     width: 100%;
-    height: 72px;
+    height: 50px;
     background: #FFFFFF;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+.header_padding {
+    margin-top: 80px;
 }
 
 .head .content {
@@ -18,16 +25,18 @@
 }
 
 .head .burger-menu {
-    width: 50px;
-    height: 75px;
+    width: 40px;
+    height: 40px;
     background: url('users/burger.png') no-repeat left;
     background-size: 41px;
     margin-left: 15px;
+    margin-top: 5px;
 }
 
 .head .current_user-bar {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 }
 
 .head .current_user-bar .username {
@@ -38,19 +47,56 @@
 }
 
 .head .current-user_avatar {
-    width: 80px;
-    background: url("users/default_avatar.png") no-repeat center;
-    background-size: 55px;
+    width: 54px;
+    background: url('users/default_avatar.png') no-repeat center;
+    background-size: 46px;
     border-radius: 5px;
+    padding-right: 15px;
 }
 
 .head .pages {
     display: flex;
     flex-direction: row;
     gap: 30px;
+    padding-right: 150px;
 }
 
-@media(min-width: 700px) {
+.head .menu-button {
+    display: none;
+}
+
+
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    width: max-content;
+    left: 0; right: 0; top: 50px;
+    text-align: center;
+    background: white;
+    color: black;
+    padding: 0.3em 0.5em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.2s;
+    border-radius: 5px;
+    font-family: 'ProximaNova', sans-serif;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    top: 80px;
+}
+
+@media(min-width: 768px) {
+
+    .head {
+        height: 73px;
+    }
 
     .head .content {
         width: 700px;
@@ -60,7 +106,38 @@
         display: none;
     }
 
-    .head .current_user-bar .username {
+    .header_padding {
+        margin-top: 100px;
+    }
+
+    .head .menu-button {
+        display: block;
+    }
+
+    .head .tests {
+        width: 45px;
+        height: 100%;
+        background: url("users/icon_tests.png") no-repeat center 10px;
+        background-size: 45px;
+        background-position-y: center;
+        display: block;
+    }
+
+    .head .ratings {
+        width: 45px;
+        height: 100%;
+        background: url("users/ratings_v3.png") no-repeat center 10px;
+        background-size: 45px;
+        background-position-y: 18px;
+        display: block;
+    }
+
+    .head .society {
+        width: 65px;
+        height: 100%;
+        background: url(society.png) no-repeat center 10px;
+        background-size: 65px;
+        background-position-y: center;
         display: block;
     }
 }
@@ -73,7 +150,10 @@
     }
 
     .head .pages {
-        padding-right: 240px;
+        padding-right: 180px;
     }
 
+    .head .current_user-bar .username {
+        display: block;
+    }
 }
