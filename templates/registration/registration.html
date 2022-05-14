@@ -22,9 +22,9 @@
                 <p class="label_ava">Аватарка</p>
                 <div class="image_desktop_ava">
                     <img src="../../static/img_registration/desktop_ava.png" alt="">
-                    <button class="download_ava">
-                        <p>Загрузить свою</p>
-                    </button>
+                    <button class="download_ava" href=# onclick=document.forms['f1'].elements['el1'].click()>
+    <p>Загрузить свою</p>
+</button>
                 </div>
               <button class="submit-button" type="submit" name="submit-button">Зарегистрироваться</button>
             </form>
@@ -36,5 +36,5 @@
 {% endblock %}
 
 {% block js_scripts %}
-
+    <script src="/static/registration/registration.js"></script>
 {% endblock %}

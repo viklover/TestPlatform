@@ -17,8 +17,8 @@
             <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 <div class="flex-row nickname">
-                    <label for="username">Логин</label>
-                    <input type="text" id="username" name="username" placeholder="Введите ваш логин или email" required>
+                    <label for="username">Логин или email</label>
+                    <input type="text" id="username" name="username" placeholder="Введите логин или email" required>
                 </div>
                 <div class="flex-row password">
                     <label for="password">Пароль</label>
