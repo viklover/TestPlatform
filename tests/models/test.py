@@ -59,3 +59,10 @@ class TestFact(models.Model):
 
     def finish(self):
         self.finished_at = datetime.datetime.now()
+
+
+class TestComment(models.Model):
+    message = models.TextField(null=False)
+    test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
+    published = models.DateField(auto_created=True)
