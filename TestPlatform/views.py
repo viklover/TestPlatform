@@ -10,12 +10,15 @@ from tests.models import Test, User
 
 
 def index(request):
-    context = {
-        'tests': Test.objects.filter(published=True).order_by('-count_of_passes')[:3]
-    }
-    for test in context['tests']:
-        print(test.name, test.description)
-    return render(request, 'index.html', context)
+    if not request.user.is_authenticated:
+        context = {
+            'tests': Test.objects.filter(published=True).order_by('-count_of_passes')[:3]
+        }
+        for test in context['tests']:
+            print(test.name, test.description)
+        return render(request, 'index.html', context)
+
+    return your_page(request)
 
 
 def register_request(request):
@@ -43,6 +46,11 @@ def user_page(request, user_id):
         context['finished_tests'].append(test.get_statistics_differences(request.user, context['user_page']))
 
     return render(request=request, template_name="users/user.html", context=context)
+
+
+@login_required
+def your_page(request):
+    return user_page(request, request.user.id)
 
 
 def logout(request):
