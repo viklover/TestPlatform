@@ -4,14 +4,22 @@
 {% block title %}Рейтинг{% endblock %}
 
 {% block css_styles %}
-
+<link rel="stylesheet" href="{% static 'ratings/ratings.css' %}">
 {% endblock %}
 
 {% block content %}
 
     {% include 'header.html' %}
 
-
+    <div class="top_information">
+        <div class="icon_ratings"></div>
+            <div class="ratings_text_black">
+                Рейтинг
+            </div>
+            <div class="ratings_text_blue">
+                Топ 5
+            </div>
+    </div>
 
     {% include 'footer.html' %}
 

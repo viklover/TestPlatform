@@ -1,0 +1,34 @@
+.top_information {
+    display: flex;
+    flex-direction: row;
+    gap: 11px;
+}
+
+.icon_ratings {
+    width: 65px;
+    height: 41px;
+    background: url("icon_ratings.png") no-repeat left;
+    background-size: 45px;
+    margin: 14px 14px;
+}
+
+.ratings_text_blue {
+    margin: 14px;
+    width: 102px;
+    height: 28px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    text-align: right;
+    color: #2C00DE;
+}
+
+.ratings_text_black {
+    margin: 14px;
+    width: 102px;
+    height: 28px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    text-align: center;
+}
