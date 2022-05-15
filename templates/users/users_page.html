@@ -4,14 +4,50 @@
 {% block title %}Сообщество{% endblock %}
 
 {% block css_styles %}
-
+<link href="/static/users/users_page.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 
     {% include 'header.html' %}
-
-
+        <div class="iconANDname">
+            <div class="icon"></div>
+            <div class="name">
+                Сообщество
+            </div>
+        </div>
+<div class="borders">
+       <div class="border">
+        <div class="content_1">
+            <div class="flex">
+                <div class="image"></div>
+                <div class="name_nickname">
+                    <div class="name">Георгий Панов</div>
+                    <div class="nickname">py lifor</div>
+                </div>
+            <div class="icon_link_account"></div>
+            <button class="button_user_page">
+                Перейти
+            </button>
+            </div>
+    </div>
+        </div>
+    <div class="border">
+        <div class="content_1">
+            <div class="flex">
+                <div class="image"></div>
+                <div class="name_nickname">
+                    <div class="name">Георгий Панов</div>
+                    <div class="nickname">py lifor</div>
+                </div>
+            <div class="icon_link_account"></div>
+            <button class="button_user_page">
+                Перейти
+            </button>
+            </div>
+    </div>
+        </div>
+</div>
 
     {% include 'footer.html' %}
 

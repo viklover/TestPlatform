@@ -1,0 +1,172 @@
+.iconANDname {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: auto;
+}
+
+.iconANDname .icon {
+    width: 57px;
+    height: 62px;
+    background: url("icon_network.png") no-repeat center 19px;
+    background-size: 57px;
+    padding-left: 6px;
+}
+
+.iconANDname .name {
+    width: 152px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    margin: 25px 0;
+}
+
+.border {
+    width: 100%;
+    height: 119px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.border .image {
+    width: 40px;
+    height: 50px;
+    background: url("MaichailVorobiew.png") no-repeat left 11px;
+    background-size: 40px;
+    border-radius: 5px;
+    position: absolute;
+    left: 16px;
+}
+
+.name_nickname .name {
+    width: 198px;
+    height: 22px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.name_nickname {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 100px;
+    padding: 10px 0;
+}
+
+.name_nickname .nickname {
+    width: 198px;
+    height: 22px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #656565;
+}
+
+.button_user_page {
+    width: 287px;
+    height: 28px;
+    left: 18px;
+    margin: 60px 0;
+    background: #3300FF;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    color: #FFFFFF;
+    position: absolute;
+    border: 2px solid #3300FF;
+}
+
+.button_user_page:hover {
+    background-color: #FFFFFF;
+    color: #3300FF;
+}
+
+.borders {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content_1 {
+    margin: auto;
+}
+
+
+@media (min-width: 320px) {
+    .icon_link_account {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .iconANDname {
+        width: 225px;
+    }
+
+    .border {
+        width: 413px;
+        margin: auto;
+    }
+
+    .border .image {
+        position: relative;
+        margin: 0 16px;
+    }
+
+    .name_nickname {
+        position: absolute;
+        left: 300px;
+    }
+
+    .button_user_page {
+        display: none;
+    }
+
+    .flex {
+        flex-direction: row;
+    }
+
+    .icon_link_account {
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        margin: 10px 10px;
+        background: url("icon_link_account.png") no-repeat center;
+        background-size: 40px;
+        left: 526px;
+    }
+
+    .border {
+        height: 70px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .name_nickname {
+        left: 400px;
+    }
+
+    .icon_link_account {
+        left: 660px;
+    }
+
+    .border {
+        width: 497px;
+    }
+
+    .icon_link_account {
+        left: 700px;
+    }
+}
