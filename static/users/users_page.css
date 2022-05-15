@@ -125,7 +125,6 @@
 
     .name_nickname {
         position: absolute;
-        left: 300px;
     }
 
     .button_user_page {
@@ -154,19 +153,16 @@
 }
 
 @media (min-width: 1024px) {
-    .name_nickname {
-        left: 400px;
-    }
-
     .icon_link_account {
-        left: 660px;
+        left: 429px;
     }
 
     .border {
         width: 497px;
+        position: relative;
     }
 
     .icon_link_account {
-        left: 700px;
+        right: 700px;
     }
 }
