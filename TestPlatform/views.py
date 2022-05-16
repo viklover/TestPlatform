@@ -38,7 +38,9 @@ def register_request(request):
 
 @login_required
 def users_page(request):
-    context = {}
+    context = {
+        'users': User.objects.all()
+    }
     return render(request, "users/users_page.html", context)
 
 
