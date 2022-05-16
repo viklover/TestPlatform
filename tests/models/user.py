@@ -8,7 +8,6 @@ def user_media_path(instance, filename):
 
 
 class User(AbstractUser):
-    nickname = models.CharField(max_length=25)
     email = models.EmailField()
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
