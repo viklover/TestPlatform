@@ -30,7 +30,7 @@
                             <div class="image" style="--avatar-url: url('/media/{{ user.avatar }}')"></div>
                             <div class="name_nickname">
                                 <div class="name">{{ user.first_name }} {{ user.last_name }}</div>
-                                <div class="nickname">{{ user.nickname }}</div>
+                                <div class="nickname">{{ user.username }}</div>
                             </div>
                             <a href="/users/{{ user.id }}">
                                 <div class="icon_link_account"></div>
@@ -43,22 +43,6 @@
                 </div>
 
             {% endfor %}
-
-            <div class="border">
-                <div class="content_1">
-                    <div class="flex">
-                        <div class="image"></div>
-                        <div class="name_nickname">
-                            <div class="name">Георгий Панов</div>
-                            <div class="nickname">py lifor</div>
-                        </div>
-                        <div class="icon_link_account"></div>
-                        <button class="button_user_page">
-                            Перейти
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>
