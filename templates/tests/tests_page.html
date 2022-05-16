@@ -6,19 +6,24 @@
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
     <link rel="stylesheet" href="{% static 'test-card.css' %}">
-    <link rel="stylesheet" href="{% static 'tests-page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tests-page.css' %}">
 {% endblock %}
 
 {% block content %}
     {% include 'header.html' %}
 
-    <main>
+    <div class="content">
+        <div class="top-title">
+            <div class="tests-tab-icon"></div>
+            <p class="title">Список тестов</p>
+        </div>
         <div class="tests-list">
             {% for test in tests %}
                 {{ test }}
             {% endfor %}
         </div>
-    </main>
+    </div>
 
 
     {% include 'footer.html' %}
