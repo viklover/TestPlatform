@@ -32,3 +32,136 @@
     line-height: 29px;
     text-align: center;
 }
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card {
+    width: 100%;
+    height: 142px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.card .number {
+    width: 29px;
+    margin: 58px 0;
+    height: 27px;
+    left: 15px;
+    position: absolute;
+    font-size: 25px;
+    line-height: 29px;
+    text-align: center;
+}
+
+.hr {
+    width: 142px;
+    height: 0;
+    position: absolute;
+    margin-top: 69px;
+    border: 2px solid #000000;
+    transform: rotate(90deg);
+}
+
+.image_name {
+    display: flex;
+    flex-direction: row;
+    width: 225px;
+    margin: 11px 95px;
+    gap: 10px;
+}
+
+.image {
+    width: 40px;
+    height: 40px;
+    background: url("../users/MaichailVorobiew.png") no-repeat center;
+    border-radius: 5px;
+    background-size: 40px;
+}
+
+.name_surname {
+    width: 198px;
+    height: 0;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    margin: 5px 0;
+}
+
+.label {
+    width: 222px;
+    height: 15px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 15px;
+    color: #2C00DE;
+    margin: 0 95px;
+}
+
+.card .progress-bar .progress {
+    position: absolute;
+    background: #2C00DE;
+    width: calc(var(--max-width) * var(--progress));
+}
+
+.card .line {
+    --max-width: 243px;
+    height: 5px;
+    margin: 0 10px;
+    width: calc(100% - 20px);
+    max-width: var(--max-width);
+}
+
+.card .progress-bar .background {
+    background: #A6A6A6;
+}
+
+.card .line {
+    --max-width: 210px;
+    height: 5px;
+    margin: 0 96px;
+    width: calc(100% - 20px);
+    max-width: var(--max-width);
+}
+
+.button_user_page {
+    width: 220px;
+    height: 28px;
+    background: #3300FF;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 10px 0;
+    border: 2px solid #3300FF;
+    left: 95px;
+    position: absolute;
+}
+
+.button_user_page:hover {
+    background-color: #FFFFFF;
+    color: #3300FF;
+}
+
+@media (min-width: 768px) {
+    .top_information {
+        width: 351px;
+        margin: auto;
+    }
+
+    .card {
+        width: 479px;
+        margin: auto;
+        position: relative;
+    }
+}
+
+@media (min-width: 1024px) {
+
+}
