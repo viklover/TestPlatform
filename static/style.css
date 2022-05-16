@@ -35,16 +35,18 @@ body {
 }
 
 .button {
+    display: block;
     background-color: #3300FF;
     font-size: 17px;
     font-weight: bold;
     color: white;
     padding: 7px 12px;
+    width: max-content;
+    margin: 0 auto;
     border: 2px solid #2C00DE;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
-    margin: auto;
     transition: 0.17s;
 }
 

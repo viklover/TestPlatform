@@ -3,8 +3,8 @@
     position: relative;
     width: 256px;
     height: 256px;
-    background: url("image_Panov_Georgii.png") no-repeat center;
-    background-size: 267px;
+    background: var(--avatar-url) no-repeat center;
+    background-size: 256px;
     border-radius: 5px;
     margin: 10px auto;
 }
@@ -189,17 +189,6 @@ a {
 }
 
 @media (min-width: 768px) {
-
-    .our_icon {
-        width: 197px;
-        height: 100%;
-        background: url("../logos/logo_short.png") no-repeat center 10px;
-        background-size: 168px;
-    }
-
-    .head {
-        justify-content: space-around;
-    }
 
     .user {
         display: grid;

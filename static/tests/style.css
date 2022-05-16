@@ -1,11 +1,11 @@
-.button {
-    display: inline-block;
-    padding: 5px 10px;
-    color: white;
-    margin: 0;
-    background-color: blue;
-    cursor: pointer;
-}
+/*.button {*/
+/*    display: inline-block;*/
+/*    padding: 5px 10px;*/
+/*    color: white;*/
+/*    margin: 0;*/
+/*    background-color: blue;*/
+/*    cursor: pointer;*/
+/*}*/
 
 .header {
     width: 100% ;
@@ -28,7 +28,7 @@
 a .default_avatar {
     width: 80px;
     height: 100%;
-    background: url("../users/default_avatar.png") no-repeat center;
+    background: url("../../media/avatar.png") no-repeat center;
     background-size: 55px;
     border-radius: 5px;
 }
@@ -240,7 +240,7 @@ a {
     gap: 10px;
 }
 
-.border_comment input {
+.border_comment input[type="text"] {
     box-sizing: border-box;
     width: 296px;
     height: 62px;
@@ -258,7 +258,7 @@ a {
     margin: 11px auto 11px auto;
 }
 
-input {
+input[type="text"] {
     outline: blue;
 }
 
@@ -293,7 +293,7 @@ input {
     .first_comment .default_avatar {
         width: 45px;
         height: 45px;
-        background: url("../users/default_avatar.png") no-repeat center;
+        background: url("../../media/avatar.png") no-repeat center;
         background-size: 45px;
         border-radius: 5px;
     }
@@ -368,7 +368,7 @@ input {
         margin: auto;
     }
 
-    .border_comment input {
+    .border_comment input[type="text"] {
         width: 556px;
     }
 
@@ -395,7 +395,7 @@ input {
         width: 819px;
     }
 
-    .border_comment input {
+    .border_comment input[type="text"] {
         width: 770px;
     }
 

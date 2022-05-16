@@ -8,19 +8,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="header">
-        <div class="burger"></div>
-        <a href="/">
-            <div class="icon_Platform"></div>
-        </a>
-        <a href="/tests">
-            <div class="icon_tests"></div>
-        </a>
-        <div class="icon_ratings"></div>
-        <a href="/users/{{ user.id }}">
-            <div class="default_avatar"></div>
-        </a>
-    </div>
+
+    {% include 'header.html' %}
+
     <div class="content">
         <div class="min_border">
         <div class="tags_top">
@@ -54,7 +44,7 @@
             <h2 class="name_test">{{ test.name }}</h2>
             <p class="description_test">{{ test.description }}</p>
             <a href="/tests/{{ test.id }}/start">
-                <div class="button_start_test">Начать прохождение</div>
+                <div class="button">Начать прохождение</div>
             </a>
         </div>
     </div>
