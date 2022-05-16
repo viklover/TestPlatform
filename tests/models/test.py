@@ -56,6 +56,7 @@ class TestFact(models.Model):
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
     started_at = models.DateField(auto_now_add=True)
     finished_at = models.DateField(null=True)
+    completed = models.BooleanField(default=False)
 
     def finish(self):
         self.finished_at = datetime.datetime.now()

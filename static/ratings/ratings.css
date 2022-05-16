@@ -1,19 +1,39 @@
+
+.content {
+    width: 320px;
+    margin: auto;
+}
+
 .top_information {
     display: flex;
     flex-direction: row;
-    gap: 11px;
+    justify-content: space-between;
 }
 
-.icon_ratings {
-    width: 65px;
+.top-title {
+    display: flex;
+    flex-direction: row;
+}
+
+.top-title .icon_ratings {
+    width: 55px;
     height: 41px;
     background: url("icon_ratings.png") no-repeat left;
     background-size: 45px;
-    margin: 14px 14px;
+    margin: 14px 0 14px 14px;
+}
+
+.top-title .ratings_text_black {
+    width: 102px;
+    height: 28px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    text-align: center;
+    margin: 23px 14px 14px 0;
 }
 
 .ratings_text_blue {
-    margin: 14px;
     width: 102px;
     height: 28px;
     font-weight: 700;
@@ -21,16 +41,7 @@
     line-height: 29px;
     text-align: right;
     color: #2C00DE;
-}
-
-.ratings_text_black {
-    margin: 14px;
-    width: 102px;
-    height: 28px;
-    font-weight: 700;
-    font-size: 25px;
-    line-height: 29px;
-    text-align: center;
+    margin: 22px 14px 0;
 }
 
 .cards {
@@ -40,45 +51,53 @@
 }
 
 .card {
+    --content-m-left: -20px;
     width: 100%;
     height: 142px;
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
+    position: relative;
+}
+
+.card .rating-place {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    width: 50px;
 }
 
 .card .number {
     width: 29px;
-    margin: 58px 0;
     height: 27px;
-    left: 15px;
-    position: absolute;
     font-size: 25px;
     line-height: 29px;
     text-align: center;
+    margin: auto;
 }
 
-.hr {
-    width: 142px;
-    height: 0;
-    position: absolute;
-    margin-top: 69px;
-    border: 2px solid #000000;
-    transform: rotate(90deg);
+.card .rating-place .hr {
+    height: 100%;
+    border: 1px solid #000000;
+    background-color: black;
 }
 
 .image_name {
     display: flex;
     flex-direction: row;
-    width: 225px;
-    margin: 11px 95px;
+    width: max-content;
+    margin: 11px 85px;
     gap: 10px;
+    position: absolute;
+    top: 0;
+    left: var(--content-m-left);
 }
 
 .image {
     width: 40px;
     height: 40px;
-    background: url("../users/MaichailVorobiew.png") no-repeat center;
+    background: var(--avatar-url) no-repeat center;
     border-radius: 5px;
     background-size: 40px;
 }
@@ -93,27 +112,23 @@
 }
 
 .label {
-    width: 222px;
+    width: max-content;
     height: 15px;
     font-weight: 700;
     font-size: 13px;
     line-height: 15px;
     color: #2C00DE;
-    margin: 0 95px;
+    margin: 0 85px;
+    position: absolute;
+    left: var(--content-m-left);
+    top: 60px;
 }
 
 .card .progress-bar .progress {
     position: absolute;
     background: #2C00DE;
     width: calc(var(--max-width) * var(--progress));
-}
-
-.card .line {
-    --max-width: 243px;
-    height: 5px;
-    margin: 0 10px;
-    width: calc(100% - 20px);
-    max-width: var(--max-width);
+    z-index: 5;
 }
 
 .card .progress-bar .background {
@@ -121,16 +136,19 @@
 }
 
 .card .line {
-    --max-width: 210px;
+    --max-width: 235px;
     height: 5px;
-    margin: 0 96px;
+    margin: 0 85px;
     width: calc(100% - 20px);
     max-width: var(--max-width);
+    position: absolute;
+    top: 80px;
+    left: var(--content-m-left);
 }
 
 .button_user_page {
-    width: 220px;
-    height: 28px;
+    width: 235px;
+    height: 33px;
     background: #3300FF;
     border-radius: 5px;
     font-weight: 700;
@@ -138,10 +156,11 @@
     line-height: 18px;
     text-align: center;
     color: #FFFFFF;
-    margin: 10px 0;
     border: 2px solid #3300FF;
-    left: 95px;
     position: absolute;
+    padding: 0;
+    bottom: 10px;
+    left: 63px;
 }
 
 .button_user_page:hover {
@@ -150,15 +169,32 @@
 }
 
 @media (min-width: 768px) {
+
+    .content {
+        width: 700px;
+        margin: auto;
+    }
+
+    .cards {
+        gap: 25px;
+    }
+
     .top_information {
-        width: 351px;
+        width: 490px;
         margin: auto;
     }
 
     .card {
         width: 479px;
         margin: auto;
-        position: relative;
+    }
+
+    .card .line {
+        --max-width: 395px;
+    }
+
+    .label {
+        font-size: 16px;
     }
 }
 

@@ -8,6 +8,7 @@ from django.contrib import messages
 
 from TestPlatform.forms import RegistrationForm
 from tests.models import Test, User, Task
+from tests.models.test import TestFact
 
 
 def index(request):
@@ -62,7 +63,23 @@ def your_page(request):
 
 @login_required
 def ratings_page(request):
-    context = {}
+    context = {
+        'data': []
+    }
+
+    order = 1
+    for user in User.objects.order_by('-last_login')[:5]:
+
+        stats = {
+            'completed_tasks': 10,
+            'amount_tasks': 37
+        }
+        stats['completed_in_percents'] = stats['completed_tasks'] / stats['amount_tasks']
+
+        context['data'].append([order, user, stats])
+
+        order += 1
+
     return render(request, "ratings/ratings_page.html", context)
 
 
