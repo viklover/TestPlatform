@@ -18,7 +18,7 @@
         <div class="current_user-bar" id="current-user_avatar">
             {% if user.is_authenticated %}
                 <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
-                <div class="current-user_avatar"></div>
+                <div class="current-user_avatar" style="--avatar-url: url('/media/{{ request.user.avatar }}');"></div>
             {% else %}
 
             {% endif %}

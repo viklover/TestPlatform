@@ -48,7 +48,7 @@
 
 .head .current-user_avatar {
     width: 54px;
-    background: url('../media/avatar.png') no-repeat center;
+    background: var(--avatar-url) no-repeat center;
     background-size: 46px;
     border-radius: 5px;
     padding-right: 15px;

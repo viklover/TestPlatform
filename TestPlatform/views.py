@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -6,7 +7,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 
 from TestPlatform.forms import RegistrationForm
-from tests.models import Test, User
+from tests.models import Test, User, Task
 
 
 def index(request):
@@ -23,7 +24,7 @@ def index(request):
 
 def register_request(request):
     if request.method == "POST":
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -31,7 +32,7 @@ def register_request(request):
             return redirect("/")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = RegistrationForm()
-    return render(request=request, template_name="registration/registration.html", context={"register_form": form})
+    return render(request=request, template_name="registration/registration.html", context={"form": form})
 
 
 @login_required
