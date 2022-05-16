@@ -48,6 +48,7 @@
 
 .head .current-user_avatar {
     width: 54px;
+    height: 100%;
     background: url('../media/avatar.png') no-repeat center;
     background-size: 46px;
     border-radius: 5px;
@@ -57,7 +58,6 @@
 .head .pages {
     display: flex;
     flex-direction: row;
-    gap: 30px;
     padding-right: 150px;
 }
 
@@ -95,6 +95,38 @@
     font-family: 'ProximaNova', sans-serif;
 }
 
+/*окно при наведении*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+     display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    margin: 10px 0 0 -103px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/*окно закончилось*/
 [data-tooltip]:hover::after {
     opacity: 1;
     top: 80px;

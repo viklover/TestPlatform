@@ -1,6 +1,13 @@
 <div class="head" style="">
     <div class="content">
-        <div class="burger-menu" id="burger"></div>
+        <div class="dropdown">
+            <div class="burger-menu" id="burger"></div>
+            <div class="dropdown-content" style="left: 0;">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </div>
         <a href="/" data-tooltip="Главная страница">
             <div class="our_icon" id="our_icon"></div>
         </a>
@@ -18,7 +25,22 @@
         <div class="current_user-bar" id="current-user_avatar">
             {% if user.is_authenticated %}
                 <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
-                <div class="current-user_avatar"></div>
+                <div class="dropdown">
+                    <div class="current-user_avatar"></div>
+                    <div class="dropdown-content" style="left: 0;">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+{#                <div class="dropdown" style="float:left;">#}
+{#                  <button class="dropbtn">Left</button>#}
+{#                  <div class="dropdown-content" style="left:0;">#}
+{#                    <a href="#">Link 1</a>#}
+{#                    <a href="#">Link 2</a>#}
+{#                    <a href="#">Link 3</a>#}
+{#                  </div>#}
+{#                </div>#}
             {% else %}
 
             {% endif %}
