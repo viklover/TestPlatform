@@ -115,7 +115,7 @@
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
-    margin: 10px 0 0 -103px;
+    margin: 1px 0 0 -170px;
     border-radius: 5px;
 }
 
@@ -123,10 +123,11 @@
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 176px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
-    margin: 10px 0 0 7px;
+    margin: 1px 0 0 7px;
+    border-radius: 5px;
 }
 
 .dropdown-content a {
@@ -145,24 +146,37 @@
 
 .dropdown-content a:hover {
     background-color: #f1f1f1;
+    border-radius: 5px;
 }
 
 .dropdown-content_0 a:hover {
     background-color: #f1f1f1;
+    border-radius: 5px;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
+    border-radius: 5px;
 }
 
 .dropdown_0:hover .dropdown-content_0 {
     display: block;
+    border-radius: 5px;
 }
 
 /*окно закончилось*/
 [data-tooltip]:hover::after {
     opacity: 1;
     top: 80px;
+}
+
+.first_name_lastName {
+    width: 191px;
+    height: 21px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
 }
 
 @media(min-width: 768px) {
@@ -225,6 +239,10 @@
 
     .head .content {
         width: 900px;
+    }
+
+    .dropdown-content .first_name_lastName {
+        display: none;
     }
 
     .head .pages {

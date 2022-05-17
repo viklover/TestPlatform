@@ -3,9 +3,9 @@
         <div class="dropdown_0">
             <div class="burger-menu" id="burger"></div>
             <div class="dropdown-content_0" style="left: 0;">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a href="/">Главная страница</a>
+                <a href="/tests">Список всех тестов</a>
+                <a href="/ratings">Рейтинг</a>
             </div>
         </div>
         <a href="/" data-tooltip="Главная страница">
@@ -28,9 +28,11 @@
                 <div class="dropdown">
                     <div class="current-user_avatar" style="--avatar-url: url('/media/{{ request.user.avatar }}')"></div>
                     <div class="dropdown-content" style="left: 0;">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
+                        <a href="/users/{{ user.id }}" class="first_name_lastName">{{ user.first_name }} {{ user.last_name }}</a>
+                        <a href="/users/you">Моя страница</a>
+                        <a href="/tests">Список всех тестов</a>
+                        <a href="/ratings">Рейтинг</a>
+                        <a href="/accounts/logout" style="color: red;">Выйти из аккаунта</a>
                     </div>
                 </div>
 {#                <div class="dropdown" style="float:left;">#}
