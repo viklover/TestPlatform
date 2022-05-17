@@ -13,31 +13,23 @@
 
     <div class="content">
         <div class="min_border">
-        <div class="tags_top">
-            <div class="tags">
-            <div class="tag_1">
+        <div class="tags">
+            <div class="tag tag_1">
                 Средняя сложность
             </div>
-            <div class="tag_2">
+            <div class="tag tag_2">
                 Заданий: 20
             </div>
-        </div>
-        <div class="tags_new">
-            <div class="tag_1_new">
-                <p>Колличество прохождений</p>
-                <svg width="4" height="32px" viewBox="20px 0 4 20" fill="" xmlns="http://www.w3.org/2000/svg" style="">
-                    <line x1="2" y1="8.74228e-08" x2="2" y2="20" stroke="white" stroke-width="4" style=""></line>
-                </svg>
-                <p id="number">4</p>
+            <div class="tag tag_1_new">
+                <div class="tag-content">
+                    <p>Колличество прохождений: 4</p>
+                </div>
             </div>
-            <div class="tag_2_new">
-                <p>Средний результат: </p>
-                <svg width="4" height="32px" viewBox="20px 0 4 20" fill="" xmlns="http://www.w3.org/2000/svg" style="">
-                    <line x1="2" y1="8.74228e-08" x2="2" y2="20" stroke="white" stroke-width="4" style=""></line>
-                </svg>
-                <p id="percent">57%</p>
+            <div class="tag tag_2_new">
+                <div class="tag-content">
+                    <p>Средний результат: 57%</p>
+                </div>
             </div>
-        </div>
         </div>
         <div class="border_top">
             <div class="icon_reform_Russia"></div>
@@ -53,13 +45,13 @@
                 Здесь открывается MarkDown-документ (как в GitHub и GitBucket) (README.md) и.т.д.
             </p>
         </div>
-        <div class="comment">Коментарии</div>
+        <div class="comment">Комментарии</div>
         <div class="border_comment">
 
-            <form method="POST" action="/tests/{{ test.id }}/upload_comment">
+            <form method="POST" action="/tests/{{ test.id }}/upload_comment" class="form-comments">
                 {% csrf_token %}
                 <input type="text" id="input" name="text"/>
-                <button type="button" class="button_start_test" id="sent_comment">Отправить</button>
+                <button type="button" class="button button_start_test button_create_comment" id="sent_comment">Отправить</button>
             </form>
 
             <div class="hr_border_comment"></div>
@@ -83,7 +75,3 @@
 {% block js_scripts %}
 
 {% endblock %}
-
-{#        <h2 align="left">{{ test.name }}</h2>#}
-{#        <p align="left">{{ test.description }}</p>#}
-{#        <a href="/tests/{{ test.id }}/start"><p class="button">Начать прохождение</p></a>#}
