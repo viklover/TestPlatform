@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="border_top">
-            <div class="icon_reform_Russia"></div>
+            <div class="icon_test" style="--icon-url: url('/media/{{ test.icon }}');"></div>
             <h2 class="name_test">{{ test.name }}</h2>
             <p class="description_test">{{ test.description }}</p>
             <a href="/tests/{{ test.id }}/start">
@@ -45,33 +45,39 @@
                 Здесь открывается MarkDown-документ (как в GitHub и GitBucket) (README.md) и.т.д.
             </p>
         </div>
-        <div class="comment">Комментарии</div>
+        <div class="comment_title">Комментарии</div>
         <div class="border_comment">
 
-            <form method="POST" action="/tests/{{ test.id }}/upload_comment" class="form-comments">
+            <form method="POST" id="form-comments" action="/tests/{{ test.id }}/upload_comment" class="form-comments">
                 {% csrf_token %}
                 <input type="text" id="input" name="text"/>
-                <button type="button" class="button button_start_test button_create_comment" id="sent_comment">Отправить</button>
+                <button type="submit" class="button button_start_test button_create_comment" id="sent_comment">Отправить</button>
             </form>
 
-            <div class="hr_border_comment"></div>
+            {% if comments|length %}
 
-            {% for comment in comments %}
-                <div class="first_comment">
-                    <div class="default_avatar"></div>
-                    <div class="description_comment_index">
-                        <div class="name">{{ comment.user.first_name }} {{ comment.user.last_name }}</div>
-                        <div class="description_comment" id="description_comment" style="width: 200px;">
-                            {{ comment.message }}
+                <div class="hr_border_comment"></div>
+
+                {% for comment in comments %}
+                    <div class="comment">
+                        <div class="avatar" style="--avatar-url: url('/media/{{ comment.user.avatar }}')"></div>
+                        <div class="description_comment_index">
+                            <div class="name">{{ comment.user.first_name }} {{ comment.user.last_name }}</div>
+                            <div class="description_comment" id="description_comment">
+                                {{ comment.message }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+
+            {% endif %}
         </div>
     </div>
     {% include 'footer.html' %}
 {% endblock %}
 
 {% block js_scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+    <script src="{% static 'tests/test_page.js' %}"></script>
 {% endblock %}

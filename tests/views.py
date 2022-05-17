@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 
 from tests.models import Test, Task
 from tests.models.test import TestComment
@@ -15,7 +16,7 @@ def tests_page(request):
 def test_page(request, test_id):
     context = {
         'test': Test.objects.get(id=test_id),
-        'comments': TestComment.objects.filter(test_id=test_id).order_by('-published')
+        'comments': TestComment.objects.filter(test_id=test_id).order_by('-date_published')
     }
     return render(request, 'tests/test_page.html', context)
 
@@ -38,8 +39,9 @@ def upload_comment(request, test_id):
         comment = TestComment()
         comment.test = Test.objects.get(id=test_id)
         comment.user = request.user
-        comment.text = request.POST['text']
+        comment.message = request.POST['text']
         comment.save()
+        return redirect(f'/tests/{test_id}')
 
     return open_test(request, test_id)
 

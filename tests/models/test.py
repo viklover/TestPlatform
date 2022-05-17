@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.template import loader
 from django.template.defaulttags import register
+from django.utils import timezone
 
 
 def user_media_path(instance, filename):
@@ -16,7 +17,7 @@ class Test(models.Model):
     author = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True, verbose_name='Автор')
     icon = models.ImageField(upload_to=user_media_path, default='icon.ico')
     published = models.BooleanField(default=False)
-    date_published = models.DateField(null=True)
+    date_published = models.DateTimeField(null=True)
     number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
     count_of_passes = models.IntegerField(default=0)
 
@@ -54,8 +55,8 @@ class Test(models.Model):
 class TestFact(models.Model):
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
-    started_at = models.DateField(auto_now_add=True)
-    finished_at = models.DateField(null=True)
+    started_at = models.DateTimeField(default=timezone.now)
+    finished_at = models.DateTimeField(null=True)
     completed = models.BooleanField(default=False)
 
     def finish(self):
@@ -66,4 +67,4 @@ class TestComment(models.Model):
     message = models.TextField(null=False)
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
     user = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
-    published = models.DateField(auto_created=True)
+    date_published = models.DateTimeField(default=timezone.now)

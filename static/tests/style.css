@@ -1,11 +1,3 @@
-/*.button {*/
-/*    display: inline-block;*/
-/*    padding: 5px 10px;*/
-/*    color: white;*/
-/*    margin: 0;*/
-/*    background-color: blue;*/
-/*    cursor: pointer;*/
-/*}*/
 
 .header {
     width: 100% ;
@@ -25,10 +17,10 @@
     margin: 0 10px;
 }
 
-a .default_avatar {
+a .avatar {
     width: 80px;
     height: 100%;
-    background: url("../../media/avatar.png") no-repeat center;
+    background: var(--avatar-url) no-repeat center;
     background-size: 55px;
     border-radius: 5px;
 }
@@ -128,10 +120,10 @@ a .default_avatar {
     margin: auto;
 }
 
-.icon_reform_Russia {
+.icon_test {
     width: 100%;
     height: 130px;
-    background: url("../users/icon_Proreform_Russia.png") no-repeat center 24px;
+    background: var(--icon-url) no-repeat center 24px;
     background-size: 99px;
 }
 
@@ -212,7 +204,7 @@ a {
     padding: 15px;
 }
 
-.comment {
+.comment_title {
     width: 174px;
     height: 39px;
     font-weight: 700;
@@ -253,6 +245,10 @@ a {
     margin: 11px auto 11px auto;
 }
 
+.description_comment {
+    max-width: 230px;
+}
+
 input[type="text"] {
     outline: blue;
 }
@@ -278,18 +274,18 @@ input[type="text"] {
         justify-content: space-between;
     }
 
-    .first_comment {
+    .comment {
         display: flex;
         flex-direction: row;
-        gap: 9px;
+        gap: 15px;
         width: 296px;
         margin: auto auto 21px;
     }
 
-    .first_comment .default_avatar {
+    .comment .avatar {
         width: 45px;
         height: 45px;
-        background: url("../../media/avatar.png") no-repeat center;
+        background: var(--avatar-url) no-repeat center;
         background-size: 45px;
         border-radius: 5px;
     }
@@ -381,8 +377,8 @@ input[type="text"] {
         width: 100%;
     }
 
-    .first_comment {
-        gap: 58px;
+    .comment {
+        justify-content: flex-start;
         width: 554px;
     }
 
@@ -396,6 +392,10 @@ input[type="text"] {
 
     .button_create_comment {
         margin-top: 10px;
+    }
+
+    .description_comment {
+        max-width: 600px;
     }
 }
 
@@ -421,7 +421,11 @@ input[type="text"] {
         width: 762px;
     }
 
-    .first_comment {
+    .comment {
         width: 762px;
+    }
+
+    .description_comment {
+        max-width: 700px;
     }
 }

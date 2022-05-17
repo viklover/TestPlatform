@@ -4,7 +4,7 @@ from django.db import models
 
 
 def user_media_path(instance, filename):
-    return 'users/{0}/{1}'.format(instance.nickname, filename)
+    return 'users/{0}/{1}'.format(instance.username, filename)
 
 
 class User(AbstractUser):
