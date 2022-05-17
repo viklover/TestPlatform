@@ -1,8 +1,8 @@
 <div class="head" style="">
     <div class="content">
-        <div class="dropdown">
+        <div class="dropdown_0">
             <div class="burger-menu" id="burger"></div>
-            <div class="dropdown-content" style="left: 0;">
+            <div class="dropdown-content_0" style="left: 0;">
                 <a href="#">Link 1</a>
                 <a href="#">Link 2</a>
                 <a href="#">Link 3</a>
@@ -26,7 +26,7 @@
             {% if user.is_authenticated %}
                 <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
                 <div class="dropdown">
-                    <div class="current-user_avatar"></div>
+                    <div class="current-user_avatar" style="--avatar-url: url('/media/{{ request.user.avatar }}')"></div>
                     <div class="dropdown-content" style="left: 0;">
                         <a href="#">Link 1</a>
                         <a href="#">Link 2</a>
