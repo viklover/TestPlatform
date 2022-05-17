@@ -24,8 +24,8 @@
         </div>
         <div class="current_user-bar" id="current-user_avatar">
             {% if user.is_authenticated %}
-                <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
                 <div class="dropdown">
+                    <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
                     <div class="current-user_avatar" style="--avatar-url: url('/media/{{ request.user.avatar }}')"></div>
                     <div class="dropdown-content" style="left: 0;">
                         <a href="/users/{{ user.id }}" class="first_name_lastName">{{ user.first_name }} {{ user.last_name }}</a>

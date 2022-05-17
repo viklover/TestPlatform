@@ -100,7 +100,7 @@
 /*окно при наведении*/
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: flex;
 }
 
 .dropdown_0 {
@@ -112,10 +112,10 @@
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 220px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
-    margin: 1px 0 0 -170px;
+    margin: 69px 0 0 0;
     border-radius: 5px;
 }
 
