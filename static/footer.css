@@ -10,6 +10,11 @@
         margin: 10px auto auto;
     }
 
+    .foot .box .flex {
+        display: flex;
+        flex-direction: column;
+    }
+
     .logo img{
         width: 223px;
         height: 168px;

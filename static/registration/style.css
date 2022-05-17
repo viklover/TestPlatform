@@ -99,6 +99,22 @@ input {
     color: #FFFFFF;
 }
 
+.form-login .help-text {
+    font-size: 18px;
+    color: blue;
+}
+
+.form-login .help-text ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 20px;
+}
+
+.form-login input[type='file'] {
+    height: 40px;
+}
+
 .href_enter p {
     text-align: center;
 }

@@ -13,19 +13,20 @@
             <header>
                 <label class="auth-label">Регистрация</label>
             </header>
-            <form method="POST" autocomplete="off">
+            <form method="POST" autocomplete="off" enctype="multipart/form-data">
                 {% csrf_token %}
-                {% for f in register_form %}
-                        <label class="label" for="{{ f.id_for_label }}">{{ f.label }} </label>
-                        {{ f }}
+                {% for f in form %}
+                    <label class="label" for="{{ f.id_for_label }}">{{ f.label }} </label>
+                    {{ f }}
+                    <div class="help-text">{{ f.help_text }}</div>
                 {% endfor %}
-                <p class="label_ava">Аватарка</p>
-                <div class="image_desktop_ava">
-                    <img src="../../static/img_registration/desktop_ava.png" alt="">
-                    <button class="download_ava" href=# onclick=document.forms['f1'].elements['el1'].click()>
-                        <p>Загрузить свою</p>
-                    </button>
-                </div>
+{#                <p class="label_ava">Аватарка</p>#}
+{#                <div class="image_desktop_ava">#}
+{#                    <img src="../../static/img_registration/desktop_ava.png" alt="">#}
+{#                    <button class="download_ava" href=# onclick=document.forms['f1'].elements['el1'].click()>#}
+{#                        <p>Загрузить свою</p>#}
+{#                    </button>#}
+{#                </div>#}
                 <button class="submit-button" type="submit" name="submit-button">Зарегистрироваться</button>
             </form>
         </div>

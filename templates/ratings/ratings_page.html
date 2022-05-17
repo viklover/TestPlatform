@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load test_math %}
 {% load static %}
 
 {% block title %}Рейтинг{% endblock %}
@@ -11,61 +12,70 @@
 
     {% include 'header.html' %}
 
-    <div class="top_information">
-        <div class="icon_ratings"></div>
-            <div class="ratings_text_black">
-                Рейтинг
+    <div class="content">
+
+        <div class="top_information">
+            <div class="top-title">
+                <div class="icon_ratings"></div>
+                <p class="ratings_text_black">Рейтинг</p>
             </div>
             <div class="ratings_text_blue">
                 Топ 5
             </div>
-    </div>
+        </div>
 
-    <div class="cards">
-        <div class="card">
-            <p class="number">1</p>
-            <div class="hr"></div>
-            <div class="image_name">
-                <div class="image"></div>
-                <div class="name_surname">
-                    Георгий Панов
+        <div class="cards">
+
+            {% for order, user, stats in data %}
+                <div class="card">
+                    <div class="rating-place">
+                        <p class="number">{{ order }}</p>
+                        <div class="hr"></div>
+                    </div>
+                    <div class="image_name">
+                        <div class="image" style="--avatar-url: url('/media/{{ user.avatar }}')"></div>
+                        <div class="name_surname">
+                            {{ user.first_name }} {{ user.last_name }}
+                        </div>
+                    </div>
+                    <div class="label">
+                        Решено заданий: {{ stats.completed_tasks }} из {{ stats.amount_tasks }} ({% multiply stats.completed_in_percents 100 %}%)
+                    </div>
+                    <div class="progress-bar">
+                          <div class="line progress" style="--progress: {% to_str stats.completed_in_percents %};"></div>
+                          <div class="line background"></div>
+                    </div>
+                    <a href="/users/{{ user.id }}">
+                        <button class="button button_user_page">
+                            Перейти на страницу аккаунта
+                        </button>
+                    </a>
                 </div>
-            </div>
-            <div class="label">
-                Решено заданий: 150 из 161 (93%)
-            </div>
-            <div class="progress-bar">
-                  <div class="line progress" style="--progress: 0.687431;"></div>
-                  <div class="line background"></div>
-            </div>
-            <a href="/">
-                <button class="button_user_page">
-                    Перейти на страницу аккаунта
-                </button>
-            </a>
+            {% endfor %}
+{#            <div class="card">#}
+{#                <p class="number">2</p>#}
+{#                <div class="hr"></div>#}
+{#                <div class="image_name">#}
+{#                    <div class="image"></div>#}
+{#                    <div class="name_surname">#}
+{#                        Георгий Панов#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="label">#}
+{#                    Решено заданий: 150 из 161 (93%)#}
+{#                </div>#}
+{#                <div class="progress-bar">#}
+{#                      <div class="line progress" style="--progress: 0.687431;"></div>#}
+{#                      <div class="line background"></div>#}
+{#                </div>#}
+{#                <a href="/">#}
+{#                    <button class="button_user_page">#}
+{#                        Перейти на страницу аккаунта#}
+{#                    </button>#}
+{#                </a>#}
+{#            </div>#}
         </div>
-        <div class="card">
-            <p class="number">2</p>
-            <div class="hr"></div>
-            <div class="image_name">
-                <div class="image"></div>
-                <div class="name_surname">
-                    Георгий Панов
-                </div>
-            </div>
-            <div class="label">
-                Решено заданий: 150 из 161 (93%)
-            </div>
-            <div class="progress-bar">
-                  <div class="line progress" style="--progress: 0.687431;"></div>
-                  <div class="line background"></div>
-            </div>
-            <a href="/">
-                <button class="button_user_page">
-                    Перейти на страницу аккаунта
-                </button>
-            </a>
-        </div>
+
     </div>
 
     {% include 'footer.html' %}

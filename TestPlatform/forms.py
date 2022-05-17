@@ -1,4 +1,3 @@
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -6,64 +5,9 @@ from tests.models import User
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(
-        label='Логин',
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Введите имя пользователя'
-            }
-        )
-    )
-    email = forms.CharField(
-        label='Email',
-        widget=forms.EmailInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Введите ваш адрес электронной почты'
-            }
-        )
-    )
-    first_name = forms.CharField(
-        label='Имя',
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Введите ваше реальное имя'
-            }
-        )
-    )
-    last_name = forms.CharField(
-        label='Фамилия',
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Введите вашу фамилию'
-            }
-        )
-    )
-    password1 = forms.CharField(
-        label='Создайте пароль',
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Введите пароль'
-            }
-        )
-    )
-    password2 = forms.CharField(
-        label='Подтвердите пароль',
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Повторите пароль'
-            }
-        )
-    )
-
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'avatar')
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
@@ -73,4 +17,9 @@ class RegistrationForm(UserCreationForm):
         user.last_name = self.cleaned_data['last_name']
         if commit:
             user.save()
+        # user.last_name = self.cleaned_data['last_name']
+        # if commit and not User.objects.filter(nickname=user.nickname).exists():
+        #     user.save()
+        #     return True
+        # return False
         return user

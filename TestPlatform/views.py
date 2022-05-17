@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -6,7 +7,8 @@ from django.contrib.auth import login
 from django.contrib import messages
 
 from TestPlatform.forms import RegistrationForm
-from tests.models import Test, User
+from tests.models import Test, User, Task
+from tests.models.test import TestFact
 
 
 def index(request):
@@ -23,7 +25,7 @@ def index(request):
 
 def register_request(request):
     if request.method == "POST":
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -31,12 +33,14 @@ def register_request(request):
             return redirect("/")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = RegistrationForm()
-    return render(request=request, template_name="registration/registration.html", context={"register_form": form})
+    return render(request=request, template_name="registration/registration.html", context={"form": form})
 
 
 @login_required
 def users_page(request):
-    context = {}
+    context = {
+        'users': User.objects.all()
+    }
     return render(request, "users/users_page.html", context)
 
 
@@ -61,7 +65,23 @@ def your_page(request):
 
 @login_required
 def ratings_page(request):
-    context = {}
+    context = {
+        'data': []
+    }
+
+    order = 1
+    for user in User.objects.order_by('-last_login')[:5]:
+
+        stats = {
+            'completed_tasks': 10,
+            'amount_tasks': 37
+        }
+        stats['completed_in_percents'] = stats['completed_tasks'] / stats['amount_tasks']
+
+        context['data'].append([order, user, stats])
+
+        order += 1
+
     return render(request, "ratings/ratings_page.html", context)
 
 

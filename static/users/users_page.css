@@ -1,7 +1,14 @@
+
+.content {
+    width: 320px;
+    margin: auto;
+}
+
 .iconANDname {
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 10px;
     margin: auto;
 }
@@ -28,16 +35,19 @@
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
+    position: relative;
 }
 
 .border .image {
-    width: 40px;
-    height: 50px;
-    background: url("MaichailVorobiew.png") no-repeat left 11px;
-    background-size: 40px;
+    --size: 60px;
+    width: var(--size);
+    height: var(--size);
+    background: var(--avatar-url) no-repeat;
+    background-size: var(--size);
     border-radius: 5px;
     position: absolute;
-    left: 16px;
+    left: 15px;
+    top: 10px;
 }
 
 .name_nickname .name {
@@ -57,8 +67,8 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 100px;
-    padding: 10px 0;
+    left: 90px;
+    padding: 16px 0;
 }
 
 .name_nickname .nickname {
@@ -68,13 +78,14 @@
     font-size: 15px;
     line-height: 18px;
     color: #656565;
+    padding-top: 5px;
 }
 
 .button_user_page {
-    width: 287px;
+    width: 294px;
     height: 28px;
-    left: 18px;
-    margin: 60px 0;
+    left: 13px;
+    bottom: 10px;
     background: #3300FF;
     border-radius: 5px;
     font-weight: 700;
@@ -84,6 +95,7 @@
     color: #FFFFFF;
     position: absolute;
     border: 2px solid #3300FF;
+    padding: 0;
 }
 
 .button_user_page:hover {
@@ -108,9 +120,10 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 700px) {
     .iconANDname {
-        width: 225px;
+        width: 490px;
+        justify-content: flex-start;
     }
 
     .border {
@@ -120,7 +133,6 @@
 
     .border .image {
         position: relative;
-        margin: 0 16px;
     }
 
     .name_nickname {
@@ -138,31 +150,29 @@
     .icon_link_account {
         display: block;
         position: absolute;
-        width: 30px;
-        height: 30px;
+        width: 45px;
+        height: 45px;
         border-radius: 5px;
-        margin: 10px 10px;
         background: url("icon_link_account.png") no-repeat center;
-        background-size: 40px;
-        left: 526px;
+        background-size: 45px;
+        right: 10px;
+        top: 15px;
+        cursor: pointer;
     }
 
     .border {
-        height: 70px;
+        height: 80px;
     }
 }
 
-@media (min-width: 1024px) {
-    .icon_link_account {
-        left: 429px;
+@media (min-width: 700px) {
+
+    .content {
+        width: 700px;
     }
 
     .border {
         width: 497px;
         position: relative;
-    }
-
-    .icon_link_account {
-        right: 700px;
     }
 }

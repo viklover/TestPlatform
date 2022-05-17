@@ -205,27 +205,6 @@ a {
         width: 100%;
     }
 
-    .card .icon {
-        background: url("../users/icon_tests.png") no-repeat center;
-        height: 110px;
-        width: 110px;
-        background-size: 100px;
-        margin: 0;
-    }
-
-    .card .title {
-        width: 100%;
-    }
-
-    .card {
-        min-height: 182px;
-    }
-
-    .progress_beau {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-    }
-
     .label {
         margin-left: 25px;
         text-align: left;

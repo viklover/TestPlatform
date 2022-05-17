@@ -1,0 +1,39 @@
+
+.top-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 320px;
+    margin: auto;
+    gap: 10px;
+}
+
+.top-title .tests-tab-icon {
+    width: 50px;
+    height: 55px;
+    background: url("../users/icon_tests.png") no-repeat;
+    background-size: 45px;
+    margin: 14px 0 14px 0;
+}
+
+.top-title .title {
+    height: 28px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    text-align: center;
+    margin: 23px 14px 14px 0;
+}
+
+@media(min-width: 768px) {
+    .top-title {
+        width: 490px;
+        justify-content: flex-start;
+    }
+}
+
+@media(min-width: 1024px) {
+    .top-title {
+        width: 800px;
+    }
+}

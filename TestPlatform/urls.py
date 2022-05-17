@@ -29,7 +29,7 @@ urlpatterns = [
     path('tests/', include('tests.urls')),
     path('editor/', include('editor.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('registration/', register_request),
+    path('registration/', register_request, name='register'),
     path('', index)
 ]
 

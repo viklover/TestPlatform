@@ -48,8 +48,7 @@
 
 .head .current-user_avatar {
     width: 54px;
-    height: 100%;
-    background: url('../media/avatar.png') no-repeat center;
+    background: var(--avatar-url) no-repeat center;
     background-size: 46px;
     border-radius: 5px;
     padding-right: 15px;
@@ -58,6 +57,7 @@
 .head .pages {
     display: flex;
     flex-direction: row;
+    gap: 30px;
     padding-right: 150px;
 }
 
