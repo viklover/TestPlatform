@@ -27,7 +27,7 @@ class Test(models.Model):
     def __render_template(self, context=None):
         if context is None:
             context = {}
-        template = loader.get_template('tests/test-card.html')
+        template = loader.get_template('tests/test_card.html')
         return template.render({'test': self, **context})
 
     def __str__(self):

@@ -26,7 +26,7 @@ def creation_test(request):
                 }
             )
         }
-        return render(request, template_name='editor/creation_page.html', context=context)
+        return render(request, template_name='editor/project/creation_project.html', context=context)
 
     test = Test(author=request.user)
     form = CreationTestForm(request.POST, request.FILES, instance=test)
