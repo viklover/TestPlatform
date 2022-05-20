@@ -40,3 +40,8 @@ def creation_test(request):
 @login_required
 def editor_not_allowed(request):
     return render(request, 'editor/editor_not_allowed.html')
+
+
+@login_required
+def creation_projects(request):
+    return render(request, 'editor/project/creation_project.html')
