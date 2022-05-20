@@ -63,10 +63,6 @@ a {
 
 @media(min-width: 1024px) {
 
-    .head .container {
-        width: 900px;
-    }
-
     .content {
         width: 900px;
     }

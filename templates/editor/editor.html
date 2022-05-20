@@ -6,10 +6,12 @@
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
 {% endblock %}
 
 {% block content %}
-    {% include 'editor/editor_header.html' %}
+
+    {% include 'editor/header.html' %}
 
     <div class="content">
 
