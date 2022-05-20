@@ -36,3 +36,7 @@ def creation_test(request):
         test.save()
         return redirect(f'/editor/tests/{test.id}')
 
+
+@login_required
+def editor_not_allowed(request):
+    return render(request, 'editor/editor_not_allowed.html')
