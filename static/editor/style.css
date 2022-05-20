@@ -1,3 +1,10 @@
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
 
 @media(min-width: 700px) {
 
@@ -37,7 +44,7 @@
     .head .user-icon {
         height: 62px;
         width: 62px;
-        background-image: url('../users/default_avatar.png');
+        background-image: var(--icon-url);
         background-size: contain;
     }
 
@@ -64,12 +71,3 @@
         width: 900px;
     }
 }
-
-
-
-
-
-
-
-
-
