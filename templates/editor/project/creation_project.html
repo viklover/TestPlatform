@@ -13,6 +13,38 @@
     {% include 'editor/header.html' %}
 
     <div class="content">
+        <div class="created_project_text">
+            Создание проекта
+        </div>
+        <div class="flex">
+            <div class="text_name">
+                Название
+            </div>
+            <div class="input_name">
+                <form>
+                    <input placeholder="Введите название проекта">
+                </form>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="text_name">
+                Описание
+            </div>
+            <div class="input_name">
+                <textarea placeholder="Введите описание"></textarea>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="text_icon">
+                Иконка
+            </div>
+            <div class="border_icon">
+                <div class="image_icon"></div>
+            </div>
+            <div class="button_upload_icon">
+                Загрузить иконку
+            </div>
+        </div>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% for f in form %}
@@ -21,7 +53,7 @@
                     {{ f }}<br>
                 </div>
             {% endfor %}
-            <button type="submit" name="submit-button" class="button"/>Создать проект</button>
+            <button style="margin: 0;" type="submit" name="submit-button" class="button button_created_project"/>Создать проект</button>
         </form>
     </div>
 
