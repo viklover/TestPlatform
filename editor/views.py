@@ -17,12 +17,11 @@ def editor_page(request):
 
 @login_required
 def creation_test(request):
-
     if not request.POST:
         context = {
             'form': CreationTestForm(
                 initial={
-                  'author': request.user
+                    'author': request.user
                 }
             )
         }
@@ -45,3 +44,8 @@ def editor_not_allowed(request):
 @login_required
 def creation_projects(request):
     return render(request, 'editor/project/creation_project.html')
+
+
+@login_required
+def editor_modal_window(request):
+    return render(request, 'modal_window.html')

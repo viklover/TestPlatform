@@ -1,3 +1,20 @@
-<div class="modal-window">
+{% extends 'base.html' %}
+{% load static %}
 
-</div>
+{% block title %}Модальное окно{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/creation_page/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="modal-window">
+
+    </div>
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}
