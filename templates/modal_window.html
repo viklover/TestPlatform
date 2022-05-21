@@ -6,12 +6,39 @@
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/style.css' %}">
-    <link rel="stylesheet" href="{% static 'editor/creation_page/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/modal_window.css' %}">
 {% endblock %}
 
 {% block content %}
     <div class="modal-window">
-
+        <div class="content">
+            <div class="text_create_task">
+                Создание задания
+            </div>
+            <div class="hr"></div>
+            <label>
+                Название
+            </label>
+            <input class="input_name_task" placeholder="Введите название задания">
+            <label>
+                Взять за основу шаблон
+            </label>
+            <select class="input_name_task">
+                <option>нет</option>
+                <option>Выпадающий список</option>
+                <option>Выпадающий список</option>
+            </select>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for f in form %}
+                    <div class="field">
+                        <label class="label" for="{{ f.id_for_label }}">{{ f.label }} </label><br>
+                        {{ f }}<br>
+                    </div>
+                {% endfor %}
+                <button style="margin-left: 220px;" type="submit" name="submit-button" class="button button_created_project"/>Создать проект</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
 
