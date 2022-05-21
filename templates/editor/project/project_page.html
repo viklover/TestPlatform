@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ test.project_name }}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'editor/header.html' %}
+
+    <div class="content">
+
+        <p class="path">{{ test.project_name }}</p>
+
+        <section class="preview-project">
+            <main>
+                <div class="project-icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
+                <div class="project-info">
+                    <h2 class="name">{{ test.name }}</h2>
+                    <p class="description">{{ test.description }}</p>
+                </div>
+            </main>
+            <div class="button button-change-info"></div>
+        </section>
+
+        <section class="project-tasks">
+            <header>
+                <h2>Задания</h2>
+            </header>
+            <main>
+                {{ tasks_table }}
+            </main>
+            <div class="button button-secondary button-create-task">
+                Создать задание
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

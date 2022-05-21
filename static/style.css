@@ -54,3 +54,15 @@ body {
     background-color: white;
     color: #2C00DE;
 }
+
+
+.button-secondary {
+    background: #3E3E3E;
+    border: 2px solid #3E3E3E;
+    color: #FFFFFF;
+}
+
+.button-secondary:hover {
+    background-color: #FFFFFF;
+    color: #3E3E3E;
+}

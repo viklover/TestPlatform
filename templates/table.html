@@ -1,0 +1,22 @@
+<table class="table {{ class }}">
+    <thead>
+        <tr>
+            {% for column in columns %}
+                <th scope="col">{{ column }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% if type == 'tests-list' %}
+            {% for row in rows %}
+                <tr data-url="/editor/tests/{{ row.id }}">
+                    <td scope="row" class="ids">{{ row.id }}</td>
+                    <td class="project_name"><a href="/editor/tests/{{ row.id }}">{{ row.project_name }}</a></td>
+                    <td class="number_of_tasks">{{ row.number_of_tasks }}</td>
+                    <td class="datetime">{{ row.created_at }}</td>
+                    <td class="datetime">{{ row.updated_at }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>

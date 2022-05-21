@@ -11,15 +11,29 @@ def user_media_path(instance, filename):
     return 'users/{0}/{1}'.format(instance.author.id, filename)
 
 
+"""
+TEST MODEL
+"""
+
+
 class Test(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Название')
+    project_name = models.CharField(max_length=100, verbose_name='Название проекта')
+    name = models.CharField(max_length=100, default=project_name, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     author = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True, verbose_name='Автор')
-    icon = models.ImageField(upload_to=user_media_path, default='icon.ico')
+    icon = models.ImageField(upload_to=user_media_path, default='test_icon.png')
+
     published = models.BooleanField(default=False)
-    date_published = models.DateTimeField(null=True)
+
+    published_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
     count_of_passes = models.IntegerField(default=0)
+
+    def clean(self):
+        self.name = self.project_name
 
     def finish(self, user):
         TestFact.objects.get(test=self.id, user=user.id).finish()
@@ -51,6 +65,17 @@ class Test(models.Model):
             }
         )
 
+    def get_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'project_name': self.project_name,
+            'number_of_tasks': Task.objects.filter(test=self).count(),
+            'published_at': self.published_at,
+            'updated_at': self.updated_at,
+            'created_at': self.created_at
+        }
+
 
 class TestFact(models.Model):
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
@@ -67,4 +92,89 @@ class TestComment(models.Model):
     message = models.TextField(null=False)
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
     user = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
-    date_published = models.DateTimeField(default=timezone.now)
+    published_at = models.DateTimeField(default=timezone.now)
+
+
+class Task(models.Model):
+    test = models.ForeignKey(to=Test, on_delete=models.SET_NULL, null=True, verbose_name='Тест')
+    number = models.IntegerField(verbose_name='Номер задания')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def get_json(self):
+        return {
+            'id': self.id,
+            'number': self.number,
+            'number_of_exercises': Exercise.objects.filter(task_id=self.id),
+            'updated_at': self.updated_at,
+            'created_at': self.created_at
+        }
+
+
+"""
+EXERCISES MODEL
+"""
+
+
+class Exercise(models.Model):
+    TYPES = (
+        (0, 'answer'),
+        (1, 'input'),
+        (2, 'statements'),
+        (3, 'radio'),
+        (4, 'match'),
+        (5, 'chronology')
+    )
+    task = models.ForeignKey(to=Task, on_delete=models.SET_NULL, null=True, verbose_name='Задание')
+    type = models.IntegerField(choices=TYPES, verbose_name='Тип упражнения')
+
+
+"""
+CHRONOLOGY EXERCISE MODEL
+"""
+
+
+class ChronologyExercise(Exercise):
+    type = 5
+
+
+class VariantChronologyExercise(Exercise):
+    exercise = models.ForeignKey(to=ChronologyExercise, on_delete=models.CASCADE)
+    name = models.TextField()
+    order = models.IntegerField(verbose_name='Порядковый номер')
+
+
+"""
+MATCH EXERCISE MODEL
+"""
+
+
+class MatchExercise(Exercise):
+    type = 2
+
+    @staticmethod
+    def get_columns(self):
+        return ColumnMatchExercise.objects.filter(exercise_id=self.id)
+
+    @staticmethod
+    def get_variants(self):
+        return VariantMatchExercise.objects.filter(exercise_id=self.id)
+
+
+class ColumnMatchExercise(models.Model):
+    exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class VariantMatchExercise(models.Model):
+    exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
+    column = models.ForeignKey(to=ColumnMatchExercise, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+

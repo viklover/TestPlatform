@@ -1,0 +1,67 @@
+
+
+.table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.table thead {
+    border-radius: 10px;
+}
+
+.table td {
+    cursor: pointer;
+    padding: 10px 5px;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.table tbody tr:nth-child(odd):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.table tbody tr:nth-child(even):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.development_tests thead th:nth-child(1) {
+    width: 3.5%;
+}
+
+.development_tests thead th:nth-child(2) {
+    width: 30%;
+}
+
+.development_tests thead th:nth-child(3) {
+    width: 8%;
+}
+
+.development_tests thead th:nth-child(4) {
+    width: 17%;
+}
+
+.development_tests thead th:nth-child(5) {
+    width: 17%;
+}
+
+.development_tests .ids {
+    text-align: center;
+    font-weight: bold;
+}
+
+.development_tests .number_of_tasks {
+    text-align: center;
+}
+
+.development_tests .project_name {
+    font-weight: bold;
+}

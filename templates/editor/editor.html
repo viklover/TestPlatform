@@ -5,6 +5,8 @@
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
     <link rel="stylesheet" href="{% static 'editor/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
 {% endblock %}
@@ -15,50 +17,40 @@
 
     <div class="content">
 
-        {% if not published_tests|length and not development_tests|length %}
+        {% if development_tests|length %}
 
-            <h2>Добро пожаловать в редактор тестов!</h2>
-            <p>
-                В этом разделе сайта вы можете реализовывать свои тесты на основе заготовленных
-                типов заданий. Создайте свой первый проект и опубликуйте, когда посчитаете его готовым.
-            </p>
+            <section class="tests-list tests-list__development">
+                <header>
+                    <h2>Ваши неопубликованные проекты</h2>
+                </header>
+                {{ development_tests_table }}
+            </section>
 
         {% endif %}
 
         {% if published_tests|length %}
 
-            <section class="published-tests">
-                <h2>Ваши тесты</h2>
+            <section class="tests-list tests-list__published">
+                <header>
+                    <h2>Опубликованные тесты</h2>
+                </header>
             </section>
-
-            {% for test in published_tests %}
-                <div>
-                    <h3>{{ test.name }}</h3>
-                    <p>{{ test.description }}</p>
-                    <img src="/media/{{ test.icon }}">
-                </div>
-            {% endfor %}
 
         {% endif %}
 
-        {% if development_tests|length %}
+        {% if not published_tests|length and not development_tests|length %}
 
-            <section class="development-tests">
-                <h2>Неопубликованные тесты</h2>
-            </section>
+            <h2>Добро пожаловать в редакторе тестов!</h2>
+            <p>
+                В этом разделе сайта вы можете реализовывать свои тесты на основе заготовленных
+                типов заданий. Создайте свой первый проект и опубликуйте, когда посчитаете его готовым.
+            </p>
 
-            {% for test in development_tests %}
-                <div>
-                    <h3>{{ test.name }}</h3>
-                    <p>{{ test.description }}</p>
-                </div>
-            {% endfor %}
+            <div class="button" data-url="/editor/create_project" style="margin: 0">
+                Создать новый проект
+            </div>
 
         {% endif %}
-
-        <div class="button" data-url="/editor/create_test">
-            Создать новый проект
-        </div>
 
     </div>
 

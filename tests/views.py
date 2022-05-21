@@ -16,7 +16,7 @@ def tests_page(request):
 def test_page(request, test_id):
     context = {
         'test': Test.objects.get(id=test_id),
-        'comments': TestComment.objects.filter(test_id=test_id).order_by('-date_published')
+        'comments': TestComment.objects.filter(test_id=test_id).order_by('-published_at')
     }
     return render(request, 'tests/test_page.html', context)
 

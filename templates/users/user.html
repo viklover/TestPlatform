@@ -47,23 +47,27 @@
             <p class="log_out_account">Выйти из аккаунта</p>
         </div>
 
-        <section class="created_tests">
-            <p class="label">Созданные тесты</p>
-            <div class="tests-list created_tests-list">
-                {% for test in created_tests %}
-                    {{ test }}
-                {% endfor %}
-            </div>
-        </section>
+        {% if created_tests|length %}
+            <section class="created_tests">
+                <p class="label">Созданные тесты</p>
+                <div class="tests-list created_tests-list">
+                    {% for test in created_tests %}
+                        {{ test }}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
 
-        <section class="finished_tests">
-            <p class="label">Пройденные тесты</p>
-            <div class="tests-list finished_tests-list">
-                {% for test in finished_tests %}
-                    {{ test }}
-                {% endfor %}
-            </div>
-        </section>
+        {% if finished_tests|length %}
+            <section class="finished_tests">
+                <p class="label">Пройденные тесты</p>
+                <div class="tests-list finished_tests-list">
+                    {% for test in finished_tests %}
+                        {{ test }}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
 
     </div>
 

@@ -1,0 +1,74 @@
+
+.preview-project {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+}
+
+.preview-project main {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.preview-project .project-icon {
+    --size: 130px;
+    width: var(--size);
+    height: var(--size);
+    background-size: contain;
+    background-image: var(--icon-url);
+}
+
+.preview-project .project-info {
+    display: flex;
+    flex-direction: column;
+    width: 530px;
+}
+
+.preview-project .project-info .name {
+    margin: 0;
+}
+
+.preview-project .project-info .description {
+    margin-bottom: 0;
+}
+
+.path {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.button-change-info {
+    position: absolute;
+    --size: 20px;
+    background-size: var(--size);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../edit_icon.png');
+    padding: 15px;
+    right: 20px;
+    top: 20px;
+}
+
+
+.project-tasks {
+    position: relative;
+}
+
+.project-tasks header {
+    font-size: 20px;
+}
+
+.button-create-task {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+@media(min-width: 1024px) {
+
+    .preview-project .project-info {
+        width: 710px;
+    }
+}

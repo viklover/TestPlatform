@@ -1,8 +1,5 @@
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    justify-content: center;
+    display: block;
 }
 
 form input[type="text"] {
@@ -15,6 +12,13 @@ form input[type="text"] {
     font-size: 17px;
     border-radius: 5px;
     background: #e8f0fe;
+}
+
+form input[type="file"] {
+    pointer-events:none;
+    user-select:none;
+    outline:0;
+    opacity:0;
 }
 
 form textarea {
@@ -34,17 +38,14 @@ form textarea {
     gap: 15px;
 }
 
-
-form input[type="file"] + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
+.icon_loader {
+    display: flex;
+    width: 411px;
+    align-items: start;
 }
-form input[type="file"]:focus + label,
-form input[type="file"] + label:hover {
-    background-color: red;
+
+.content {
+    position: relative;
 }
 
 @media (min-width: 320px) {
@@ -54,15 +55,20 @@ form input[type="file"] + label:hover {
 }
 
 @media (min-width: 768px) {
+
     body {
         display: block;
+    }
+
+    .content {
+        width: 700px;
     }
 
     .created_project_text {
         height: 31px;
         font-weight: 700;
         font-size: 23px;
-        margin: 100px auto 28px;
+        margin: 0 auto 28px;
     }
 
     .text_name {
@@ -80,18 +86,29 @@ form input[type="file"] + label:hover {
         margin: 20px auto;
     }
 
+    .form-content {
+        position: relative;
+        width: 700px;
+        margin: auto;
+    }
+
+    .form-field {
+        justify-content: space-between;
+    }
+
     .input_name input{
-        width: 379px;
+        width: 395px;
         height: 34px;
         background: #FFFFFF;
         border: 2px solid rgba(159, 159, 159, 0.47);
         box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
         border-radius: 5px;
         padding-left: 10px;
+        font-size: 15px;
     }
 
     .input_name textarea{
-        width: 379px;
+        width: 411px;
         height: 112px;
         background: #FFFFFF;
         border: 2px solid rgba(159, 159, 159, 0.47);
@@ -99,10 +116,13 @@ form input[type="file"] + label:hover {
         border-radius: 5px;
         padding-left: 10px;
         outline-color: blue;
+        font-size: 15px;
+        font-family: 'ProximaNova', sans-serif;
     }
 
     .input_name input {
         outline-color: blue;
+        font-family: 'ProximaNova', sans-serif;
     }
 
     .grid {
@@ -128,9 +148,9 @@ form input[type="file"] + label:hover {
     }
 
     .image_icon {
-        width: 100%;
-        height: 100%;
-        background: url("../templates_icon.png") no-repeat center;
+        width: 90%;
+        height: 90%;
+        padding: 5px;
         background-size: 60px;
     }
 
@@ -155,18 +175,18 @@ form input[type="file"] + label:hover {
     }
 
     .button_created_project {
-        position: relative;
-        left: 461px;
-        top: 50px;
+        position: absolute;
+        right: 0;
     }
 }
 
 @media (min-width: 1024px) {
-    .flex {
-        gap: 179px;
+
+    .content {
+        width: 700px;
     }
 
-    .button_created_project {
-        left: 72vh;
+    .flex {
+        gap: 179px;
     }
 }

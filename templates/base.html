@@ -8,9 +8,9 @@
     <title>{% block title %} {% endblock %}</title>
     <link rel="icon" type="image/ico" href="{% static 'icon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="stylesheet" href="{% static 'footer.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
     {% block css_styles %} {% endblock %}
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
 </head>
 <body>
     {% block content %} {% endblock %}

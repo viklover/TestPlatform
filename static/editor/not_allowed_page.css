@@ -1,9 +1,8 @@
 .text_about_edit {
-    height: 95px;
     font-weight: 700;
     font-size: 25px;
     text-align: center;
-    padding: 71px 47px 47px 50px;
+    padding: 71px 47px 15px 50px;
     margin: auto;
 }
 

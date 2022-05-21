@@ -1,12 +1,13 @@
 from django.shortcuts import redirect
 from django.urls import path
 
-from editor.views import creation_test, editor_page, editor_not_allowed, creation_projects, editor_modal_window
+from editor.views import editor_page, editor_not_allowed, editor_modal_window, create_project, open_project
 
 urlpatterns = [
     path('', editor_page),
-    path('create_test', creation_test),
+    path('tests', editor_page),
+    path('tests/<int:test_id>', open_project),
+    path('create_project', create_project),
     path('not_allowed', editor_not_allowed),
-    path('creation_project', creation_projects),
     path('modal_window', editor_modal_window)
 ]
