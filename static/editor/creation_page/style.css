@@ -160,3 +160,13 @@ form input[type="file"] + label:hover {
         top: 50px;
     }
 }
+
+@media (min-width: 1024px) {
+    .flex {
+        gap: 179px;
+    }
+
+    .button_created_project {
+        left: 72vh;
+    }
+}
