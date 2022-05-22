@@ -33,6 +33,7 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+
 .development_tests thead th:nth-child(1) {
     width: 3.5%;
 }
@@ -64,4 +65,37 @@
 
 .development_tests .project_name {
     font-weight: bold;
+}
+
+
+.tasks-list {
+
+}
+
+.tasks-list thead th:nth-child(1) {
+    width: 3.5%;
+}
+
+.tasks-list thead th:nth-child(2) {
+    width: 30%;
+}
+
+.tasks-list thead th:nth-child(3) {
+    width: 10%;
+}
+
+.tasks-list thead th:nth-child(4) {
+    width: 10%;
+}
+
+.tasks-list .number {
+    text-align: center;
+}
+
+.tasks-list .number_of_exercises {
+    text-align: center;
+}
+
+.tasks-list .max_points {
+    text-align: center;
 }

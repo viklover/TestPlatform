@@ -33,7 +33,8 @@ class Test(models.Model):
     count_of_passes = models.IntegerField(default=0)
 
     def clean(self):
-        self.name = self.project_name
+        if self.id is None:
+            self.name = self.project_name
 
     def finish(self, user):
         TestFact.objects.get(test=self.id, user=user.id).finish()
@@ -96,6 +97,7 @@ class TestComment(models.Model):
 
 
 class Task(models.Model):
+    name = models.CharField(max_length=50)
     test = models.ForeignKey(to=Test, on_delete=models.SET_NULL, null=True, verbose_name='Тест')
     number = models.IntegerField(verbose_name='Номер задания')
 
@@ -106,7 +108,9 @@ class Task(models.Model):
         return {
             'id': self.id,
             'number': self.number,
-            'number_of_exercises': Exercise.objects.filter(task_id=self.id),
+            'name': self.name,
+            'test': self.test,
+            'number_of_exercises': Exercise.objects.filter(task_id=self.id).count(),
             'updated_at': self.updated_at,
             'created_at': self.created_at
         }

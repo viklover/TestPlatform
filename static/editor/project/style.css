@@ -16,6 +16,7 @@
     width: var(--size);
     height: var(--size);
     background-size: contain;
+    background-repeat: no-repeat;
     background-image: var(--icon-url);
 }
 
@@ -36,6 +37,10 @@
 .path {
     margin-bottom: 10px;
     font-weight: bold;
+}
+
+.active-link {
+    text-decoration: underline;
 }
 
 .button-change-info {

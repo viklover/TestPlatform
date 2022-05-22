@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 
-from editor.forms import CreationTestForm
+from editor.forms import CreationTestForm, EditTestInfo
 from tests.models import Test, Task
 
 
@@ -74,6 +74,28 @@ def open_project(request, test_id):
         'tasks_table': template.render(context_table)
     }
     return render(request, 'editor/project/project_page.html', context)
+
+
+@login_required
+def edit_project(request, test_id):
+
+    if not request.POST:
+        context = {
+            'test': Test.objects.get(id=test_id)
+        }
+        return render(request, 'editor/project/project_edit.html', context)
+
+    test = Test.objects.get(id=test_id)
+    form = EditTestInfo(request.POST, request.FILES, instance=test)
+
+    if form.is_valid():
+        test = form.save(commit=False)
+        test.save()
+        print(test.id, test.project_name, test.name)
+    else:
+        print('something wrong')
+
+    return redirect(f'/editor/tests/{test_id}')
 
 
 @login_required

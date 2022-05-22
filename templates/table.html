@@ -17,6 +17,15 @@
                     <td class="datetime">{{ row.updated_at }}</td>
                 </tr>
             {% endfor %}
+        {% elif type == 'tasks-list' %}
+            {% for row in rows %}
+                <tr data-url="/editor/tests/{{ row.test.id }}/tasks/{{ row.id }}">
+                    <td scope="row" class="number">{{ row.number }}</td>
+                    <td class="name"><a href="/editor/tests/{{ row.id }}">{{ row.name }}</a></td>
+                    <td class="number_of_exercises">{{ row.number_of_exercises }}</td>
+                    <td class="max_points">{{ row.max_points }}</td>
+                </tr>
+            {% endfor %}
         {% endif %}
     </tbody>
 </table>
