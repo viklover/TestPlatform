@@ -64,6 +64,11 @@ def your_page(request):
 
 
 @login_required
+def edit_user_page(request):
+    return render(request, 'users/user_edit.html')
+
+
+@login_required
 def ratings_page(request):
     context = {
         'data': []
