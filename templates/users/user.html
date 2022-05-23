@@ -22,7 +22,7 @@
                 <div class="flex_user_name">
                     <p class="user_name">{{ user_page.first_name }} {{ user_page.last_name }}</p>
                     {% if request.user == user_page %}
-                        <div class="button button-change-info" data-url=""></div>
+                        <div class="button button-change-info" data-url="/users/you/edit"></div>
                     {% endif %}
                 </div>
                 <p class="registration_when">{{ user_page.date_joined }}</p>

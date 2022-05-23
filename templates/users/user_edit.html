@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/edit_page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/user_edit.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -27,16 +28,16 @@
                 <form class="project-info" enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
                     <div class="field">
-                        <p class="field_name">Название теста</p>
+                        <p class="field_name">Имя</p>
                         <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
                     </div>
                     <div class="field">
-                        <p class="field_name">Описание</p>
-                        <textarea name="description" class="description">{{ test.description }}</textarea>
+                        <p class="field_name">Фамилия</p>
+                        <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
                     </div>
                     <div class="button button-secondary upload-file-button">Загрузить иконку</div>
                     <input type="file" class="file-uploader" name="icon">
-                    <input type="submit" class="button buttons-submit" value="Сохранить"></input>
+                    <input type="submit" class="button buttons-submit" value="Сохранить зменения"></input>
                 </form>
             </main>
         </section>
