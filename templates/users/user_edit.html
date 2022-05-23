@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ test.project_name }}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/edit_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'editor/header.html' %}
+
+    <div class="content">
+
+        <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a></p>
+
+        <section class="preview-project">
+            <main>
+                <img src="/media/{{ test.icon }}" class="image_icon project-icon"/>
+                <form class="project-info" enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <div class="field">
+                        <p class="field_name">Название теста</p>
+                        <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
+                    </div>
+                    <div class="field">
+                        <p class="field_name">Описание</p>
+                        <textarea name="description" class="description">{{ test.description }}</textarea>
+                    </div>
+                    <div class="button button-secondary upload-file-button">Загрузить иконку</div>
+                    <input type="file" class="file-uploader" name="icon">
+                    <input type="submit" class="button buttons-submit" value="Сохранить"></input>
+                </form>
+            </main>
+        </section>
+
+    </div>
+
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static 'editor/creation_page/script.js' %}"></script>
+{% endblock %}
