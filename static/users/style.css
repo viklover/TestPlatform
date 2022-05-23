@@ -23,6 +23,27 @@
     bottom: 0;
 }
 
+.flex_user_name {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-change-info {
+    position: relative;
+    --size: 20px;
+    background-size: var(--size);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../editor/edit_icon.png');
+    padding: 15px;
+    right: 50px;
+    top: 0;
+}
+
+.button-change-info:hover {
+    background-image: url("../editor/edit_icon(black).png");
+}
+
 .user_name {
     width: 263px;
     font-weight: 700;
@@ -212,6 +233,10 @@ a {
 
     .tests-list {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .button-change-info {
+        right: 185px;
     }
 }
 
