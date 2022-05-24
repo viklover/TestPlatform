@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/task_page.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/task/edit_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,17 +26,13 @@
             <p class="task-number">Задание №{{ task.number }}</p>
             <p class="task-name">{{ task.title }}</p>
             <div class="button button-change-info" data-url="/editor/tests/{{ test.id }}/tasks/{{ task.id }}/edit"></div>
-        </section>
-
-        <section class="project-tasks">
-            <header>
-                <h2>Упражнения</h2>
-            </header>
-            <main>
-                {{ tasks_table }}
-            </main>
-            <div class="button button-secondary button-create-task">
-                Создать упражнение
+            <div class="field">
+                <p class="field_name">Название задания</p>
+                <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
+            </div>
+            <div class="field">
+                <p class="field_name">Заголовок</p>
+                <textarea name="description" class="description">{{ test.title }}</textarea>
             </div>
         </section>
 

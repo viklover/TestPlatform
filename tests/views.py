@@ -23,13 +23,7 @@ def test_page(request, test_id):
 
 @login_required
 def open_test(request, test_id):
-    tasks = Task.objects.filter(test=test_id).order_by('number')
-    context = {
-        'test': Test.objects.get(id=test_id),
-        'task': tasks.first(),
-        'tasks': tasks
-    }
-    return render(request, 'tests/task.html', context)
+    return redirect(f'/tests/{test_id}/tasks/1')
 
 
 @login_required
@@ -49,9 +43,15 @@ def upload_comment(request, test_id):
 @login_required
 def open_task(request, test_id, task_number):
     tasks = Task.objects.filter(test=test_id).order_by('number')
+
+    try:
+        current_task = tasks.get(number=task_number)
+    except Exception:
+        return redirect(f'/tests/{test_id}/tasks')
+
     context = {
         'test': Test.objects.get(id=test_id),
-        'task': tasks.get(task_number),
+        'task': current_task,
         'tasks': tasks
     }
-    return render(request, 'tests/task.html', context)
+    return render(request, 'tests/test/task_page.html', context)

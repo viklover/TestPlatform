@@ -33,7 +33,7 @@ def editor_page(request):
     context = {
         'published_tests': published_tests,
         'development_tests': development_tests,
-        'published_tests_table': template.render({**tests_context, 'rows': published_tests_rows, 'class': 'published_tests'}),
+        'published_tests_table': template.render({**tests_context, 'rows': published_tests_rows, 'class': 'development_tests'}),
         'development_tests_table': template.render({**tests_context, 'rows': development_tests_rows, 'class': 'development_tests'})
     }
 
