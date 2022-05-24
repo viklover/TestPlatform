@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 
-from editor.forms import CreationTestForm, EditTestInfo
+from editor.forms import CreationTestForm, EditTestInfo, CreationTaskForm
 from tests.models import Test, Task
 
 
@@ -43,7 +43,7 @@ def editor_page(request):
 @login_required
 def create_project(request):
     if not request.POST:
-        return render(request, template_name='editor/project/creation_project.html')
+        return render(request, template_name='editor/creation_project.html')
 
     test = Test(author=request.user)
     form = CreationTestForm(request.POST, request.FILES, instance=test)
@@ -77,6 +77,24 @@ def open_project(request, test_id):
 
 
 @login_required
+def create_task(request, test_id):
+
+    if request.POST:
+        test = Test.objects.get(id=test_id)
+        task = Task(test=test)
+
+        form = CreationTaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.number = test.get_tasks().count() + 1
+            task.save()
+            return redirect(f'/editor/tests/{test_id}/tasks/{task.id}')
+
+    return redirect(f'/editor/tests/{test_id}')
+
+
+@login_required
 def edit_project(request, test_id):
 
     if not request.POST:
@@ -106,3 +124,22 @@ def editor_not_allowed(request):
 @login_required
 def editor_modal_window(request):
     return render(request, 'modal_window.html')
+
+
+@login_required
+def edit_task(request, test_id, task_id):
+    context = {
+        'test': Test.objects.get(id=test_id),
+        'task': Task.objects.get(id=task_id)
+    }
+    return render(request, 'editor/project/task/task_edit.html', context)
+
+
+@login_required
+def open_project_task(request, test_id, task_id):
+    context = {
+        'test': Test.objects.get(id=test_id),
+        'task': Task.objects.get(id=task_id)
+    }
+    return render(request, 'editor/project/task/task_page.html', context)
+

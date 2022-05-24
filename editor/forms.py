@@ -2,11 +2,11 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
-from tests.models import Test
+from tests.models import Test, Task
 
 
 class CreationTestForm(ModelForm):
-    project_name = forms.TextInput()
+    project_name = forms.CharField(max_length=100)
     description = forms.Textarea()
     icon = forms.ImageField()
 
@@ -23,3 +23,12 @@ class EditTestInfo(ModelForm):
     class Meta:
         model = Test
         fields = ('name', 'description', 'icon')
+
+
+class CreationTaskForm(ModelForm):
+    name = forms.CharField(max_length=50)
+
+    class Meta:
+        model = Task
+        fields = ('name',)
+

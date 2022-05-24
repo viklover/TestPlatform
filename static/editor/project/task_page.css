@@ -1,0 +1,13 @@
+
+.preview-project .task-number {
+    margin: 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.preview-project .task-name {
+    margin: 8px 0 0 0;
+    font-size: 23px;
+    font-weight: bold;
+}

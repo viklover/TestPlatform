@@ -23,9 +23,9 @@ from .views import index, register_request, user_page, your_page, users_page, ra
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', users_page),
-    path('users/<int:user_id>', user_page),
-    path('users/you', your_page),
-    path('users/you/edit', edit_user_page),
+    path('users/<int:user_id>/', user_page),
+    path('users/you/', your_page),
+    path('users/you/edit/', edit_user_page),
     path('ratings/', ratings_page),
     path('tests/', include('tests.urls')),
     path('editor/', include('editor.urls')),

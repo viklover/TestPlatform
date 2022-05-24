@@ -32,6 +32,9 @@ class Test(models.Model):
     number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
     count_of_passes = models.IntegerField(default=0)
 
+    def get_tasks(self):
+        return Task.objects.filter(test=self).order_by('number')
+
     def clean(self):
         if self.id is None:
             self.name = self.project_name
@@ -71,7 +74,7 @@ class Test(models.Model):
             'id': self.id,
             'name': self.name,
             'project_name': self.project_name,
-            'number_of_tasks': Task.objects.filter(test=self).count(),
+            'number_of_tasks': self.get_tasks().count(),
             'published_at': self.published_at,
             'updated_at': self.updated_at,
             'created_at': self.created_at
@@ -100,6 +103,8 @@ class Task(models.Model):
     name = models.CharField(max_length=50)
     test = models.ForeignKey(to=Test, on_delete=models.SET_NULL, null=True, verbose_name='Тест')
     number = models.IntegerField(verbose_name='Номер задания')
+
+    title = models.TextField(default="New Task", verbose_name='Заголовок')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

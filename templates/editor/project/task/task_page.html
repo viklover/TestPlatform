@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ test.project_name }}{% endblock %}
+{% block title %}{{ task.name }}{% endblock %}
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'table.css' %}">
-    <link rel="stylesheet" href="{% static 'modal_window.css' %}">
     <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
     <link rel="stylesheet" href="{% static 'editor/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/task_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,34 +19,27 @@
 
     <div class="content">
 
-        <p class="path">{{ test.project_name }}</p>
+        <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a> > {{ task.name }}</p>
 
         <section class="preview-project">
-            <main>
-                <div class="project-icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
-                <div class="project-info">
-                    <h2 class="name">{{ test.name }}</h2>
-                    <p class="description">{{ test.description }}</p>
-                </div>
-            </main>
-            <div class="button button-change-info" data-url="/editor/tests/{{ test.id }}/edit"></div>
+            <p class="task-number">Задание №{{ task.number }}</p>
+            <p class="task-name">{{ task.title }}</p>
+            <div class="button button-change-info" data-url="/editor/tests/{{ test.id }}/tasks/{{ task.id }}/edit"></div>
         </section>
 
         <section class="project-tasks">
             <header>
-                <h2>Задания</h2>
+                <h2>Упражнения</h2>
             </header>
             <main>
                 {{ tasks_table }}
             </main>
-            <div class="button button-secondary button-create-task" data-modalwindow="#creation_task">
-                Создать задание
+            <div class="button button-secondary button-create-task">
+                Создать упражнение
             </div>
         </section>
 
     </div>
-
-    {% include 'editor/project/modal_window/creation_task.html' %}
 
     {% include 'footer.html' %}
 
