@@ -14,13 +14,17 @@
     gap: 20px;
 }
 
-.project-info .field_name {
+.preview-project {
+    padding-bottom: 80px;
+}
+
+.preview-project .field_name {
     font-weight: bold;
     font-size: 20px;
     margin: 10px 0;
 }
 
-.project-info input[type="text"] {
+.preview-project input[type="text"] {
     width: 328px;
     height: 34px;
     background: #FFFFFF;
@@ -31,7 +35,7 @@
     font-size: 15px;
 }
 
-.project-info textarea {
+.preview-project textarea {
     width: 370px;
     height: 112px;
     background: #FFFFFF;
@@ -62,11 +66,11 @@
 
 @media(min-width: 1024px) {
 
-    .project-info input[type="text"] {
+    .preview-project[type="text"] {
         width: 527px;
     }
 
-    .project-info textarea {
+    .preview-project textarea {
         width: 572px;
     }
 

@@ -11,7 +11,7 @@
             {% for row in rows %}
                 <tr data-url="/editor/tests/{{ row.id }}">
                     <td scope="row" class="ids">{{ row.id }}</td>
-                    <td class="project_name"><a href="/editor/tests/{{ row.id }}">{{ row.project_name }}</a></td>
+                    <td class="project_name">{{ row.project_name }}</td>
                     <td class="number_of_tasks">{{ row.number_of_tasks }}</td>
                     <td class="datetime">{{ row.created_at }}</td>
                     <td class="datetime">{{ row.updated_at }}</td>
@@ -21,7 +21,7 @@
             {% for row in rows %}
                 <tr data-url="/editor/tests/{{ row.test.id }}/tasks/{{ row.id }}">
                     <td scope="row" class="number">{{ row.number }}</td>
-                    <td class="name"><a href="/editor/tests/{{ row.id }}">{{ row.name }}</a></td>
+                    <td class="name">{{ row.name }}</td>
                     <td class="number_of_exercises">{{ row.number_of_exercises }}</td>
                     <td class="max_points">{{ row.max_points }}</td>
                 </tr>

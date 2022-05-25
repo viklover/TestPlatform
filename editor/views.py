@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 
-from editor.forms import CreationTestForm, EditTestInfo, CreationTaskForm
+from editor.forms import CreationTestForm, EditTestInfo, CreationTaskForm, EditTaskInfo
 from tests.models import Test, Task
 
 
@@ -128,11 +128,23 @@ def editor_modal_window(request):
 
 @login_required
 def edit_task(request, test_id, task_id):
+
     context = {
         'test': Test.objects.get(id=test_id),
         'task': Task.objects.get(id=task_id)
     }
-    return render(request, 'editor/project/task/task_edit.html', context)
+
+    if not request.POST:
+        return render(request, 'editor/project/task/task_edit.html', context)
+
+    task = Task.objects.get(id=task_id)
+    form = EditTaskInfo(request.POST, request.FILES, instance=task)
+
+    if form.is_valid():
+        task = form.save(commit=False)
+        task.save()
+
+    return redirect(f'/editor/tests/{test_id}/tasks/{task_id}')
 
 
 @login_required

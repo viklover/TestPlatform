@@ -20,21 +20,21 @@
 
     <div class="content">
 
-        <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a> > {{ task.name }}</p>
+        <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a> > <a class="active-link" href="/editor/tests/{{ test.id }}/tasks/{{ task.id }}">{{ task.name }}</a></p>
 
-        <section class="preview-project">
+        <form class="preview-project" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <p class="task-number">Задание №{{ task.number }}</p>
-            <p class="task-name">{{ task.title }}</p>
-            <div class="button button-change-info" data-url="/editor/tests/{{ test.id }}/tasks/{{ task.id }}/edit"></div>
             <div class="field">
                 <p class="field_name">Название задания</p>
-                <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
+                <input type="text" name="name" maxlength="50" value="{{ task.name }}"/>
             </div>
             <div class="field">
                 <p class="field_name">Заголовок</p>
-                <textarea name="description" class="description">{{ test.title }}</textarea>
+                <input type="text" name="title" maxlength="50" value="{{ task.title }}"/>
             </div>
-        </section>
+            <input type="submit" class="button buttons-submit" value="Сохранить"/>
+        </form>
 
     </div>
 

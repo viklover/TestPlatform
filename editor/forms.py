@@ -32,3 +32,9 @@ class CreationTaskForm(ModelForm):
         model = Task
         fields = ('name',)
 
+
+class EditTaskInfo(ModelForm):
+
+    class Meta:
+        model = Task
+        fields = ('name', 'title')
