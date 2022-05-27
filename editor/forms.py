@@ -10,9 +10,9 @@ class CreationTestForm(ModelForm):
     description = forms.Textarea()
     icon = forms.ImageField()
 
-    class Meta:
-        model = Test
-        fields = ('project_name', 'description', 'icon')
+    # class Meta:
+    #     model = Test
+    #     fields = ('project_name', 'description', 'icon')
 
 
 class EditTestInfo(ModelForm):
@@ -20,21 +20,21 @@ class EditTestInfo(ModelForm):
     description = forms.Textarea()
     icon = forms.ImageField()
 
-    class Meta:
-        model = Test
-        fields = ('name', 'description', 'icon')
+    # class Meta:
+    #     model = Test
+    #     fields = ('name', 'description', 'icon')
 
 
 class CreationTaskForm(ModelForm):
     name = forms.CharField(max_length=50)
 
-    class Meta:
-        model = Task
-        fields = ('name',)
+    # class Meta:
+    #     model = Task
+    #     fields = ('name',)
 
 
 class EditTaskInfo(ModelForm):
-
-    class Meta:
-        model = Task
-        fields = ('name', 'title')
+    pass
+    # class Meta:
+    #     model = Task
+    #     fields = ('name', 'title')
