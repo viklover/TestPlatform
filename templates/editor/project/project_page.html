@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ test.project_name }}{% endblock %}
+{% block title %}{{ project.project_name }}{% endblock %}
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -19,17 +19,17 @@
 
     <div class="content">
 
-        <p class="path">{{ test.project_name }}</p>
+        <p class="path">{{ project.project_name }}</p>
 
         <section class="preview-project">
             <main>
-                <div class="project-icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
+                <div class="project-icon" style="--icon-url: url('/media/{{ project.icon }}')"></div>
                 <div class="project-info">
-                    <h2 class="name">{{ test.name }}</h2>
-                    <p class="description">{{ test.description }}</p>
+                    <h2 class="name">{{ project.name }}</h2>
+                    <p class="description">{{ project.description }}</p>
                 </div>
             </main>
-            <div class="button button-change-info" data-url="/editor/tests/{{ test.id }}/edit"></div>
+            <div class="button button-change-info" data-url="{% url 'editor:edit_project' project_id=project.id %}"></div>
         </section>
 
         <section class="project-tasks">

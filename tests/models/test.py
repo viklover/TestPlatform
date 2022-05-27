@@ -6,7 +6,7 @@ from django.template import loader
 from django.template.defaulttags import register
 from django.utils import timezone
 
-from tests.models.base import BaseTestInfo, BaseTask, BaseExercise
+from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel
 
 
 def user_media_path(instance, filename):
@@ -18,11 +18,13 @@ PROJECT MODEL
 """
 
 
-class Project(BaseTestInfo):
+class Project(BaseModel, BaseTestInfo):
     project_name = models.CharField(max_length=100, verbose_name='Название проекта')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    published = models.BooleanField(default=False)
 
     def get_tasks(self):
         return ProjectTask.objects.filter(project=self).order_by('number')
@@ -57,7 +59,7 @@ class Project(BaseTestInfo):
         return False
 
 
-class ProjectTask(BaseTask):
+class ProjectTask(BaseModel, BaseTask):
     project = models.ForeignKey(to=Project, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -69,7 +71,7 @@ class ProjectTask(BaseTask):
             task.save()
 
 
-class ProjectExercise(BaseExercise):
+class ProjectExercise(BaseModel, BaseExercise):
     task = models.ForeignKey(to=ProjectTask, on_delete=models.CASCADE, null=True)
 
 
@@ -78,7 +80,7 @@ TEST MODEL
 """
 
 
-class Test(BaseTestInfo):
+class Test(BaseModel, BaseTestInfo):
     current_version = models.IntegerField(default=1)
 
     def get_test(self):
@@ -88,7 +90,7 @@ class Test(BaseTestInfo):
         return TestVersion.objects.filter(test=self)
 
 
-class TestVersion(models.Model):
+class TestVersion(BaseModel):
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
     version = models.IntegerField()
     published_at = models.DateTimeField(null=True)
@@ -96,7 +98,7 @@ class TestVersion(models.Model):
     number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
 
 
-class TestFact(models.Model):
+class TestFact(BaseModel):
     test = models.ForeignKey(to=Test, on_delete=models.SET_NULL, null=True)
     started_at = models.DateTimeField(default=timezone.now)
     finished_at = models.DateTimeField(null=True)
@@ -110,14 +112,14 @@ class TestFact(models.Model):
         self.save()
 
 
-class TestComment(models.Model):
+class TestComment(BaseModel):
     message = models.TextField(null=False)
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
     user = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
     published_at = models.DateTimeField(default=timezone.now)
 
 
-class Task(BaseTask):
+class Task(BaseModel, BaseTask):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -129,7 +131,7 @@ EXERCISES MODEL
 """
 
 
-class Exercise(BaseExercise):
+class Exercise(BaseModel, BaseExercise):
     pass
 
 

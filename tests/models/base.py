@@ -11,6 +11,18 @@ def user_media_path(instance, filename):
     return 'users/{0}/{1}'.format(instance.author.id, filename)
 
 
+class BaseModel(models.Model):
+
+    def get_json(self):
+        data = {}
+        for field in self._meta.local_fields:
+            data[field.name] = getattr(self, field.name)
+        return data
+
+    class Meta:
+        abstract = True
+
+
 class BaseTask(models.Model):
     name = models.CharField(max_length=50)
     number = models.IntegerField(verbose_name='Номер задания')

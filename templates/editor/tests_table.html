@@ -1,0 +1,13 @@
+{% extends 'table.html' %}
+
+{% block table_content %}
+    {% for row in rows %}
+        <tr data-url="{% url 'editor:open_project' project_id=row.id %}">
+            <td scope="row" class="ids">{{ row.id }}</td>
+            <td class="project_name">{{ row.project_name }}</td>
+            <td class="number_of_tasks">{{ row.number_of_tasks }}</td>
+            <td class="datetime">{{ row.created_at }}</td>
+            <td class="datetime">{{ row.updated_at }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

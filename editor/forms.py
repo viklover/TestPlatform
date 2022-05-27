@@ -2,39 +2,40 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
-from tests.models import Test, Task
+from tests.models import Project, ProjectTask
 
 
-class CreationTestForm(ModelForm):
+class CreationProjectForm(ModelForm):
     project_name = forms.CharField(max_length=100)
     description = forms.Textarea()
     icon = forms.ImageField()
 
-    # class Meta:
-    #     model = Test
-    #     fields = ('project_name', 'description', 'icon')
+    class Meta:
+        model = Project
+        fields = ('project_name', 'description', 'icon')
 
 
-class EditTestInfo(ModelForm):
+class EditProjectInfo(ModelForm):
     name = forms.TextInput()
     description = forms.Textarea()
     icon = forms.ImageField()
 
-    # class Meta:
-    #     model = Test
-    #     fields = ('name', 'description', 'icon')
+    class Meta:
+        model = Project
+        fields = ('name', 'description', 'icon')
 
 
 class CreationTaskForm(ModelForm):
     name = forms.CharField(max_length=50)
 
-    # class Meta:
-    #     model = Task
-    #     fields = ('name',)
+    class Meta:
+        model = ProjectTask
+        fields = ('name',)
 
 
 class EditTaskInfo(ModelForm):
     pass
-    # class Meta:
-    #     model = Task
-    #     fields = ('name', 'title')
+
+    class Meta:
+        model = ProjectTask
+        fields = ('name', 'title')

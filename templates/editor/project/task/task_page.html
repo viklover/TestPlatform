@@ -19,12 +19,12 @@
 
     <div class="content">
 
-        <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a> > {{ task.name }}</p>
+        <p class="path"><a href="{% url 'editor:open_project' project_id=project.id %}" class="active-link">{{ project.project_name }}</a> > {{ task.name }}</p>
 
         <section class="preview-project">
             <p class="task-number">Задание №{{ task.number }}</p>
             <p class="task-name">{{ task.title }}</p>
-            <div class="button button-change-info" data-url="/editor/tests/{{ test.id }}/tasks/{{ task.id }}/edit"></div>
+            <div class="button button-change-info" data-url="{% url 'editor:edit_task' project_id=project.id task_id=task.id %}"></div>
         </section>
 
         <section class="project-tasks">

@@ -14,7 +14,7 @@ from tests.models.test import TestFact
 def index(request):
     if not request.user.is_authenticated:
         context = {
-            'tests': Test.objects.filter(published=True).order_by('-count_of_passes')[:3]
+            'tests': Test.objects.all()[:3]
         }
         for test in context['tests']:
             print(test.name, test.description)
