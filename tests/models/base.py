@@ -15,6 +15,7 @@ class BaseTask(models.Model):
     name = models.CharField(max_length=50)
     number = models.IntegerField(verbose_name='Номер задания')
     title = models.TextField(default="New Task", verbose_name='Заголовок')
+    author = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
 
     updated_at = models.DateTimeField(auto_now=True)
 
