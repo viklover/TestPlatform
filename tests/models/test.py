@@ -27,10 +27,46 @@ class Project(BaseTestInfo):
     def get_tasks(self):
         return ProjectTask.objects.filter(project=self).order_by('number')
 
+    @staticmethod
+    def edit_info(form):
+
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.save()
+            return project
+
+        return False
+
+    def create_task(self, form):
+
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.number = self.get_tasks().count() + 1
+            task.save()
+            return task
+
+        return None
+
+    def create(self, form):
+
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.save()
+            return self
+
+        return False
+
 
 class ProjectTask(BaseTask):
     project = models.ForeignKey(to=Project, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @staticmethod
+    def edit_info(form):
+
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.save()
 
 
 class ProjectExercise(BaseExercise):
@@ -45,11 +81,19 @@ TEST MODEL
 class Test(BaseTestInfo):
     current_version = models.IntegerField(default=1)
 
+    def get_test(self):
+        return TestVersion.objects.get(test=self, version=self.current_version)
+
+    def get_versions(self):
+        return TestVersion.objects.filter(test=self)
+
 
 class TestVersion(models.Model):
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
     version = models.IntegerField()
     published_at = models.DateTimeField(null=True)
+
+    number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
 
 
 class TestFact(models.Model):
@@ -59,6 +103,11 @@ class TestFact(models.Model):
     completed = models.BooleanField(default=False)
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE, verbose_name='Испытуемый',
                              related_name='person')
+
+    def finish(self):
+        self.finished_at = datetime.datetime.now()
+        self.completed = True
+        self.save()
 
 
 class TestComment(models.Model):
