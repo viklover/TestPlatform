@@ -150,7 +150,7 @@ header .image_account {
     }
 
     .head .pages {
-        padding-right: 400px;
+        padding-right: 171px;
     }
 
     header .burger {
@@ -199,11 +199,24 @@ header .image_account {
         display: flex;
         flex-direction: row;
     }
+
+    .head .current_user-bar .username {
+         display: block;
+    }
 }
 
 @media (min-width: 1024px) {
     header .image_account {
         width: 80px;
         padding-right: 0;
+    }
+
+    .head .content {
+        justify-content: center;
+        gap: 25px;
+    }
+
+    .head .pages {
+        padding-right: 264px;
     }
 }
