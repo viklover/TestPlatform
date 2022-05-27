@@ -7,38 +7,46 @@
     <link rel="stylesheet" href="{% static 'tests/exercises/exercises.css' %}">
     <link rel="stylesheet" href="{% static 'tests/tasks/header.css' %}">
     <link rel="stylesheet" href="{% static 'tests/tasks/style.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/test.css' %}">
 {% endblock %}
 
 {% block content %}
 
     {% include "tests/test/test_header.html" %}
 
-    <div class="content">
-
-        <div class="question-list">
-            <div class="current-question">
-                Задание №{{ task.number }}
-            </div>
-        <hr color="gray">
+    <div class="border_blue">
+        <div class="text_number">
+            Задание №{{task.number}}
         </div>
-
-        <div class="question" id="question">
-            <p>{{ task.title }}</p>
+    </div>
+    <div class="border_white">
+        <div class="text_border_white">
+            {{ task.title }}
         </div>
-
-{#        {% block content %}{% endblock %}#}
-
-        <button class="accept-button">
-            <div class="text">
-                Принять ответ
-            </div>
-        </button>
     </div>
 
+    {% include 'footer.html' %}
+
 {% endblock %}
 
-{% block js_scripts %}
-{#    <script src="{% static "exercises/exercises.js" %}"></script>#}
-{#    {% block types_scripts %}{% endblock %}#}
-{#    <script src="{% static "tasks/tasks.js" %}"></script>#}
-{% endblock %}
+{% block js_scripts %}{% endblock %}
+
+{#    <div class="content">#}
+{##}
+{#        <div class="question-list">#}
+{#            <div class="current-question">#}
+{#                Задание №{{ task.number }}#}
+{#            </div>#}
+{#        <hr color="gray">#}
+{#        </div>#}
+{##}
+{#        <div class="question" id="question">#}
+{#            <p>{{ task.title }}</p>#}
+{#        </div>#}
+{##}
+{#        <button class="accept-button">#}
+{#            <div class="text">#}
+{#                Принять ответ#}
+{#            </div>#}
+{#        </button>#}
+{#    </div>#}
