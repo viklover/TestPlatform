@@ -42,11 +42,11 @@ TEST MODEL
 """
 
 
-class Test(models.Model):
+class Test(BaseTestInfo):
     current_version = models.IntegerField(default=1)
 
 
-class TestVersion(BaseTestInfo):
+class TestVersion(models.Model):
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
     version = models.IntegerField()
     published_at = models.DateTimeField(null=True)
