@@ -18,7 +18,7 @@
         color: white;
     }
 
-    .cards {
+    .cards_footer {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -26,7 +26,7 @@
         margin-bottom: 25px;
     }
 
-    .cards .card {
+    .cards_footer .card_footer {
         position: relative;
         width: 295px;
         height: 120px;
@@ -35,11 +35,11 @@
         transition: 0.2s;
     }
 
-    .cards .card:hover {
+    .cards_footer .card_footer:hover {
         box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.25);
     }
 
-    .cards .card .avatar {
+    .cards_footer .card_footer .avatar {
         position: absolute;
         background-image: var(--data-url);
         background-position: center;
@@ -52,7 +52,7 @@
         left: 10px;
     }
 
-    .cards .card .name {
+    .cards_footer .card_footer .name {
         position: absolute;
         color: white;
         font-weight: bold;
@@ -62,7 +62,7 @@
         text-align: right;
     }
 
-    .cards .card .nickname {
+    .cards_footer .card_footer .nickname {
         position: absolute;
         color: darkgray;
         font-size: 13px;
@@ -72,7 +72,7 @@
         text-align: right;
     }
 
-    .cards .card .button {
+    .cards_footer .card_footer .button {
         position: absolute;
         right: 20px;
         bottom: 10px;
@@ -84,26 +84,26 @@
         transition: 0.3s;
     }
 
-    .cards .card .button:hover {
+    .cards_footer .card_footer .button:hover {
         background-color: white;
     }
 
-    .cards .card .button:hover p {
+    .cards_footer .card_footer .button:hover p {
         color: black;
     }
 
-    .cards .card .button p {
+    .cards_footer .card_footer .button p {
         margin-top: 5px;
         text-align: center;
         font-size: 13px;
         font-weight: bold;
     }
 
-    .cards .card a {
+    .cards_footer .card_footer a {
         text-decoration: none;
     }
 
-    .cards .card a:visited {
+    .cards_footer .card_footer a:visited {
         color: white;
     }
 
@@ -111,6 +111,7 @@
         width: 223px;
         height: 168px;
     }
+
     .descriptionFooter {
         width: 271px;
         height: 361px;
@@ -156,7 +157,7 @@
         height: max-content;
     }
 
-    .cards {
+    .cards_footer {
         flex-direction: row;
     }
 
@@ -177,5 +178,11 @@
 
     .foot .authors-label {
         margin-top: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .foot .box {
+        width: 100%;
     }
 }
