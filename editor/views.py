@@ -2,39 +2,39 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
+from django.urls import reverse
 
-from editor.forms import CreationTestForm, EditTestInfo, CreationTaskForm, EditTaskInfo
-from tests.models import Test, Task
+from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm
+from tests.models import Project, ProjectTask
 
 
 @login_required
 def editor_page(request):
-    template = loader.get_template('table.html')
+    template = loader.get_template('editor/tests_table.html')
 
     columns = ['ID', 'Название', 'Заданий', 'Дата создания', 'Изменено']
-    published_tests_rows = []
-    development_tests_rows = []
+    published_tests_data = []
+    development_tests_data = []
 
-    tests = Test.objects.filter(author_id=request.user.id)
-    published_tests = tests.filter(published=True)
-    development_tests = tests.filter(published=False)
+    projects = Project.objects.filter(author_id=request.user.id)
 
-    for test in tests:
-        if test.published:
-            published_tests_rows.append(test.get_json())
+    for project in projects:
+        if project.published:
+            published_tests_data.append(project.get_json())
         else:
-            development_tests_rows.append(test.get_json())
+            development_tests_data.append(project.get_json())
 
     tests_context = {
         'columns': columns,
-        'type': 'tests-list'
+        'type': 'tests-list',
+        'class': 'development_tests'
     }
 
     context = {
-        'published_tests': published_tests,
-        'development_tests': development_tests,
-        'published_tests_table': template.render({**tests_context, 'rows': published_tests_rows, 'class': 'development_tests'}),
-        'development_tests_table': template.render({**tests_context, 'rows': development_tests_rows, 'class': 'development_tests'})
+        'published_tests_table': template.render({**tests_context, 'rows': published_tests_data}),
+        'development_tests_table': template.render({**tests_context, 'rows': development_tests_data}),
+        'published_tests_exists': len(published_tests_data) != 0,
+        'development_tests_exists': len(development_tests_data) != 0
     }
 
     return render(request, template_name='editor/editor.html', context=context)
@@ -45,19 +45,18 @@ def create_project(request):
     if not request.POST:
         return render(request, template_name='editor/creation_project.html')
 
-    test = Test(author=request.user)
-    form = CreationTestForm(request.POST, request.FILES, instance=test)
+    project = Project(author=request.user)
+    form = CreationProjectForm(request.POST, request.FILES, instance=project)
 
-    if form.is_valid():
-        test = form.save(commit=False)
-        test.save()
-        return redirect(f'/editor/tests/{test.id}')
+    project = Project.create(form)
+
+    if not project is None:
+        return redirect(reverse('editor:open_project', kwargs={'project': project}))
 
 
 @login_required
-def open_project(request, test_id):
-
-    template = loader.get_template('table.html')
+def open_project(request, project_id):
+    template = loader.get_template('editor/tasks_table.html')
 
     context_table = {
         'type': 'tasks-list',
@@ -66,54 +65,45 @@ def open_project(request, test_id):
         'rows': []
     }
 
-    for task in Task.objects.filter(test_id=test_id):
+    for task in ProjectTask.objects.filter(project_id=project_id):
         context_table['rows'].append(task.get_json())
 
     context = {
-        'test': Test.objects.get(id=test_id),
+        'project': Project.objects.get(id=project_id),
         'tasks_table': template.render(context_table)
     }
     return render(request, 'editor/project/project_page.html', context)
 
 
 @login_required
-def create_task(request, test_id):
-
+def create_task(request, project_id):
     if request.POST:
-        test = Test.objects.get(id=test_id)
-        task = Task(test=test)
+
+        project = Project.objects.get(id=project_id)
+        task = ProjectTask(project=project)
 
         form = CreationTaskForm(request.POST, instance=task)
 
-        if form.is_valid():
-            task = form.save(commit=False)
-            task.number = test.get_tasks().count() + 1
-            task.save()
-            return redirect(f'/editor/tests/{test_id}/tasks/{task.id}')
+        if project.create_task(form):
+            return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task.id}))
 
-    return redirect(f'/editor/tests/{test_id}')
+    return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 
 
 @login_required
-def edit_project(request, test_id):
-
+def edit_project(request, project_id):
     if not request.POST:
         context = {
-            'test': Test.objects.get(id=test_id)
+            'project': Project.objects.get(id=project_id)
         }
         return render(request, 'editor/project/project_edit.html', context)
 
-    test = Test.objects.get(id=test_id)
-    form = EditTestInfo(request.POST, request.FILES, instance=test)
+    project = Project.objects.get(id=project_id)
+    form = EditProjectInfo(request.POST, request.FILES, instance=project)
 
-    if form.is_valid():
-        test = form.save(commit=False)
-        test.save()
-        print(test.id, test.project_name, test.name)
-    else:
-        print('something wrong')
+    project.edit_info(form)
 
-    return redirect(f'/editor/tests/{test_id}')
+    return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 
 
 @login_required
@@ -127,31 +117,38 @@ def editor_modal_window(request):
 
 
 @login_required
-def edit_task(request, test_id, task_id):
-
-    context = {
-        'test': Test.objects.get(id=test_id),
-        'task': Task.objects.get(id=task_id)
-    }
-
+def edit_task(request, project_id, task_id):
     if not request.POST:
+        context = {
+            'project': Project.objects.get(id=project_id),
+            'task': ProjectTask.objects.get(id=task_id)
+        }
         return render(request, 'editor/project/task/task_edit.html', context)
 
-    task = Task.objects.get(id=task_id)
+    task = ProjectTask.objects.get(id=task_id)
     form = EditTaskInfo(request.POST, request.FILES, instance=task)
 
-    if form.is_valid():
-        task = form.save(commit=False)
-        task.save()
+    task.edit_info(form)
 
-    return redirect(f'/editor/tests/{test_id}/tasks/{task_id}')
+    return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
 
 
 @login_required
-def open_project_task(request, test_id, task_id):
+def open_task(request, project_id, task_id):
     context = {
-        'test': Test.objects.get(id=test_id),
-        'task': Task.objects.get(id=task_id)
+        'project': Project.objects.get(id=project_id),
+        'task': ProjectTask.objects.get(id=task_id),
+        'creation_exercise_form': CreationExerciseForm()
     }
     return render(request, 'editor/project/task/task_page.html', context)
 
+
+@login_required
+def create_exercise(request, project_id, task_id):
+    if request.POST:
+        form = CreationExerciseForm(request.POST)
+
+        task = ProjectTask.objects.get(id=task_id)
+        task.create_exercise(form)
+
+    return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ test.project_name }}{% endblock %}
+{% block title %}{{ project.project_name }}{% endblock %}
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -19,20 +19,20 @@
 
     <div class="content">
 
-        <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a></p>
+        <p class="path"><a href="/editor/tests/{{ project.id }}" class="active-link">{{ project.project_name }}</a></p>
 
         <section class="preview-project">
             <main>
-                <img src="/media/{{ test.icon }}" class="image_icon project-icon"/>
+                <img src="/media/{{ project.icon }}" class="image_icon project-icon"/>
                 <form class="project-info" enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
                     <div class="field">
                         <p class="field_name">Название теста</p>
-                        <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
+                        <input type="text" name="name" maxlength="50" value="{{ project.name }}"/>
                     </div>
                     <div class="field">
                         <p class="field_name">Описание</p>
-                        <textarea name="description" class="description">{{ test.description }}</textarea>
+                        <textarea name="description" class="description">{{ project.description }}</textarea>
                     </div>
                     <div class="button button-secondary upload-file-button">Загрузить иконку</div>
                     <input type="file" class="file-uploader" name="icon">

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from tests.models import Test, Task
 from tests.models.test import TestComment
@@ -8,7 +9,7 @@ from tests.models.test import TestComment
 
 def tests_page(request):
     context = {
-        'tests': Test.objects.filter(published=True)
+        'tests': [test.render(request.user) for test in Test.objects.filter()]
     }
     return render(request, 'tests/tests_page.html', context)
 
@@ -47,7 +48,7 @@ def open_task(request, test_id, task_number):
     try:
         current_task = tasks.get(number=task_number)
     except Exception:
-        return redirect(f'/tests/{test_id}/tasks')
+        return redirect(reverse('tests:open_task', kwargs={'test_id': test_id}))
 
     context = {
         'test': Test.objects.get(id=test_id),

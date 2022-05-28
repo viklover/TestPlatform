@@ -20,7 +20,10 @@
 
     <div class="content">
 
-        <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a> > <a class="active-link" href="/editor/tests/{{ test.id }}/tasks/{{ task.id }}">{{ task.name }}</a></p>
+        <p class="path">
+            <a href="{% url 'editor:open_project' project_id=project.id %}" class="active-link">{{ project.project_name }}</a> >
+            <a class="active-link" href="{% url 'editor:open_task' project_id=project.id task_id=task.id %}">{{ task.name }}</a>
+        </p>
 
         <form class="preview-project" method="POST" enctype="multipart/form-data">
             {% csrf_token %}

@@ -6,9 +6,6 @@
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'table.css' %}">
-    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
-    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
-    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/edit_page.css' %}">
     <link rel="stylesheet" href="{% static 'users/user_edit.css' %}">
@@ -16,27 +13,27 @@
 
 {% block content %}
 
-    {% include 'editor/header.html' %}
+    {% include 'header.html' %}
 
     <div class="content">
 
         <p class="path"><a href="/editor/tests/{{ test.id }}" class="active-link">{{ test.project_name }}</a></p>
 
-        <section class="preview-project">
+        <section class="preview-project user-preview">
             <main>
-                <img src="/media/{{ test.icon }}" class="image_icon project-icon"/>
+                <img src="/media/{{ request.user.avatar }}" class="image_icon project-icon user-avatar"/>
                 <form class="project-info" enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
                     <div class="field">
                         <p class="field_name">Имя</p>
-                        <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
+                        <input type="text" name="first_name" maxlength="50" value="{{ request.user.first_name }}"/>
                     </div>
                     <div class="field">
                         <p class="field_name">Фамилия</p>
-                        <input type="text" name="name" maxlength="50" value="{{ test.name }}"/>
+                        <input type="text" name="last_name" maxlength="50" value="{{ request.user.last_name }}"/>
                     </div>
-                    <div class="button button-secondary upload-file-button">Загрузить иконку</div>
-                    <input type="file" class="file-uploader" name="icon">
+                    <div class="button button-secondary upload-file-button">Загрузить аватарку</div>
+                    <input type="file" class="file-uploader" name="avatar">
                     <input type="submit" class="button buttons-submit" value="Сохранить зменения"></input>
                 </form>
             </main>

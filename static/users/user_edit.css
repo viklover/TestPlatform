@@ -1,3 +1,28 @@
+
+.content {
+    width: 320px;
+    margin: auto;
+}
+
+.user-preview {
+    height: max-content;
+}
+
+.user-preview .user-avatar {
+    --size: 180px;
+}
+
+.user-preview .field {
+    flex-direction: column;
+    gap: 0;
+}
+
+.user-preview .upload-file-button {
+    top: 220px;
+    left: auto;
+    bottom: auto;
+}
+
 .project-info input[type="text"] {
     width: 100%;
     height: 34px;
@@ -14,12 +39,8 @@
     width: 262px;
 }
 
-.upload-file-button {
-    bottom: 211px;
-}
-
 .preview-project {
-    height: 387px;
+    height: max-content;
 }
 
 .preview-project main {
@@ -32,6 +53,16 @@
 }
 
 @media (min-width: 768px) {
+
+    .content {
+        width: 700px;
+    }
+
+    .user-preview .upload-file-button {
+        top: 220px;
+        left: 20px;
+    }
+
     .preview-project main {
         flex-direction: row;
         gap: 87px;
@@ -41,8 +72,16 @@
         bottom: 20px;
     }
 
-    .preview-project {
-        height: 186px;
+    .preview-project main {
+        gap: 30px;
+    }
+
+    .project-info input[type="text"] {
+        width: 204px;
+    }
+
+    .project-info {
+        gap: 10px;
     }
 
     .project-info input[type="text"] {

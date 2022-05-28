@@ -5,8 +5,9 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth import login
 from django.contrib import messages
+from django.urls import reverse
 
-from TestPlatform.forms import RegistrationForm
+from TestPlatform.forms import RegistrationForm, EditUserForm
 from tests.models import Test, User, Task
 from tests.models.test import TestFact
 
@@ -14,7 +15,7 @@ from tests.models.test import TestFact
 def index(request):
     if not request.user.is_authenticated:
         context = {
-            'tests': Test.objects.filter(published=True).order_by('-count_of_passes')[:3]
+            'tests': Test.objects.all()[:3]
         }
         for test in context['tests']:
             print(test.name, test.description)
@@ -70,6 +71,15 @@ def settings_page(request):
 
 @login_required
 def edit_user_page(request):
+
+    if request.POST:
+        form = EditUserForm(request.POST, request.FILES, instance=request.user)
+
+        if form.is_valid():
+            form.save(commit=True)
+
+        return redirect(reverse('your_page'))
+
     return render(request, 'users/user_edit.html')
 
 

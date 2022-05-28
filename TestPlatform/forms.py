@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 
 from tests.models import User
 
@@ -23,3 +24,14 @@ class RegistrationForm(UserCreationForm):
         #     return True
         # return False
         return user
+
+
+class EditUserForm(ModelForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    avatar = forms.ImageField()
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'avatar')
+

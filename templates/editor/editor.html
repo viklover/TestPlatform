@@ -17,7 +17,7 @@
 
     <div class="content">
 
-        {% if development_tests|length %}
+        {% if development_tests_exists %}
 
             <section class="tests-list tests-list__development">
                 <header>
@@ -28,7 +28,7 @@
 
         {% endif %}
 
-        {% if published_tests|length %}
+        {% if published_tests_exists %}
 
             <section class="tests-list tests-list__published">
                 <header>
@@ -39,7 +39,7 @@
 
         {% endif %}
 
-        {% if not published_tests|length and not development_tests|length %}
+        {% if not published_tests_exists and not development_tests_exists %}
 
             <h2>Добро пожаловать в редакторе тестов!</h2>
             <p>
