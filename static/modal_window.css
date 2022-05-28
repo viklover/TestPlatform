@@ -42,6 +42,17 @@
     font-size: 15px;
 }
 
+.modal-window textarea {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    resize: none;
+}
+
 .modal-window select {
     height: 34px;
     background: #FFFFFF;

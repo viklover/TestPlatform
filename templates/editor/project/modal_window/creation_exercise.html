@@ -1,0 +1,27 @@
+{% extends 'modal_window.html' %}
+{% load static %}
+
+{% block id %}creation_exercise{% endblock %}
+{% block title %}Создать упражнение{% endblock %}
+{% block action %}create_exercise{% endblock action %}
+
+{% block content %}
+    {% for f in creation_exercise_form %}
+        <div class="modal-window__field">
+            <h4 class="field-name">{{ f.label }}</h4>
+            {{ f }}
+        </div>
+    {% endfor %}
+{#    <div class="modal-window__field">#}
+{#        <h4 class="field-name">Название</h4>#}
+{#        <input type="text" name="name"/>#}
+{#    </div>#}
+{#    <div class="modal-window__field">#}
+{#        <h4 class="field-name">Взять за основу шаблон</h4>#}
+{#        <select name="template">#}
+{#            <option>нет</option>#}
+{#            <option>Выпадающий список</option>#}
+{#            <option>Выпадающий список</option>#}
+{#        </select>#}
+{#    </div>#}
+{% endblock %}

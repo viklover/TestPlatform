@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/task_page.css' %}">
+    <link rel="stylesheet" href="{% static 'modal_window.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -34,12 +35,14 @@
             <main>
                 {{ tasks_table }}
             </main>
-            <div class="button button-secondary button-create-task">
+            <div class="button button-secondary button-create-task" data-modalwindow="#creation_exercise">
                 Создать упражнение
             </div>
         </section>
 
     </div>
+
+    {% include 'editor/project/modal_window/creation_exercise.html' %}
 
     {% include 'footer.html' %}
 

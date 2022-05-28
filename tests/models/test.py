@@ -6,7 +6,7 @@ from django.template import loader
 from django.template.defaulttags import register
 from django.utils import timezone
 
-from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel
+from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel, BaseProject
 
 
 def user_media_path(instance, filename):
@@ -18,16 +18,9 @@ PROJECT MODEL
 """
 
 
-class Project(BaseModel, BaseTestInfo):
+class Project(BaseProject, BaseTestInfo):
     project_name = models.CharField(max_length=100, verbose_name='Название проекта')
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
     published = models.BooleanField(default=False)
-
-    def get_tasks(self):
-        return ProjectTask.objects.filter(project=self).order_by('number')
 
     @staticmethod
     def edit_info(form):
@@ -45,33 +38,53 @@ class Project(BaseModel, BaseTestInfo):
             task = form.save(commit=False)
             task.number = self.get_tasks().count() + 1
             task.save()
+            self.update()
             return task
 
         return None
 
-    def create(self, form):
+    @staticmethod
+    def create(form):
 
         if form.is_valid():
             project = form.save(commit=False)
             project.save()
-            return self
+            return project
 
-        return False
+        return None
+
+    def get_tasks(self):
+        return ProjectTask.objects.filter(project=self).order_by('number')
+
+    def get_json(self):
+        return {**super().get_json(), 'number_of_tasks': self.get_tasks().count()}
 
 
-class ProjectTask(BaseModel, BaseTask):
+class ProjectTask(BaseProject, BaseTask):
     project = models.ForeignKey(to=Project, on_delete=models.CASCADE, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    @staticmethod
-    def edit_info(form):
+    def edit_info(self, form):
 
         if form.is_valid():
             task = form.save(commit=False)
             task.save()
 
+            self.project.update()
 
-class ProjectExercise(BaseModel, BaseExercise):
+    def create_exercise(self, form):
+
+        if form.is_valid():
+            exercise = form.save(commit=False)
+            exercise.task = self
+            exercise.save()
+            self.update()
+            self.project.update()
+            return exercise
+
+        return None
+
+
+class ProjectExercise(BaseProject, BaseExercise):
     task = models.ForeignKey(to=ProjectTask, on_delete=models.CASCADE, null=True)
 
 
@@ -80,7 +93,7 @@ TEST MODEL
 """
 
 
-class Test(BaseModel, BaseTestInfo):
+class Test(BaseTestInfo):
     current_version = models.IntegerField(default=1)
 
     def get_test(self):
@@ -119,7 +132,7 @@ class TestComment(BaseModel):
     published_at = models.DateTimeField(default=timezone.now)
 
 
-class Task(BaseModel, BaseTask):
+class Task(BaseTask):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -131,7 +144,7 @@ EXERCISES MODEL
 """
 
 
-class Exercise(BaseModel, BaseExercise):
+class Exercise(BaseExercise):
     pass
 
 
@@ -167,7 +180,7 @@ class MatchExercise(Exercise):
         return VariantMatchExercise.objects.filter(exercise_id=self.id)
 
 
-class ColumnMatchExercise(models.Model):
+class ColumnMatchExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
 
@@ -175,11 +188,10 @@ class ColumnMatchExercise(models.Model):
         return self.content
 
 
-class VariantMatchExercise(models.Model):
+class VariantMatchExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
     column = models.ForeignKey(to=ColumnMatchExercise, on_delete=models.SET_NULL, null=True)
     content = models.CharField(max_length=100)
 
     def __str__(self):
         return self.content
-

@@ -42,6 +42,8 @@ class EditTaskInfo(ModelForm):
 
 
 class CreationExerciseForm(ModelForm):
+    title = forms.CharField(required=False)
+
     class Meta:
         model = ProjectExercise
         fields = ('type', 'name', 'title')

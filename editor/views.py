@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.urls import reverse
 
-from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo
+from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm
 from tests.models import Project, ProjectTask
 
 
@@ -48,7 +48,7 @@ def create_project(request):
     project = Project(author=request.user)
     form = CreationProjectForm(request.POST, request.FILES, instance=project)
 
-    project = project.create(form)
+    project = Project.create(form)
 
     if not project is None:
         return redirect(reverse('editor:open_project', kwargs={'project': project}))
@@ -83,9 +83,8 @@ def create_task(request, project_id):
         task = ProjectTask(project=project)
 
         form = CreationTaskForm(request.POST, instance=task)
-        task = project.create_task(form)
 
-        if task is not None:
+        if project.create_task(form):
             return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task.id}))
 
     return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
@@ -135,9 +134,21 @@ def edit_task(request, project_id, task_id):
 
 
 @login_required
-def open_project_task(request, project_id, task_id):
+def open_task(request, project_id, task_id):
     context = {
         'project': Project.objects.get(id=project_id),
-        'task': ProjectTask.objects.get(id=task_id)
+        'task': ProjectTask.objects.get(id=task_id),
+        'creation_exercise_form': CreationExerciseForm()
     }
     return render(request, 'editor/project/task/task_page.html', context)
+
+
+@login_required
+def create_exercise(request, project_id, task_id):
+    if request.POST:
+        form = CreationExerciseForm(request.POST)
+
+        task = ProjectTask.objects.get(id=task_id)
+        task.create_exercise(form)
+
+    return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
