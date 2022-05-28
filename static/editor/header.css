@@ -103,8 +103,6 @@
 .dropdown-user {
     position: relative;
     display: flex;
-    width: 227px;
-    justify-content: flex-end;
 }
 
 .dropdown-menu {
@@ -247,6 +245,11 @@
 
     .head-editor .content {
         width: 900px;
+    }
+
+    .dropdown-user {
+        width: 227px;
+        justify-content: flex-end;
     }
 
     .dropdown-content .first_name_lastName {
