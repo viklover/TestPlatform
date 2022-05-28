@@ -19,7 +19,7 @@
 
     <div class="content">
 
-        <p class="path"><a href="/editor/tests/{{ project.id }}" class="active-link">{{ project.project_name }}</a></p>
+        <p class="path"><a href="{% url 'editor:open_project' project_id=project.id %}" class="active-link">{{ project.project_name }}</a></p>
 
         <section class="preview-project">
             <main>
