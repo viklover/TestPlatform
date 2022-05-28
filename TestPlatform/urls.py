@@ -22,11 +22,11 @@ from .views import index, register_request, user_page, your_page, users_page, ra
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', users_page),
-    path('users/<int:user_id>/', user_page),
-    path('users/you/', your_page),
-    path('users/you/edit/', edit_user_page),
-    path('ratings/', ratings_page),
+    path('users/', users_page, name='users_page'),
+    path('users/<int:user_id>/', user_page, name='user_page'),
+    path('users/you/', your_page, name='your_page'),
+    path('users/you/edit/', edit_user_page, name='edit_your_page'),
+    path('ratings/', ratings_page, name='ratings_page'),
     path('tests/', include('tests.urls')),
     path('editor/', include('editor.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
