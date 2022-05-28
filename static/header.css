@@ -101,6 +101,8 @@
 .dropdown {
     position: relative;
     display: flex;
+    width: 227px;
+    justify-content: flex-end;
 }
 
 .dropdown_0 {
@@ -186,7 +188,7 @@
 @media(min-width: 768px) {
 
     .head .current_user-bar .username {
-        display: block;
+        display: none;
         margin: 23px 0 0;
         font-size: 23px;
         width: 158px;
@@ -267,6 +269,10 @@
 
     .head .current_user-bar .username {
         display: block;
+        position: absolute;
+        right: 75px;
+        width: max-content;
+        text-align: right;
     }
 
     .dropdown-content {

@@ -29,10 +29,10 @@
                     <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
                     <div class="current-user_avatar" style="--avatar-url: url('/media/{{ request.user.avatar }}')"></div>
                     <div class="dropdown-content">
-                        <a href="/users/{{ user.id }}" class="first_name_lastName">{{ user.first_name }} {{ user.last_name }}</a>
-                        <a href="/users/you">Моя страница</a>
-                        <a href="/users/you/settings">Настройки</a>
-                        <a href="/editor">Мастерская тестов</a>
+                        <a href="{% url 'user_page' user_id=user.id %}" class="first_name_lastName">{{ user.first_name }} {{ user.last_name }}</a>
+                        <a href="{% url 'your_page' %}">Моя страница</a>
+                        <a href="{% url 'settings_page' %}">Настройки</a>
+                        <a href="{% url 'editor:index' %}">Мастерская тестов</a>
                         <a href="/accounts/logout" style="color: red;">Выйти из аккаунта</a>
                     </div>
                 </div>
