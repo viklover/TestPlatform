@@ -45,6 +45,7 @@ class BaseExercise(models.Model):
         (5, 'Составить правильный порядок карточек')
     )
     type = models.IntegerField(choices=EXERCISE_TYPES, verbose_name='Тип упражнения')
+    name = models.CharField(max_length=50)
     title = models.TextField(null=True)
 
     class Meta:

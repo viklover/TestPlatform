@@ -146,7 +146,7 @@ class ChronologyExercise(Exercise):
 
 class VariantChronologyExercise(Exercise):
     exercise = models.ForeignKey(to=ChronologyExercise, on_delete=models.CASCADE)
-    name = models.TextField()
+    content = models.TextField()
     order = models.IntegerField(verbose_name='Порядковый номер')
 
 
@@ -169,17 +169,17 @@ class MatchExercise(Exercise):
 
 class ColumnMatchExercise(models.Model):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    content = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.content
 
 
 class VariantMatchExercise(models.Model):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
     column = models.ForeignKey(to=ColumnMatchExercise, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=100)
+    content = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.content
 

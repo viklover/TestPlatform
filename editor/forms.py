@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
-from tests.models import Project, ProjectTask
+from tests.models import Project, ProjectTask, ProjectExercise
 
 
 class CreationProjectForm(ModelForm):
@@ -39,3 +39,9 @@ class EditTaskInfo(ModelForm):
     class Meta:
         model = ProjectTask
         fields = ('name', 'title')
+
+
+class CreationExerciseForm(ModelForm):
+    class Meta:
+        model = ProjectExercise
+        fields = ('type', 'name', 'title')
