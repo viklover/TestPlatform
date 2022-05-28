@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Настройки{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'settings/settings.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include "header.html" %}
+
+    <div class="flex_name_icon_settings">
+        <div class="icon_settings"></div>
+        <div class="text_settings">
+            Настройки
+        </div>
+    </div>
+
+    <div class="flex_tags">
+        <div class="top_settings">
+            Основные
+        </div>
+        <div class="account_settings">
+            Аккаунт
+        </div>
+    </div>
+
+    <div class="content_settings_1">
+        <div class="flex_chose_theme">
+            <label class="theme_name">Тема</label>
+            <select class="choose_type_theme">
+                <option class="name_1">Выбрать тему</option>
+                <option class="name_1">Светлая тема</option>
+                <option class="name_1">Тёмная тема</option>
+                <option class="name_1">Системная тема</option>
+                <option class="name_1">По времени</option>
+            </select>
+        </div>
+
+        <div class="schedule_dark_theme">
+            Расписание тёмной темы
+        </div>
+
+        <div class="timeOn_dark_theme">
+            Время включения
+        </div>
+
+        <input type="time" class="timeOn_input" value="00:00"><div class="timeOn_dark_theme">
+            Время выключения
+        </div>
+
+        <input type="time" class="timeOut_input" value="00:00">
+    </div>
+
+    <div class="content_settings_2">
+        <div class="flex_password_change">
+            <div class="text_password">
+                Пароль
+            </div>
+            <div class="password_change">
+                Изменён 2 дня назад
+            </div>
+        </div>
+        <input type="password" class="password_input" placeholder="Изменить пароль">
+
+        <div class="text_mail">
+            Адрес эллектронной почты
+        </div>
+        <input class="password_input padding" value="{{ user.email }}">
+
+        <div class="text_mail">
+            Адрес страницы
+        </div>
+        <input class="password_input padding" value="/users/{{ user.id }}">
+    </div>
+
+    <button class="button">Сохранить изменения</button>
+
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="/static/settings/settings.js"></script>
+{% endblock %}

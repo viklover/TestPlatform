@@ -185,9 +185,21 @@
 
 @media(min-width: 768px) {
 
+    .head .current_user-bar .username {
+        display: block;
+        margin: 23px 0 0;
+        font-size: 23px;
+        width: 158px;
+        font-weight: bold;
+    }
+
     .head {
         height: 73px;
         justify-content: space-around;
+    }
+
+    .head .pages {
+        padding-right: 80px;
     }
 
     .head .content {

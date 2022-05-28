@@ -64,6 +64,11 @@ def your_page(request):
 
 
 @login_required
+def settings_page(request):
+    return render(request, 'settings.html')
+
+
+@login_required
 def edit_user_page(request):
     return render(request, 'users/user_edit.html')
 
@@ -76,7 +81,6 @@ def ratings_page(request):
 
     order = 1
     for user in User.objects.order_by('-last_login')[:5]:
-
         stats = {
             'completed_tasks': 10,
             'amount_tasks': 37
