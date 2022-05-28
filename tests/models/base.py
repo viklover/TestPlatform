@@ -37,12 +37,12 @@ class BaseTask(models.Model):
 
 class BaseExercise(models.Model):
     EXERCISE_TYPES = (
-        (0, 'answer'),
-        (1, 'input'),
-        (2, 'statements'),
-        (3, 'radio'),
-        (4, 'match'),
-        (5, 'chronology')
+        (0, 'Ответить на вопрос'),
+        (1, 'Написать развёрнутый ответ'),
+        (2, 'Отметить верные утверждения'),
+        (3, 'Выбрать одно верное утверждение'),
+        (4, 'Соотнести что-то с чем-то'),
+        (5, 'Составить правильный порядок карточек')
     )
     type = models.IntegerField(choices=EXERCISE_TYPES, verbose_name='Тип упражнения')
     title = models.TextField(null=True)
