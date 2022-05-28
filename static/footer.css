@@ -168,6 +168,7 @@
     .foot {
         padding-top: 10px;
         height: max-content;
+        max-width: 99.7vw;
     }
 
     .foot .box .flex {
