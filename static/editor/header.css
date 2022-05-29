@@ -103,6 +103,8 @@
 .dropdown-user {
     position: relative;
     display: flex;
+    width: 227px;
+    justify-content: flex-end;
 }
 
 .dropdown-menu {
