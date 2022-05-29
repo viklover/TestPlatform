@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Редактор тестов{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
+    <link rel="stylesheet" href="{% static 'develop_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'editor/header.html' %}
+
+    <div class="content">
+
+    <div class="text_develop">
+        Страница в разработке
+    </div>
+
+    <div class="icon_platform_test"></div>
+
+    <button class="button">К предыдущей странице</button>
+
+    </div>
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

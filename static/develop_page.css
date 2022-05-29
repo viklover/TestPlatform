@@ -1,0 +1,19 @@
+.text_develop {
+    width: 227px;
+    height: 28px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    margin: auto;
+    padding: 27px 0 16px 16px;
+}
+
+.icon_platform_test {
+    width: 135px;
+    height: 149px;
+    background: url("/static/logos/logo_mobile.png") no-repeat;
+    background-size: 135px;
+    margin: auto;
+    margin-bottom: 18px;
+}
