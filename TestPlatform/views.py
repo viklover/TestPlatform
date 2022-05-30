@@ -49,11 +49,11 @@ def users_page(request):
 def user_page(request, user_id):
     context = {
         'user_page': User.objects.get(id=user_id),
-        'created_tests': Test.objects.filter(author=user_id),
+        'created_tests': Test.objects.filter(author=user_id, number_of_tasks__gt=0),
         'finished_tests': []
     }
 
-    for test in Test.objects.all():
+    for test in TestFact.objects.filter(completed=True):
         context['finished_tests'].append(test.get_statistics_differences(request.user, context['user_page']))
 
     return render(request=request, template_name="users/user.html", context=context)

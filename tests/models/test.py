@@ -32,6 +32,16 @@ class Project(BaseProject, BaseTestInfo):
 
         return False
 
+    @staticmethod
+    def create(form):
+
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.save()
+            return project
+
+        return None
+
     def create_task(self, form):
 
         if form.is_valid():
@@ -40,16 +50,6 @@ class Project(BaseProject, BaseTestInfo):
             task.save()
             self.update()
             return task
-
-        return None
-
-    @staticmethod
-    def create(form):
-
-        if form.is_valid():
-            project = form.save(commit=False)
-            project.save()
-            return project
 
         return None
 
@@ -94,21 +94,42 @@ TEST MODEL
 
 
 class Test(BaseTestInfo):
-    current_version = models.IntegerField(default=1)
 
-    def get_test(self):
-        return TestVersion.objects.get(test=self, version=self.current_version)
+    def __render_template(self, context=None):
+        if context is None:
+            context = {}
+        template = loader.get_template('tests/test_card.html')
+        return template.render({'test': self, **context})
 
-    def get_versions(self):
-        return TestVersion.objects.filter(test=self)
+    def __str__(self):
+        return self.__render_template()
 
+    def render(self, user):
+        return self.__render_template({
+            **super().get_json(),
+            'user': user,
+            'test_fact': TestFact.objects.filter(completed=False, user=user).last(),
+            'in_progress': TestFact.objects.filter(completed=False, user=user).exists(),
+            'never_opened': TestFact.objects.filter(user=user).exists()
+        })
 
-class TestVersion(BaseModel):
-    test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
-    version = models.IntegerField()
-    published_at = models.DateTimeField(null=True)
+    def get_statistics(self, user):
+        return self.__render_template(
+            context={
+                'with_statistics': True, 'user': user
+            }
+        )
 
-    number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
+    def get_statistics_differences(self, user, user_page):
+        return self.__render_template(
+            context={
+                'with_statistics': True,
+                'user': user,
+                'user_res': 0.16,
+                'user_page': user_page,
+                'user_page_res': 0.687431
+            }
+        )
 
 
 class TestFact(BaseModel):

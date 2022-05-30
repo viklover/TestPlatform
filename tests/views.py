@@ -4,19 +4,24 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from tests.models import Test, Task
-from tests.models.test import TestComment
+from tests.models.test import TestComment, TestFact
 
 
+@login_required
 def tests_page(request):
     context = {
-        'tests': [test.render(request.user) for test in Test.objects.filter()]
+        'tests': [test.render(request.user) for test in Test.objects.filter(number_of_tasks__gt=0)]
     }
     return render(request, 'tests/tests_page.html', context)
 
 
 def test_page(request, test_id):
+    test = Test.objects.get(id=test_id)
+
     context = {
-        'test': Test.objects.get(id=test_id),
+        'test': test,
+        'number_of_tasks': test.number_of_tasks,
+        'number_of_facts': TestFact.objects.filter(test=test).count(),
         'comments': TestComment.objects.filter(test_id=test_id).order_by('-published_at')
     }
     return render(request, 'tests/test_page.html', context)
@@ -44,11 +49,10 @@ def upload_comment(request, test_id):
 @login_required
 def open_task(request, test_id, task_number):
     tasks = Task.objects.filter(test=test_id).order_by('number')
-
     try:
         current_task = tasks.get(number=task_number)
     except Exception:
-        return redirect(reverse('tests:open_task', kwargs={'test_id': test_id}))
+        return redirect(reverse('tests:open_task', kwargs={'test_id': test_id, 'task_number': 1}))
 
     context = {
         'test': Test.objects.get(id=test_id),

@@ -7,7 +7,7 @@
         {% block content %}{% endblock content %}
     </main>
     <footer>
-        <button type="submit" name="submit-button" class="button modal-window__button">Создать</button>
+        <button type="submit" name="submit-button" class="button modal-window__button">{% block button_label %}{% endblock %}</button>
     </footer>
 </form>
 <div class="modal-background"></div>

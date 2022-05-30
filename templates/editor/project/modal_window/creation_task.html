@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block id %}creation_task{% endblock %}
-{% block title %}Создать задание{% endblock %}
+{% block title %}Вы уверены, что хотите выйти?{% endblock %}
 {% block action %}create_task{% endblock action %}
 
 {% block content %}
@@ -18,4 +18,8 @@
             <option>Выпадающий список</option>
         </select>
     </div>
+{% endblock %}
+
+{% block button_label %}
+    Создать
 {% endblock %}
