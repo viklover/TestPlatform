@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.urls import path
 
 from editor.views import editor_page, editor_not_allowed, editor_modal_window, create_project, open_project, \
-    edit_project, open_task, edit_task, create_task, create_exercise
+    edit_project, open_task, edit_task, create_task, create_exercise, templates, stats
 
 app_name = 'editor'
 
@@ -17,5 +17,7 @@ urlpatterns = [
     path('projects/<int:project_id>/tasks/<int:task_id>/edit/', edit_task, name='edit_task'),
     path('create_project', create_project, name='create_project'),
     path('not_allowed', editor_not_allowed),
+    path('templates', templates),
+    path('stats', stats),
     path('modal_window', editor_modal_window)
 ]

@@ -108,7 +108,17 @@ def edit_project(request, project_id):
 
 @login_required
 def editor_not_allowed(request):
-    return render(request, 'editor/editor_not_allowed.html')
+    return render(request, 'editor/editor_not_allowed.html') \
+
+
+@login_required
+def templates(request):
+    return render(request, 'develop_page.html')
+
+
+@login_required
+def stats(request):
+    return render(request, 'develop_page.html')
 
 
 @login_required

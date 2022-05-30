@@ -31,49 +31,33 @@
         <div class="content_settings_1">
             <div class="flex_chose_theme">
                 <label class="theme_name">Тема</label>
-                <select class="choose_type_theme">
+                <select class="choose_type_theme" onchange="showOption(this)">
                     <option class="name_1">Выбрать тему</option>
-                    <option class="name_1">Светлая тема</option>
-                    <option class="name_1">Тёмная тема</option>
-                    <option class="name_1">Системная тема</option>
-                    <option class="name_1">По времени</option>
+                    <option class="name_2">Светлая тема</option>
+                    <option class="name_3">Тёмная тема</option>
+                    <option class="name_4">Системная тема</option>
+{#                    <div onchange="showOption(this)"></div>#}
+                    <option class="name_5">По времени</option> {# если пользователь кликнул на это весь код ниже показывается #}
                 </select>
             </div>
 
-            <div class="schedule_dark_theme">
-                Расписание тёмной темы
+            <div class="by_time">
+                <div class="schedule_dark_theme">Расписание тёмной темы</div>
+                <div class="timeOn_dark_theme">Время включения</div>
+                <input type="time" class="timeOn_input" value="00:00"><div class="timeOn_dark_theme">Время выключения</div>
+                <input type="time" class="timeOut_input" value="00:00">
             </div>
-
-            <div class="timeOn_dark_theme">
-                Время включения
-            </div>
-
-            <input type="time" class="timeOn_input" value="00:00"><div class="timeOn_dark_theme">
-                Время выключения
-            </div>
-
-            <input type="time" class="timeOut_input" value="00:00">
         </div>
 
         <div class="content_settings_2">
             <div class="flex_password_change">
-                <div class="text_password">
-                    Пароль
-                </div>
-                <div class="password_change">
-                    Изменён 2 дня назад
-                </div>
+                <div class="text_password">Пароль</div>
+                <div class="password_change">Изменён 2 дня назад</div>
             </div>
             <input type="password" class="password_input" placeholder="Изменить пароль">
-
-            <div class="text_mail">
-                Адрес эллектронной почты
-            </div>
+            <div class="text_mail">Адрес эллектронной почты</div>
             <input class="password_input padding" value="{{ user.email }}">
-
-            <div class="text_mail">
-                Адрес страницы
-            </div>
+            <div class="text_mail">Адрес страницы</div>
             <input class="password_input padding" value="/users/{{ user.id }}">
         </div>
 

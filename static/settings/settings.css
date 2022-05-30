@@ -185,6 +185,10 @@
     padding-left: 10px;
 }
 
+.by_time {
+    display: none;
+}
+
 @media (min-width: 768px) {
     .choose_type_theme {
         width: 659px;
