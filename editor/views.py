@@ -52,7 +52,7 @@ def create_project(request):
     project = Project.create(form)
 
     if not project is None:
-        return redirect(reverse('editor:open_project', kwargs={'project': project}))
+        return redirect(reverse('editor:open_project', kwargs={'project_id': project.id}))
 
 
 @login_required
