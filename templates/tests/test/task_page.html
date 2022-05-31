@@ -14,14 +14,49 @@
 
     {% include "tests/test/test_header.html" %}
 
-    <div class="border_blue">
-        <div class="text_number">
-            Задание №{{task.number}}
+    <div class="content">
+
+        <div class="flex_circle">
+            {% for task_test in tasks %}
+                <a class="text_direction_none" href="{% url 'tests:open_task' test_id=test.id task_number=task_test.number %}">
+                    {% if task_test.number == task.number %}
+                        <div class="circle blue">
+                            <p class="task_test_blue">{{ task_test.number }}</p>
+                        </div>
+                    {% else %}
+                        <div class="circle">
+                            <p class="circle_p_grey">{{ task_test.number }}</p>
+                        </div>
+                    {% endif %}
+                </a>
+            {% endfor %}
+
         </div>
-    </div>
-    <div class="border_white">
-        <div class="text_border_white">
-            {{ task.title }}
+
+        <div class="flex_link">
+            <a href="/tests/2/tasks/">
+                <div class="link">
+                    Перейти к списку всех заданий
+                </div>
+            </a>
+
+            <a href="/">
+                <div class="link link_blue">
+                    Завершить тест
+                </div>
+            </a>
+        </div>
+        <div class="relative">
+            <div class="border_blue">
+                <div class="text_number">
+                    Задание №{{task.number}}
+                </div>
+            </div>
+            <div class="border_white">
+                <div class="text_border_white">
+                    {{ task.title }}
+                </div>
+            </div>
         </div>
     </div>
 
