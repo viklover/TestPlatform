@@ -82,8 +82,24 @@ a .link_blue {
         width: 700px;
     }
 
+    .gradient {
+        position: absolute;
+        width: 113px;
+        height: 38px;
+        background: linear-gradient(270deg, #FFFFFF 49.22%, rgba(255, 255, 255, 0) 86.05%);
+    }
+
+    .right {
+        right: 0;
+    }
+
+    .left {
+        left: 0;
+    }
+
     .flex_circle {
         display: flex;
+        position: relative;
         flex-direction: row;
         gap: 10px;
     }
