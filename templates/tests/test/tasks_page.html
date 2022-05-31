@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}{{ test.name }}: список заданий{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'tests/tasks/header.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/style.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/test.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/tasks_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include "tests/test/test_header.html" %}
+
+    <div class="content">
+
+        {% for task in tasks %}
+            <a href="{% url 'tests:open_task' test_id=test.id task_number=task.number %}"><p>{{ task.number }}: {{ task.title }}</p></a>
+        {% endfor %}
+
+    </div>
+
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

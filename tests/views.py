@@ -60,3 +60,12 @@ def open_task(request, test_id, task_number):
         'tasks': tasks
     }
     return render(request, 'tests/test/task_page.html', context)
+
+
+@login_required
+def open_tasks_page(request, test_id):
+    context = {
+        'test': Test.objects.get(id=test_id),
+        'tasks': Task.objects.filter(test_id=test_id).order_by('number')
+    }
+    return render(request, 'tests/test/tasks_page.html', context)
