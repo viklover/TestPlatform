@@ -1,0 +1,6 @@
+
+class ProjectChangesManager extends ChangesManager {
+
+
+
+}

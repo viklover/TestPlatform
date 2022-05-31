@@ -39,10 +39,19 @@
             <main>
                 {{ tasks_table }}
             </main>
-            <div class="button button-secondary button-create-task" data-modalwindow="#creation_task">
-                Создать задание
-            </div>
         </section>
+
+        <div class="button button-secondary button-create-task" data-modalwindow="#creation_task">
+            Создать задание
+        </div>
+
+        <div class="editor-bar hidden">
+            <div class="content-relative">
+                <div class="button button-save-changes">Сохранить изменения</div>
+            </div>
+        </div>
+
+        {% csrf_token %}
 
     </div>
 
@@ -53,5 +62,21 @@
 {% endblock %}
 
 {% block js_scripts %}
+    <script src="{% static 'editor/changes.js' %}"></script>
+{#    <script src="{% static 'editor/project.js' %}"></script>#}
+    <script src="{% static 'editor/editor_object.js' %}"></script>
+    <script src="{% static 'editor/project/tasks_table.js' %}"></script>
+    <script>
+        let changesManager = new ChangesManager();
 
+        let table = new TasksTable('tasks_table');
+        changesManager.addElement(table)
+        table.setManager(changesManager)
+
+        let button = document.querySelector('.button-save-changes');
+        button.onclick = function () {
+            changesManager.sendUpdates()
+        };
+
+    </script>
 {% endblock %}

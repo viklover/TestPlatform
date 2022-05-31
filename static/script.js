@@ -23,3 +23,73 @@ document.querySelectorAll('*[data-modalwindow]').forEach((modalwindow) => {
         }
     }
 });
+
+function checkRectOverlap(elem1, elem2) {
+    const rect1 = [
+        [elem1.getBoundingClientRect().x, elem1.getBoundingClientRect().y],
+        [elem1.getBoundingClientRect().right, elem1.getBoundingClientRect().bottom]
+    ];
+
+    const rect2 = [
+        [elem2.getBoundingClientRect().x, elem2.getBoundingClientRect().y],
+        [elem2.getBoundingClientRect().right, elem2.getBoundingClientRect().bottom]
+    ]
+
+    if ((rect1[0][0] < rect2[0][0] && rect2[0][0] < rect1[1][0])
+        || (rect1[0][0] < rect2[1][0] && rect2[1][0] < rect1[1][0])
+        || (rect2[0][0] < rect1[0][0] && rect1[1][0] < rect2[1][0])) {
+        if ((rect1[0][1] < rect2[0][1] && rect2[0][1] < rect1[1][1])
+            || (rect1[0][1] < rect2[1][1] && rect2[1][1] < rect1[1][1])
+            || (rect2[0][1] < rect1[0][1] && rect1[1][1] < rect2[1][1])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+const getNextElement = (cursorPosition, currentElement) => {
+    const currentElementCoord = currentElement.getBoundingClientRect();
+    const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
+
+    return (cursorPosition < currentElementCenter) ?
+        currentElement :
+        currentElement.nextElementSibling;
+};
+
+const compareObjects = (a, b) => {
+ if (a === b) return true;
+
+ if (typeof a != 'object' || typeof b != 'object' || a == null || b == null) return false;
+
+ let keysA = Object.keys(a), keysB = Object.keys(b);
+
+ if (keysA.length != keysB.length) return false;
+
+ for (let key of keysA) {
+   if (!keysB.includes(key)) return false;
+
+   if (typeof a[key] === 'function' || typeof b[key] === 'function') {
+     if (a[key].toString() != b[key].toString()) return false;
+   } else {
+     if (!compareObjects(a[key], b[key])) return false;
+   }
+ }
+
+ return true;
+}
+
+var csrfcookie = function() {
+    var cookieValue = null,
+        name = 'csrftoken';
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+};

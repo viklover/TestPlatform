@@ -66,3 +66,7 @@ a {
         width: 900px;
     }
 }
+
+.editor-bar .button-save-changes {
+    margin: 15px 0 0;
+}
