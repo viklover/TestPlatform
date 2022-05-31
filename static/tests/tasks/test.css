@@ -89,12 +89,13 @@ a .link_blue {
         background: linear-gradient(270deg, #FFFFFF 49.22%, rgba(255, 255, 255, 0) 86.05%);
     }
 
-    .right {
+    .gradient-right {
         right: 0;
     }
 
-    .left {
+    .gradient-left {
         left: 0;
+        transform: rotate(180deg);
     }
 
     .flex_circle {
