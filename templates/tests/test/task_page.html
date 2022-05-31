@@ -34,7 +34,7 @@
         </div>
 
         <div class="flex_link">
-            <a href="/tests/2/tasks/">
+            <a href="{% url 'tests:open_tasks_page' test_id=test.id %}">
                 <div class="link">
                     Перейти к списку всех заданий
                 </div>
