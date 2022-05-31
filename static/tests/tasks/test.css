@@ -139,13 +139,14 @@ a .link_blue {
     }
 
     .text_border_white {
-        width: 100%;
+        width: calc(100% - 20px);
         min-height: 35px;
         font-weight: 700;
         font-size: 23px;
         line-height: 27px;
         color: #000000;
         margin: 15px 0 8px 9px;
+        padding: 0 5px;
     }
 
     .border_blue {
