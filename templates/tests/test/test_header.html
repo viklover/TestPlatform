@@ -10,11 +10,13 @@
                 <a href="/ratings">Рейтинг</a>
             </div>
         </div>
+        <div class="" style="display: flex; gap: 15px;">
             <a href="/tests" data-tooltip="Тесты">
                 <div class="menu-button tests" id="icon_tests"></div>
             </a>
-        <div class="pages">
-            <p class="name_surname">  {{ test.name }}</p>
+            <div class="pages">
+                <p class="name_surname">  {{ test.name }}</p>
+            </div>
         </div>
         <div class="current_user-bar" id="current-user_avatar">
             {% if user.is_authenticated %}
@@ -29,14 +31,6 @@
                         <a href="/accounts/logout" style="color: red;">Выйти из аккаунта</a>
                     </div>
                 </div>
-{#                <div class="dropdown" style="float:left;">#}
-{#                  <button class="dropbtn">Left</button>#}
-{#                  <div class="dropdown-content" style="left:0;">#}
-{#                    <a href="#">Link 1</a>#}
-{#                    <a href="#">Link 2</a>#}
-{#                    <a href="#">Link 3</a>#}
-{#                  </div>#}
-{#                </div>#}
             {% else %}
 
             {% endif %}
@@ -44,12 +38,3 @@
     </div>
 </div>
 <div class="header_padding"></div>
-
-{#<header>#}
-{#    <div class="container">#}
-{#        <a href="/tests/{{ test.id }}">#}
-{#            <div class="favicon" style="--icon-url: url('/media/{{ test.icon }}')"></div>#}
-{#        </a>#}
-{#        <h1>{{ test.name }}</h1>#}
-{#    </div>#}
-{#</header>#}

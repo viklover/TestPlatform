@@ -116,6 +116,11 @@ header .image_account {
     display: none;
 }
 
+.dropdown {
+    padding-right: 10px;
+    width: max-content;
+}
+
 @media (min-width: 320px) {
     .header_padding {
         margin-top: 66px;
@@ -188,7 +193,6 @@ header .image_account {
         font-size: 25px;
         line-height: 29px;
         padding: 18px 0;
-        display: block;
     }
 
     .dropdown {
@@ -201,7 +205,17 @@ header .image_account {
     }
 
     .head .current_user-bar .username {
-         display: block;
+         /* display: block; */
+        position: absolute;
+        text-align: right;
+        top: 0;
+        right: 70px;
+        width: max-content;
+    }
+
+    .dropdown {
+        width: 287px;
+        padding-right: 0;
     }
 }
 
