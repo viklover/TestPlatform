@@ -137,6 +137,11 @@ header .image_account {
 }
 
 @media (min-width: 768px) {
+
+    .header_padding {
+        margin-top: 100px;
+    }
+
     .name_surname {
         display: block;
         width: max-content;

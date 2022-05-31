@@ -1,5 +1,6 @@
+import json
+
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.urls import reverse
@@ -56,6 +57,17 @@ def create_project(request):
 
 @login_required
 def open_project(request, project_id):
+
+    if request.POST:
+        data = json.loads(request.POST['json'])
+        if 'tasks_table' in data:
+            project = Project.objects.get(id=project_id)
+            if len(data['tasks_table']) == project.number_of_tasks:
+                for number, task_id in enumerate(data['tasks_table']):
+                    task = ProjectTask.objects.get(id=task_id)
+                    task.number = number + 1
+                    task.save()
+
     template = loader.get_template('editor/tasks_table.html')
 
     context_table = {
@@ -65,7 +77,7 @@ def open_project(request, project_id):
         'rows': []
     }
 
-    for task in ProjectTask.objects.filter(project_id=project_id):
+    for task in ProjectTask.objects.filter(project_id=project_id).order_by('number'):
         context_table['rows'].append(task.get_json())
 
     context = {
@@ -85,6 +97,8 @@ def create_task(request, project_id):
         form = CreationTaskForm(request.POST, instance=task)
 
         if project.create_task(form):
+            project.number_of_tasks += 1
+            project.save()
             return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task.id}))
 
     return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
