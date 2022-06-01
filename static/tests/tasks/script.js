@@ -52,3 +52,5 @@ function updateScrollArrows() {
 
 tasks_list.addEventListener('scroll', updateScrollArrows)
 updateScrollArrows()
+
+window.addEventListener("resize", updateScrollArrows, false);
