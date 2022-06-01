@@ -78,25 +78,43 @@ a .link_blue {
     color: black;
 }
 
+.tasks-list {
+    display: none;
+}
+
 @media (min-width: 768px) {
+
+    .tasks-list {
+        display: block;
+        position: relative;
+    }
+
     .border_blue {
         width: 700px;
     }
 
-    .gradient {
+    .arrow {
         position: absolute;
         width: 113px;
         height: 38px;
-        background: linear-gradient(270deg, #FFFFFF 49.22%, rgba(255, 255, 255, 0) 86.05%);
+        background-image: url('hidelist_gradient.png');
+        background-size: cover;
+        z-index: 10;
+        /*background: linear-arrow(270deg, #FFFFFF 49.22%, rgba(255, 255, 255, 0) 86.05%);*/
     }
 
-    .gradient-right {
-        right: 0;
+    .arrow-right {
+        right: -26px;
+        top: 0;
+        cursor: e-resize;
+        background-position-y: -5px;
     }
 
-    .gradient-left {
-        left: 0;
+    .arrow-left {
+        left: -26px;
+        top: 0;
         transform: rotate(180deg);
+        cursor: w-resize;
     }
 
     .flex_circle {
@@ -104,6 +122,14 @@ a .link_blue {
         position: relative;
         flex-direction: row;
         gap: 10px;
+        overflow: hidden;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+
+    .flex_circle::-webkit-scrollbar {
+        display: none;
     }
 
     .circle {
@@ -174,6 +200,15 @@ a .link_blue {
 }
 
 @media (min-width: 1024px) {
+
+    .arrow-right {
+        right: -56px;
+    }
+
+    .arrow-left {
+        left: -56px;
+    }
+
     .border_blue {
         width: 900px;
     }
