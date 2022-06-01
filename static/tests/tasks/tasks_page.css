@@ -1,0 +1,176 @@
+.text_task {
+    width: 320px;
+    height: 37px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    text-align: center;
+    color: #000000;
+}
+
+.much_tasks {
+    width: 76px;
+    height: 35px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    text-align: center;
+    color: #000000;
+    margin: auto;
+}
+
+.border {
+    width: 320px;
+    height: max-content;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    margin: 43px auto;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.content {
+    width: 320px;
+}
+
+.border_relative {
+    position: initial;
+    width: 233px;
+    height: 36px;
+    background: #F3F3F3;
+    border-radius: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.p-border_relative {
+    width: 49px;
+    height: 18px;
+    font-weight: 700;
+    font-size: 22px;
+    margin: auto;
+    text-align: right;
+    padding: 5px 0 0 80px;
+}
+
+.border_absolute {
+    position: absolute;
+    width: 116px;
+    height: 36px;
+    background: #4200FE;
+    border-radius: 50px;
+}
+
+.p-border_absolute {
+    width: 100%;
+    height: 18px;
+    font-weight: 700;
+    line-height: 35px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: auto;
+}
+
+@media (min-width: 768px) {
+    .flex_task_text_much {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .content {
+        width: 700px;
+    }
+
+    .text_task {
+        width: 100%;
+        text-align: left;
+    }
+
+    .much_tasks {
+        width: 100%;
+    }
+
+    .border {
+        width: 700px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    span {
+        display: none;
+    }
+
+    .border_absolute {
+        width: 34px;
+        height: 34px;
+    }
+
+    .p-border_relative {
+        padding: 5px 0 0 30px;
+    }
+
+    .border_relative {
+        width: 100px;
+    }
+
+    .hr {
+        width: 700px;
+        height: 0;
+        border: 2px solid #949494;
+        margin: auto;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        margin: 17px 0;
+        gap: 17px;
+    }
+
+    .button_completed_test {
+        height: 31px;
+        background: #644AFF;
+        border: 2px solid #644AFF;
+        border-radius: 5px;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+        text-align: center;
+        color: #FFFFFF;
+        margin: 0 auto;
+    }
+
+    .button_completed_test:hover {
+        background-color: #FFFFFF;
+        color: #644AFF;
+    }
+}
+
+@media (min-width: 1024px) {
+    .content {
+        width: 900px;
+    }
+
+    .much_tasks {
+        width: 150px;
+    }
+
+    .border {
+        width: 900px;
+    }
+
+    .hr {
+        width: 900px;
+    }
+
+    .buttons {
+        gap: 587px;
+    }
+}

@@ -16,10 +16,35 @@
 
     <div class="content">
 
-        {% for task in tasks %}
-            <a href="{% url 'tests:open_task' test_id=test.id task_number=task.number %}"><p>{{ task.number }}: {{ task.title }}</p></a>
-        {% endfor %}
+    <div class="flex_task_text_much">
+        <div class="text_task">
+            Задания теста
+        </div>
+        <div class="much_tasks">? / 40</div>
+    </div>
 
+        {% for task in tasks %}
+            <div class="borders">
+                <a href="{% url 'tests:open_task' test_id=test.id task_number=task.number %}">
+                    <div class="border">
+                        <div class="border_absolute">
+                            <p class="p-border_absolute">
+                               <span>Задание №</span> {{ task.number }}
+                            </p>
+                        </div>
+                        <div class="border_relative">
+                            <p class="p-border_relative">? / 10</p>
+                        </div>
+                        {{ task.title }}
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="hr"></div>
+        <div class="buttons">
+            <button class="button_completed_test">Завершить тест</button>
+            <button class="button_completed_test">Продолжить решение</button>
+        </div>
     </div>
 
     {% include 'footer.html' %}
@@ -29,3 +54,7 @@
 {% block js_scripts %}
 
 {% endblock %}
+
+{#        {% for task in tasks %}#}
+{#            <a href="{% url 'tests:open_task' test_id=test.id task_number=task.number %}"><p>{{ task.number }}: {{ task.title }}</p></a>#}
+{#        {% endfor %}#}
