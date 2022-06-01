@@ -75,6 +75,7 @@ a .link_blue {
 
 .text_direction_none {
     text-decoration: none;
+    color: black;
 }
 
 @media (min-width: 768px) {
