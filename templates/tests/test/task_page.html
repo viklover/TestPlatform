@@ -16,22 +16,24 @@
 
     <div class="content">
 
-        <div class="flex_circle">
-            <div class="gradient gradient-left hidden"></div>
-            {% for task_test in tasks %}
-                <a class="text_direction_none" href="{% url 'tests:open_task' test_id=test.id task_number=task_test.number %}">
-                    {% if task_test.number == task.number %}
-                        <div class="circle blue">
-                            <p class="task_test_blue">{{ task_test.number }}</p>
-                        </div>
-                    {% else %}
-                        <div class="circle">
-                            <p class="circle_p_grey">{{ task_test.number }}</p>
-                        </div>
-                    {% endif %}
-                </a>
-            {% endfor %}
-            <div class="gradient gradient-right"></div>
+        <div class="tasks-list unselectable">
+            <div class="arrow arrow-left"></div>
+            <div class="flex_circle dragscroll unselectable">
+                {% for task_test in tasks %}
+                    <a class="text_direction_none unselectable" href="{% url 'tests:open_task' test_id=test.id task_number=task_test.number %}">
+                        {% if task_test.number == task.number %}
+                            <div class="circle blue task-selected unselectable">
+                                <p class="task_test_blue unselectable">{{ task_test.number }}</p>
+                            </div>
+                        {% else %}
+                            <div class="circle unselectable">
+                                <p class="circle_p_grey unselectable">{{ task_test.number }}</p>
+                            </div>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="arrow arrow-right"></div>
         </div>
 
         <div class="flex_link">
@@ -66,6 +68,7 @@
 {% endblock %}
 
 {% block js_scripts %}
+    <script src="{% static 'dragscroll.js' %}"></script>
     <script src="{% static 'tests/tasks/script.js' %}"></script>
 {% endblock %}
 
