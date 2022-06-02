@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'editor/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -96,7 +96,7 @@
         };
 
     </script>
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="/static/editor/project/simplemde.min.js"></script>
     <script>
         var simplemde = new SimpleMDE();
     </script>
