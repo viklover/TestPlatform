@@ -58,9 +58,7 @@
 .head .pages {
     display: flex;
     flex-direction: row;
-    gap: 30px;
-    padding-right: 150px;
-    gap: 30px;
+    padding-right: 0;
 }
 
 .head .menu-button {
@@ -249,6 +247,11 @@
         background-size: 65px;
         background-position-y: center;
         display: block;
+    }
+
+    .head .pages {
+        padding-right: 80px;
+        gap: 30px;
     }
 }
 
