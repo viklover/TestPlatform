@@ -159,6 +159,27 @@ def edit_task(request, project_id, task_id):
 
 @login_required
 def open_task(request, project_id, task_id):
+    template = loader.get_template('editor/exercises_table.html')
+
+    columns = ['№', 'Название', 'Баллы', 'Дата создания', 'Изменено']
+    exercises_data = []
+
+    exercises
+
+    projects = Exercises.objects.filter(author_id=request.user.id)
+
+    for project in projects:
+        if project.published:
+            published_tests_data.append(project.get_json())
+        else:
+            development_tests_data.append(project.get_json())
+
+    tests_context = {
+        'columns': columns,
+        'type': 'tests-list',
+        'class': 'development_tests'
+    }
+
     context = {
         'project': Project.objects.get(id=project_id),
         'task': ProjectTask.objects.get(id=task_id),
