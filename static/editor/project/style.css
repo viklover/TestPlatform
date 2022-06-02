@@ -64,8 +64,45 @@
     position: relative;
 }
 
-.project-tasks header {
-    font-size: 20px;
+.tabs-menu header {
+    font-size: 15px;
+}
+
+.tabs-menu .tabs-buttons {
+    --active-color: gray;
+}
+
+.tabs-menu .tabs-buttons h2 {
+    border: 2px solid var(--active-color);
+    /*border-radius: 5px;*/
+    padding: 2px 10px;
+}
+
+.tabs-menu .tabs-buttons .tab-button {
+    background-color: var(--active-color);
+    color: white;
+    cursor: pointer;
+}
+
+.tabs-menu .tabs-buttons .tab-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.tabs-menu .tabs-buttons .active {
+    background-color: white;
+    color: black;
+    border-width: 0;
+    padding: 4px 12px;
+}
+
+.tabs-menu .tabs-buttons .active:hover {
+    cursor: default;
+}
+
+.tabs-menu .tabs-buttons {
+    display: flex;
+    gap: 15px;
 }
 
 .button-create-task {

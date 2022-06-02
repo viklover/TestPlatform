@@ -32,24 +32,32 @@
             <div class="button button-change-info" data-url="{% url 'editor:edit_project' project_id=project.id %}"></div>
         </section>
 
-        <section class="project-tasks">
-            <header>
-                <h2>Задания</h2>
+        <section class="tabs-menu unselectable">
+            <header class="tabs-buttons">
+                <h2 data-content="project-tasks" class="tab-button active">Задания</h2>
+                <h2 data-content="edit-info" class="tab-button">Описание</h2>
             </header>
+        </section>
+
+        <section class="tab project-tasks">
             <main>
                 {{ tasks_table }}
             </main>
+
+            <div class="button button-secondary button-create-task" data-modalwindow="#creation_task">
+                Создать задание
+            </div>
+
+            <div class="editor-bar hidden">
+                <div class="content-relative">
+                    <div class="button button-save-changes">Сохранить изменения</div>
+                </div>
+            </div>
         </section>
 
-        <div class="button button-secondary button-create-task" data-modalwindow="#creation_task">
-            Создать задание
-        </div>
-
-        <div class="editor-bar hidden">
-            <div class="content-relative">
-                <div class="button button-save-changes">Сохранить изменения</div>
-            </div>
-        </div>
+        <section class="tab edit-info hidden">
+            <p>Здесь должен быть редактор описания теста в виде MarkDown-файла</p>
+        </section>
 
         {% csrf_token %}
 
@@ -66,6 +74,7 @@
 {#    <script src="{% static 'editor/project.js' %}"></script>#}
     <script src="{% static 'editor/editor_object.js' %}"></script>
     <script src="{% static 'editor/project/tasks_table.js' %}"></script>
+    <script src="{% static 'editor/project/tabs-menu.js' %}"></script>
     <script>
         let changesManager = new ChangesManager();
 
