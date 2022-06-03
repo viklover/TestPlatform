@@ -95,3 +95,31 @@ class BaseProject(BaseModel):
 
     class Meta:
         abstract = True
+
+
+class BaseElement(BaseModel):
+    ELEMENT_TYPES = (
+        (0, 'exercise'),
+        (1, 'title'),
+        (2, 'image'),
+        (3, 'map')
+    )
+    element_type = models.IntegerField(choices=ELEMENT_TYPES, default=0, verbose_name='Тип элемента')
+
+    class Meta:
+        abstract = True
+
+
+class BaseChronologyExercise(BaseExercise):
+    type = 5
+
+    class Meta:
+        abstract = True
+
+
+class BaseMatchExercise(BaseExercise):
+    type = 2
+
+    class Meta:
+        abstract = True
+

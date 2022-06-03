@@ -6,7 +6,8 @@ from django.template import loader
 from django.template.defaulttags import register
 from django.utils import timezone
 
-from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel, BaseProject
+from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel, BaseProject, BaseElement, \
+    BaseChronologyExercise, BaseMatchExercise
 
 
 def user_media_path(instance, filename):
@@ -74,9 +75,10 @@ class ProjectTask(BaseProject, BaseTask):
     def create_exercise(self, form):
 
         if form.is_valid():
-            exercise = form.save(commit=False)
+            exercise = form.get_exercise()
             exercise.task = self
             exercise.save()
+
             self.update()
             self.project.update()
             return exercise
@@ -84,8 +86,17 @@ class ProjectTask(BaseProject, BaseTask):
         return None
 
 
-class ProjectExercise(BaseProject, BaseExercise):
+class ProjectTaskElement(BaseProject, BaseElement):
+    element_id = models.AutoField(primary_key=True, unique=True, db_column='element_id')
     task = models.ForeignKey(to=ProjectTask, on_delete=models.CASCADE, null=True)
+
+    def render(self):
+        pass
+
+
+class ProjectExercise(ProjectTaskElement):
+    id = models.AutoField(primary_key=True, unique=True)
+    exercise_type = models.IntegerField(choices=BaseExercise.EXERCISE_TYPES, default=0)
 
 
 """
@@ -161,27 +172,22 @@ class Task(BaseTask):
 
 
 """
-EXERCISES MODEL
-"""
-
-
-class Exercise(BaseExercise):
-    pass
-
-
-"""
 CHRONOLOGY EXERCISE MODEL
 """
 
 
-class ChronologyExercise(Exercise):
-    type = 5
+class ChronologyExercise(BaseChronologyExercise):
+    exercise_id = models.AutoField(primary_key=True)
 
 
-class VariantChronologyExercise(Exercise):
+class VariantChronologyExercise(BaseModel):
     exercise = models.ForeignKey(to=ChronologyExercise, on_delete=models.CASCADE)
     content = models.TextField()
     order = models.IntegerField(verbose_name='Порядковый номер')
+
+
+class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
+    pass
 
 
 """
@@ -189,16 +195,8 @@ MATCH EXERCISE MODEL
 """
 
 
-class MatchExercise(Exercise):
-    type = 2
-
-    @staticmethod
-    def get_columns(self):
-        return ColumnMatchExercise.objects.filter(exercise_id=self.id)
-
-    @staticmethod
-    def get_variants(self):
-        return VariantMatchExercise.objects.filter(exercise_id=self.id)
+class MatchExercise(BaseMatchExercise):
+    exercise_id = models.AutoField(primary_key=True)
 
 
 class ColumnMatchExercise(BaseModel):
@@ -216,3 +214,14 @@ class VariantMatchExercise(BaseModel):
 
     def __str__(self):
         return self.content
+
+
+class ProjectMatchExercise(MatchExercise, ProjectExercise):
+
+    @staticmethod
+    def get_columns(self):
+        return ColumnMatchExercise.objects.filter(exercise_id=self.id)
+
+    @staticmethod
+    def get_variants(self):
+        return VariantMatchExercise.objects.filter(exercise_id=self.id)

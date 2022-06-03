@@ -6,7 +6,7 @@ from django.template import loader
 from django.urls import reverse
 
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm
-from tests.models import Project, ProjectTask
+from tests.models import Project, ProjectTask, ProjectTaskElement
 
 
 @login_required
@@ -159,26 +159,11 @@ def edit_task(request, project_id, task_id):
 
 @login_required
 def open_task(request, project_id, task_id):
-    template = loader.get_template('editor/exercises_table.html')
+    elements = ProjectTaskElement.objects.filter(task_id=task_id)
+    elements_data = []
 
-    columns = ['№', 'Название', 'Баллы', 'Дата создания', 'Изменено']
-    exercises_data = []
-
-    exercises
-
-    projects = Exercises.objects.filter(author_id=request.user.id)
-
-    for project in projects:
-        if project.published:
-            published_tests_data.append(project.get_json())
-        else:
-            development_tests_data.append(project.get_json())
-
-    tests_context = {
-        'columns': columns,
-        'type': 'tests-list',
-        'class': 'development_tests'
-    }
+    for element in elements:
+        elements_data.append(element.render())
 
     context = {
         'project': Project.objects.get(id=project_id),
