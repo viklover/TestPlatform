@@ -53,6 +53,7 @@ class CreationExerciseForm(forms.Form):
 
     def get_exercise(self):
         exercise = eval(f'Project{BaseExercise.EXERCISE_CLASSES[int(self.cleaned_data["type"])]}()')
+        exercise.type = self.cleaned_data['type']
         exercise.name = self.cleaned_data['name']
         exercise.title = self.cleaned_data['title']
         return exercise

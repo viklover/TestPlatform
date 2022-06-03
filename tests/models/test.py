@@ -90,14 +90,22 @@ class ProjectTaskElement(BaseProject, BaseElement):
     element_id = models.AutoField(primary_key=True, unique=True, db_column='element_id')
     task = models.ForeignKey(to=ProjectTask, on_delete=models.CASCADE, null=True)
 
-    def render(self):
-        pass
+    def get_child(self):
+        return eval(f'{BaseElement.ELEMENT_PROCESSORS[self.element_type]}.get_child_by_element(self)')
 
 
 class ProjectExercise(ProjectTaskElement):
     id = models.AutoField(primary_key=True, unique=True)
     exercise_type = models.IntegerField(choices=BaseExercise.EXERCISE_TYPES, default=0)
 
+    @staticmethod
+    def get_child_by_element(element):
+        exercise_parent = ProjectExercise.objects.get(task__projecttaskelement__element_id=element.element_id)
+
+        if exercise_parent.exercise_type == 5:
+            return ProjectChronologyExercise.objects.get(projectexercise_ptr_id=exercise_parent.id)
+
+        return None
 
 """
 TEST MODEL
@@ -178,6 +186,16 @@ CHRONOLOGY EXERCISE MODEL
 
 class ChronologyExercise(BaseChronologyExercise):
     exercise_id = models.AutoField(primary_key=True)
+
+    def render(self, context=None):
+        context = {
+            'variants': self.get_variants(),
+            **context
+        }
+        return self.render_template('editor/elements/chronology_exercise.html', context=context)
+
+    def get_variants(self):
+        return VariantChronologyExercise.objects.filter(exercise_id=self.id)
 
 
 class VariantChronologyExercise(BaseModel):

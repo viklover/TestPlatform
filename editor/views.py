@@ -159,15 +159,10 @@ def edit_task(request, project_id, task_id):
 
 @login_required
 def open_task(request, project_id, task_id):
-    elements = ProjectTaskElement.objects.filter(task_id=task_id)
-    elements_data = []
-
-    for element in elements:
-        elements_data.append(element.render())
-
     context = {
         'project': Project.objects.get(id=project_id),
         'task': ProjectTask.objects.get(id=task_id),
+        'elements': map(lambda x: x.get_child(), ProjectTaskElement.objects.filter(task_id=task_id)),
         'creation_exercise_form': CreationExerciseForm()
     }
     return render(request, 'editor/project/task/task_page.html', context)

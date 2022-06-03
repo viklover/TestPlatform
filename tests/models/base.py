@@ -104,6 +104,9 @@ class BaseElement(BaseModel):
         (2, 'image'),
         (3, 'map')
     )
+    ELEMENT_PROCESSORS = {
+        0: 'ProjectExercise',
+    }
     element_type = models.IntegerField(choices=ELEMENT_TYPES, default=0, verbose_name='Тип элемента')
 
     class Meta:

@@ -37,6 +37,11 @@
         </section>
 
         <section class="tab project-tasks">
+            <div class="elements-list">
+                {% for element in elements %}
+                    {{ element.render }}
+                {% endfor %}
+            </div>
             <main>
                 {{ exercises_table }}
             </main>
