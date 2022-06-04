@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/task_page.css' %}">
     <link rel="stylesheet" href="{% static 'modal_window.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -46,7 +47,8 @@
         </section>
 
         <section class="tab task-info hidden">
-            <p>Тут редактор объяснения задания в виде MarkDown-файла</p>
+            <p>Редактор объяснения задания в виде MarkDown-файла</p>
+            <textarea></textarea>
         </section>
 
     </div>
@@ -59,4 +61,11 @@
 
 {% block js_scripts %}
     <script src="{% static 'editor/project/tabs-menu.js' %}"></script>
+    <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
+        <script>
+        var simplemde = new SimpleMDE();
+    </script>
+    <script>
+        let simplemde = new SimpleMDE({ element: document.getElementById("edit-info") });
+    </script>
 {% endblock %}
