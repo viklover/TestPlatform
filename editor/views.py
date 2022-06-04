@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.urls import reverse
 
-from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm
+from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
+    CreationElementForm
 from tests.models import Project, ProjectTask, ProjectTaskElement
 
 
@@ -77,12 +78,16 @@ def open_project(request, project_id):
         'rows': []
     }
 
+    is_empty = True
+
     for task in ProjectTask.objects.filter(project_id=project_id).order_by('number'):
         context_table['rows'].append(task.get_json())
+        is_empty = False
 
     context = {
         'project': Project.objects.get(id=project_id),
-        'tasks_table': template.render(context_table)
+        'tasks_table': template.render(context_table),
+        'is_empty': is_empty
     }
     return render(request, 'editor/project/project_page.html', context)
 
@@ -163,7 +168,8 @@ def open_task(request, project_id, task_id):
         'project': Project.objects.get(id=project_id),
         'task': ProjectTask.objects.get(id=task_id),
         'elements': map(lambda x: x.get_child(), ProjectTaskElement.objects.filter(task_id=task_id)),
-        'creation_exercise_form': CreationExerciseForm()
+        'creation_exercise_form': CreationExerciseForm(),
+        'creation_element_form': CreationElementForm()
     }
     return render(request, 'editor/project/task/task_page.html', context)
 

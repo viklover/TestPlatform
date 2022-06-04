@@ -26,6 +26,11 @@ class BaseModel(models.Model):
             if field.name not in except_fields:
                 self._meta.local_fields[field.name] = getattr(model, field.name)
 
+    def render_template(self, template, context=None):
+        if context is None:
+            context = {}
+        return loader.get_template(template).render(context)
+
     class Meta:
         abstract = True
 
@@ -69,8 +74,7 @@ class BaseExercise(BaseModel):
     def render_template(self, template, context=None):
         if context is None:
             context = {}
-        template = loader.get_template(template)
-        return template.render({'exercise': self, **context})
+        return super().render_template(template, {'exercise': self, **context})
 
 
 class BaseTestInfo(BaseModel):
@@ -99,10 +103,10 @@ class BaseProject(BaseModel):
 
 class BaseElement(BaseModel):
     ELEMENT_TYPES = (
-        (0, 'exercise'),
-        (1, 'title'),
-        (2, 'image'),
-        (3, 'map')
+        (0, 'Упражнение'),
+        (1, 'Заголовок'),
+        (2, 'Изображение'),
+        (3, 'Карты (Yandex Maps)')
     )
     ELEMENT_PROCESSORS = {
         0: 'ProjectExercise',
@@ -121,7 +125,35 @@ class BaseChronologyExercise(BaseExercise):
 
 
 class BaseMatchExercise(BaseExercise):
+    type = 4
+
+    class Meta:
+        abstract = True
+
+
+class BaseRadioExercise(BaseExercise):
+    type = 3
+
+    class Meta:
+        abstract = True
+
+
+class BaseStatementsExercise(BaseExercise):
     type = 2
+
+    class Meta:
+        abstract = True
+
+
+class BaseInputExercise(BaseExercise):
+    type = 1
+
+    class Meta:
+        abstract = True
+
+
+class BaseAnswerExercise(BaseExercise):
+    type = 0
 
     class Meta:
         abstract = True

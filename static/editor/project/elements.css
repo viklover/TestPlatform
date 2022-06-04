@@ -1,0 +1,74 @@
+
+.item-content {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.elements-list__item {
+    position: relative;
+}
+
+.elements-list__item .title {
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.elements-list__item .buttons-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.elements-list__item .description {
+    margin: 0;
+}
+
+.elements-list__item .header-title {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.elements-list__item .arrows {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: -30px;
+}
+
+.elements-list__item .border {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 0;
+    height: 3px;
+}
+
+.elements-list__item .arrows .arrow {
+    background-image: url('arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.elements-list__item .arrows .arrow:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.elements-list__item .arrows .arrow-up {
+    transform: rotate(180deg);
+}
+
+
+.elements-list__item .button {
+    margin: 0;
+    padding: 3px 5px;
+    font-size: 13px;
+}
+
+.gray {
+    color: gray;
+    padding-left: 5px;
+}

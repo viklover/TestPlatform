@@ -2,7 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
-from tests.models import Project, ProjectTask, ProjectExercise, BaseExercise, ProjectChronologyExercise, ProjectMatchExercise
+from tests.models import Project, ProjectTask, BaseExercise, BaseElement, \
+    ProjectChronologyExercise, ProjectMatchExercise, ProjectRadioExercise, \
+    ProjectStatementsExercise, ProjectInputExercise, ProjectAnswerExercise
 
 
 class CreationProjectForm(ModelForm):
@@ -52,6 +54,22 @@ class CreationExerciseForm(forms.Form):
     title = forms.CharField(max_length=150, required=False, label='Заголовок (необязательно)')
 
     def get_exercise(self):
+        exercise = eval(f'Project{BaseExercise.EXERCISE_CLASSES[int(self.cleaned_data["type"])]}()')
+        exercise.type = self.cleaned_data['type']
+        exercise.name = self.cleaned_data['name']
+        exercise.title = self.cleaned_data['title']
+        return exercise
+
+
+class CreationElementForm(forms.Form):
+    ELEMENT_TYPES = (
+        (1, 'Заголовок'),
+        (2, 'Изображение'),
+        (3, 'Карты (Yandex Maps)')
+    )
+    type = forms.ChoiceField(choices=ELEMENT_TYPES, required=True, label='Тип элемента')
+
+    def get_element(self):
         exercise = eval(f'Project{BaseExercise.EXERCISE_CLASSES[int(self.cleaned_data["type"])]}()')
         exercise.type = self.cleaned_data['type']
         exercise.name = self.cleaned_data['name']

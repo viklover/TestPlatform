@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/task_page.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/elements.css' %}">
     <link rel="stylesheet" href="{% static 'modal_window.css' %}">
 {% endblock %}
 
@@ -37,16 +38,20 @@
         </section>
 
         <section class="tab project-tasks">
-            <div class="elements-list">
-                {% for element in elements %}
-                    {{ element.render }}
-                {% endfor %}
-            </div>
             <main>
-                {{ exercises_table }}
+                <div class="elements-list">
+                    {% for element in elements %}
+                        {{ element.render }}
+                    {% endfor %}
+                </div>
             </main>
-            <div class="button button-secondary button-create-task" data-modalwindow="#creation_exercise">
-                Создать упражнение
+            <div class="editor-buttons-list">
+                <div class="button button-secondary button-create-task" data-modalwindow="#creation_exercise">
+                    Создать упражнение
+                </div>
+                <div class="button button-secondary button-create-task" data-modalwindow="#creation_element">
+                    Создать элемент
+                </div>
             </div>
         </section>
 
@@ -57,6 +62,7 @@
     </div>
 
     {% include 'editor/project/modal_window/creation_exercise.html' %}
+    {% include 'editor/project/modal_window/creation_element.html' %}
 
     {% include 'footer.html' %}
 
@@ -64,4 +70,17 @@
 
 {% block js_scripts %}
     <script src="{% static 'editor/project/tabs-menu.js' %}"></script>
+    <script src="{% static 'editor/project/exercises-list.js' %}"></script>
+    <script>
+        let manager = new ElementsManager();
+
+        for (let element of document.querySelectorAll('.elements-list__item')) {
+            let obj = new Element(element);
+            obj.setManager(manager);
+            obj.initEventListeners();
+
+            manager.addElement(obj);
+        }
+
+    </script>
 {% endblock %}

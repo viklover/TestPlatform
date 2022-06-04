@@ -1,9 +1,31 @@
-{% extends 'editor/elements/base_element.html' %}
+{% extends 'editor/elements/base_exercise.html' %}
 
 {% block head %}
-    <h3>{{ element.type }}: {{ element.name }}</h3>
+    Упражнение <span class="gray">Составить верную хронологию карточек</span>
+{% endblock %}
+
+{% block element_class %}
+    chronology-exercise
 {% endblock %}
 
 {% block content %}
+    {% if exercise.title %}
+        <p class="title">{{ exercise.title }}</p>
+    {% endif %}
+    {% for variant in variants %}
+        {{ variant.content }}
+    {% endfor %}
+    {% if not variants|length %}
+        <p class="description">Пока здесь нет ни одного элемента списка</p>
+    {% endif %}
+{% endblock %}
 
+{% block buttons_bar %}
+    <div class="button hidden">Сохранить изменения</div>
+    <div class="button button-secondary">Добавить новый вариант</div>
+    {% if exercise.title %}
+        <div class="button button-secondary">Изменить заголовок</div>
+    {% else %}
+        <div class="button button-secondary">Создать заголовок</div>
+    {% endif %}
 {% endblock %}

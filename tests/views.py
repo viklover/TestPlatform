@@ -10,7 +10,7 @@ from tests.models.test import TestComment, TestFact
 @login_required
 def tests_page(request):
     context = {
-        'tests': [test.render(request.user) for test in Test.objects.filter(number_of_tasks__gt=0)]
+        'tests': [test.render() for test in Test.objects.filter(number_of_tasks__gt=0)]
     }
     return render(request, 'tests/tests_page.html', context)
 

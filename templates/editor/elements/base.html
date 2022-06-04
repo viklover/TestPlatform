@@ -1,0 +1,20 @@
+<div class="elements-list__item">
+    <header>
+        <div class="arrows">
+            <div class="arrow arrow-up"></div>
+            <div class="arrow arrow-down"></div>
+        </div>
+        <h3 class="header-title">{% block head %}{% endblock %}</h3>
+    </header>
+    <main class="item-content {% block element_class %}{% endblock %}">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <hr class="border">
+        <div class="buttons-bar">
+            {% block buttons_bar %}
+            {% endblock %}
+        </div>
+    </footer>
+</div>

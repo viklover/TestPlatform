@@ -43,9 +43,14 @@
         </section>
 
         <section class="tab project-tasks">
-            <main>
-                {{ tasks_table }}
-            </main>
+
+            {% if not is_empty %}
+
+                <main>
+                    {{ tasks_table }}
+                </main>
+
+            {% endif %}
 
             <div class="button button-secondary button-create-task" data-modalwindow="#creation_task">
                 Создать задание

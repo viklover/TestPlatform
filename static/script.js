@@ -93,3 +93,9 @@ var csrfcookie = function() {
     }
     return cookieValue;
 };
+
+let swap = function (list, a, b) {
+    let temp = list[b];
+    list[b] = list[a];
+    list[a] = temp;
+}
