@@ -164,10 +164,22 @@ def edit_task(request, project_id, task_id):
 
 @login_required
 def open_task(request, project_id, task_id):
+
+    if request.POST:
+        data = json.loads(request.POST['json'])
+        if 'elements-ordering' in data:
+            number_of_elements = ProjectTaskElement.objects.filter(task_id=task_id).count()
+            print(number_of_elements)
+            if len(data['elements-ordering']) == number_of_elements:
+                for index, elem_id in enumerate(data['elements-ordering']):
+                    element = ProjectTaskElement.objects.get(element_id=elem_id)
+                    element.order = index + 1
+                    element.save()
+
     context = {
         'project': Project.objects.get(id=project_id),
         'task': ProjectTask.objects.get(id=task_id),
-        'elements': map(lambda x: x.get_child(), ProjectTaskElement.objects.filter(task_id=task_id)),
+        'elements': map(lambda x: x.get_child(), ProjectTaskElement.objects.filter(task_id=task_id).order_by('order')),
         'creation_exercise_form': CreationExerciseForm(),
         'creation_element_form': CreationElementForm()
     }

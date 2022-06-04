@@ -1,12 +1,12 @@
 
 class ChangesManager {
 
-    constructor() {
+    constructor(button_id) {
         this.elements = [];
         this.elements_data = {};
         this.changes_exists = false;
 
-        this.editorBarButton = document.querySelector('.editor-bar');
+        this.editorBarButton = document.querySelector(button_id);
 
         this.updates = {};
     }
@@ -42,8 +42,6 @@ class ChangesManager {
 
     sendUpdates() {
 
-        console.log('HELLO WORLD', this.updates)
-
         $.ajax({
             url: '',
             type: "POST",
@@ -61,17 +59,6 @@ class ChangesManager {
                 console.log('ERROR');
             }
         });
-
-        // console.log(csrfcookie())
-        // let request = new XMLHttpRequest();
-        // request.open('POST', '', true);
-        // request.setRequestHeader('Content-Type', 'application/json');
-        // request.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-        // // request.setRequestHeader('X-CSRFToken', csrfcookie());
-        // request.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
-        // // request.setRequestHeader('A', 1);
-        // // request.setRequestHeader('content', '{\"a\": 1}');
-        // request.send(JSON.stringify(this.updates));
     }
 
 }

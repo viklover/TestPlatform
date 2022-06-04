@@ -89,7 +89,7 @@
     <script src="{% static 'editor/project/tasks_table.js' %}"></script>
     <script src="{% static 'editor/project/tabs-menu.js' %}"></script>
     <script>
-        let changesManager = new ChangesManager();
+        let changesManager = new ChangesManager('.editor-bar');
 
         let table = new TasksTable('tasks_table');
         changesManager.addElement(table)
@@ -102,9 +102,6 @@
 
     </script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script>
-        var simplemde = new SimpleMDE();
-    </script>
     <script>
         let simplemde = new SimpleMDE({ element: document.getElementById("edit-info") });
     </script>

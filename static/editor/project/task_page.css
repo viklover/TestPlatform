@@ -28,3 +28,7 @@
 .editor-buttons-list .button {
     margin-top: 0;
 }
+
+.button-editor {
+    margin: 15px 0 0;
+}

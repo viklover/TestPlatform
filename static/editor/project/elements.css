@@ -34,7 +34,7 @@
     display: flex;
     flex-direction: column;
     top: 0;
-    left: -30px;
+    left: -35px;
 }
 
 .elements-list__item .border {
@@ -48,8 +48,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
@@ -59,6 +59,7 @@
 
 .elements-list__item .arrows .arrow-up {
     transform: rotate(180deg);
+    background-position-x: 5px;
 }
 
 

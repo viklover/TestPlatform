@@ -38,6 +38,12 @@ class ElementsManager {
 
     constructor() {
         this.elements_list = [];
+
+        this.changesManager = null;
+    }
+
+    setChangesManager(manager) {
+        this.changesManager = manager
     }
 
     addElement(elem) {
@@ -56,11 +62,24 @@ class ElementsManager {
         }
 
         this.reorder_elements();
+        this.changesManager.check();
     }
 
     reorder_elements() {
         for (let i = 0; i < this.elements_list.length; ++i) {
             this.elements_list[i].body.style.order = (i + 1);
         }
+    }
+
+    getId() {
+        return 'elements-ordering'
+    }
+
+    getData() {
+        let data = [];
+        for (let element of this.elements_list) {
+            data.push(parseInt(element.body.dataset.id));
+        }
+        return data;
     }
 }

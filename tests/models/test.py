@@ -78,6 +78,7 @@ class ProjectTask(BaseProject, BaseTask):
         if form.is_valid():
             exercise = form.get_exercise()
             exercise.task = self
+            exercise.order = self.get_elements().count() + 1
             exercise.save()
 
             self.update()
@@ -85,6 +86,9 @@ class ProjectTask(BaseProject, BaseTask):
             return exercise
 
         return None
+
+    def get_elements(self):
+        return ProjectTaskElement.objects.filter(task_id=self.id).order_by('order')
 
     def get_json(self):
         return {
@@ -96,6 +100,7 @@ class ProjectTask(BaseProject, BaseTask):
 class ProjectTaskElement(BaseProject, BaseElement):
     element_id = models.AutoField(primary_key=True, unique=True, db_column='element_id')
     task = models.ForeignKey(to=ProjectTask, on_delete=models.CASCADE, null=True)
+    order = models.IntegerField(default=0, verbose_name='Порядковый номер')
 
     def get_child(self):
         return eval(f'{BaseElement.ELEMENT_PROCESSORS[self.element_type]}.get_child_by_element(self)')

@@ -1,6 +1,7 @@
 {% extends 'editor/elements/base.html' %}
 
+{% block id %}{{ exercise.id }}{% endblock %}
+
 {% block head %}
     Упражнение <span class="gray">{{ exercise_type }}</span>
-{#    Упражнение <span class="gray">Составить верную хронологию карточек</span>#}
 {% endblock %}

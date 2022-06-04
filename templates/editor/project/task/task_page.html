@@ -31,7 +31,7 @@
 
         <section class="tabs-menu unselectable">
             <header class="tabs-buttons">
-                <h2 data-content="project-tasks" class="tab-button active">Упражнения</h2>
+                <h2 data-content="project-tasks" class="tab-button active">Схема</h2>
                 <h2 data-content="task-info" class="tab-button">Объяснение задания</h2>
             </header>
             <div class="tabs-line"></div>
@@ -46,12 +46,15 @@
                 </div>
             </main>
             <div class="editor-buttons-list">
-                <div class="button button-secondary button-create-task" data-modalwindow="#creation_exercise">
+                <div class="button button-secondary button-editor button-create-exercise" data-modalwindow="#creation_exercise">
                     Создать упражнение
                 </div>
-                <div class="button button-secondary button-create-task" data-modalwindow="#creation_element">
+                <div class="button button-secondary button-editor button-create-element" data-modalwindow="#creation_element">
                     Создать элемент
                 </div>
+            </div>
+            <div class="button button-editor button-save-changes hidden">
+                Сохранить порядок элементов схемы
             </div>
         </section>
 
@@ -70,9 +73,12 @@
 
 {% block js_scripts %}
     <script src="{% static 'editor/project/tabs-menu.js' %}"></script>
+    <script src="{% static 'editor/changes.js' %}"></script>
     <script src="{% static 'editor/project/exercises-list.js' %}"></script>
     <script>
+        let changesManager = new ChangesManager('.button-save-changes');
         let manager = new ElementsManager();
+        manager.setChangesManager(changesManager);
 
         for (let element of document.querySelectorAll('.elements-list__item')) {
             let obj = new Element(element);
@@ -81,6 +87,13 @@
 
             manager.addElement(obj);
         }
+        changesManager.addElement(manager);
+
+
+        let button = document.querySelector('.button-save-changes');
+        button.onclick = function () {
+            changesManager.sendUpdates()
+        };
 
     </script>
 {% endblock %}
