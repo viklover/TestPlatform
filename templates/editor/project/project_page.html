@@ -30,7 +30,10 @@
                     <p class="description">{{ project.description }}</p>
                 </div>
             </main>
-            <div class="button button-change-info" data-url="{% url 'editor:edit_project' project_id=project.id %}"></div>
+            <div class="buttons-edit">
+                <div class="button button-change-info" data-url="{% url 'editor:edit_project' project_id=project.id %}"></div>
+                <div class="button button-remove" data-modalwindow="#remove_project"></div>
+            </div>
         </section>
 
         <section class="tabs-menu unselectable">
@@ -76,6 +79,7 @@
 
     </div>
 
+    {% include 'editor/project/modal_window/remove_project.html' %}
     {% include 'editor/project/modal_window/creation_task.html' %}
 
     {% include 'footer.html' %}

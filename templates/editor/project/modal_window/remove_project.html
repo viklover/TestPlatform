@@ -1,0 +1,20 @@
+{% extends 'modal_window.html' %}
+{% load static %}
+
+{% block id %}remove_project{% endblock %}
+{% block title %}Вы уверены, что хотите удалить проект?{% endblock %}
+{% block action %}remove_project{% endblock action %}
+
+{% block content %}
+    <p style="margin-bottom: 0">Это действие невозвратно</p>
+    <div class="modal-window__field">
+        <h4 class="field-name"><span style="font-weight: normal">Введите название проекта:</span> {{ project.project_name }}</h4>
+        <input name="input_projectname" type="text">
+    </div>
+{% endblock %}
+
+{% block button_class %}button-red{% endblock %}
+
+{% block button_label %}
+    Удалить
+{% endblock %}

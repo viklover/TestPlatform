@@ -26,7 +26,10 @@
         <section class="preview-project">
             <p class="task-number">Задание №{{ task.number }}</p>
             <p class="task-name">{{ task.title }}</p>
-            <div class="button button-change-info" data-url="{% url 'editor:edit_task' project_id=project.id task_id=task.id %}"></div>
+            <div class="buttons-edit">
+                <div class="button button-change-info" data-url="{% url 'editor:edit_task' project_id=project.id task_id=task.id %}"></div>
+                <div class="button button-remove" data-modalwindow="#remove_task"></div>
+            </div>
         </section>
 
         <section class="tabs-menu unselectable">
@@ -66,6 +69,7 @@
 
     {% include 'editor/project/modal_window/creation_exercise.html' %}
     {% include 'editor/project/modal_window/creation_element.html' %}
+    {% include 'editor/project/modal_window/remove_task.html' %}
 
     {% include 'footer.html' %}
 

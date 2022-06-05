@@ -57,8 +57,18 @@ def create_project(request):
 
 
 @login_required
-def open_project(request, project_id):
+def remove_project(request, project_id):
+    if request.POST:
+        project = Project.objects.get(id=project_id)
+        if project.project_name == request.POST.get('input_projectname', None):
+            project.delete()
+            return redirect(reverse('editor:index'))
 
+    return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
+
+
+@login_required
+def open_project(request, project_id):
     if request.POST:
         data = json.loads(request.POST['json'])
         if 'tasks_table' in data:
@@ -110,6 +120,21 @@ def create_task(request, project_id):
 
 
 @login_required
+def remove_task(request, project_id, task_id):
+    if request.POST:
+        selected_task = ProjectTask.objects.get(id=task_id)
+        number = selected_task.number
+        for task in ProjectTask.objects.filter(project_id=project_id, number__gt=number).order_by('number'):
+            task.number = number
+            task.save()
+            number += 1
+        selected_task.delete()
+        return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
+
+    return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
+
+
+@login_required
 def edit_project(request, project_id):
     if not request.POST:
         context = {
@@ -128,8 +153,8 @@ def edit_project(request, project_id):
 @login_required
 def editor_not_allowed(request):
     return render(request, 'editor/editor_not_allowed.html') \
-
-
+ \
+ \
 @login_required
 def templates(request):
     return render(request, 'develop_page.html')
@@ -164,7 +189,6 @@ def edit_task(request, project_id, task_id):
 
 @login_required
 def open_task(request, project_id, task_id):
-
     if request.POST:
         data = json.loads(request.POST['json'])
         if 'elements-ordering' in data:

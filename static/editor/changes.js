@@ -21,9 +21,6 @@ class ChangesManager {
         this.updates = {};
 
         for (let elem of this.elements) {
-            console.log(elem, this.elements_data[elem.getId()])
-            console.log(elem, this.elements_data[elem.getId()])
-            console.log(elem.getData(), this.elements_data[elem.getId()])
             if (!compareObjects(elem.getData(), this.elements_data[elem.getId()])) {
                 this.updates[elem.getId()] = elem.getData();
                 changes = true;
@@ -35,6 +32,14 @@ class ChangesManager {
         this.changes_exists = changes;
         this.setButtonVisibility(changes);
     }
+
+    refresh() {
+        for (let elem of this.elements) {
+            this.elements_data[elem.getId()] = elem.getData();
+        }
+        this.setButtonVisibility(false);
+    }
+
 
     setButtonVisibility(opacity) {
         this.editorBarButton.classList.toggle('hidden', !opacity);
@@ -53,7 +58,6 @@ class ChangesManager {
             },
             success: function (data) {
                 window.location.reload();
-                console.log('SUCCESS');
             },
             error: function (error) {
                 console.log('ERROR');
