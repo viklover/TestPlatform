@@ -1,4 +1,16 @@
 
+let open_modalwindow = function (modalwindow_id) {
+    let element = document.querySelector(modalwindow_id);
+    element.classList.add('modal-window-active');
+
+    let background = document.querySelector('.modal-background');
+    background.classList.add('modal-background-active');
+    background.onclick = function () {
+        element.classList.remove('modal-window-active');
+        background.classList.remove('modal-background-active');
+    }
+}
+
 document.querySelectorAll('*[data-url]').forEach((button) => {
     button.onclick = function () {
         if (button.classList.contains('new-window')) {

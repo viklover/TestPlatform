@@ -152,9 +152,9 @@ def edit_project(request, project_id):
 
 @login_required
 def editor_not_allowed(request):
-    return render(request, 'editor/editor_not_allowed.html') \
- \
- \
+    return render(request, 'editor/editor_not_allowed.html')
+
+
 @login_required
 def templates(request):
     return render(request, 'develop_page.html')
@@ -219,3 +219,20 @@ def create_exercise(request, project_id, task_id):
         task.create_exercise(form)
 
     return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
+
+
+@login_required
+def remove_element(request, project_id, task_id):
+    if request.POST and request.POST.get('element_id', False):
+        elem_id = request.POST.get('element_id')
+        selected_element = ProjectTaskElement.objects.get(element_id=elem_id)
+        order = selected_element.order
+        for element in ProjectTaskElement.objects.filter(task_id=task_id, order__gt=order).order_by('order'):
+            element.order = order
+            element.save()
+            order += 1
+        selected_element.delete()
+        return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
+
+    return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
+

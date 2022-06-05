@@ -69,15 +69,15 @@
     font-size: 13px;
 }
 
-.elements-list__item .button-remove-element {
-    --size: 20px;
-    position: absolute;
-    left: -35px;
-    top: 66px;
-    width: var(--size);
-    height: var(--size);
-    padding: 3px;
-}
+/*.elements-list__item .button-remove-element {*/
+/*    --size: 20px;*/
+/*    position: absolute;*/
+/*    left: -35px;*/
+/*    top: 66px;*/
+/*    width: var(--size);*/
+/*    height: var(--size);*/
+/*    padding: 3px;*/
+/*}*/
 
 .gray {
     color: gray;

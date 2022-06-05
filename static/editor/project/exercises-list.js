@@ -6,6 +6,7 @@ class Element {
         this.manager = null;
         this.arrow_up = this.body.querySelector('.arrow-up');
         this.arrow_down = this.body.querySelector('.arrow-down');
+        this.remove_button = this.body.querySelector('.button-remove-element');
     }
 
     initEventListeners() {
@@ -17,6 +18,9 @@ class Element {
         };
         this.arrow_down.onclick = function () {
             manager.replace_element(obj, 1);
+        };
+        this.remove_button.onclick = function () {
+            manager.remove_element(obj)
         };
     }
 
@@ -63,6 +67,36 @@ class ElementsManager {
 
         this.reorder_elements();
         this.changesManager.check();
+    }
+
+    remove_element(elem) {
+
+        let submit_button = document.querySelector('#remove_element').querySelector('.modal-window__button');
+        submit_button.type = 'button'
+
+        submit_button.onclick = function () {
+
+            let element_id = parseInt(elem.body.dataset.id);
+
+            $.ajax({
+                url: 'remove_element',
+                type: "POST",
+                data: {
+                    'element_id': element_id
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+                },
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (error) {
+                    console.log('ERROR');
+                }
+            });
+        }
+
+        open_modalwindow('#remove_element');
     }
 
     reorder_elements() {
