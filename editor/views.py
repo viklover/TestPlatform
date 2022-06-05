@@ -232,7 +232,28 @@ def remove_element(request, project_id, task_id):
             element.save()
             order += 1
         selected_element.delete()
+        return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
+
+    return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
+
+
+@login_required
+def change_element(request, project_id, task_id):
+    if request.POST and request.POST.get('element_id', False):
+        elem_id = request.POST.get('element_id')
+        selected_element = ProjectTaskElement.objects.get(element_id=elem_id).get_child()
+
+        print(request.POST)
+        print(selected_element.get_json())
+
+        if selected_element.element_type == 0:
+
+            if request.POST.get('title', False) or request.POST.get('title', False) == "":
+                selected_element.title = request.POST.get('title')
+
+        selected_element.save()
         return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 
     return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
+
 

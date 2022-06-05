@@ -1,43 +1,4 @@
 
-class Element {
-
-    constructor(elem) {
-        this.body = elem;
-        this.manager = null;
-        this.arrow_up = this.body.querySelector('.arrow-up');
-        this.arrow_down = this.body.querySelector('.arrow-down');
-        this.remove_button = this.body.querySelector('.button-remove-element');
-    }
-
-    initEventListeners() {
-        let manager = this.manager;
-        let obj = this;
-
-        this.arrow_up.onclick = function () {
-            manager.replace_element(obj, 0);
-        };
-        this.arrow_down.onclick = function () {
-            manager.replace_element(obj, 1);
-        };
-        this.remove_button.onclick = function () {
-            manager.remove_element(obj)
-        };
-    }
-
-    setManager(manager) {
-        this.manager = manager;
-    }
-
-    replace_up() {
-        this.manager.replace_element(this, 0);
-    }
-
-    replace_down() {
-        this.manager.replace_element(this, 1);
-    }
-}
-
-
 class ElementsManager {
 
     constructor() {

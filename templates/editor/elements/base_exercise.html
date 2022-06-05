@@ -2,6 +2,30 @@
 
 {% block id %}{{ exercise.id }}{% endblock %}
 
+{% block element_type %}exercise{% endblock %}
+
 {% block head %}
     Упражнение <span class="gray">{{ exercise_type }}</span>
+{% endblock %}
+
+{% block precontent %}
+    <p class="exercise-title {% if not exercise.title %}hidden{% endif %}">{{ exercise.title }}</p>
+    <div class="edit-title hidden">
+        <p class="edit-title-header font-bold">Редактировать заголовок</p>
+        <input name="edit-title" type="text" class="title-input">
+    </div>
+
+    {% block content %}
+    {% endblock %}
+{% endblock %}
+
+{% block prebuttons_bar %}
+    <div class="button button-save-edited-title hidden">Сохранить заголовок</div>
+    {% block buttons_bar %}
+    {% endblock %}
+    {% if exercise.title %}
+        <div class="button button-secondary-reverse button-edit-title">Изменить заголовок</div>
+    {% else %}
+        <div class="button button-secondary-reverse button-edit-title">Создать заголовок</div>
+    {% endif %}
 {% endblock %}

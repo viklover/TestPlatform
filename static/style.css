@@ -67,6 +67,17 @@ body {
     color: #3E3E3E;
 }
 
+.button-secondary-reverse {
+    background-color: #FFFFFF;
+    color: #3E3E3E;
+    border: 2px solid #3E3E3E;
+}
+
+.button-secondary-reverse:hover {
+    background: #3E3E3E;
+    color: #FFFFFF;
+}
+
 .button-red {
     background-color: red;
     border-color: darkred;
@@ -101,4 +112,8 @@ body {
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none;
+}
+
+.font-bold {
+    font-weight: bold;
 }

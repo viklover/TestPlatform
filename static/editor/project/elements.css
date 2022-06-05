@@ -9,7 +9,7 @@
     position: relative;
 }
 
-.elements-list__item .title {
+.elements-list__item .exercise-title {
     font-weight: bold;
     margin-top: 0;
 }
@@ -67,6 +67,32 @@
     margin: 0;
     padding: 3px 5px;
     font-size: 13px;
+}
+
+.elements-list__item .edit-title {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.elements-list__item .edit-title .edit-title-header {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.elements-list__item .edit-title .title-input {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.elements-list__item .hidden {
+    display: none;
 }
 
 /*.elements-list__item .button-remove-element {*/

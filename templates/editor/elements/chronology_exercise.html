@@ -1,13 +1,12 @@
 {% extends 'editor/elements/base_exercise.html' %}
 
+{% block element_type %}chronology{% endblock %}
+
 {% block element_class %}
     chronology-exercise
 {% endblock %}
 
 {% block content %}
-    {% if exercise.title %}
-        <p class="title">{{ exercise.title }}</p>
-    {% endif %}
     {% for variant in variants %}
         {{ variant.content }}
     {% endfor %}
@@ -18,10 +17,5 @@
 
 {% block buttons_bar %}
     <div class="button hidden">Сохранить изменения</div>
-    <div class="button button-secondary">Добавить новый вариант</div>
-    {% if exercise.title %}
-        <div class="button button-secondary">Изменить заголовок</div>
-    {% else %}
-        <div class="button button-secondary">Создать заголовок</div>
-    {% endif %}
+    <div class="button button-secondary-reverse">Добавить новый вариант</div>
 {% endblock %}
