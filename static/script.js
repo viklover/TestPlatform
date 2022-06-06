@@ -111,3 +111,26 @@ let swap = function (list, a, b) {
     list[b] = list[a];
     list[a] = temp;
 }
+
+const sort_by = (field, reverse, primer) => {
+
+  const key = primer ?
+    function(x) {
+      return primer(x[field])
+    } :
+    function(x) {
+      return x[field]
+    };
+
+  reverse = !reverse ? 1 : -1;
+
+  return function(a, b) {
+    return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+  }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+}

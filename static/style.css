@@ -101,6 +101,24 @@ body {
     color: white;
 }
 
+.button-remove-secondary {
+    --size: 20px;
+    background-size: var(--size);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('editor/remove_icon_hover.png');
+    background-color: white;
+    border-color: darkred;
+    padding: 15px;
+    color: darkred;
+}
+
+.button-remove-secondary:hover {
+    background-image: url('editor/remove_icon.png');
+    background-color: red;
+    color: white;
+}
+
 .hidden {
     display: none;
 }

@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -228,8 +229,48 @@ class ChronologyExercise(BaseChronologyExercise):
         }
         return self.render_template('editor/elements/chronology_exercise.html', context=context)
 
+    @staticmethod
+    def process_request(request, exercise):
+
+        response = {'new_ids': {}}
+
+        if 'variants' in request.POST:
+            variants = json.loads(request.POST['variants'])
+            order = 1
+
+            for variant_data in variants:
+
+                is_exist = 'id' in variant_data
+
+                if is_exist:
+                    variant = VariantChronologyExercise.objects.get(id=variant_data['id'])
+                    print('existing variant:', variant)
+                else:
+                    variant = VariantChronologyExercise(exercise=exercise)
+                    print('new variant:', variant, 'with order', order)
+
+                variant.content = variant_data['content']
+                variant.order = order
+                variant.save()
+
+                if not is_exist:
+                    response['new_ids'][str(variant_data['test_id'])] = variant.id
+
+                order += 1
+
+        if 'removed_variants' in request.POST:
+            variants = json.loads(request.POST['removed_variants'])
+            print('removed_variants: ', variants)
+
+            for variant_data in variants:
+                variant = VariantChronologyExercise.objects.get(id=variant_data['id'])
+                variant.delete()
+                print(variant, 'is removed')
+
+        return response
+
     def get_variants(self):
-        return VariantChronologyExercise.objects.filter(exercise_id=self.id)
+        return VariantChronologyExercise.objects.filter(exercise_id=self.exercise_id).order_by('order')
 
 
 class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):

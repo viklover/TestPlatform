@@ -51,6 +51,9 @@ class Exercise extends Element {
         this.exercise_title = this.body.querySelector('.exercise-title');
         this.title_input.value = this.exercise_title.innerHTML;
 
+        this.save_button = this.body.querySelector('.button-save-changes');
+        this.changesManager = new ChangesManager(this.save_button);
+
         if (this.title !== "") {
             this.exercise_title.classList.toggle('hidden', false);
         }
@@ -82,7 +85,7 @@ class Exercise extends Element {
                 type: "POST",
                 data: {
                     'element_id': element_id,
-                    'title': title
+                    'title': title,
                 },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-CSRFToken", csrfcookie());
@@ -108,10 +111,246 @@ class Exercise extends Element {
 
         super.initEventListeners();
     }
+
+    save_button_show() {
+        this.save_button.classList.toggle('hidden', false);
+    }
+
+    save_button_hide() {
+        this.save_button.classList.toggle('hidden', true);
+    }
 }
 
+class ChronologyVariant {
 
-class ChronologyElement extends Exercise {
+    constructor(body) {
+        console.log(body)
+        if (body !== null && body !== undefined) {
+            this.body = body;
+            this.arrow_up = this.body.querySelector('.arrow-up');
+            this.arrow_down = this.body.querySelector('.arrow-down');
+            this.input = this.body.querySelector('input[type="text"]');
+            this.button_remove = this.body.querySelector('.button-remove-variant');
+            this.existing_obj = this.body.dataset.id !== undefined && this.body.dataset.id !== null;
+
+            if (!(this.existing_obj)) {
+                this.test_id = getRandomInt(100000, 999999);
+            }
+        } else {
+            this.existing_obj = false;
+        }
+        this.exercise = null;
+    }
+
+    init(obj) {
+        let obj_class = this;
+        let exercise = obj;
+
+        this.exercise = obj;
+
+        console.log(exercise)
+
+        this.input.onchange = function (e) {
+            console.log(exercise)
+            exercise.check(obj_class);
+        };
+
+        this.arrow_up.onclick = function () {
+            exercise.replace_variant(obj_class, false);
+        }
+
+        this.arrow_down.onclick = function () {
+            exercise.replace_variant(obj_class, true);
+        }
+
+        this.button_remove.onclick = function () {
+            exercise.variants_list.removeChild(obj_class.body)
+            exercise.remove_variant(obj_class);
+        };
+    }
+
+    initDOM() {
+        let variant = document.createElement('div');
+        variant.innerHTML = `
+            <div class="button button-remove-secondary button-remove-variant"></div>
+            <input value="Новый элемент хронологии" type="text">
+            <div class="arrows">
+                <div class="arrow arrow-up"></div>
+                <div class="arrow arrow-down"></div>
+            </div>
+        `
+        variant.classList.add('variant');
+        return new ChronologyVariant(variant);
+    }
+
+    getData() {
+        let data = {};
+        if (this.body.dataset.id !== undefined && this.body.dataset.id !== null) {
+            data['id'] = parseInt(this.body.dataset.id);
+        } else {
+            data['test_id'] = this.test_id
+        }
+        data['content'] = this.input.value;
+        data['order'] = parseInt(this.body.style.order);
+        return data;
+    }
+
+}
+
+class ChronologyExercise extends Exercise {
+
+    constructor(elem) {
+        super(elem);
+        this.variants = [];
+        this.removed_variants = [];
+        this.variants_list = this.body.querySelector('.variants');
+        this.add_variant_button = this.body.querySelector('.button-add-variant');
+
+        this.description_title = this.body.querySelector('.description');
+
+        for (let element of this.body.querySelectorAll('.variant')) {
+            let variant = new ChronologyVariant(element);
+            this.variants.push(variant);
+        }
+    }
+
+    initEventListeners() {
+
+        this.changesManager.addElement(this);
+
+        let obj_class = this;
+        let variants = this.variants;
+        let variants_list = this.variants_list;
+        let add_variant_button = this.add_variant_button;
+
+        let save_button = this.save_button;
+
+        for (let variant of variants) {
+            variant.init(obj_class);
+        }
+        this.reorder_variants();
+
+        add_variant_button.onclick = function () {
+            let variant = new ChronologyVariant().initDOM();
+            variants.push(variant);
+            variant.init(obj_class);
+            variants_list.appendChild(variant.body);
+            obj_class.reorder_variants();
+
+            obj_class.check();
+        };
+
+        save_button.onclick = function () {
+
+            console.log('SEND UPDATES', {
+                'element_id': parseInt(obj_class.body.dataset.id),
+                'variants' : obj_class.getData(),
+                'removed_variants': obj_class.removed_variants
+            })
+
+            $.ajax({
+                url: 'change_element',
+                type: "POST",
+                data: {
+                    'element_id': parseInt(obj_class.body.dataset.id),
+                    'variants' : JSON.stringify(obj_class.getData()),
+                    'removed_variants': JSON.stringify(obj_class.removed_variants)
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+                },
+                success: function (data) {
+                    console.log(data)
+
+                    if ('new_ids' in data) {
+
+                        for (const [test_id, new_id] of Object.entries(data['new_ids'])) {
+                            for (let variant of obj_class.variants) {
+                                console.log(variant)
+                                if (!variant.existing_obj && parseInt(variant.test_id) == parseInt(test_id)) {
+                                    variant.body.dataset.id = new_id.toString();
+                                    variant.existing_obj = true;
+                                    console.log('create id for ', variant, 'with id', new_id)
+                                }
+                            }
+                        }
+                    }
+
+                    obj_class.changesManager.refresh()
+                },
+                error: function (error) {
+                    console.log('ERROR');
+                }
+            });
+        }
+
+        super.initEventListeners();
+    }
+
+    getId() {
+        return this.body.dataset.id;
+    }
+
+    getData() {
+        let data = [];
+        for (let variant of this.variants) {
+            data.push(variant.getData());
+        }
+        console.log(data.sort(sort_by('order', false, parseInt)))
+        return data;
+    }
+
+    check() {
+        this.changesManager.check();
+    }
+
+    remove_variant(elem) {
+
+        let index = this.variants.indexOf(elem);
+
+        if (index === -1)
+            return;
+
+        this.variants.splice(index, 1);
+        this.reorder_variants();
+
+        if ('id' in elem.getData()) {
+            this.removed_variants.push(elem.getData());
+        }
+
+        this.check();
+    }
+
+    replace_variant(elem, direction) {
+
+        console.log('before_replace', 'variants', this.variants)
+        console.log(elem)
+
+        let index = this.variants.indexOf(elem);
+
+        console.log(index)
+
+        if (direction && index + 1 < this.variants.length) {
+            swap(this.variants, index + 1, index)
+        } else if (!direction && index - 1 >= 0) {
+            swap(this.variants, index - 1, index)
+        }
+
+        this.reorder_variants();
+        this.check()
+    }
+
+    reorder_variants() {
+
+        this.description_title.classList.toggle('hidden', this.variants.length !== 0);
+
+        for (let i = 0; i < this.variants.length; ++i) {
+            this.variants[i].body.style.order = (i + 1);
+        }
+    }
+}
+
+class MatchExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
@@ -119,7 +358,7 @@ class ChronologyElement extends Exercise {
 
 }
 
-class MatchElement extends Exercise {
+class RadioExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
@@ -127,7 +366,7 @@ class MatchElement extends Exercise {
 
 }
 
-class RadioElement extends Exercise {
+class StatementsExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
@@ -135,7 +374,7 @@ class RadioElement extends Exercise {
 
 }
 
-class StatementsElement extends Exercise {
+class InputExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
@@ -143,15 +382,7 @@ class StatementsElement extends Exercise {
 
 }
 
-class InputElement extends Exercise {
-
-    constructor(elem) {
-        super(elem);
-    }
-
-}
-
-class AnswerElement extends Exercise {
+class AnswerExercise extends Exercise {
 
     constructor(elem) {
         super(elem);

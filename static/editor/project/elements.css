@@ -44,12 +44,13 @@
 }
 
 .elements-list__item .arrows .arrow {
+    --size: 30px;
     background-image: url('arrow.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
-    width: 30px;
-    height: 30px;
+    width: var(--size);
+    height: var(--size);
     cursor: pointer;
 }
 
@@ -93,6 +94,56 @@
 
 .elements-list__item .hidden {
     display: none;
+}
+
+.chronology-exercise .variant {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 500px;
+}
+
+.chronology-exercise .button-remove-variant {
+    --size: 18px;
+    width: 24px;
+    height: 24px;
+}
+
+.chronology-exercise .variants {
+    display: flex;
+    flex-direction: column;
+}
+
+.chronology-exercise .variant input[type="text"] {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-left: 6px;
+    width: 595px;
+}
+
+.chronology-exercise .variant .arrows {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    height: max-content;
+    right: -65px;
+    top: 3px;
+    left: auto;
+}
+
+.chronology-exercise .variant .arrows .arrow {
+    --size: 30px;
+    background-size: 17px;
+}
+
+.chronology-exercise .variant .arrows .arrow-up {
+    background-position-x: center;
 }
 
 /*.elements-list__item .button-remove-element {*/

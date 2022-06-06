@@ -1,13 +1,14 @@
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.urls import reverse
 
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
     CreationElementForm
-from tests.models import Project, ProjectTask, ProjectTaskElement
+from tests.models import Project, ProjectTask, ProjectTaskElement, VariantChronologyExercise, ChronologyExercise
 
 
 @login_required
@@ -244,14 +245,22 @@ def change_element(request, project_id, task_id):
         selected_element = ProjectTaskElement.objects.get(element_id=elem_id).get_child()
 
         print(request.POST)
-        print(selected_element.get_json())
+        print(selected_element, selected_element.get_json())
 
         if selected_element.element_type == 0:
 
             if request.POST.get('title', False) or request.POST.get('title', False) == "":
                 selected_element.title = request.POST.get('title')
+                selected_element.save()
 
-        selected_element.save()
+            response = None
+
+            if selected_element.exercise_type == 5:
+                response = ChronologyExercise.process_request(request, selected_element)
+
+            if response:
+                return JsonResponse(response)
+
         return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 
     return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))

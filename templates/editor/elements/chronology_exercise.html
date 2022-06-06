@@ -7,15 +7,23 @@
 {% endblock %}
 
 {% block content %}
-    {% for variant in variants %}
-        {{ variant.content }}
-    {% endfor %}
-    {% if not variants|length %}
-        <p class="description">Пока здесь нет ни одного элемента списка</p>
-    {% endif %}
+    <div class="variants">
+        {% for variant in variants %}
+            <div class="variant" style="order: {{ variant.order }};" data-id="{{ variant.id }}">
+                <div class="button button-remove-secondary button-remove-variant"></div>
+                <input value="{{ variant.content }}" type="text">
+                <div class="arrows">
+                    <div class="arrow arrow-up"></div>
+                    <div class="arrow arrow-down"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <p class="description {% if not variants|length %}hidden{% endif %}">Пока здесь нет ни одного элемента списка</p>
 {% endblock %}
 
 {% block buttons_bar %}
-    <div class="button hidden">Сохранить изменения</div>
-    <div class="button button-secondary-reverse">Добавить новый вариант</div>
+    <div class="button hidden button-save-changes">Сохранить изменения</div>
+    <div class="button button-secondary-reverse button-add-variant">Добавить новый вариант</div>
 {% endblock %}

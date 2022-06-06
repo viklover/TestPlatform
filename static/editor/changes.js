@@ -1,12 +1,12 @@
 
 class ChangesManager {
 
-    constructor(button_id) {
+    constructor(button) {
         this.elements = [];
         this.elements_data = {};
         this.changes_exists = false;
 
-        this.editorBarButton = document.querySelector(button_id);
+        this.editorBarButton = button;
 
         this.updates = {};
     }
