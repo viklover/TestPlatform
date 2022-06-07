@@ -1,13 +1,39 @@
 {% extends 'editor/elements/base_exercise.html' %}
 
+{% block element_type %}match{% endblock %}
+
 {% block element_class %}
     match-exercise
 {% endblock %}
 
 {% block content %}
 
+    <div class="columns">
+        {% for column in columns %}
+            <div class="column">
+                <header class="column-head">
+                    <div class="button button-remove-secondary button-remove-variant"></div>
+                    <input value="{{ column.content }}" type="text" class="column-title">
+                </header>
+                <div class="variants">
+                    {% for variant in column.get_variants %}
+                        <div class="variant">
+                            <hr class="line">
+                            <div class="button button-remove-secondary button-remove-variant"></div>
+                            <input value="{{ column.content }}" type="text" class="variant-content">
+                        </div>
+                    {% endfor %}
+                    <hr class="line-vertical">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <p class="description {% if columns|length %}hidden{% endif %}">Пока здесь нет ни одной колонки</p>
+
 {% endblock %}
 
 {% block buttons_bar %}
-
+    <div class="button hidden button-save-changes">Сохранить изменения</div>
+    <div class="button button-secondary-reverse button-add-variant">Добавить новую колонку</div>
 {% endblock %}

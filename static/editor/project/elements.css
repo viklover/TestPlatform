@@ -103,7 +103,7 @@
     width: 500px;
 }
 
-.chronology-exercise .button-remove-variant {
+.button-remove-variant {
     --size: 18px;
     width: 24px;
     height: 24px;
@@ -144,6 +144,77 @@
 
 .chronology-exercise .variant .arrows .arrow-up {
     background-position-x: center;
+}
+
+
+
+.match-exercise .columns {
+    display: flex;
+    flex-direction: column;
+}
+
+.match-exercise .column-head {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 500px;
+}
+
+.match-exercise .columns .column input[type="text"] {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-left: 6px;
+    width: 595px;
+}
+
+.match-exercise .columns .column .column-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.match-exercise .variants {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.match-exercise .line {
+    height: 2px;
+    background-color: black;
+    border-color: black;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.match-exercise .variants {
+    position: relative;
+}
+
+.match-exercise .variants .variant {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 500px;
+    align-items: center;
+}
+
+.match-exercise .variants .line-vertical {
+    position: absolute;
+    height: calc(100% - 20px);
+    width: 2px;
+    background-color: black;
+    border-color: black;
+    margin: 0;
+}
+
+.match-exercise .variants .variant .variant-content {
+    margin-bottom: 0;
 }
 
 /*.elements-list__item .button-remove-element {*/

@@ -295,6 +295,16 @@ class MatchExercise(BaseMatchExercise):
 
     exercise_id = models.AutoField(primary_key=True)
 
+    def render(self, context=None):
+        if context is None:
+            context = {}
+
+        context = {
+            'columns': self.get_columns(),
+            **context
+        }
+        return self.render_template('editor/elements/match_exercise.html', context=context)
+
     def get_columns(self):
         return ColumnMatchExercise.objects.filter(exercise_id=self.id)
 
@@ -303,7 +313,9 @@ class MatchExercise(BaseMatchExercise):
 
 
 class ProjectMatchExercise(MatchExercise, ProjectExercise):
-    pass
+
+    def render(self):
+        return super().render(self.get_info())
 
 
 class ColumnMatchExercise(BaseModel):
@@ -312,6 +324,9 @@ class ColumnMatchExercise(BaseModel):
 
     def __str__(self):
         return self.content
+
+    def get_variants(self):
+        return VariantMatchExercise.objects.filter(column=self)
 
 
 class VariantMatchExercise(BaseModel):
@@ -401,4 +416,3 @@ class AnswerExercise(BaseAnswerExercise):
 
 class ProjectAnswerExercise(AnswerExercise, ProjectExercise):
     pass
-
