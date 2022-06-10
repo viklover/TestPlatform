@@ -47,6 +47,8 @@ class ChangesManager {
 
     sendUpdates() {
 
+        let obj = this;
+
         $.ajax({
             url: '',
             type: "POST",
@@ -57,7 +59,8 @@ class ChangesManager {
                 xhr.setRequestHeader("X-CSRFToken", csrfcookie());
             },
             success: function (data) {
-                window.location.reload();
+                // window.location.reload();
+                obj.refresh();
             },
             error: function (error) {
                 console.log('ERROR');

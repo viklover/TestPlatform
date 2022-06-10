@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.urls import reverse
@@ -245,14 +245,16 @@ def change_element(request, project_id, task_id):
         elem_id = request.POST.get('element_id')
         selected_element = ProjectTaskElement.objects.get(element_id=elem_id).get_child()
 
-        print(request.POST)
-        print(selected_element, selected_element.get_json())
-
         if selected_element.element_type == 0:
+
+            print(request.POST)
 
             if request.POST.get('title', False) or request.POST.get('title', False) == "":
                 selected_element.title = request.POST.get('title')
                 selected_element.save()
+
+            if request.POST.get('only_title', False):
+                return HttpResponse()
 
             return JsonResponse(eval(f'{BaseExercise.EXERCISE_CLASSES[selected_element.exercise_type]}.process_request(request, selected_element)'))
 

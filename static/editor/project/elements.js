@@ -86,6 +86,7 @@ class Exercise extends Element {
                 data: {
                     'element_id': element_id,
                     'title': title,
+                    'only_title': true
                 },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-CSRFToken", csrfcookie());
