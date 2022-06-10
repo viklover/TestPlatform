@@ -30,7 +30,10 @@
                     <p class="description">{{ project.description }}</p>
                 </div>
             </main>
-            <div class="button button-change-info" data-url="{% url 'editor:edit_project' project_id=project.id %}"></div>
+            <div class="buttons-edit">
+                <div class="button button-change-info" data-url="{% url 'editor:edit_project' project_id=project.id %}"></div>
+                <div class="button button-remove" data-modalwindow="#remove_project"></div>
+            </div>
         </section>
 
         <section class="tabs-menu unselectable">
@@ -43,9 +46,14 @@
         </section>
 
         <section class="tab project-tasks">
-            <main>
-                {{ tasks_table }}
-            </main>
+
+            {% if not is_empty %}
+
+                <main>
+                    {{ tasks_table }}
+                </main>
+
+            {% endif %}
 
             <div class="button button-secondary button-create-task" data-modalwindow="#creation_task">
                 Создать задание
@@ -71,6 +79,7 @@
 
     </div>
 
+    {% include 'editor/project/modal_window/remove_project.html' %}
     {% include 'editor/project/modal_window/creation_task.html' %}
 
     {% include 'footer.html' %}
@@ -84,7 +93,7 @@
     <script src="{% static 'editor/project/tasks_table.js' %}"></script>
     <script src="{% static 'editor/project/tabs-menu.js' %}"></script>
     <script>
-        let changesManager = new ChangesManager();
+        let changesManager = new ChangesManager('.editor-bar');
 
         let table = new TasksTable('tasks_table');
         changesManager.addElement(table)
@@ -97,9 +106,6 @@
 
     </script>
     <script src="/static/editor/project/simplemde.min.js"></script>
-    <script>
-        var simplemde = new SimpleMDE();
-    </script>
     <script>
         let simplemde = new SimpleMDE({ element: document.getElementById("edit-info") });
     </script>

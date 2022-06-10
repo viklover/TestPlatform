@@ -6,6 +6,23 @@ a {
     text-decoration: none;
 }
 
+.button-remove {
+    --size: 20px;
+    background-size: var(--size);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('remove_icon.png');
+    background-color: red;
+    border-color: darkred;
+    padding: 15px;
+    color: white;
+}
+
+.button-remove:hover {
+    background-image: url('remove_icon_hover.png');
+    color: darkred;
+}
+
 @media(min-width: 700px) {
 
     .image img {

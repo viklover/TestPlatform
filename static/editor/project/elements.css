@@ -1,0 +1,250 @@
+
+.item-content {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.elements-list__item {
+    position: relative;
+}
+
+.elements-list__item .exercise-title {
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.elements-list__item .buttons-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.elements-list__item .description {
+    margin: 0;
+}
+
+.elements-list__item .header-title {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.elements-list__item .arrows {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: -35px;
+}
+
+.elements-list__item .border {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 0;
+    height: 3px;
+}
+
+.elements-list__item .arrows .arrow {
+    --size: 30px;
+    background-image: url('arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    width: var(--size);
+    height: var(--size);
+    cursor: pointer;
+}
+
+.elements-list__item .arrows .arrow:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.elements-list__item .arrows .arrow-up {
+    transform: rotate(180deg);
+    background-position-x: 5px;
+}
+
+
+.elements-list__item .button {
+    margin: 0;
+    padding: 3px 5px;
+    font-size: 13px;
+}
+
+.elements-list__item .edit-title {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.elements-list__item .edit-title .edit-title-header {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.elements-list__item .edit-title .title-input {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.elements-list__item .hidden {
+    display: none;
+}
+
+.chronology-exercise .variant {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 500px;
+}
+
+.button-remove-variant {
+    --size: 18px;
+    width: 24px;
+    height: 24px;
+}
+
+.button-remove-column {
+    --size: 18px;
+    width: 24px;
+    height: 24px;
+}
+
+.chronology-exercise .variants {
+    display: flex;
+    flex-direction: column;
+}
+
+.chronology-exercise .variant input[type="text"] {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-left: 6px;
+    width: 595px;
+}
+
+.chronology-exercise .variant .arrows {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    height: max-content;
+    right: -65px;
+    top: 3px;
+    left: auto;
+}
+
+.chronology-exercise .variant .arrows .arrow {
+    --size: 30px;
+    background-size: 17px;
+}
+
+.chronology-exercise .variant .arrows .arrow-up {
+    background-position-x: center;
+}
+
+
+
+.match-exercise .columns {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.match-exercise .column-head {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 500px;
+}
+
+.match-exercise .columns .column input[type="text"] {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-left: 6px;
+    width: 595px;
+}
+
+.match-exercise .columns .column .column-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.match-exercise .variants {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.match-exercise .line {
+    height: 2px;
+    background-color: black;
+    border-color: black;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.match-exercise .variants {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.match-exercise .variants .variant {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 490px;
+    align-items: center;
+}
+
+.match-exercise .button-add-variant {
+    margin-left: 50px;
+}
+
+.match-exercise .variants .line-vertical {
+    position: absolute;
+    height: calc(100% - 20px);
+    width: 2px;
+    background-color: black;
+    border-color: black;
+    margin: 0;
+}
+
+.match-exercise .variants .variant .variant-content {
+    margin-bottom: 0;
+}
+
+.match-exercise .hidden {
+    display: none;
+}
+
+/*.elements-list__item .button-remove-element {*/
+/*    --size: 20px;*/
+/*    position: absolute;*/
+/*    left: -35px;*/
+/*    top: 66px;*/
+/*    width: var(--size);*/
+/*    height: var(--size);*/
+/*    padding: 3px;*/
+/*}*/
+
+.gray {
+    color: gray;
+    padding-left: 5px;
+}

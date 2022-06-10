@@ -1,4 +1,11 @@
 
+.elements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 15px;
+}
+
 .preview-project .task-number {
     margin: 0;
     font-size: 15px;
@@ -10,4 +17,18 @@
     margin: 8px 0 0 0;
     font-size: 23px;
     font-weight: bold;
+}
+
+.editor-buttons-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.editor-buttons-list .button {
+    margin-top: 0;
+}
+
+.button-editor {
+    margin: 15px 0 0;
 }

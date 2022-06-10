@@ -1,12 +1,12 @@
 
 class ChangesManager {
 
-    constructor() {
+    constructor(button) {
         this.elements = [];
         this.elements_data = {};
         this.changes_exists = false;
 
-        this.editorBarButton = document.querySelector('.editor-bar');
+        this.editorBarButton = button;
 
         this.updates = {};
     }
@@ -21,9 +21,6 @@ class ChangesManager {
         this.updates = {};
 
         for (let elem of this.elements) {
-            console.log(elem, this.elements_data[elem.getId()])
-            console.log(elem, this.elements_data[elem.getId()])
-            console.log(elem.getData(), this.elements_data[elem.getId()])
             if (!compareObjects(elem.getData(), this.elements_data[elem.getId()])) {
                 this.updates[elem.getId()] = elem.getData();
                 changes = true;
@@ -36,13 +33,21 @@ class ChangesManager {
         this.setButtonVisibility(changes);
     }
 
+    refresh() {
+        for (let elem of this.elements) {
+            this.elements_data[elem.getId()] = elem.getData();
+        }
+        this.setButtonVisibility(false);
+    }
+
+
     setButtonVisibility(opacity) {
         this.editorBarButton.classList.toggle('hidden', !opacity);
     }
 
     sendUpdates() {
 
-        console.log('HELLO WORLD', this.updates)
+        let obj = this;
 
         $.ajax({
             url: '',
@@ -54,24 +59,13 @@ class ChangesManager {
                 xhr.setRequestHeader("X-CSRFToken", csrfcookie());
             },
             success: function (data) {
-                window.location.reload();
-                console.log('SUCCESS');
+                // window.location.reload();
+                obj.refresh();
             },
             error: function (error) {
                 console.log('ERROR');
             }
         });
-
-        // console.log(csrfcookie())
-        // let request = new XMLHttpRequest();
-        // request.open('POST', '', true);
-        // request.setRequestHeader('Content-Type', 'application/json');
-        // request.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-        // // request.setRequestHeader('X-CSRFToken', csrfcookie());
-        // request.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
-        // // request.setRequestHeader('A', 1);
-        // // request.setRequestHeader('content', '{\"a\": 1}');
-        // request.send(JSON.stringify(this.updates));
     }
 
 }

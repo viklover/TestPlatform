@@ -1,0 +1,14 @@
+{% extends 'table.html' %}
+
+{% block id %}exercises_table{% endblock %}
+
+{% block table_content %}
+    {% for row in rows %}
+        <tr class="variant" data-url="{% url 'editor:open_task' project_id=row.project.id task_id=row.id %}" data-id="{{ row.id }}">
+            <td scope="row" class="number">{{ row.number }}</td>
+            <td class="name">{{ row.name }}</td>
+            <td class="number_of_exercises">{{ row.number_of_exercises }}</td>
+            <td class="max_points">{{ row.max_points }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

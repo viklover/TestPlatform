@@ -1,4 +1,16 @@
 
+let open_modalwindow = function (modalwindow_id) {
+    let element = document.querySelector(modalwindow_id);
+    element.classList.add('modal-window-active');
+
+    let background = document.querySelector('.modal-background');
+    background.classList.add('modal-background-active');
+    background.onclick = function () {
+        element.classList.remove('modal-window-active');
+        background.classList.remove('modal-background-active');
+    }
+}
+
 document.querySelectorAll('*[data-url]').forEach((button) => {
     button.onclick = function () {
         if (button.classList.contains('new-window')) {
@@ -78,6 +90,10 @@ const compareObjects = (a, b) => {
  return true;
 }
 
+function combineObjects(e1, e2) {
+  return Object.assign({}, e1, e2);
+}
+
 var csrfcookie = function() {
     var cookieValue = null,
         name = 'csrftoken';
@@ -93,3 +109,32 @@ var csrfcookie = function() {
     }
     return cookieValue;
 };
+
+let swap = function (list, a, b) {
+    let temp = list[b];
+    list[b] = list[a];
+    list[a] = temp;
+}
+
+const sort_by = (field, reverse, primer) => {
+
+  const key = primer ?
+    function(x) {
+      return primer(x[field])
+    } :
+    function(x) {
+      return x[field]
+    };
+
+  reverse = !reverse ? 1 : -1;
+
+  return function(a, b) {
+    return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+  }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+}
