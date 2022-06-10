@@ -10,6 +10,20 @@
     background-size: 37px;
 }
 
+.image_bad_result {
+    width: 37px;
+    height: 37px;
+    background: url("../tests/results/result_bad.png") no-repeat center;
+    background-size: 37px;
+}
+
+.image_question_result {
+    width: 37px;
+    height: 37px;
+    background: url("../tests/results/result_question.png") no-repeat center;
+    background-size: 37px;
+}
+
 .text_result {
     display: flex;
     flex-direction: row;
