@@ -418,8 +418,9 @@ class VariantMatchExercise(BaseModel):
 
         return new_variants
 
+
 """
-RADIO ANSWER
+RADIO EXERCISE MODEL
 """
 
 
@@ -428,12 +429,24 @@ class RadioExercise(BaseRadioExercise):
 
     exercise_id = models.AutoField(primary_key=True)
 
+    def render(self, context=None):
+        if context is None:
+            context = {}
+
+        context = {
+            'variants': self.get_variants(),
+            **context
+        }
+        return self.render_template('editor/elements/radio_exercise.html', context=context)
+
     def get_variants(self):
         return VariantRadioExercise.objects.filter(exercise_id=self.id)
 
 
 class ProjectRadioExercise(RadioExercise, ProjectExercise):
-    pass
+
+    def render(self):
+        return super().render(self.get_info())
 
 
 class VariantRadioExercise(BaseModel):
