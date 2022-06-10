@@ -90,6 +90,10 @@ const compareObjects = (a, b) => {
  return true;
 }
 
+function combineObjects(e1, e2) {
+  return Object.assign({}, e1, e2);
+}
+
 var csrfcookie = function() {
     var cookieValue = null,
         name = 'csrftoken';

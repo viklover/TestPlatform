@@ -1,5 +1,8 @@
+import collections
 import datetime
+import functools
 import json
+import operator
 
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -133,6 +136,8 @@ class ProjectExercise(ProjectTaskElement):
     def get_child_by_element(element):
         exercise_parent = ProjectExercise.objects.get(projecttaskelement_ptr_id=element.element_id)
         classname = f'Project{BaseExercise.EXERCISE_CLASSES[exercise_parent.exercise_type]}'
+
+        print(classname, eval(f'{classname}.objects.all()'))
 
         return eval(f'{classname}.objects.get(projectexercise_ptr_id={exercise_parent.id})')
 
@@ -303,13 +308,26 @@ class MatchExercise(BaseMatchExercise):
             'columns': self.get_columns(),
             **context
         }
+
         return self.render_template('editor/elements/match_exercise.html', context=context)
 
+    @staticmethod
+    def process_request(request, exercise):
+
+        data = ColumnMatchExercise.process_request(exercise, json.loads(request.POST['data'])['columns'])
+
+        return {
+            'new_ids': {
+                'columns': data['columns'],
+                'variants': data['variants']
+            }
+        }
+
     def get_columns(self):
-        return ColumnMatchExercise.objects.filter(exercise_id=self.id)
+        return ColumnMatchExercise.objects.filter(exercise=self)
 
     def get_variants(self):
-        return VariantMatchExercise.objects.filter(exercise_id=self.id)
+        return VariantMatchExercise.objects.filter(exercise=self)
 
 
 class ProjectMatchExercise(MatchExercise, ProjectExercise):
@@ -325,6 +343,40 @@ class ColumnMatchExercise(BaseModel):
     def __str__(self):
         return self.content
 
+    @staticmethod
+    def process_request(exercise, data):
+
+        new_elements = {'columns': {}, 'variants': {}}
+
+        for column_data in data['changes']:
+
+            is_exist = 'id' in column_data
+
+            if is_exist:
+                column = ColumnMatchExercise.objects.get(id=column_data['id'])
+            else:
+                column = ColumnMatchExercise(exercise=exercise)
+
+            print(column_data)
+
+            column.content = column_data['content']
+            column.save()
+
+            if not is_exist:
+                new_elements['columns'][str(column_data['test_id'])] = column.id
+
+            new_elements['variants'] = {
+                **new_elements['variants'],
+                **VariantMatchExercise.process_request(exercise, column, column_data['variants'])
+            }
+
+        for column_data in data['removed_columns']:
+            columns = ColumnMatchExercise.objects.filter(id=column_data['id'])
+            if columns.count():
+                columns.first().delete()
+
+        return new_elements
+
     def get_variants(self):
         return VariantMatchExercise.objects.filter(column=self)
 
@@ -337,6 +389,34 @@ class VariantMatchExercise(BaseModel):
     def __str__(self):
         return self.content
 
+    @staticmethod
+    def process_request(exercise, column, data):
+
+        print(1, data)
+
+        new_variants = {}
+
+        for variant_data in data['changes']:
+
+            is_exist = 'id' in variant_data
+
+            if is_exist:
+                variant = VariantMatchExercise.objects.get(id=variant_data['id'])
+            else:
+                variant = VariantMatchExercise(exercise=exercise, column=column)
+
+            variant.content = variant_data['content']
+            variant.save()
+
+            if not is_exist:
+                new_variants[str(variant_data['test_id'])] = variant.id
+
+        for variant_data in data['removed_variants']:
+            variants = VariantMatchExercise.objects.filter(id=variant_data['id'])
+            if variants.count():
+                variants.first().delete()
+
+        return new_variants
 
 """
 RADIO ANSWER

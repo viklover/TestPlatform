@@ -121,6 +121,8 @@ class Exercise extends Element {
     }
 }
 
+// CHRONOLOGY
+
 class ChronologyVariant {
 
     constructor(body) {
@@ -350,13 +352,326 @@ class ChronologyExercise extends Exercise {
     }
 }
 
+// MATCH
+
+class MatchVariant {
+
+    constructor(body) {
+
+        if (body === null || body === undefined) {
+            return;
+        }
+
+        this.body = body;
+        this.input = body.querySelector('.variant-content');
+        this.remove_button = body.querySelector('.button-remove-variant');
+
+        this.column = null;
+
+        this.existing_obj = this.body.dataset.id !== undefined && this.body.dataset.id !== null;
+
+        if (!(this.existing_obj)) {
+            this.test_id = getRandomInt(100000, 999999);
+        }
+    }
+
+    init(column) {
+
+        let obj = this;
+
+        console.log('column', column)
+
+        this.column = column;
+
+        this.remove_button.onclick = function () {
+            column.remove_variant(obj);
+        };
+
+        console.log(this.input)
+
+        this.input.onchange = function () {
+            console.log('change input')
+            column.check();
+        };
+    }
+
+    initDOM() {
+        let element = document.createElement('div');
+        element.innerHTML = `
+            <hr class="line">
+            <div class="button button-remove-secondary button-remove-variant"></div>
+            <input value="Новый вариант" type="text" class="variant-content">
+        `;
+        element.classList.add('variant');
+
+        return new MatchVariant(element);
+    }
+
+    getData() {
+        let data = {};
+        if (this.existing_obj) {
+            data['id'] = parseInt(this.body.dataset.id);
+        } else {
+            data['test_id'] = this.test_id
+        }
+        data['content'] = this.input.value;
+        return data;
+    }
+
+}
+
+class MatchColumn {
+
+    constructor(body) {
+
+        if (body === null || body === undefined) {
+            return;
+        }
+
+        this.body = body;
+        this.variants = [];
+        this.removed_variants = [];
+        this.input = body.querySelector('.column-title');
+        this.variants_list = body.querySelector('.variants');
+        this.remove_button = body.querySelector('.button-remove-column');
+        this.add_variant_button = body.querySelector('.button-add-variant');
+
+        this.exercise = null;
+        this.existing_obj = this.body.dataset.id !== undefined && this.body.dataset.id !== null;
+
+        if (!(this.existing_obj)) {
+            this.test_id = getRandomInt(100000, 999999);
+        }
+
+        for (let element of this.body.querySelectorAll('.variant')) {
+            let variant = new MatchVariant(element);
+            variant.init(this);
+            this.variants.push(variant)
+        }
+    }
+
+    init(exercise) {
+
+        let obj = this;
+
+        this.exercise = exercise;
+
+        this.add_variant_button.onclick = function () {
+
+            let variant = new MatchVariant().initDOM();
+            obj.variants.push(variant);
+            obj.variants_list.appendChild(variant.body);
+            variant.init(obj);
+
+            obj.check();
+        }
+
+        this.input.onchange = function () {
+            exercise.check();
+        }
+
+        this.remove_button.onclick = function () {
+            exercise.remove_column(obj);
+        };
+
+    }
+
+    initDOM() {
+        let element = document.createElement('div');
+        element.innerHTML = `
+            <header class="column-head">
+                <div class="button button-remove-secondary button-remove-column"></div>
+                <input value="Новая колонка" type="text" class="column-title">
+            </header>
+            <div class="variants hidden">
+                <hr class="line-vertical">
+            </div>
+            <div class="button button-secondary-reverse button-add-variant">Добавить новый вариант</div>
+        `;
+        element.classList.add('column');
+
+        return new MatchColumn(element);
+    }
+
+    remove_variant(variant) {
+        this.variants_list.removeChild(variant.body);
+
+        if ('id' in variant.getData()) {
+            this.removed_variants.push(variant.getData());
+        }
+
+        this.variants.splice(this.variants.indexOf(variant), 1);
+
+        this.check()
+    }
+
+    check() {
+        this.variants_list.classList.toggle('hidden', this.variants.length === 0);
+        this.exercise.check();
+    }
+
+    getData() {
+        let data = {
+            'variants': {
+                'changes': [],
+                'removed_variants': []
+            },
+            'content': ''
+        };
+
+        for (let variant of this.variants) {
+            data['variants']['changes'].push(variant.getData());
+        }
+
+        for (let variant_data of this.removed_variants) {
+            data['variants']['removed_variants'].push(variant_data);
+        }
+
+        if (this.existing_obj) {
+            data['id'] = parseInt(this.body.dataset.id);
+        } else {
+            data['test_id'] = this.test_id
+        }
+
+        data['content'] = this.input.value;
+        return data;
+    }
+
+}
+
 class MatchExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
+        this.columns = [];
+        this.removed_columns = [];
+        this.columns_list = this.body.querySelector('.columns');
+        this.add_column_button = this.body.querySelector('.button-add-column');
+
+        this.description = this.body.querySelector('.description');
+
+        for (let element of this.body.querySelectorAll('.column')) {
+            let column = new MatchColumn(element);
+            this.columns.push(column)
+            column.init(this);
+        }
     }
 
+    initEventListeners() {
+
+        let obj = this;
+
+        this.changesManager.addElement(this);
+
+        this.add_column_button.onclick = function () {
+            let match = new MatchColumn().initDOM();
+            obj.columns.push(match);
+            match.init(obj);
+            obj.columns_list.appendChild(match.body);
+
+            obj.check();
+        };
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+        super.initEventListeners();
+    }
+
+    remove_column(column) {
+        this.columns_list.removeChild(column.body);
+
+        if ('id' in column.getData()) {
+            this.removed_columns.push(column.getData());
+        }
+
+        this.columns.splice(this.columns.indexOf(column), 1);
+
+        this.check()
+    }
+
+    getId() {
+        return 'match-exercise';
+    }
+
+    getData() {
+        let data = [];
+        for (let column of this.columns) {
+            data.push(column.getData());
+        }
+        console.log(data);
+        return data;
+    }
+
+    save() {
+
+        console.log({'columns': combineObjects(this.getData(), {'removed_columns': this.removed_columns})})
+
+        console.log('SEND UPDATES', {
+            'element_id': parseInt(this.body.dataset.id),
+            'columns': {
+                'changes': this.getData(),
+                'removed_columns': this.removed_columns
+            }
+        })
+
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(this.body.dataset.id),
+                'data': JSON.stringify({'columns': {
+                    'changes': obj.getData(),
+                    'removed_columns': this.removed_columns
+                }})
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+
+                for (const [column_test_id, new_id] of Object.entries(data['new_ids']['columns'])) {
+                    for (let column of obj.columns) {
+                        if (!column.existing_obj && parseInt(column.test_id) == parseInt(column_test_id)) {
+                            column.body.dataset.id = new_id.toString();
+                            column.existing_obj = true;
+                            console.log('create id for ', column, 'with id', new_id)
+                        }
+                    }
+                }
+
+                for (const [variant_test_id, new_id] of Object.entries(data['new_ids']['variants'])) {
+                    for (let column of obj.columns) {
+                        for (let variant of column.variants) {
+                            if (!variant.existing_obj && parseInt(variant.test_id) == parseInt(variant_test_id)) {
+                                variant.body.dataset.id = new_id.toString();
+                                variant.existing_obj = true;
+                                console.log('create id for ', variant, 'with id', new_id)
+                            }
+                        }
+                    }
+                }
+
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
+
+    }
+
+    check() {
+        this.description.classList.toggle('hidden', this.columns.length !== 0)
+
+        this.changesManager.check();
+    }
 }
+
+
 
 class RadioExercise extends Exercise {
 
@@ -389,4 +704,6 @@ class AnswerExercise extends Exercise {
     }
 
 }
+
+console.log(combineObjects({'a': 1, 'b': 2}, {'c': 3, 'b': 10}))
 

@@ -10,21 +10,22 @@
 
     <div class="columns">
         {% for column in columns %}
-            <div class="column">
+            <div class="column" data-id="{{ column.id }}">
                 <header class="column-head">
-                    <div class="button button-remove-secondary button-remove-variant"></div>
+                    <div class="button button-remove-secondary button-remove-column"></div>
                     <input value="{{ column.content }}" type="text" class="column-title">
                 </header>
-                <div class="variants">
+                <div class="variants {% if not column.get_variants|length %}hidden{% endif %}">
                     {% for variant in column.get_variants %}
-                        <div class="variant">
+                        <div class="variant" data-id="{{ variant.id }}">
                             <hr class="line">
                             <div class="button button-remove-secondary button-remove-variant"></div>
-                            <input value="{{ column.content }}" type="text" class="variant-content">
+                            <input value="{{ variant.content }}" type="text" class="variant-content">
                         </div>
                     {% endfor %}
                     <hr class="line-vertical">
                 </div>
+                <div class="button button-secondary-reverse button-add-variant">Добавить новый вариант</div>
             </div>
         {% endfor %}
     </div>
@@ -34,6 +35,5 @@
 {% endblock %}
 
 {% block buttons_bar %}
-    <div class="button hidden button-save-changes">Сохранить изменения</div>
-    <div class="button button-secondary-reverse button-add-variant">Добавить новую колонку</div>
+    <div class="button button-secondary-reverse button-add-column">Добавить новую колонку</div>
 {% endblock %}

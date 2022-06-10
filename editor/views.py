@@ -8,7 +8,8 @@ from django.urls import reverse
 
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
     CreationElementForm
-from tests.models import Project, ProjectTask, ProjectTaskElement, VariantChronologyExercise, ChronologyExercise
+from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, \
+    ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise
 
 
 @login_required
@@ -253,13 +254,7 @@ def change_element(request, project_id, task_id):
                 selected_element.title = request.POST.get('title')
                 selected_element.save()
 
-            response = None
-
-            if selected_element.exercise_type == 5:
-                response = ChronologyExercise.process_request(request, selected_element)
-
-            if response:
-                return JsonResponse(response)
+            return JsonResponse(eval(f'{BaseExercise.EXERCISE_CLASSES[selected_element.exercise_type]}.process_request(request, selected_element)'))
 
         return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 

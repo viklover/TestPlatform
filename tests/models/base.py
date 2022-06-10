@@ -71,6 +71,10 @@ class BaseExercise(BaseModel):
     class Meta:
         abstract = True
 
+    @staticmethod
+    def process_request(request, exercise):
+        return {}
+
     def render_template(self, template, context=None):
         if context is None:
             context = {}
