@@ -1,0 +1,64 @@
+.content {
+    width: 250px;
+    margin: auto;
+}
+
+.image_good_result {
+    width: 37px;
+    height: 37px;
+    background: url("../tests/results/result_good.png") no-repeat center;
+    background-size: 37px;
+}
+
+.text_result {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: auto;
+    width: 170px;
+}
+
+.name_res {
+    width: 118px;
+    height: 36px;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.percent {
+    width: max-content;
+    height: 40px;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 59px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.recommendation {
+    height: 23px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .content {
+        width: 700px;
+        margin: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .content {
+        width: 1000px;
+        margin: auto;
+    }
+}

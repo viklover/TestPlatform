@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Платформа тестов{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/result_test.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'header.html' %}
+
+    <div class="content">
+        <div class="text_result">
+            <div class="image_good_result"></div>
+            <div class="name_res">Молодец!</div>
+        </div>
+        <div class="percent">
+            50%
+        </div>
+        <div class="recommendation">
+            Ты молодец, но можешь лучше!
+        </div>
+    <button class="button">Посмотреть свои ответы</button>
+    </div>
+
+
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}
