@@ -34,7 +34,6 @@ def open_test(request, test_id):
 
 @login_required
 def upload_comment(request, test_id):
-
     if request.POST and request.POST.get('text', None) is not None:
         comment = TestComment()
         comment.test = Test.objects.get(id=test_id)
@@ -69,3 +68,11 @@ def open_tasks_page(request, test_id):
         'tasks': Task.objects.filter(test_id=test_id).order_by('number')
     }
     return render(request, 'tests/test/tasks_page.html', context)
+
+
+@login_required
+def result_page(request, test_id):
+    context = {
+        'test': Test.objects.get(id=test_id)
+    }
+    return render(request, 'tests/test_result.html', context)

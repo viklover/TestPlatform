@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:test_id>/start', open_test, name='start_test'),
     path('<int:test_id>/tasks/<int:task_number>/', open_task, name='open_task'),
     path('<int:test_id>/tasks/', open_tasks_page, name='open_tasks_page'),
+    path('<int:test_id>/result', result_page, name='result_page')
 ]
