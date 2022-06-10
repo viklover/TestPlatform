@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.urls import path
 
-from tests.views import test_page, open_test, tests_page, upload_comment, open_task, open_tasks_page
+from tests.views import test_page, open_test, tests_page, upload_comment, open_task, open_tasks_page, result_page
 
 app_name = 'tests'
 
