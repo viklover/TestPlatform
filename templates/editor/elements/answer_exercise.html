@@ -1,13 +1,12 @@
 {% extends 'editor/elements/base_exercise.html' %}
 
-{% block element_class %}
-    answer-exercise
-{% endblock %}
+{% block element_type %}answer{% endblock %}
+{% block element_class %}answer-exercise{% endblock %}
 
 {% block content %}
-    
+    <p style="margin-top: 0">Верный ответ:</p>
+    <input type="text" value="{{ exercise.correct_answer }}" class="input-content"/>
 {% endblock %}
 
 {% block buttons_bar %}
-    
 {% endblock %}

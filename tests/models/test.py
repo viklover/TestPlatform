@@ -562,10 +562,6 @@ class InputExercise(BaseInputExercise):
     def render(self, context=None):
         if context is None:
             context = {}
-
-        context = {
-            **context
-        }
         return self.render_template('editor/elements/input_exercise.html', context=context)
 
     @staticmethod
@@ -593,6 +589,20 @@ class AnswerExercise(BaseAnswerExercise):
     exercise_id = models.AutoField(primary_key=True)
     correct_answer = models.TextField()
 
+    def render(self, context=None):
+        if context is None:
+            context = {}
+        return self.render_template('editor/elements/answer_exercise.html', context=context)
+
+    @staticmethod
+    def process_request(request, exercise):
+        if request.POST.get('answer', False) and request.POST.get('answer', False) != '':
+            exercise.correct_answer = request.POST.get('answer')
+            exercise.save()
+        return {}
+
 
 class ProjectAnswerExercise(AnswerExercise, ProjectExercise):
-    pass
+
+    def render(self):
+        return super().render(self.get_info())

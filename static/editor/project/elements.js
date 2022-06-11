@@ -1091,6 +1091,63 @@ class AnswerExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
+        this.input = this.body.querySelector('.input-content');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.changesManager.addElement(this);
+
+        console.log(this.input)
+
+        this.input.onchange = function () {
+            console.log('update')
+            obj.check();
+        }
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+        super.initEventListeners();
+    }
+
+    getId() {
+        return 'answer-exercise';
+    }
+
+    getData() {
+        return {
+            'answer': this.input.value
+        }
+    }
+
+    save() {
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(obj.element_id),
+                'answer': obj.input.value
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
+    }
+
+    check() {
+        this.changesManager.check();
     }
 
 }
