@@ -9,7 +9,6 @@ class Element {
         this.remove_button = this.body.querySelector('.button-remove-element');
 
         this.element_id = this.body.dataset.id;
-        console.log(this.element_id)
     }
 
     initEventListeners() {
@@ -130,7 +129,6 @@ class Exercise extends Element {
 class ChronologyVariant {
 
     constructor(body) {
-        console.log(body)
         if (body !== null && body !== undefined) {
             this.body = body;
             this.arrow_up = this.body.querySelector('.arrow-up');
@@ -154,10 +152,8 @@ class ChronologyVariant {
 
         this.exercise = obj;
 
-        console.log(exercise)
 
         this.input.onchange = function (e) {
-            console.log(exercise)
             exercise.check(obj_class);
         };
 
@@ -248,12 +244,6 @@ class ChronologyExercise extends Exercise {
 
         save_button.onclick = function () {
 
-            console.log('SEND UPDATES', {
-                'element_id': parseInt(obj_class.body.dataset.id),
-                'variants' : obj_class.getData(),
-                'removed_variants': obj_class.removed_variants
-            })
-
             $.ajax({
                 url: 'change_element',
                 type: "POST",
@@ -266,17 +256,14 @@ class ChronologyExercise extends Exercise {
                     xhr.setRequestHeader("X-CSRFToken", csrfcookie());
                 },
                 success: function (data) {
-                    console.log(data)
 
                     if ('new_ids' in data) {
 
                         for (const [test_id, new_id] of Object.entries(data['new_ids'])) {
                             for (let variant of obj_class.variants) {
-                                console.log(variant)
                                 if (!variant.existing_obj && parseInt(variant.test_id) == parseInt(test_id)) {
                                     variant.body.dataset.id = new_id.toString();
                                     variant.existing_obj = true;
-                                    console.log('create id for ', variant, 'with id', new_id)
                                 }
                             }
                         }
@@ -302,7 +289,6 @@ class ChronologyExercise extends Exercise {
         for (let variant of this.variants) {
             data.push(variant.getData());
         }
-        console.log(data.sort(sort_by('order', false, parseInt)))
         return data;
     }
 
@@ -329,12 +315,7 @@ class ChronologyExercise extends Exercise {
 
     replace_variant(elem, direction) {
 
-        console.log('before_replace', 'variants', this.variants)
-        console.log(elem)
-
         let index = this.variants.indexOf(elem);
-
-        console.log(index)
 
         if (direction && index + 1 < this.variants.length) {
             swap(this.variants, index + 1, index)
@@ -383,18 +364,13 @@ class MatchVariant {
 
         let obj = this;
 
-        console.log('column', column)
-
         this.column = column;
 
         this.remove_button.onclick = function () {
             column.remove_variant(obj);
         };
 
-        console.log(this.input)
-
         this.input.onchange = function () {
-            console.log('change input')
             column.check();
         };
     }
@@ -604,7 +580,6 @@ class MatchExercise extends Exercise {
         for (let column of this.columns) {
             data.push(column.getData());
         }
-        console.log(data);
         return data;
     }
 
@@ -831,14 +806,11 @@ class RadioExercise extends Exercise {
             },
             success: function (data) {
 
-                console.log(data)
-
                 for (const [variant_test_id, new_id] of Object.entries(data['new_ids'])) {
                     for (let variant of obj.variants) {
                         if (!variant.existing_obj && parseInt(variant.test_id) == parseInt(variant_test_id)) {
                             variant.body.dataset.id = new_id.toString();
                             variant.existing_obj = true;
-                            console.log('create id for ', variant, 'with id', new_id)
                         }
                     }
                 }
@@ -890,6 +862,4 @@ class AnswerExercise extends Exercise {
     }
 
 }
-
-console.log(combineObjects({'a': 1, 'b': 2}, {'c': 3, 'b': 10}))
 

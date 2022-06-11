@@ -27,7 +27,7 @@ class ChangesManager {
             }
         }
 
-        console.log(this.updates)
+        // console.log(this.updates)
 
         this.changes_exists = changes;
         this.setButtonVisibility(changes);

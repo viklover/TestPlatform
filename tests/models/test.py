@@ -247,10 +247,8 @@ class ChronologyExercise(BaseChronologyExercise):
 
                 if is_exist:
                     variant = VariantChronologyExercise.objects.get(id=variant_data['id'])
-                    print('existing variant:', variant)
                 else:
                     variant = VariantChronologyExercise(exercise=exercise)
-                    print('new variant:', variant, 'with order', order)
 
                 variant.content = variant_data['content']
                 variant.order = order
@@ -263,12 +261,10 @@ class ChronologyExercise(BaseChronologyExercise):
 
         if 'removed_variants' in request.POST:
             variants = json.loads(request.POST['removed_variants'])
-            print('removed_variants: ', variants)
 
             for variant_data in variants:
                 variant = VariantChronologyExercise.objects.get(id=variant_data['id'])
                 variant.delete()
-                print(variant, 'is removed')
 
         return response
 
@@ -355,8 +351,6 @@ class ColumnMatchExercise(BaseModel):
             else:
                 column = ColumnMatchExercise(exercise=exercise)
 
-            print(column_data)
-
             column.content = column_data['content']
             column.save()
 
@@ -389,8 +383,6 @@ class VariantMatchExercise(BaseModel):
 
     @staticmethod
     def process_request(exercise, column, data):
-
-        print(1, data)
 
         new_variants = {}
 
@@ -498,7 +490,7 @@ class StatementsExercise(BaseStatementsExercise):
     exercise_id = models.AutoField(primary_key=True)
 
     def get_variants(self):
-        return VariantStatementsExercise.objects.filter(exercise_id=self.id)
+        return VariantStatementsExercise.objects.filter(exercise=self)
 
 
 class ProjectStatementsExercise(StatementsExercise, ProjectExercise):
