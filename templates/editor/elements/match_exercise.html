@@ -30,10 +30,22 @@
         {% endfor %}
     </div>
 
+    <p class="description-wrong-variants {% if not exercise.get_wrong_variants|length %}hidden{% endif %}" style="font-weight: bold">Лишние варианты: </p>
+
+    <div class="wrong-variants">
+        {% for variant in exercise.get_wrong_variants %}
+            <div class="variant" data-id="{{ variant.id }}">
+                <div class="button button-remove-secondary button-remove-variant"></div>
+                <input value="{{ variant.content }}" type="text" class="variant-content">
+            </div>
+        {% endfor %}
+    </div>
+
     <p class="description {% if columns|length %}hidden{% endif %}">Пока здесь нет ни одной колонки</p>
 
 {% endblock %}
 
 {% block buttons_bar %}
-    <div class="button button-secondary-reverse button-add-column">Добавить новую колонку</div>
+    <div class="button button-secondary-reverse button-add-column">Добавить колонку</div>
+    <div class="button button-secondary-reverse button-add-wrong-variant">Добавить вариант</div>
 {% endblock %}

@@ -338,6 +338,61 @@ class ChronologyExercise extends Exercise {
 
 // MATCH
 
+class MatchWrongVariant {
+
+    constructor(body) {
+
+        if (body === null || body === undefined) {
+            return;
+        }
+
+        this.body = body;
+        this.input = body.querySelector('.variant-content');
+        this.remove_button = body.querySelector('.button-remove-variant');
+
+        this.existing_obj = this.body.dataset.id !== undefined && this.body.dataset.id !== null;
+
+        if (!(this.existing_obj)) {
+            this.test_id = getRandomInt(100000, 999999);
+        }
+    }
+
+    init(exercise) {
+
+        let obj = this;
+
+        this.remove_button.onclick = function () {
+            exercise.remove_wrong_variant(obj);
+        };
+
+        this.input.onchange = function () {
+            exercise.check();
+        };
+    }
+
+    initDOM() {
+        let element = document.createElement('div');
+        element.innerHTML = `
+            <div class="button button-remove-secondary button-remove-variant"></div>
+            <input value="Этот вариант никуда не подойдёт :(" type="text" class="variant-content">
+        `;
+        element.classList.add('variant');
+
+        return new MatchWrongVariant(element);
+    }
+
+    getData() {
+        let data = {};
+        if (this.existing_obj) {
+            data['id'] = parseInt(this.body.dataset.id);
+        } else {
+            data['test_id'] = this.test_id
+        }
+        data['content'] = this.input.value;
+        return data;
+    }
+}
+
 class MatchVariant {
 
     constructor(body) {
@@ -396,7 +451,6 @@ class MatchVariant {
         data['content'] = this.input.value;
         return data;
     }
-
 }
 
 class MatchColumn {
@@ -526,13 +580,24 @@ class MatchExercise extends Exercise {
         this.removed_columns = [];
         this.columns_list = this.body.querySelector('.columns');
         this.add_column_button = this.body.querySelector('.button-add-column');
-
         this.description = this.body.querySelector('.description');
+
+        this.wrong_variants = [];
+        this.removed_wrong_variants = [];
+        this.wrong_variants_list = this.body.querySelector('.wrong-variants');
+        this.add_wrong_variant_button = this.body.querySelector('.button-add-wrong-variant');
+        this.description_wrong_variants = this.body.querySelector('.description-wrong-variants');
 
         for (let element of this.body.querySelectorAll('.column')) {
             let column = new MatchColumn(element);
             this.columns.push(column)
             column.init(this);
+        }
+
+        for (let element of this.wrong_variants_list.querySelectorAll('.variant')) {
+            let variant = new MatchWrongVariant(element);
+            this.wrong_variants.push(variant)
+            variant.init(this);
         }
     }
 
@@ -550,6 +615,15 @@ class MatchExercise extends Exercise {
 
             obj.check();
         };
+
+        this.add_wrong_variant_button.onclick = function () {
+            let variant = new MatchWrongVariant().initDOM();
+            obj.wrong_variants.push(variant);
+            variant.init(obj);
+            obj.wrong_variants_list.appendChild(variant.body);
+
+            obj.check();
+        }
 
         this.save_button.onclick = function () {
             obj.save();
@@ -570,11 +644,24 @@ class MatchExercise extends Exercise {
         this.check()
     }
 
+    remove_wrong_variant(variant) {
+
+        this.wrong_variants_list.removeChild(variant.body);
+
+        if ('id' in variant.getData()) {
+            this.removed_wrong_variants.push(variant.getData());
+        }
+
+        this.wrong_variants.splice(this.wrong_variants.indexOf(variant), 1);
+
+        this.check()
+    }
+
     getId() {
         return 'match-exercise';
     }
 
-    getData() {
+    getColumnsData() {
         let data = [];
         for (let column of this.columns) {
             data.push(column.getData());
@@ -582,15 +669,34 @@ class MatchExercise extends Exercise {
         return data;
     }
 
+    getWrongVariantsData() {
+        let data = [];
+        for (let variant of this.wrong_variants) {
+            data.push(variant.getData());
+        }
+        return data;
+    }
+
+    getData() {
+        return {
+            'columns': this.getColumnsData(),
+            'wrong-variants': this.getWrongVariantsData()
+        }
+    }
+
     save() {
 
-        console.log({'columns': combineObjects(this.getData(), {'removed_columns': this.removed_columns})})
+        console.log({'columns': combineObjects(this.getColumnsData(), {'removed_columns': this.removed_columns})})
 
         console.log('SEND UPDATES', {
             'element_id': parseInt(this.body.dataset.id),
             'columns': {
-                'changes': this.getData(),
+                'changes': this.getColumnsData(),
                 'removed_columns': this.removed_columns
+            },
+            'wrong-variants': {
+                'changes': this.getWrongVariantsData(),
+                'removed_variants': this.removed_wrong_variants
             }
         })
 
@@ -601,10 +707,16 @@ class MatchExercise extends Exercise {
             type: "POST",
             data: {
                 'element_id': parseInt(this.body.dataset.id),
-                'data': JSON.stringify({'columns': {
-                    'changes': obj.getData(),
-                    'removed_columns': this.removed_columns
-                }})
+                'data': JSON.stringify({
+                    'columns': {
+                        'changes': obj.getColumnsData(),
+                        'removed_columns': this.removed_columns
+                    },
+                    'wrong-variants': {
+                        'changes': obj.getWrongVariantsData(),
+                        'removed_variants': this.removed_wrong_variants
+                    }
+                })
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("X-CSRFToken", csrfcookie());
@@ -633,6 +745,16 @@ class MatchExercise extends Exercise {
                     }
                 }
 
+                for (const [variant_test_id, new_id] of Object.entries(data['new_ids']['wrong-variants'])) {
+                    for (let variant of obj.wrong_variants) {
+                        if (!variant.existing_obj && parseInt(variant.test_id) == parseInt(variant_test_id)) {
+                            variant.body.dataset.id = new_id.toString();
+                            variant.existing_obj = true;
+                            console.log('create id for ', variant, 'with id', new_id)
+                        }
+                    }
+                }
+
                 obj.changesManager.refresh()
             },
             error: function (error) {
@@ -644,6 +766,7 @@ class MatchExercise extends Exercise {
 
     check() {
         this.description.classList.toggle('hidden', this.columns.length !== 0)
+        this.description_wrong_variants.classList.toggle('hidden', this.wrong_variants.length === 0)
 
         this.changesManager.check();
     }
@@ -1099,8 +1222,6 @@ class AnswerExercise extends Exercise {
         let obj = this;
 
         this.changesManager.addElement(this);
-
-        console.log(this.input)
 
         this.input.onchange = function () {
             console.log('update')

@@ -307,12 +307,13 @@ class MatchExercise(BaseMatchExercise):
 
     @staticmethod
     def process_request(request, exercise):
-        data = ColumnMatchExercise.process_request(exercise, json.loads(request.POST['data'])['columns'])
+        data = ColumnMatchExercise.process_request(exercise, json.loads(request.POST['data']))
 
         return {
             'new_ids': {
                 'columns': data['columns'],
-                'variants': data['variants']
+                'variants': data['variants'],
+                'wrong-variants': data['wrong-variants']
             }
         }
 
@@ -321,6 +322,9 @@ class MatchExercise(BaseMatchExercise):
 
     def get_variants(self):
         return VariantMatchExercise.objects.filter(exercise=self)
+
+    def get_wrong_variants(self):
+        return VariantMatchExercise.objects.filter(exercise=self, column=None)
 
 
 class ProjectMatchExercise(MatchExercise, ProjectExercise):
@@ -340,6 +344,9 @@ class ColumnMatchExercise(BaseModel):
     def process_request(exercise, data):
 
         new_elements = {'columns': {}, 'variants': {}}
+
+        wrong_variants_data = data['wrong-variants']
+        data = data['columns']
 
         for column_data in data['changes']:
 
@@ -365,6 +372,8 @@ class ColumnMatchExercise(BaseModel):
             columns = ColumnMatchExercise.objects.filter(id=column_data['id'])
             if columns.count():
                 columns.first().delete()
+
+        new_elements['wrong-variants'] = VariantMatchExercise.process_request(exercise, None, wrong_variants_data)
 
         return new_elements
 

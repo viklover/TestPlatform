@@ -230,6 +230,31 @@
     margin-bottom: 0;
 }
 
+.match-exercise .wrong-variants {
+    display: flex;
+    flex-direction: column;
+}
+
+.match-exercise .wrong-variants .variant {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 500px;
+}
+
+.match-exercise .wrong-variants input[type="text"] {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-left: 6px;
+    width: 595px;
+}
+
 .match-exercise .hidden {
     display: none;
 }
