@@ -76,3 +76,6 @@ class CreationElementForm(forms.Form):
         exercise.title = self.cleaned_data['title']
         return exercise
 
+
+class CheckMarkDownForm(forms.Form):
+    markdown_field = forms.Textarea()

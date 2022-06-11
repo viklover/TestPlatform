@@ -7,7 +7,7 @@ from django.template import loader
 from django.urls import reverse
 
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
-    CreationElementForm
+    CreationElementForm, CheckMarkDownForm
 from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, \
     ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise
 
@@ -210,6 +210,33 @@ def open_task(request, project_id, task_id):
         'creation_element_form': CreationElementForm()
     }
     return render(request, 'editor/project/task/task_page.html', context)
+
+
+@login_required
+def upload_project_description(request, project_id):
+
+    form = CheckMarkDownForm(request.POST)
+
+    if form.is_valid():
+        project = Project.objects.get(id=project_id)
+        project.description_md = request.POST.get('markdown_field')
+        project.save()
+
+    # return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
+    return JsonResponse({})
+
+
+@login_required
+def upload_task_description(request, project_id, task_id):
+
+    form = CheckMarkDownForm(request.POST)
+
+    if form.is_valid():
+        task = ProjectTask.objects.get(id=task_id)
+        task.description_md = request.POST.get('markdown_field')
+        task.save()
+
+    return JsonResponse({})
 
 
 @login_required

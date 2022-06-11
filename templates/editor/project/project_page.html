@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'editor/header.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
     <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome-min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -66,9 +67,13 @@
             </div>
         </section>
 
-        <section class="tab edit-info hidden" id="#edit-info">
-            <p>Здесь редактор описания теста в виде MarkDown-файла</p>
-            <textarea id="edit-info"></textarea>
+        <section class="tab edit-info tab-relative not-visible" id="#edit-info">
+            <form action="upload_description/" method="POST" id="edit-info-form">
+                {% csrf_token %}
+                <button type="sumbit" name="SEND UPDATES" class="button button-save-md not-allowed">Сохранить</button>
+                <textarea id="edit-info" name="markdown_field">
+{{ project.description_md }}</textarea>
+            </form>
         </section>
 
         <section class="tab project-settings hidden">
@@ -105,8 +110,6 @@
         };
 
     </script>
-    <script src="/static/editor/project/simplemde.min.js"></script>
-    <script>
-        let simplemde = new SimpleMDE({ element: document.getElementById("edit-info") });
-    </script>
+    <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
+    <script src="{% static 'editor/project/md-editor.js' %}"></script>
 {% endblock %}

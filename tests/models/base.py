@@ -41,6 +41,8 @@ class BaseTask(BaseModel):
     title = models.TextField(default="New Task", verbose_name='Заголовок')
     author = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
 
+    description_md = models.TextField(default='Объяснение задания\n=======')
+
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -86,6 +88,8 @@ class BaseTestInfo(BaseModel):
     description = models.TextField(default='Description', verbose_name='Описание')
     author = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
     icon = models.ImageField(upload_to=user_media_path, default='test_icon.png')
+
+    description_md = models.TextField(default='Test info\n=======')
 
     number_of_tasks = models.IntegerField(default=0, verbose_name='Количество заданий')
 

@@ -36,7 +36,7 @@
         <section class="tabs-menu unselectable">
             <header class="tabs-buttons">
                 <h2 data-content="project-tasks" class="tab-button active">Схема</h2>
-                <h2 data-content="task-info" class="tab-button">Объяснение задания</h2>
+                <h2 data-content="edit-info" class="tab-button">Объяснение задания</h2>
             </header>
             <div class="tabs-line"></div>
         </section>
@@ -62,9 +62,13 @@
             </div>
         </section>
 
-        <section class="tab task-info hidden">
-            <p>Редактор объяснения задания в виде MarkDown-файла</p>
-            <textarea id="edit-info"></textarea>
+        <section class="tab edit-info tab-relative not-visible" id="#edit-info">
+            <form action="upload_description/" method="POST" id="edit-info-form">
+                {% csrf_token %}
+                <button type="sumbit" name="SEND UPDATES" class="button button-save-md not-allowed">Сохранить</button>
+                <textarea id="edit-info" name="markdown_field">
+{{ task.description_md }}</textarea>
+            </form>
         </section>
 
     </div>
@@ -85,7 +89,5 @@
     <script src="{% static 'editor/project/exercises-list.js' %}"></script>
     <script src="{% static 'editor/task/script.js' %}"></script>
     <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
-    <script>
-        let simplemde = new SimpleMDE({ element: document.getElementById("edit-info") });
-    </script>
+    <script src="{% static 'editor/project/md-editor.js' %}"></script>
 {% endblock %}

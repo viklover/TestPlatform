@@ -131,3 +131,34 @@
         width: 710px;
     }
 }
+
+.not-visible {
+    opacity: 0;
+}
+
+.button-save-md {
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    padding: 3px 5px;
+    font-size: 13px;
+    z-index: 10;
+}
+
+.fullscreen .button-save-md {
+    top: 113px;
+}
+
+.not-allowed {
+    opacity: 0.6;
+    cursor: no-drop;
+}
+
+.not-allowed:hover {
+    background-color: #2C00DE;
+    color: white;
+}
+
+.tab-relative {
+    position: relative;
+}

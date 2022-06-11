@@ -13,6 +13,10 @@ let open_modalwindow = function (modalwindow_id) {
 
 document.querySelectorAll('*[data-url]').forEach((button) => {
     button.onclick = function () {
+        if (button.classList.contains('not-allowed')) {
+            return;
+        }
+
         if (button.classList.contains('new-window')) {
             window.open(button.dataset.url, '_blank').focus();
         } else {
@@ -138,3 +142,19 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
 }
+
+$.fn.serializeObject = function(){
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
