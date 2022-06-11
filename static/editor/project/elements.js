@@ -7,6 +7,9 @@ class Element {
         this.arrow_up = this.body.querySelector('.arrow-up');
         this.arrow_down = this.body.querySelector('.arrow-down');
         this.remove_button = this.body.querySelector('.button-remove-element');
+
+        this.element_id = this.body.dataset.id;
+        console.log(this.element_id)
     }
 
     initEventListeners() {
@@ -674,13 +677,195 @@ class MatchExercise extends Exercise {
 
 
 
+class RadioVariant {
+
+    constructor(body) {
+        if (body === null || body === undefined)
+            return;
+
+        this.body = body;
+        this.input = body.querySelector('input[type="radio"]');
+        this.input_content = body.querySelector('input[type="text"]');
+        this.remove_button = body.querySelector('.button-remove-variant');
+
+        this.existing_obj = this.body.dataset.id !== undefined && this.body.dataset.id !== null;
+
+        if (!(this.existing_obj)) {
+            this.test_id = getRandomInt(100000, 999999);
+        }
+    }
+
+    init(exercise) {
+
+        let obj = this;
+        this.exercise = exercise;
+
+        this.remove_button.onclick = function () {
+            exercise.remove_variant(obj);
+        };
+
+        this.input.onchange = function () {
+            exercise.check();
+        };
+
+        this.input_content.onchange = function () {
+            exercise.check();
+        }
+    }
+
+    initDOM(exercise) {
+        let element = document.createElement('div');
+        element.innerHTML = `
+            <div class="variant">
+                <div class="button button-remove-secondary button-remove-variant"></div>
+                <input type="radio" name="radio${exercise.element_id}">
+                <input value="Новое утверждение" type="text" class="variant-content">
+            </div>
+        `;
+        element.classList.add('variant');
+
+        return new RadioVariant(element);
+    }
+
+    getValue() {
+        return this.input.checked;
+    }
+
+    getData() {
+        let data = {};
+        if (this.existing_obj) {
+            data['id'] = parseInt(this.body.dataset.id);
+        } else {
+            data['test_id'] = this.test_id
+        }
+        data['content'] = this.input_content.value;
+        data['value'] = this.getValue();
+        return data;
+    }
+}
+
 class RadioExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
+        this.variants = [];
+        this.removed_variants = [];
+        this.variants_list = this.body.querySelector('.variants');
+        this.add_variant_button = this.body.querySelector('.button-add-variant');
+
+        this.description = this.body.querySelector('.description');
+
+        for (let element of this.body.querySelectorAll('.variant')) {
+            let variant = new RadioVariant(element);
+            this.variants.push(variant)
+            variant.init(this)
+        }
     }
 
+    initEventListeners() {
+
+        let obj = this;
+
+        this.changesManager.addElement(this);
+
+        this.add_variant_button.onclick = function () {
+            let variant = new RadioVariant().initDOM(obj);
+
+            if (obj.variants.length === 0) {
+                variant.input.checked = true;
+            }
+
+            obj.variants.push(variant);
+            variant.init(obj);
+            obj.variants_list.appendChild(variant.body);
+
+            obj.check();
+        };
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+        super.initEventListeners();
+    }
+
+    remove_variant(variant) {
+
+        this.variants_list.removeChild(variant.body);
+
+        if ('id' in variant.getData()) {
+            this.removed_variants.push(variant.getData());
+        }
+
+        this.variants.splice(this.variants.indexOf(variant), 1);
+
+        if (variant.getValue() && this.variants.length > 0) {
+            this.variants[0].input.checked = true;
+        }
+
+        this.check()
+    }
+
+    check() {
+
+        this.variants_list.classList.toggle('hidden', this.variants.length === 0)
+        this.description.classList.toggle('hidden', this.variants.length !== 0)
+
+        this.changesManager.check();
+    }
+
+    save() {
+
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(obj.element_id),
+                'variants': JSON.stringify(obj.getData()),
+                'removed_variants': JSON.stringify(obj.removed_variants)
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+
+                console.log(data)
+
+                for (const [variant_test_id, new_id] of Object.entries(data['new_ids'])) {
+                    for (let variant of obj.variants) {
+                        if (!variant.existing_obj && parseInt(variant.test_id) == parseInt(variant_test_id)) {
+                            variant.body.dataset.id = new_id.toString();
+                            variant.existing_obj = true;
+                            console.log('create id for ', variant, 'with id', new_id)
+                        }
+                    }
+                }
+
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
+
+    }
+
+    getId() {
+        return 'radio-exercise';
+    }
+
+    getData() {
+        let data = [];
+        for (let variant of this.variants) {
+            data.push(variant.getData());
+        }
+        return data;
+    }
 }
+
+
 
 class StatementsExercise extends Exercise {
 

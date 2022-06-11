@@ -137,8 +137,6 @@ class ProjectExercise(ProjectTaskElement):
         exercise_parent = ProjectExercise.objects.get(projecttaskelement_ptr_id=element.element_id)
         classname = f'Project{BaseExercise.EXERCISE_CLASSES[exercise_parent.exercise_type]}'
 
-        print(classname, eval(f'{classname}.objects.all()'))
-
         return eval(f'{classname}.objects.get(projectexercise_ptr_id={exercise_parent.id})')
 
 
@@ -440,7 +438,41 @@ class RadioExercise(BaseRadioExercise):
         return self.render_template('editor/elements/radio_exercise.html', context=context)
 
     def get_variants(self):
-        return VariantRadioExercise.objects.filter(exercise_id=self.id)
+        return VariantRadioExercise.objects.filter(exercise=self)
+
+    @staticmethod
+    def process_request(request, exercise):
+
+        response = {'new_ids': {}}
+
+        if 'variants' in request.POST:
+            variants = json.loads(request.POST['variants'])
+
+            for variant_data in variants:
+
+                is_exist = 'id' in variant_data
+
+                if is_exist:
+                    variant = VariantRadioExercise.objects.get(id=variant_data['id'])
+                else:
+                    variant = VariantRadioExercise(exercise=exercise)
+
+                variant.content = variant_data['content']
+                variant.is_correct = variant_data['value']
+                variant.save()
+
+                if not is_exist:
+                    response['new_ids'][str(variant_data['test_id'])] = variant.id
+
+        if 'removed_variants' in request.POST:
+            variants = json.loads(request.POST['removed_variants'])
+
+            for variant_data in variants:
+                variants = VariantRadioExercise.objects.filter(id=variant_data['id'])
+                if variants.count():
+                    variants.first().delete()
+
+        return response
 
 
 class ProjectRadioExercise(RadioExercise, ProjectExercise):

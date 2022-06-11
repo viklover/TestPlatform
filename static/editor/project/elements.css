@@ -234,6 +234,60 @@
     display: none;
 }
 
+
+
+.radio-exercise .variants {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.radio-exercise .hidden {
+    display: none;
+}
+
+.radio-exercise .variants .variant {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 490px;
+    align-items: center;
+}
+
+.radio-exercise input[type="radio"]:checked {
+    background-color: green;
+    cursor: default;
+}
+
+.radio-exercise input[type="radio"] {
+    appearance: none;
+    /* border-radius: 50%; */
+    width: 21px;
+    height: 16px;
+    border: 2px solid #999;
+    border-radius: 50%;
+    /* transition: 0.2s all linear; */
+    /* margin-right: 5px; */
+    /* position: relative; */
+    top: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.radio-exercise input[type="text"] {
+    height: 30px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+    margin-left: 6px;
+    width: 595px;
+}
+
 /*.elements-list__item .button-remove-element {*/
 /*    --size: 20px;*/
 /*    position: absolute;*/

@@ -1,5 +1,7 @@
 {% extends 'editor/elements/base_exercise.html' %}
 
+{% block element_type %}radio{% endblock %}
+
 {% block element_class %}
     radio-exercise
 {% endblock %}
@@ -9,9 +11,8 @@
     <div class="variants">
         {% for variant in variants %}
             <div class="variant" data-id="{{ variant.id }}">
-                <hr class="line">
                 <div class="button button-remove-secondary button-remove-variant"></div>
-                <input type="checkbox" value="{{ variant.is_correct }}">
+                <input type="radio" {% if variant.is_correct %}checked{% endif %} name="radio{{ exercise.id }}">
                 <input value="{{ variant.content }}" type="text" class="variant-content">
             </div>
         {% endfor %}
@@ -22,5 +23,5 @@
 {% endblock %}
 
 {% block buttons_bar %}
-    <div class="button button-secondary-reverse button-add-column">Добавить новое утверждение</div>
+    <div class="button button-secondary-reverse button-add-variant">Добавить новое утверждение</div>
 {% endblock %}
