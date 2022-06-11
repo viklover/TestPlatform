@@ -1020,6 +1020,69 @@ class InputExercise extends Exercise {
 
     constructor(elem) {
         super(elem);
+        this.textarea = this.body.querySelector('textarea');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.changesManager.addElement(this);
+
+        this.textarea.addEventListener(
+            "input",
+            function () {
+              this.style.height = 'auto';
+              this.style.height = (this.scrollHeight) + 'px';
+              obj.check();
+            },
+            false
+        );
+
+        this.textarea.style.height = (this.textarea.scrollHeight) + 'px';
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+
+        super.initEventListeners();
+    }
+
+    getId() {
+        return 'input-exercise';
+    }
+
+    getData() {
+        return {
+            'prepared_answer': this.textarea.value
+        }
+    }
+
+    save() {
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(obj.element_id),
+                'prepared_answer': obj.textarea.value
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
+    }
+
+    check() {
+        this.changesManager.check();
     }
 
 }
