@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    <div class="variants">
+    <div class="variants {% if not variants|length %}hidden{% endif %}">
         {% for variant in variants %}
             <div class="variant" data-id="{{ variant.id }}">
                 <div class="button button-remove-secondary button-remove-variant"></div>

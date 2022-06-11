@@ -40,3 +40,4 @@ simplemde.codemirror.on("refresh", function() {
 });
 edit_info_tab.classList.add('hidden');
 edit_info_tab.classList.remove('not-visible');
+window.scrollTo(0, 0)

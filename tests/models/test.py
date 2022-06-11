@@ -489,12 +489,58 @@ class StatementsExercise(BaseStatementsExercise):
 
     exercise_id = models.AutoField(primary_key=True)
 
+    def render(self, context=None):
+        if context is None:
+            context = {}
+
+        context = {
+            'variants': self.get_variants(),
+            **context
+        }
+        return self.render_template('editor/elements/statements_exercise.html', context=context)
+
     def get_variants(self):
         return VariantStatementsExercise.objects.filter(exercise=self)
 
+    @staticmethod
+    def process_request(request, exercise):
+
+        response = {'new_ids': {}}
+
+        if 'variants' in request.POST:
+            variants = json.loads(request.POST['variants'])
+
+            for variant_data in variants:
+
+                is_exist = 'id' in variant_data
+
+                if is_exist:
+                    variant = VariantStatementsExercise.objects.get(id=variant_data['id'])
+                else:
+                    variant = VariantStatementsExercise(exercise=exercise)
+
+                variant.content = variant_data['content']
+                variant.is_correct = variant_data['value']
+                variant.save()
+
+                if not is_exist:
+                    response['new_ids'][str(variant_data['test_id'])] = variant.id
+
+        if 'removed_variants' in request.POST:
+            variants = json.loads(request.POST['removed_variants'])
+
+            for variant_data in variants:
+                variants = VariantStatementsExercise.objects.filter(id=variant_data['id'])
+                if variants.count():
+                    variants.first().delete()
+
+        return response
+
 
 class ProjectStatementsExercise(StatementsExercise, ProjectExercise):
-    pass
+
+    def render(self):
+        return super().render(self.get_info())
 
 
 class VariantStatementsExercise(BaseModel):

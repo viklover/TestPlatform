@@ -9,7 +9,7 @@ from django.urls import reverse
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
     CreationElementForm, CheckMarkDownForm
 from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, \
-    ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise
+    ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise, StatementsExercise
 
 
 @login_required
