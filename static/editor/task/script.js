@@ -33,6 +33,13 @@ for (let element of document.querySelectorAll('.elements-list__item')) {
         case 'images':
             obj = new ImagesExercise(element);
             break;
+
+        case 'title':
+            obj = new TitleElement(element);
+            break;
+        case 'picture':
+            obj = new PictureElement(element);
+            break;
         default:
             obj = new Element(element);
     }

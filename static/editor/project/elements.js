@@ -7,6 +7,9 @@ class Element {
         this.arrow_up = this.body.querySelector('.arrow-up');
         this.arrow_down = this.body.querySelector('.arrow-down');
         this.remove_button = this.body.querySelector('.button-remove-element');
+        this.save_button = this.body.querySelector('.button-save-changes');
+
+        this.changesManager = new ChangesManager(this.save_button);
 
         this.element_id = this.body.dataset.id;
     }
@@ -24,6 +27,8 @@ class Element {
         this.remove_button.onclick = function () {
             manager.remove_element(obj)
         };
+
+        this.changesManager.addElement(this);
     }
 
     setManager(manager) {
@@ -36,6 +41,10 @@ class Element {
 
     replace_down() {
         this.manager.replace_element(this, 1);
+    }
+
+    check() {
+        this.changesManager.check();
     }
 }
 
@@ -51,9 +60,6 @@ class Exercise extends Element {
         this.save_title = this.body.querySelector('.button-save-edited-title');
         this.exercise_title = this.body.querySelector('.exercise-title');
         this.title_input.value = this.exercise_title.innerHTML;
-
-        this.save_button = this.body.querySelector('.button-save-changes');
-        this.changesManager = new ChangesManager(this.save_button);
 
         if (this.title !== "") {
             this.exercise_title.classList.toggle('hidden', false);
@@ -121,6 +127,14 @@ class Exercise extends Element {
     save_button_hide() {
         this.save_button.classList.toggle('hidden', true);
     }
+}
+
+class StaticElement extends Element {
+
+    constructor(elem) {
+        super(elem);
+    }
+
 }
 
 // CHRONOLOGY
@@ -195,7 +209,6 @@ class ChronologyVariant {
         data['order'] = parseInt(this.body.style.order);
         return data;
     }
-
 }
 
 class ChronologyExercise extends Exercise {
@@ -216,8 +229,6 @@ class ChronologyExercise extends Exercise {
     }
 
     initEventListeners() {
-
-        this.changesManager.addElement(this);
 
         let obj_class = this;
         let variants = this.variants;
@@ -292,7 +303,7 @@ class ChronologyExercise extends Exercise {
     }
 
     check() {
-        this.changesManager.check();
+        super.check();
     }
 
     remove_variant(elem) {
@@ -605,8 +616,6 @@ class MatchExercise extends Exercise {
 
         let obj = this;
 
-        this.changesManager.addElement(this);
-
         this.add_column_button.onclick = function () {
             let match = new MatchColumn().initDOM();
             obj.columns.push(match);
@@ -768,11 +777,11 @@ class MatchExercise extends Exercise {
         this.description.classList.toggle('hidden', this.columns.length !== 0)
         this.description_wrong_variants.classList.toggle('hidden', this.wrong_variants.length === 0)
 
-        this.changesManager.check();
+        super.check();
     }
 }
 
-
+// RADIO
 
 class RadioVariant {
 
@@ -863,8 +872,6 @@ class RadioExercise extends Exercise {
 
         let obj = this;
 
-        this.changesManager.addElement(this);
-
         this.add_variant_button.onclick = function () {
             let variant = new RadioVariant().initDOM(obj);
 
@@ -908,7 +915,7 @@ class RadioExercise extends Exercise {
         this.variants_list.classList.toggle('hidden', this.variants.length === 0)
         this.description.classList.toggle('hidden', this.variants.length !== 0)
 
-        this.changesManager.check();
+        super.check();
     }
 
     save() {
@@ -959,6 +966,7 @@ class RadioExercise extends Exercise {
     }
 }
 
+// STATEMENTS
 
 class StatementsVariant {
 
@@ -1049,8 +1057,6 @@ class StatementsExercise extends Exercise {
 
         let obj = this;
 
-        this.changesManager.addElement(this);
-
         this.add_variant_button.onclick = function () {
             let variant = new StatementsVariant().initDOM(obj);
 
@@ -1086,7 +1092,7 @@ class StatementsExercise extends Exercise {
         this.variants_list.classList.toggle('hidden', this.variants.length === 0)
         this.description.classList.toggle('hidden', this.variants.length !== 0)
 
-        this.changesManager.check();
+        super.check();
     }
 
     save() {
@@ -1138,6 +1144,7 @@ class StatementsExercise extends Exercise {
 
 }
 
+// INPUT
 
 class InputExercise extends Exercise {
 
@@ -1149,8 +1156,6 @@ class InputExercise extends Exercise {
     initEventListeners() {
 
         let obj = this;
-
-        this.changesManager.addElement(this);
 
         this.textarea.addEventListener(
             "input",
@@ -1203,13 +1208,9 @@ class InputExercise extends Exercise {
             }
         });
     }
-
-    check() {
-        this.changesManager.check();
-    }
-
 }
 
+// ANSWER
 
 class AnswerExercise extends Exercise {
 
@@ -1221,8 +1222,6 @@ class AnswerExercise extends Exercise {
     initEventListeners() {
 
         let obj = this;
-
-        this.changesManager.addElement(this);
 
         this.input.onchange = function () {
             console.log('update')
@@ -1267,13 +1266,9 @@ class AnswerExercise extends Exercise {
             }
         });
     }
-
-    check() {
-        this.changesManager.check();
-    }
-
 }
 
+// IMAGES
 
 class ImagesPicture {
 
@@ -1370,8 +1365,6 @@ class ImagesExercise extends Exercise {
 
         let obj = this;
 
-        this.changesManager.addElement(this);
-
         this.add_picture_button.onclick = function () {
             obj.input_file.click();
         }
@@ -1442,7 +1435,7 @@ class ImagesExercise extends Exercise {
         this.pictures_list.classList.toggle('hidden', this.pictures.length === 0);
         this.description.classList.toggle('hidden', this.pictures.length !== 0);
 
-        this.changesManager.check();
+        super.check();
     }
 
     save() {
@@ -1497,6 +1490,163 @@ class ImagesExercise extends Exercise {
 }
 
 
+// TITLE ELEMENT
+
+class TitleElement extends StaticElement {
+
+    constructor(elem) {
+        super(elem);
+
+        this.input = this.body.querySelector('.input-title');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.input.onchange = function () {
+            obj.check();
+        }
+
+        this.save_button.onclick = function () {
+            obj.save();
+        }
+
+        super.initEventListeners();
+    }
+
+    remove_picture(picture) {
+        this.pictures_list.removeChild(picture.body);
+
+        if ('id' in picture.getData()) {
+            this.removed_pictures.push(picture.getData());
+        }
+
+        this.pictures.splice(this.pictures.indexOf(picture), 1);
+
+        this.check()
+    }
+
+    getId() {
+        return 'title-element';
+    }
+
+    getData() {
+        return {
+            'title': this.input.value
+        };
+    }
+
+    save() {
+
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: 'POST',
+            data: {
+                'element_id': obj.element_id,
+                'title': obj.input.value
+            },
+            error: function (xhr) {
+                alert(xhr.statusText);
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (res) {
+                console.log('success');
+            }
+        });
+
+        this.changesManager.refresh()
+    }
+}
+
+// PICTURE ELEMENT
+
+class PictureElement extends StaticElement {
+
+    constructor(elem) {
+        super(elem);
+
+        this.picture = this.body.querySelector('.picture');
+        this.input_file = this.body.querySelector('.picture-uploader');
+        this.file_uploader_form = this.body.querySelector('.file-uploader-form');
+
+        this.update_picture_button = this.body.querySelector('.button-update-picture')
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.update_picture_button.onclick = function () {
+            obj.input_file.click();
+        }
+
+        this.file_uploader_form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+
+        this.input_file.addEventListener('change', function (event) {
+            const [file] = obj.input_file.files;
+            obj.picture.src = URL.createObjectURL(file);
+            obj.check();
+        });
+
+        this.save_button.onclick = function () {
+            obj.save();
+        }
 
 
+        super.initEventListeners();
+    }
 
+    remove_picture(picture) {
+        this.pictures_list.removeChild(picture.body);
+
+        if ('id' in picture.getData()) {
+            this.removed_pictures.push(picture.getData());
+        }
+
+        this.pictures.splice(this.pictures.indexOf(picture), 1);
+
+        this.check()
+    }
+
+    getId() {
+        return 'picture-element';
+    }
+
+    getData() {
+        return {
+            'picture': this.picture.src
+        };
+    }
+
+    save() {
+
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: 'POST',
+            data: new FormData(obj.file_uploader_form),
+            cache: false,
+            processData: false,
+            contentType: false,
+            error: function (xhr) {
+                alert(xhr.statusText);
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (res) {
+                console.log('success');
+            }
+        });
+
+        this.changesManager.refresh()
+    }
+}

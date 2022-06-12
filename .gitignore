@@ -15,6 +15,7 @@ media/*
 !.gitkeep
 !media/avatar.png
 !media/test_icon.png
+!media/picture.jpg
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.

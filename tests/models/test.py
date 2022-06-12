@@ -741,6 +741,13 @@ class TitleElement(BaseTitleElement):
             context = {}
         return self.render_template('editor/elements/title_element.html', context=context)
 
+    @staticmethod
+    def process_request(request, element):
+        if request.POST.get('title', False) and request.POST.get('title', False) != '':
+            element.title = request.POST.get('title')
+            element.save()
+        return {}
+
 
 class ProjectTitleElement(TitleElement, ProjectStaticElement):
 
@@ -761,12 +768,31 @@ class PictureElement(BasePictureElement):
             context = {}
         return self.render_template('editor/elements/picture_element.html', context=context)
 
+    @staticmethod
+    def process_request(request, element):
+
+        form = UploadPictureFrom(request.POST, request.FILES)
+
+        if form.is_valid():
+            picture = form.save(commit=False)
+            element.picture = picture.picture
+            element.save()
+
+        return {}
+
 
 class ProjectPictureElement(PictureElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
 
+
+class UploadPictureFrom(ModelForm):
+    picture = forms.ImageField()
+
+    class Meta:
+        model = PictureElement
+        fields = ['picture']
 
 """
 QUOTE ELEMENT MODEL

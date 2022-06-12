@@ -9,9 +9,9 @@ from django.urls import reverse
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
     CheckMarkDownForm, CreationStaticElementForm
 
-from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, \
+from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, BaseStaticElement, \
     ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise, StatementsExercise, \
-    ImagesExercise, BaseElement, BaseStaticElement
+    ImagesExercise, TitleElement, PictureElement, QuoteElement, DocumentElement, YandexMapsElement
 
 
 @login_required

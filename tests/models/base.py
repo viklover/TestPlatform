@@ -231,7 +231,7 @@ class BaseTitleElement(BaseStaticElement):
 
 
 class BasePictureElement(BaseStaticElement):
-    picture = models.ImageField(verbose_name='Изображение', upload_to='project/static_pictures')
+    picture = models.ImageField(default='picture.jpg', verbose_name='Изображение', upload_to='project/static_pictures')
 
     class Meta:
         abstract = True
