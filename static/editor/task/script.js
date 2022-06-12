@@ -30,6 +30,9 @@ for (let element of document.querySelectorAll('.elements-list__item')) {
         case 'exercise':
             obj = new Exercise(element);
             break;
+        case 'images':
+            obj = new ImagesExercise(element);
+            break;
         default:
             obj = new Element(element);
     }

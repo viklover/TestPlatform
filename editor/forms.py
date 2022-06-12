@@ -4,7 +4,8 @@ from django.forms import ModelForm
 
 from tests.models import Project, ProjectTask, BaseExercise, BaseElement, \
     ProjectChronologyExercise, ProjectMatchExercise, ProjectRadioExercise, \
-    ProjectStatementsExercise, ProjectInputExercise, ProjectAnswerExercise
+    ProjectStatementsExercise, ProjectInputExercise, ProjectAnswerExercise, ProjectImagesExercise, \
+    ProjectImagesExercise, PictureImagesExercise
 
 
 class CreationProjectForm(ModelForm):

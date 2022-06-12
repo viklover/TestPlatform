@@ -20,6 +20,10 @@
     gap: 10px;
 }
 
+.elements-list__item .buttons-bar .button {
+    padding: 3px;
+}
+
 .elements-list__item .description {
     margin: 0;
 }
@@ -372,8 +376,6 @@
     font-family: 'ProximaNova', sans-serif;
 }
 
-
-
 .answer-exercise input[type="text"] {
     height: 30px;
     background: #FFFFFF;
@@ -383,6 +385,59 @@
     padding-left: 10px;
     font-size: 15px;
     width: 595px;
+}
+
+
+.images-exercise .pictures {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    row-gap: 40px;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+.images-exercise .pictures .picture {
+    display: flex;
+    position: relative;
+    min-height: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    height: calc(100% - 46px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    cursor: pointer;
+    margin: 0 auto 45px;
+}
+
+.images-exercise .pictures .checked {
+    border: 2px solid rgb(12, 0, 222);
+    box-shadow: 0 0 0 rgb(12, 0, 222);
+}
+
+.images-exercise .pictures .image {
+    max-width: 270px;
+    margin: auto;
+}
+
+.images-exercise .picture .picture-bar {
+    position: absolute;
+    bottom: -45px;
+    left: 0;
+}
+
+.images-exercise .hidden {
+    display: none;
+}
+
+.images-exercise .button-remove-picture {
+    padding: 15px;
 }
 
 

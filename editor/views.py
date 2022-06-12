@@ -9,7 +9,8 @@ from django.urls import reverse
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
     CreationElementForm, CheckMarkDownForm
 from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, \
-    ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise, StatementsExercise
+    ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise, StatementsExercise, \
+    ImagesExercise
 
 
 @login_required
@@ -268,13 +269,13 @@ def remove_element(request, project_id, task_id):
 
 @login_required
 def change_element(request, project_id, task_id):
+    print(request.POST)
+
     if request.POST and request.POST.get('element_id', False):
         elem_id = request.POST.get('element_id')
         selected_element = ProjectTaskElement.objects.get(element_id=elem_id).get_child()
 
         if selected_element.element_type == 0:
-
-            print(request.POST)
 
             if request.POST.get('title', False) or request.POST.get('title', False) == "":
                 selected_element.title = request.POST.get('title')

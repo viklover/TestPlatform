@@ -4,15 +4,17 @@ import functools
 import json
 import operator
 
+from django import forms
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.forms import ModelForm
 from django.template import loader
 from django.template.defaulttags import register
 from django.utils import timezone
 
 from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel, BaseProject, BaseElement, \
     BaseChronologyExercise, BaseMatchExercise, BaseRadioExercise, BaseStatementsExercise, BaseInputExercise, \
-    BaseAnswerExercise
+    BaseAnswerExercise, BaseImagesExercise
 
 
 def user_media_path(instance, filename):
@@ -615,3 +617,78 @@ class ProjectAnswerExercise(AnswerExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
+
+
+"""
+ANSWER ANSWER
+"""
+
+
+class ImagesExercise(BaseImagesExercise):
+    EXERCISE_TYPE = 6
+
+    exercise_id = models.AutoField(primary_key=True)
+
+    def render(self, context=None):
+        if context is None:
+            context = {}
+
+        context = {
+            'pictures': self.get_pictures(),
+            **context
+        }
+        return self.render_template('editor/elements/images_exercise.html', context=context)
+
+    def get_pictures(self):
+        return PictureImagesExercise.objects.filter(exercise=self)
+
+    @staticmethod
+    def process_request(request, exercise):
+        print(exercise)
+        print(request.POST)
+
+        if request.POST.get('removed_pictures', False):
+            for picture_data in json.loads(request.POST['removed_pictures']):
+                pictures = PictureImagesExercise.objects.filter(id=picture_data['id'])
+                if pictures.count():
+                    pictures.first().delete()
+
+            return {}
+
+        if not request.POST.get('id', False):
+            form = UploadImageFrom(request.POST, request.FILES)
+
+            if form.is_valid():
+                picture = form.save(commit=False)
+                picture.exercise = exercise
+                picture.save()
+                return {'new_id': picture.id}
+            else:
+                print('form is not valid')
+                return {}
+
+        picture = PictureImagesExercise.objects.get(id=request.POST.get('id'))
+        picture.checked = True if request.POST.get('checked', 'false') == 'true' else False
+        picture.save()
+
+        return {}
+
+
+class PictureImagesExercise(BaseModel):
+    exercise = models.ForeignKey(to=ImagesExercise, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='project/images_exercise')
+    checked = models.BooleanField(default=False)
+
+
+class ProjectImagesExercise(ImagesExercise, ProjectExercise):
+
+    def render(self):
+        return super().render(self.get_info())
+
+
+class UploadImageFrom(ModelForm):
+    image = forms.ImageField()
+
+    class Meta:
+        model = PictureImagesExercise
+        fields = ['image', 'checked']

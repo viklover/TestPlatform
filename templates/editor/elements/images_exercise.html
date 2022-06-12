@@ -1,0 +1,31 @@
+{% extends 'editor/elements/base_exercise.html' %}
+{% load static %}
+
+{% block element_type %}images{% endblock %}
+
+{% block element_class %}images-exercise{% endblock %}
+
+{% block content %}
+    <div class="pictures {% if not pictures|length %}hidden{% endif %}">
+        {% for picture in pictures %}
+            <div class="picture{% if picture.checked %} checked{% endif %}" data-id="{{ picture.id }}">
+                <div class="picture-borders">
+                    <img class="image" src="/media/{{ picture.image }}">
+                </div>
+                <div class="picture-bar">
+                    <div class="button button-remove-secondary button-remove-picture"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form class="file-uploader-form" method="POST" action="change_element">
+        <input type="text" class="hidden" value="{{ exercise.element_id }}" name="element_id">
+        <input type="file" class="picture-uploader hidden" name="image">
+    </form>
+    <p class="description {% if pictures|length %}hidden{% endif %}">Пока здесь нет ни одного изображения</p>
+{% endblock %}
+
+{% block buttons_bar %}
+    <div class="button button-secondary-reverse button-add-picture">Загрузить новую картинку</div>
+{% endblock %}

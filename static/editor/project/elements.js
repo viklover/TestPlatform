@@ -1210,6 +1210,7 @@ class InputExercise extends Exercise {
 
 }
 
+
 class AnswerExercise extends Exercise {
 
     constructor(elem) {
@@ -1272,4 +1273,230 @@ class AnswerExercise extends Exercise {
     }
 
 }
+
+
+class ImagesPicture {
+
+    constructor(body) {
+
+        if (body === null || body === undefined)
+            return;
+
+        this.body = body;
+        this.input = this.body.querySelector('.input-content');
+        this.remove_button = body.querySelector('.button-remove-picture');
+
+        this.img = this.body.querySelector('img');
+
+        this.existing_obj = this.body.dataset.id !== undefined && this.body.dataset.id !== null;
+
+        if (!(this.existing_obj)) {
+            this.test_id = getRandomInt(100000, 999999);
+        }
+    }
+
+    init(exercise) {
+
+        let obj = this;
+        this.exercise = exercise;
+
+        this.remove_button.onclick = function () {
+            exercise.remove_picture(obj);
+        };
+
+        this.body.onclick = function () {
+            obj.body.classList.toggle('checked');
+            exercise.check()
+        };
+    }
+
+    setFormData(formData) {
+        this.formData = formData;
+    }
+
+    initDOM(picture_url) {
+        let element = document.createElement('div');
+        element.innerHTML = `
+            <div class="picture-borders">
+                <img class="image" src="${picture_url}">
+            </div>
+            <div class="picture-bar">
+                <div class="button button-remove-secondary button-remove-picture"></div>
+            </div>
+        `;
+        element.classList.add('picture');
+
+        return new ImagesPicture(element);
+    }
+
+    getData() {
+        let data = {};
+        if (this.existing_obj) {
+            data['id'] = parseInt(this.body.dataset.id);
+        } else {
+            this.formData.append('checked', this.body.classList.contains('checked'))
+            return this.formData;
+        }
+        data['image'] = this.img.src;
+        data['checked'] = this.body.classList.contains('checked');
+        data['element_id'] = this.exercise.element_id
+        return data;
+    }
+}
+
+class ImagesExercise extends Exercise {
+
+    constructor(elem) {
+        super(elem);
+        this.pictures = [];
+        this.removed_pictures = [];
+        this.pictures_list = this.body.querySelector('.pictures');
+
+        this.add_picture_button = this.body.querySelector('.button-add-picture');
+
+        this.input_file = this.body.querySelector('.picture-uploader');
+        this.file_uploader_form = this.body.querySelector('.file-uploader-form');
+
+        this.description = this.body.querySelector('.description');
+
+        for (let element of this.body.querySelectorAll('.picture')) {
+            let picture = new ImagesPicture(element);
+            this.pictures.push(picture)
+            picture.init(this)
+        }
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.changesManager.addElement(this);
+
+        this.add_picture_button.onclick = function () {
+            obj.input_file.click();
+        }
+
+        this.file_uploader_form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+
+        this.input_file.addEventListener('change', function (event) {
+            const [file] = obj.input_file.files;
+            let formData = new FormData(obj.file_uploader_form);
+
+            let picture = new ImagesPicture().initDOM(URL.createObjectURL(file));
+            obj.pictures.push(picture);
+            picture.init(obj);
+            picture.setFormData(formData);
+            obj.pictures_list.appendChild(picture.body);
+
+            obj.check();
+
+            // for (var pair of formData.entries()) {
+            //     console.log(pair[0]+ ', '+ pair[1]);
+            // }
+        });
+
+        this.save_button.onclick = function () {
+            obj.save();
+        }
+
+        // this.add_variant_button.onclick = function () {
+        //     let variant = new StatementsVariant().initDOM(obj);
+        //
+        //     obj.variants.push(variant);
+        //     variant.init(obj);
+        //     obj.variants_list.appendChild(variant.body);
+        //
+        //     obj.check();
+        // };
+
+        super.initEventListeners();
+    }
+
+    remove_picture(picture) {
+        this.pictures_list.removeChild(picture.body);
+
+        if ('id' in picture.getData()) {
+            this.removed_pictures.push(picture.getData());
+        }
+
+        this.pictures.splice(this.pictures.indexOf(picture), 1);
+
+        this.check()
+    }
+
+    getId() {
+        return 'images-exercise';
+    }
+
+    getData() {
+        let data = [];
+        for (let picture of this.pictures) {
+            data.push(picture.getData());
+        }
+        return data;
+    }
+
+    check() {
+        this.pictures_list.classList.toggle('hidden', this.pictures.length === 0);
+        this.description.classList.toggle('hidden', this.pictures.length !== 0);
+
+        this.changesManager.check();
+    }
+
+    save() {
+
+        let obj = this;
+
+        for (let picture of this.pictures) {
+
+            $.ajax({
+                url: 'change_element',
+                type: 'POST',
+                data: picture.getData(),
+                cache: picture.existing_obj,
+                processData: picture.existing_obj,
+                contentType: (picture.existing_obj ? 'application/x-www-form-urlencoded; charset=UTF-8' : false),
+                error: function (xhr) {
+                    alert(xhr.statusText);
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+                },
+                success: function (res) {
+                    if ('new_id' in res && !picture.existing_obj) {
+                        picture.body.dataset.id = res['new_id'];
+                        picture.existing_obj = true;
+                    }
+                }
+            });
+        }
+
+        $.ajax({
+            url: 'change_element',
+            type: 'POST',
+            data: {
+                'element_id': obj.element_id,
+                'removed_pictures': JSON.stringify(obj.removed_pictures)
+            },
+            error: function (xhr) {
+                alert(xhr.statusText);
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (res) {
+                console.log(res);
+            }
+        });
+
+        this.changesManager.refresh()
+
+    }
+}
+
+
+
+
 
