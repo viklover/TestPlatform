@@ -49,42 +49,6 @@ class BaseTask(BaseModel):
         abstract = True
 
 
-class BaseExercise(BaseModel):
-    EXERCISE_TYPES = (
-        (0, 'Ответить на вопрос'),
-        (1, 'Написать развёрнутый ответ'),
-        (2, 'Отметить верные утверждения'),
-        (3, 'Выбрать одно верное утверждение'),
-        (4, 'Соотнести что-то с чем-то'),
-        (5, 'Составить правильный порядок карточек'),
-        (6, 'Выбери подходящие изображения'),
-    )
-    EXERCISE_CLASSES = {
-        0: 'AnswerExercise',
-        1: 'InputExercise',
-        2: 'StatementsExercise',
-        3: 'RadioExercise',
-        4: 'MatchExercise',
-        5: 'ChronologyExercise',
-        6: 'ImagesExercise'
-    }
-    type = models.IntegerField(choices=EXERCISE_TYPES, default=0, verbose_name='Тип упражнения')
-    name = models.CharField(max_length=50, verbose_name='Название упражнения')
-    title = models.CharField(max_length=150, null=True, verbose_name='Заголовок')
-
-    class Meta:
-        abstract = True
-
-    @staticmethod
-    def process_request(request, exercise):
-        return {}
-
-    def render_template(self, template, context=None):
-        if context is None:
-            context = {}
-        return super().render_template(template, {'exercise': self, **context})
-
-
 class BaseTestInfo(BaseModel):
     name = models.CharField(max_length=100, default='New test', verbose_name='Название')
     description = models.TextField(default='Description', verbose_name='Описание')
@@ -111,20 +75,98 @@ class BaseProject(BaseModel):
         abstract = True
 
 
+"""
+BASE EXERCISE AND STATIC ELEMENT
+"""
+
+
 class BaseElement(BaseModel):
     ELEMENT_TYPES = (
         (0, 'Упражнение'),
-        (1, 'Заголовок'),
-        (2, 'Изображение'),
-        (3, 'Карты (Yandex Maps)')
+        (1, 'Статичный элемент')
     )
     ELEMENT_PROCESSORS = {
         0: 'ProjectExercise',
+        1: 'ProjectStaticElement'
     }
     element_type = models.IntegerField(choices=ELEMENT_TYPES, default=0, verbose_name='Тип элемента')
 
     class Meta:
         abstract = True
+
+
+class BaseExercise(BaseModel):
+    EXERCISE_TYPES = (
+        (0, 'Ответить на вопрос'),
+        (1, 'Написать развёрнутый ответ'),
+        (2, 'Отметить верные утверждения'),
+        (3, 'Выбрать одно верное утверждение'),
+        (4, 'Соотнести что-то с чем-то'),
+        (5, 'Составить правильный порядок карточек'),
+        (6, 'Выбери подходящие изображения'),
+    )
+    EXERCISE_CLASSES = {
+        0: 'AnswerExercise',
+        1: 'InputExercise',
+        2: 'StatementsExercise',
+        3: 'RadioExercise',
+        4: 'MatchExercise',
+        5: 'ChronologyExercise',
+        6: 'ImagesExercise'
+    }
+    type = models.IntegerField(choices=EXERCISE_TYPES, default=0, verbose_name='Тип упражнения')
+    name = models.CharField(max_length=50, verbose_name='Название упражнения')
+    title = models.CharField(max_length=150, null=True, verbose_name='Заголовок')
+
+    exercise_id = models.AutoField(primary_key=True)
+
+    class Meta:
+        abstract = True
+
+    @staticmethod
+    def process_request(request, exercise):
+        return {}
+
+    def render_template(self, template, context=None):
+        if context is None:
+            context = {}
+        return super().render_template(template, {'exercise': self, **context})
+
+
+class BaseStaticElement(BaseModel):
+    ELEMENT_TYPES = (
+        (0, 'Заголовок'),
+        (1, 'Изображение'),
+        (2, 'Цитата'),
+        (3, 'Документ'),
+        (4, 'Карты (Yandex Maps)')
+    )
+    ELEMENT_CLASSES = {
+        0: 'TitleElement',
+        1: 'PictureElement',
+        2: 'QuoteElement',
+        3: 'DocumentElement',
+        4: 'YandexMapsElement'
+    }
+    type = models.IntegerField(choices=ELEMENT_TYPES, default=0, verbose_name='Тип статичного элемента')
+    static_element_id = models.AutoField(primary_key=True)
+
+    class Meta:
+        abstract = True
+
+    @staticmethod
+    def process_request(request, element):
+        return {}
+
+    def render_template(self, template, context=None):
+        if context is None:
+            context = {}
+        return super().render_template(template, {'element': self, **context})
+
+
+"""
+BASE EXERCISES MODELS
+"""
 
 
 class BaseChronologyExercise(BaseExercise):
@@ -175,3 +217,44 @@ class BaseImagesExercise(BaseExercise):
     class Meta:
         abstract = True
 
+
+"""
+BASE ELEMENTS MODELS
+"""
+
+
+class BaseTitleElement(BaseStaticElement):
+    title = models.TextField(default='Новый заголовок', verbose_name='Заголовок')
+
+    class Meta:
+        abstract = True
+
+
+class BasePictureElement(BaseStaticElement):
+    picture = models.ImageField(verbose_name='Изображение', upload_to='project/static_pictures')
+
+    class Meta:
+        abstract = True
+
+
+class BaseQuoteElement(BaseStaticElement):
+    quote = models.TextField(default='Цитата - очень важный элемент для теста', verbose_name='Цитата')
+    author = models.CharField(max_length=100, verbose_name='Автор цитаты')
+
+    class Meta:
+        abstract = True
+
+
+class BaseDocumentElement(BaseStaticElement):
+    content = models.TextField(verbose_name='Содержание документа')
+    name = models.CharField(max_length=100, verbose_name='Название документа')
+
+    class Meta:
+        abstract = True
+
+
+class BaseYandexMapsElement(BaseStaticElement):
+    url = models.URLField()
+
+    class Meta:
+        abstract = True

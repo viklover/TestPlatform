@@ -1,5 +1,20 @@
 {% extends 'editor/elements/base.html' %}
 
-{% block head %}
+{% block id %}{{ element.element_id }}{% endblock %}
 
+{% block element_type %}element{% endblock %}
+
+{% block head %}
+    Элемент <span class="gray">{{ element_type }}</span>
+{% endblock %}
+
+{% block precontent %}
+    {% block content %}
+    {% endblock %}
+{% endblock %}
+
+{% block prebuttons_bar %}
+    {% block buttons_bar %}
+    {% endblock %}
+    <div class="button hidden button-save-changes">Сохранить изменения</div>
 {% endblock %}

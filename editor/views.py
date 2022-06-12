@@ -7,10 +7,11 @@ from django.template import loader
 from django.urls import reverse
 
 from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, EditProjectInfo, CreationExerciseForm, \
-    CreationElementForm, CheckMarkDownForm
+    CheckMarkDownForm, CreationStaticElementForm
+
 from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, \
     ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise, StatementsExercise, \
-    ImagesExercise
+    ImagesExercise, BaseElement, BaseStaticElement
 
 
 @login_required
@@ -208,7 +209,7 @@ def open_task(request, project_id, task_id):
         'task': ProjectTask.objects.get(id=task_id),
         'elements': map(lambda x: x.get_child(), ProjectTaskElement.objects.filter(task_id=task_id).order_by('order')),
         'creation_exercise_form': CreationExerciseForm(),
-        'creation_element_form': CreationElementForm()
+        'creation_element_form': CreationStaticElementForm()
     }
     return render(request, 'editor/project/task/task_page.html', context)
 
@@ -238,6 +239,17 @@ def upload_task_description(request, project_id, task_id):
         task.save()
 
     return JsonResponse({})
+
+
+@login_required
+def create_element(request, project_id, task_id):
+    if request.POST:
+        form = CreationStaticElementForm(request.POST)
+
+        task = ProjectTask.objects.get(id=task_id)
+        task.create_element(form)
+
+    return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
 
 
 @login_required
@@ -285,6 +297,9 @@ def change_element(request, project_id, task_id):
                 return HttpResponse()
 
             return JsonResponse(eval(f'{BaseExercise.EXERCISE_CLASSES[selected_element.exercise_type]}.process_request(request, selected_element)'))
+
+        elif selected_element.element_type == 1:
+            return JsonResponse(eval(f'{BaseStaticElement.ELEMENT_CLASSES[selected_element.static_element_type]}.process_request(request, selected_element)'))
 
         return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 

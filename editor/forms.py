@@ -5,7 +5,9 @@ from django.forms import ModelForm
 from tests.models import Project, ProjectTask, BaseExercise, BaseElement, \
     ProjectChronologyExercise, ProjectMatchExercise, ProjectRadioExercise, \
     ProjectStatementsExercise, ProjectInputExercise, ProjectAnswerExercise, ProjectImagesExercise, \
-    ProjectImagesExercise, PictureImagesExercise
+    ProjectImagesExercise, PictureImagesExercise, ProjectTitleElement, ProjectPictureElement, \
+    ProjectQuoteElement, ProjectDocumentElement, ProjectYandexMapsElement
+from tests.models.base import BaseStaticElement
 
 
 class CreationProjectForm(ModelForm):
@@ -62,20 +64,13 @@ class CreationExerciseForm(forms.Form):
         return exercise
 
 
-class CreationElementForm(forms.Form):
-    ELEMENT_TYPES = (
-        (1, 'Заголовок'),
-        (2, 'Изображение'),
-        (3, 'Карты (Yandex Maps)')
-    )
-    type = forms.ChoiceField(choices=ELEMENT_TYPES, required=True, label='Тип элемента')
+class CreationStaticElementForm(forms.Form):
+    type = forms.ChoiceField(choices=BaseStaticElement.ELEMENT_TYPES, required=True, label='Тип статичного элемента')
 
     def get_element(self):
-        exercise = eval(f'Project{BaseExercise.EXERCISE_CLASSES[int(self.cleaned_data["type"])]}()')
-        exercise.type = self.cleaned_data['type']
-        exercise.name = self.cleaned_data['name']
-        exercise.title = self.cleaned_data['title']
-        return exercise
+        element = eval(f'Project{BaseStaticElement.ELEMENT_CLASSES[int(self.cleaned_data["type"])]}()')
+        element.type = self.cleaned_data['type']
+        return element
 
 
 class CheckMarkDownForm(forms.Form):

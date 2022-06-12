@@ -14,7 +14,8 @@ from django.utils import timezone
 
 from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel, BaseProject, BaseElement, \
     BaseChronologyExercise, BaseMatchExercise, BaseRadioExercise, BaseStatementsExercise, BaseInputExercise, \
-    BaseAnswerExercise, BaseImagesExercise
+    BaseAnswerExercise, BaseImagesExercise, BaseStaticElement, BaseTitleElement, BasePictureElement, BaseQuoteElement, \
+    BaseDocumentElement, BaseYandexMapsElement
 
 
 def user_media_path(instance, filename):
@@ -93,6 +94,20 @@ class ProjectTask(BaseProject, BaseTask):
 
         return None
 
+    def create_element(self, form):
+
+        if form.is_valid():
+            element = form.get_element()
+            element.task = self
+            element.order = self.get_elements().count() + 1
+            element.save()
+
+            self.update()
+            self.project.update()
+            return element
+
+        return None
+
     def get_elements(self):
         return ProjectTaskElement.objects.filter(task_id=self.id).order_by('order')
 
@@ -115,6 +130,11 @@ class ProjectTaskElement(BaseProject, BaseElement):
         return self.render_template('editor/elements/base.html')
 
 
+"""
+BASE ELEMENT MODELS
+"""
+
+
 class ProjectExercise(ProjectTaskElement):
     EXERCISE_TYPE = -1
 
@@ -122,6 +142,7 @@ class ProjectExercise(ProjectTaskElement):
     exercise_type = models.IntegerField(choices=BaseExercise.EXERCISE_TYPES, default=0)
 
     def save(self, *args, **kwargs):
+        self.element_type = 0
         self.exercise_type = self.EXERCISE_TYPE
         return super().save(*args, **kwargs)
 
@@ -140,6 +161,34 @@ class ProjectExercise(ProjectTaskElement):
         classname = f'Project{BaseExercise.EXERCISE_CLASSES[exercise_parent.exercise_type]}'
 
         return eval(f'{classname}.objects.get(projectexercise_ptr_id={exercise_parent.id})')
+
+
+class ProjectStaticElement(ProjectTaskElement):
+    STATIC_ELEMENT_TYPE = -1
+
+    id = models.AutoField(primary_key=True, unique=True)
+    static_element_type = models.IntegerField(choices=BaseStaticElement.ELEMENT_TYPES, default=0)
+
+    def save(self, *args, **kwargs):
+        self.element_type = 1
+        self.static_element_type = self.STATIC_ELEMENT_TYPE
+        return super().save(*args, **kwargs)
+
+    def get_info(self):
+        return {
+            'element': self,
+            'element_type': BaseStaticElement.ELEMENT_TYPES[self.static_element_type][1]
+        }
+
+    def render(self):
+        return self.render_template('editor/elements/base_element.html', context=self.get_info())
+
+    @staticmethod
+    def get_child_by_element(element):
+        element_parent = ProjectStaticElement.objects.get(projecttaskelement_ptr_id=element.element_id)
+        classname = f'Project{BaseStaticElement.ELEMENT_CLASSES[element_parent.static_element_type]}'
+
+        return eval(f'{classname}.objects.get(projectstaticelement_ptr_id={element_parent.id})')
 
 
 """
@@ -222,8 +271,6 @@ CHRONOLOGY EXERCISE MODEL
 class ChronologyExercise(BaseChronologyExercise):
     EXERCISE_TYPE = 5
 
-    exercise_id = models.AutoField(primary_key=True)
-
     def render(self, context=None):
         if context is None:
             context = {}
@@ -293,8 +340,6 @@ MATCH EXERCISE MODEL
 
 class MatchExercise(BaseMatchExercise):
     EXERCISE_TYPE = 4
-
-    exercise_id = models.AutoField(primary_key=True)
 
     def render(self, context=None):
         if context is None:
@@ -427,8 +472,6 @@ RADIO EXERCISE MODEL
 class RadioExercise(BaseRadioExercise):
     EXERCISE_TYPE = 3
 
-    exercise_id = models.AutoField(primary_key=True)
-
     def render(self, context=None):
         if context is None:
             context = {}
@@ -497,8 +540,6 @@ STATEMENTS EXERCISE MODEL
 class StatementsExercise(BaseStatementsExercise):
     EXERCISE_TYPE = 2
 
-    exercise_id = models.AutoField(primary_key=True)
-
     def render(self, context=None):
         if context is None:
             context = {}
@@ -560,14 +601,13 @@ class VariantStatementsExercise(BaseModel):
 
 
 """
-INPUT ANSWER
+INPUT EXERCISE MODEL
 """
 
 
 class InputExercise(BaseInputExercise):
     EXERCISE_TYPE = 1
 
-    exercise_id = models.AutoField(primary_key=True)
     prepared_answer = models.TextField()
 
     def render(self, context=None):
@@ -590,14 +630,13 @@ class ProjectInputExercise(InputExercise, ProjectExercise):
 
 
 """
-ANSWER ANSWER
+ANSWER EXERCISE MODEL
 """
 
 
 class AnswerExercise(BaseAnswerExercise):
     EXERCISE_TYPE = 0
 
-    exercise_id = models.AutoField(primary_key=True)
     correct_answer = models.TextField()
 
     def render(self, context=None):
@@ -620,14 +659,12 @@ class ProjectAnswerExercise(AnswerExercise, ProjectExercise):
 
 
 """
-ANSWER ANSWER
+IMAGES EXERCISE MODEL
 """
 
 
 class ImagesExercise(BaseImagesExercise):
     EXERCISE_TYPE = 6
-
-    exercise_id = models.AutoField(primary_key=True)
 
     def render(self, context=None):
         if context is None:
@@ -644,8 +681,6 @@ class ImagesExercise(BaseImagesExercise):
 
     @staticmethod
     def process_request(request, exercise):
-        print(exercise)
-        print(request.POST)
 
         if request.POST.get('removed_pictures', False):
             for picture_data in json.loads(request.POST['removed_pictures']):
@@ -664,7 +699,6 @@ class ImagesExercise(BaseImagesExercise):
                 picture.save()
                 return {'new_id': picture.id}
             else:
-                print('form is not valid')
                 return {}
 
         picture = PictureImagesExercise.objects.get(id=request.POST.get('id'))
@@ -692,3 +726,104 @@ class UploadImageFrom(ModelForm):
     class Meta:
         model = PictureImagesExercise
         fields = ['image', 'checked']
+
+
+"""
+TITLE ELEMENT MODEL
+"""
+
+
+class TitleElement(BaseTitleElement):
+    STATIC_ELEMENT_TYPE = 0
+
+    def render(self, context=None):
+        if context is None:
+            context = {}
+        return self.render_template('editor/elements/title_element.html', context=context)
+
+
+class ProjectTitleElement(TitleElement, ProjectStaticElement):
+
+    def render(self):
+        return super().render(self.get_info())
+
+
+"""
+PICTURE ELEMENT MODEL
+"""
+
+
+class PictureElement(BasePictureElement):
+    STATIC_ELEMENT_TYPE = 1
+
+    def render(self, context=None):
+        if context is None:
+            context = {}
+        return self.render_template('editor/elements/picture_element.html', context=context)
+
+
+class ProjectPictureElement(PictureElement, ProjectStaticElement):
+
+    def render(self):
+        return super().render(self.get_info())
+
+
+"""
+QUOTE ELEMENT MODEL
+"""
+
+
+class QuoteElement(BaseQuoteElement):
+    STATIC_ELEMENT_TYPE = 2
+
+    def render(self, context=None):
+        if context is None:
+            context = {}
+        return self.render_template('editor/elements/quote_element.html', context=context)
+
+
+class ProjectQuoteElement(QuoteElement, ProjectStaticElement):
+
+    def render(self):
+        return super().render(self.get_info())
+
+
+"""
+DOCUMENT ELEMENT MODEL
+"""
+
+
+class DocumentElement(BaseDocumentElement):
+    STATIC_ELEMENT_TYPE = 3
+
+    def render(self, context=None):
+        if context is None:
+            context = {}
+        return self.render_template('editor/elements/document_element.html', context=context)
+
+
+class ProjectDocumentElement(DocumentElement, ProjectStaticElement):
+
+    def render(self):
+        return super().render(self.get_info())
+
+
+"""
+DOCUMENT ELEMENT MODEL
+"""
+
+
+class YandexMapsElement(BaseYandexMapsElement):
+    STATIC_ELEMENT_TYPE = 4
+
+    def render(self, context=None):
+        if context is None:
+            context = {}
+        return self.render_template('editor/elements/maps_element.html', context=context)
+
+
+class ProjectYandexMapsElement(YandexMapsElement, ProjectStaticElement):
+
+    def render(self):
+        return super().render(self.get_info())
+
