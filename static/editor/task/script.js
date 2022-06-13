@@ -40,6 +40,15 @@ for (let element of document.querySelectorAll('.elements-list__item')) {
         case 'picture':
             obj = new PictureElement(element);
             break;
+        case 'quote':
+            obj = new QuoteElement(element);
+            break;
+        case 'document':
+            obj = new DocumentElement(element);
+            break;
+        case 'maps':
+            obj = new YandexMapsElement(element);
+            break;
         default:
             obj = new Element(element);
     }

@@ -807,6 +807,18 @@ class QuoteElement(BaseQuoteElement):
             context = {}
         return self.render_template('editor/elements/quote_element.html', context=context)
 
+    @staticmethod
+    def process_request(request, exercise):
+
+        if request.POST.get('quote', False):
+            exercise.quote = request.POST.get('quote')
+
+        if request.POST.get('author', False):
+            exercise.author = request.POST.get('author')
+
+        exercise.save()
+        return {}
+
 
 class ProjectQuoteElement(QuoteElement, ProjectStaticElement):
 

@@ -1650,3 +1650,101 @@ class PictureElement extends StaticElement {
         this.changesManager.refresh()
     }
 }
+
+class QuoteElement extends StaticElement {
+
+    constructor(elem) {
+        super(elem);
+        this.textarea = this.body.querySelector('textarea');
+        this.input = this.body.querySelector('input[type="text"]');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.input.onchange = function () {
+            obj.check();
+        }
+
+        this.textarea.addEventListener(
+            "input",
+            function () {
+              this.style.height = 'auto';
+              this.style.height = (this.scrollHeight) + 'px';
+              obj.check();
+            },
+            false
+        );
+
+        this.textarea.style.height = (this.textarea.scrollHeight) + 'px';
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+        super.initEventListeners();
+    }
+
+    save() {
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(obj.element_id),
+                'quote': obj.textarea.value,
+                'author': obj.input.value
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
+    }
+
+    getId() {
+        return 'quote-element';
+    }
+
+    getData() {
+        console.log({'author': this.input.value, 'quote': this.textarea.value})
+        return {'author': this.input.value, 'quote': this.textarea.value};
+    }
+}
+
+class DocumentElement extends StaticElement {
+
+    constructor(elem) {
+        super(elem);
+    }
+
+    getId() {
+        return 'document-element';
+    }
+
+    getData() {
+        return [];
+    }
+}
+
+class YandexMapsElement extends StaticElement {
+
+    constructor(elem) {
+        super(elem);
+    }
+
+    getId() {
+        return 'maps-element';
+    }
+
+    getData() {
+        return [];
+    }
+}
