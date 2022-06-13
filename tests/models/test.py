@@ -839,6 +839,18 @@ class DocumentElement(BaseDocumentElement):
             context = {}
         return self.render_template('editor/elements/document_element.html', context=context)
 
+    @staticmethod
+    def process_request(request, exercise):
+
+        if request.POST.get('content', False):
+            exercise.content = request.POST.get('content')
+
+        if request.POST.get('name', False):
+            exercise.name = request.POST.get('name')
+
+        exercise.save()
+        return {}
+
 
 class ProjectDocumentElement(DocumentElement, ProjectStaticElement):
 

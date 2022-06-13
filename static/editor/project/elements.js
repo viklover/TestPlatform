@@ -1723,6 +1723,58 @@ class DocumentElement extends StaticElement {
 
     constructor(elem) {
         super(elem);
+        this.textarea = this.body.querySelector('textarea');
+        this.input = this.body.querySelector('input[type="text"]');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.input.onchange = function () {
+            obj.check();
+        }
+
+        this.textarea.addEventListener(
+            "input",
+            function () {
+              this.style.height = 'auto';
+              this.style.height = (this.scrollHeight) + 'px';
+              obj.check();
+            },
+            false
+        );
+
+        this.textarea.style.height = (this.textarea.scrollHeight) + 'px';
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+        super.initEventListeners();
+    }
+
+    save() {
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(obj.element_id),
+                'content': obj.textarea.value,
+                'name': obj.input.value
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
     }
 
     getId() {
@@ -1730,7 +1782,7 @@ class DocumentElement extends StaticElement {
     }
 
     getData() {
-        return [];
+        return {'name': this.input.value, 'content': this.textarea.value};
     }
 }
 

@@ -5,7 +5,9 @@
 {% block element_class %}document-element{% endblock %}
 
 {% block content %}
-
+    <p style="margin-top: 0">Документ:</p>
+    <textarea class="input-content">{{ element.content }}</textarea>
+    <input placeholder="Автор цитаты" type="text" name="name" value="{{ element.name }}">
 {% endblock %}
 
 {% block buttons_bar %}
