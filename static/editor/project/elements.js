@@ -1790,6 +1790,63 @@ class YandexMapsElement extends StaticElement {
 
     constructor(elem) {
         super(elem);
+        this.textarea = this.body.querySelector('textarea');
+        this.update_frame_button = this.body.querySelector('.button-update-frame');
+
+        this.iframe_content = this.body.querySelector('.iframe-content');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.textarea.addEventListener(
+            "input",
+            function () {
+              this.style.height = 'auto';
+              this.style.height = (this.scrollHeight) + 'px';
+              obj.check();
+
+              obj.update_frame_button.classList.toggle('hidden', false);
+            },
+            false
+        );
+
+        this.textarea.style.height = (this.textarea.scrollHeight) + 'px';
+
+
+        this.update_frame_button.onclick =function () {
+            obj.iframe_content.innerHTML = obj.textarea.value;
+            this.classList.toggle('hidden', true);
+        }
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+        super.initEventListeners();
+    }
+
+    save() {
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(obj.element_id),
+                'frame': obj.textarea.value
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
     }
 
     getId() {
@@ -1797,6 +1854,6 @@ class YandexMapsElement extends StaticElement {
     }
 
     getData() {
-        return [];
+        return {'iframe': this.textarea.value};
     }
 }

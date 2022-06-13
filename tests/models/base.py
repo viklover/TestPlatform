@@ -254,7 +254,7 @@ class BaseDocumentElement(BaseStaticElement):
 
 
 class BaseYandexMapsElement(BaseStaticElement):
-    url = models.URLField()
+    frame = models.TextField(verbose_name='iframe')
 
     class Meta:
         abstract = True

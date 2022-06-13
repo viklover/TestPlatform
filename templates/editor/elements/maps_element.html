@@ -5,10 +5,13 @@
 {% block element_class %}maps-element{% endblock %}
 
 {% block content %}
-
+    <div class="iframe-content">
+        {{ element.frame|safe }}
+    </div>
+    <textarea class="input-content" placeholder="iframe карты">{{ element.frame }}</textarea>
+{#    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A2199b59cfb5d77c0b89ca2acb178c9ccd3e696d2a087f4607f19cd3131df7166&amp;source=constructor" width="659" height="459" frameborder="0"></iframe>#}
 {% endblock %}
 
 {% block buttons_bar %}
-
-
+    <div class="button button-secondary-reverse hidden button-update-frame">Обновить карту</div>
 {% endblock %}

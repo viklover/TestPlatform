@@ -871,6 +871,15 @@ class YandexMapsElement(BaseYandexMapsElement):
             context = {}
         return self.render_template('editor/elements/maps_element.html', context=context)
 
+    @staticmethod
+    def process_request(request, exercise):
+
+        if request.POST.get('frame', False):
+            exercise.frame = request.POST.get('frame')
+
+        exercise.save()
+        return {}
+
 
 class ProjectYandexMapsElement(YandexMapsElement, ProjectStaticElement):
 
