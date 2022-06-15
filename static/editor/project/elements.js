@@ -781,6 +781,210 @@ class MatchExercise extends Exercise {
     }
 }
 
+
+// MATCHLIST
+
+class MatchListPair {
+
+    constructor(body) {
+
+        if (body === null || body === undefined) {
+            return;
+        }
+
+        this.body = body;
+        this.key_content = this.body.querySelector('.key-content');
+        this.value_content = this.body.querySelector('.value-content');
+
+        this.add_pair_button = this.body.querySelector('.button-add-pair');
+        this.remove_button = this.body.querySelector('.button-remove-pair');
+
+        this.existing_obj = this.body.dataset.exist !== undefined && this.body.dataset.exist !== null;
+        if (!(this.existing_obj)) {
+            this.test_id = getRandomInt(100000, 999999);
+        }
+    }
+
+    init(exercise) {
+
+        let obj = this;
+
+        this.exercise = exercise;
+
+        this.key_content.onchange = function () {
+            obj.check();
+        }
+
+        this.value_content.onchange = function () {
+            obj.check();
+        }
+
+        this.remove_button.onclick = function () {
+            exercise.remove_pair(obj);
+        };
+    }
+
+    initDOM() {
+        let element = document.createElement('div');
+        element.innerHTML = `
+            <div class="button button-remove-secondary button-remove-pair"></div>
+            <input value="Ключ" type="text" class="key-content">
+            <input value="Значение" type="text" class="value-content">
+        `;
+        element.classList.add('pair');
+
+        return new MatchListPair(element);
+    }
+
+    getData() {
+
+        let key_data = {
+            'content': this.key_content.value
+        };
+        let value_data = {
+            'content': this.value_content.value
+        };
+
+        if (!this.existing_obj) {
+            key_data['pair_id'] = this.test_id
+        } else {
+            key_data['id'] = this.key_content.dataset.id;
+            value_data['id'] = this.value_content.dataset.id;
+        }
+
+        return [key_data, value_data];
+    }
+
+    check() {
+        this.exercise.check();
+    }
+
+}
+
+class MatchListExercise extends Exercise {
+
+    constructor(elem) {
+        super(elem);
+
+        console.log(this.body)
+
+        this.pairs = [];
+        this.removed_pairs = [];
+        this.pairs_list = this.body.querySelector('.pairs');
+
+        this.description = this.body.querySelector('.description');
+
+        this.add_pair_button = this.body.querySelector('.button-add-pair');
+
+        for (let element of this.body.querySelectorAll('.pair')) {
+            let pair = new MatchListPair(element);
+            this.pairs.push(pair);
+            pair.init(this)
+        }
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        console.log(obj)
+        console.log(this.add_pair_button)
+
+        this.add_pair_button.onclick = function () {
+            let pair = new MatchListPair().initDOM();
+            obj.pairs.push(pair);
+            pair.init(obj);
+            obj.pairs_list.appendChild(pair.body);
+
+            obj.check();
+        };
+
+        this.save_button.onclick = function () {
+            obj.save();
+        };
+
+        super.initEventListeners();
+    }
+
+    getId() {
+        return 'matchlist-exercise';
+    }
+
+    getData() {
+        let data = [];
+        for (let pair of this.pairs) {
+            data.push(pair.getData());
+        }
+        return data;
+    }
+
+    remove_pair(pair) {
+
+        this.pairs_list.removeChild(pair.body);
+
+        if ('id' in pair.getData()[0]) {
+            this.removed_pairs.push(pair.getData());
+        }
+
+        this.pairs.splice(this.pairs.indexOf(pair), 1);
+
+        this.check()
+    }
+
+    check() {
+
+        this.pairs_list.classList.toggle('hidden', this.pairs.length === 0);
+        this.description.classList.toggle('hidden', this.pairs.length !== 0);
+
+        super.check();
+    }
+
+    save() {
+
+        let obj = this;
+
+        $.ajax({
+            url: 'change_element',
+            type: "POST",
+            data: {
+                'element_id': parseInt(obj.body.dataset.id),
+                'pairs' : JSON.stringify(obj.getData()),
+                'removed_pairs': JSON.stringify(obj.removed_pairs)
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+            },
+            success: function (data) {
+
+                console.log(data)
+
+                for (let pair_id of Object.keys(data['new_ids'])) {
+
+                    for (let pair of obj.pairs) {
+
+                        let response = pair.getData();
+
+                        if ('pair_id' in response[0] && response[0]['pair_id'] === parseInt(pair_id)) {
+                            pair.key_content.dataset.id = data['new_ids'][pair_id]['key'];
+                            pair.value_content.dataset.id = data['new_ids'][pair_id]['value'];
+                            pair.existing_obj = true;
+                        }
+
+                    }
+
+                }
+
+                obj.changesManager.refresh()
+            },
+            error: function (error) {
+                console.log('ERROR');
+            }
+        });
+
+    }
+}
+
+
 // RADIO
 
 class RadioVariant {

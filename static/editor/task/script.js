@@ -33,6 +33,9 @@ for (let element of document.querySelectorAll('.elements-list__item')) {
         case 'images':
             obj = new ImagesExercise(element);
             break;
+        case 'matchlist':
+            obj = new MatchListExercise(element);
+            break;
 
         case 'title':
             obj = new TitleElement(element);

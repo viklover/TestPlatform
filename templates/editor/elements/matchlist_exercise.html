@@ -1,0 +1,27 @@
+{% extends 'editor/elements/base_exercise.html' %}
+
+{% block element_type %}matchlist{% endblock %}
+
+{% block element_class %}
+    matchlist-exercise
+{% endblock %}
+
+{% block content %}
+
+    <div class="pairs{% if not pairs|length %} hidden{% endif %}">
+        {% for key, value in pairs %}
+            <div class="pair" data-exist="true">
+                <div class="button button-remove-secondary button-remove-pair"></div>
+                <input value="{{ key.content }}" type="text" class="key-content" data-id="{{ key.id }}">
+                <input value="{{ value.content }}" type="text" class="value-content" data-id="{{ key.id }}">
+            </div>
+        {% endfor %}
+    </div>
+
+    <p class="description{% if pairs|length %} hidden{% endif %}">Пока здесь нет ни одной пары "ключ - значение"</p>
+
+{% endblock %}
+
+{% block buttons_bar %}
+    <div class="button button-secondary-reverse button-add-pair">Добавить пару</div>
+{% endblock %}

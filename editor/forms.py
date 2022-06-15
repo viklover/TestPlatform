@@ -6,7 +6,7 @@ from tests.models import Project, ProjectTask, BaseExercise, BaseElement, \
     ProjectChronologyExercise, ProjectMatchExercise, ProjectRadioExercise, \
     ProjectStatementsExercise, ProjectInputExercise, ProjectAnswerExercise, ProjectImagesExercise, \
     ProjectImagesExercise, PictureImagesExercise, ProjectTitleElement, ProjectPictureElement, \
-    ProjectQuoteElement, ProjectDocumentElement, ProjectYandexMapsElement
+    ProjectQuoteElement, ProjectDocumentElement, ProjectYandexMapsElement, ProjectMatchListExercise
 from tests.models.base import BaseStaticElement
 
 

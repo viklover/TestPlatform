@@ -15,7 +15,7 @@ from django.utils import timezone
 from tests.models.base import BaseTestInfo, BaseTask, BaseExercise, BaseModel, BaseProject, BaseElement, \
     BaseChronologyExercise, BaseMatchExercise, BaseRadioExercise, BaseStatementsExercise, BaseInputExercise, \
     BaseAnswerExercise, BaseImagesExercise, BaseStaticElement, BaseTitleElement, BasePictureElement, BaseQuoteElement, \
-    BaseDocumentElement, BaseYandexMapsElement
+    BaseDocumentElement, BaseYandexMapsElement, BaseMatchListExercise
 
 
 def user_media_path(instance, filename):
@@ -729,6 +729,101 @@ class UploadImageFrom(ModelForm):
 
 
 """
+MATCH LIST MODEL EXERCISE 
+"""
+
+
+class MatchListExercise(BaseMatchListExercise):
+    EXERCISE_TYPE = 7
+
+    def render(self, context=None):
+        if context is None:
+            context = {}
+        context = {
+            'pairs': self.get_pairs(),
+            **context
+        }
+        return self.render_template('editor/elements/matchlist_exercise.html', context=context)
+
+    @staticmethod
+    def process_request(request, exercise):
+
+        new_elements = {'new_ids': {}}
+
+        print(json.loads(request.POST.get('pairs')))
+
+        for key_data, value_data in json.loads(request.POST.get('pairs')):
+
+            is_exist = 'id' in key_data
+
+            if is_exist:
+                key = KeyMatchListExercise.objects.get(id=key_data['id'])
+                value = ValueMatchListExercise.objects.get(key=key)
+            else:
+                key = KeyMatchListExercise(exercise=exercise)
+                value = ValueMatchListExercise(exercise=exercise, key=key)
+
+            key.content = key_data['content']
+            value.content = value_data['content']
+
+            key.save()
+            value.save()
+
+            if not is_exist:
+                new_elements['new_ids'][str(key_data['pair_id'])] = {}
+                new_elements['new_ids'][str(key_data['pair_id'])]['key'] = key.id
+                new_elements['new_ids'][str(key_data['pair_id'])]['value'] = value.id
+
+        for key_data, value_data in json.loads(request.POST.get('removed_pairs')):
+            keys = KeyMatchListExercise.objects.filter(id=key_data['id'])
+            if keys.count():
+                keys.first().delete()
+
+        return new_elements
+
+    def get_pairs(self):
+        data = []
+        for key in self.get_keys():
+            data.append([key, key.get_value()])
+        return data
+
+    def get_keys(self):
+        return KeyMatchListExercise.objects.filter(exercise=self)
+
+    def get_values(self):
+        return ValueMatchListExercise.objects.filter(exercise=self)
+
+
+class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
+
+    def render(self):
+        return super().render(self.get_info())
+
+
+class KeyMatchListExercise(BaseModel):
+    exercise = models.ForeignKey(to=MatchListExercise, on_delete=models.CASCADE)
+    content = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.content
+
+    def get_value(self):
+        return ValueMatchListExercise.objects.get(key=self)
+
+
+class ValueMatchListExercise(BaseModel):
+    exercise = models.ForeignKey(to=MatchListExercise, on_delete=models.CASCADE)
+    key = models.ForeignKey(to=KeyMatchListExercise, on_delete=models.CASCADE)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.content
+
+    def get_key(self):
+        return self.key
+
+
+"""
 TITLE ELEMENT MODEL
 """
 
@@ -793,6 +888,7 @@ class UploadPictureFrom(ModelForm):
     class Meta:
         model = PictureElement
         fields = ['picture']
+
 
 """
 QUOTE ELEMENT MODEL
@@ -885,4 +981,3 @@ class ProjectYandexMapsElement(YandexMapsElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
-

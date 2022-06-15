@@ -102,6 +102,7 @@ class BaseExercise(BaseModel):
         (2, 'Отметить верные утверждения'),
         (3, 'Выбрать одно верное утверждение'),
         (4, 'Соотнести что-то с чем-то'),
+        (7, 'Соотнеси что-то с элементом из списка'),
         (5, 'Составить правильный порядок карточек'),
         (6, 'Выбери подходящие изображения'),
     )
@@ -112,7 +113,8 @@ class BaseExercise(BaseModel):
         3: 'RadioExercise',
         4: 'MatchExercise',
         5: 'ChronologyExercise',
-        6: 'ImagesExercise'
+        6: 'ImagesExercise',
+        7: 'MatchListExercise'
     }
     type = models.IntegerField(choices=EXERCISE_TYPES, default=0, verbose_name='Тип упражнения')
     name = models.CharField(max_length=50, verbose_name='Название упражнения')
@@ -213,6 +215,13 @@ class BaseAnswerExercise(BaseExercise):
 
 class BaseImagesExercise(BaseExercise):
     type = 6
+
+    class Meta:
+        abstract = True
+
+
+class BaseMatchListExercise(BaseExercise):
+    type = 7
 
     class Meta:
         abstract = True

@@ -11,7 +11,8 @@ from editor.forms import CreationProjectForm, CreationTaskForm, EditTaskInfo, Ed
 
 from tests.models import Project, ProjectTask, ProjectTaskElement, BaseExercise, BaseStaticElement, \
     ChronologyExercise, MatchExercise, InputExercise, AnswerExercise, RadioExercise, StatementsExercise, \
-    ImagesExercise, TitleElement, PictureElement, QuoteElement, DocumentElement, YandexMapsElement
+    ImagesExercise, TitleElement, PictureElement, QuoteElement, DocumentElement, YandexMapsElement, \
+    MatchListExercise
 
 
 @login_required
@@ -211,6 +212,9 @@ def open_task(request, project_id, task_id):
         'creation_exercise_form': CreationExerciseForm(),
         'creation_element_form': CreationStaticElementForm()
     }
+
+    print(context['elements'])
+
     return render(request, 'editor/project/task/task_page.html', context)
 
 
