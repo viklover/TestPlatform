@@ -3,11 +3,18 @@
     margin: auto;
 }
 
+.result {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+}
+
 .image_good_result {
-    width: 37px;
-    height: 37px;
+    width: 50px;
+    height: 50px;
     background: url("../tests/results/result_good.png") no-repeat center;
-    background-size: 37px;
+    background-size: 50px;
 }
 
 .image_bad_result {
@@ -47,7 +54,7 @@
     width: max-content;
     height: 40px;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 70px;
     line-height: 59px;
     display: flex;
     align-items: center;
@@ -55,12 +62,21 @@
     margin: 20px auto;
 }
 
+.percents {
+    margin-left: 20px;
+}
+
 .recommendation {
     height: 23px;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 20px;
     line-height: 18px;
     text-align: center;
+    margin-top: 35px;
+}
+
+.result .button {
+    margin-top: 20px;
 }
 
 @media (min-width: 768px) {

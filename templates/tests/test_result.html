@@ -9,24 +9,21 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'header.html' %}
 
     <div class="content">
-        <div class="text_result">
-            <div class="image_good_result"></div>
-            <div class="name_res">Молодец!</div>
+
+        <div class="result">
+            <div class="percent">
+                <div class="image_good_result"></div><span class="percents">50%</span>
+            </div>
+            <div class="recommendation">
+                Ты молодец, но можешь лучше!
+            </div>
+            <button class="button">Посмотреть разбор заданий</button>
+{#            <button class="button">Перейти к своей странице</button>#}
         </div>
-        <div class="percent">
-            50%
-        </div>
-        <div class="recommendation">
-            Ты молодец, но можешь лучше!
-        </div>
-    <button class="button">Посмотреть свои ответы</button>
+
     </div>
-
-
-    {% include 'footer.html' %}
 {% endblock %}
 
 {% block js_scripts %}

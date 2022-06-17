@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 from TestPlatform.forms import RegistrationForm, EditUserForm
-from tests.models import Test, User, Task
+from tests.models import Test, User
 from tests.models.test import TestFact
 
 
@@ -49,7 +49,7 @@ def users_page(request):
 def user_page(request, user_id):
     context = {
         'user_page': User.objects.get(id=user_id),
-        'created_tests': Test.objects.filter(author=user_id, number_of_tasks__gt=0),
+        'created_tests': Test.objects.filter(project__author_id=user_id, project__number_of_tasks__gt=0),
         'finished_tests': []
     }
 

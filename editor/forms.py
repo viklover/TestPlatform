@@ -52,12 +52,12 @@ class ExcludedModelForm(ModelForm):
 
 
 class CreationExerciseForm(forms.Form):
-    type = forms.ChoiceField(choices=BaseExercise.EXERCISE_TYPES, required=True, label='Тип упражнения')
+    type = forms.ChoiceField(choices=BaseExercise.TYPES, required=True, label='Тип упражнения')
     name = forms.CharField(max_length=50, required=True, label='Название')
     title = forms.CharField(max_length=150, required=False, label='Заголовок (необязательно)')
 
     def get_exercise(self):
-        exercise = eval(f'Project{BaseExercise.EXERCISE_CLASSES[int(self.cleaned_data["type"])]}()')
+        exercise = eval(f'Project{BaseExercise.CLASSES[int(self.cleaned_data["type"])]}()')
         exercise.type = self.cleaned_data['type']
         exercise.name = self.cleaned_data['name']
         exercise.title = self.cleaned_data['title']
@@ -65,10 +65,10 @@ class CreationExerciseForm(forms.Form):
 
 
 class CreationStaticElementForm(forms.Form):
-    type = forms.ChoiceField(choices=BaseStaticElement.ELEMENT_TYPES, required=True, label='Тип статичного элемента')
+    type = forms.ChoiceField(choices=BaseStaticElement.TYPES, required=True, label='Тип статичного элемента')
 
     def get_element(self):
-        element = eval(f'Project{BaseStaticElement.ELEMENT_CLASSES[int(self.cleaned_data["type"])]}()')
+        element = eval(f'Project{BaseStaticElement.CLASSES[int(self.cleaned_data["type"])]}()')
         element.type = self.cleaned_data['type']
         return element
 

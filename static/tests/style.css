@@ -184,7 +184,7 @@ a {
 }
 
 .border_open_file {
-    height: 179px;
+    height: max-content;
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;

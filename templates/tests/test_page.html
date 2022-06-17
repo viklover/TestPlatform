@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ test.name }}{% endblock %}
+{% block title %}{{ test.project.name }}{% endblock %}
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'tests/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,25 +26,25 @@
                     <p>Количество прохождений: {{ number_of_facts }}</p>
                 </div>
             </div>
-            <div class="tag tag_2_new">
-                <div class="tag-content">
-                    <p>Средний результат: 57%</p>
+            {% if number_of_facts > 0 %}
+                <div class="tag tag_2_new">
+                    <div class="tag-content">
+                        <p>Средний результат: 57%</p>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
         <div class="border_top">
-            <div class="icon_test" style="--icon-url: url('/media/{{ test.icon }}');"></div>
-            <h2 class="name_test">{{ test.name }}</h2>
-            <p class="description_test">{{ test.description }}</p>
+            <div class="icon_test" style="--icon-url: url('/media/{{ test.project.icon }}');"></div>
+            <h2 class="name_test">{{ test.project.name }}</h2>
+            <p class="description_test">{{ test.project.description }}</p>
             <a href="/tests/{{ test.id }}/start">
                 <div class="button">Начать прохождение</div>
             </a>
         </div>
     </div>
         <div class="border_open_file">
-            <p class="open_description_file">
-                Здесь открывается MarkDown-документ (как в GitHub и GitBucket) (README.md) и.т.д.
-            </p>
+            <textarea id="description_test">{{ test.project.description_md }}</textarea>
         </div>
         <div class="comment_title">Комментарии</div>
         <div class="border_comment">
@@ -77,7 +78,21 @@
 {% endblock %}
 
 {% block js_scripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
+    <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
+    <script>
+        let simplemde = new SimpleMDE({
+            autoDownloadFontAwesome: undefined,
+            element: document.getElementById("description_test"),
+            spellChecker: false,
+            autofocus: true,
+            togglePreview: true,
+            toolbar: false,
+            status: false
+            {#toolbar: []#}
+        });
+        simplemde.togglePreview(true);
+    </script>
     <script src="{% static 'tests/test_page.js' %}"></script>
+
+
 {% endblock %}

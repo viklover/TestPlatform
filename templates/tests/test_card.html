@@ -1,14 +1,14 @@
 {% load test_math %}
 <div class="card">
     <div class="image_card">
-        <div class="icon" style="--icon-url: url('/media/{{ test.icon }}')"></div>
+        <div class="icon" style="--icon-url: url('/media/{{ test.project.icon }}')"></div>
         <div class="title_description">
             <div class="title">
-                {{ test.name }}
+                {{ test.project.name }}
             </div>
             {% if not with_statistics %}
                 <div class="description">
-                    {{ test.description }}
+                    {{ test.project.description }}
                 </div>
             {% endif %}
         </div>

@@ -134,6 +134,11 @@ def remove_task(request, project_id, task_id):
             task.save()
             number += 1
         selected_task.delete()
+
+        project = Project.objects.get(id=project_id)
+        project.number_of_tasks -= 1
+        project.save()
+
         return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 
     return redirect(reverse('editor:open_task', kwargs={'project_id': project_id, 'task_id': task_id}))
@@ -153,6 +158,15 @@ def edit_project(request, project_id):
     project.edit_info(form)
 
     return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
+
+
+@login_required
+def publish_project(request, project_id):
+    project = Project.objects.get(id=project_id)
+    project.publish()
+
+    return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
+
 
 
 @login_required
@@ -300,10 +314,10 @@ def change_element(request, project_id, task_id):
             if request.POST.get('only_title', False):
                 return HttpResponse()
 
-            return JsonResponse(eval(f'{BaseExercise.EXERCISE_CLASSES[selected_element.exercise_type]}.process_request(request, selected_element)'))
+            return JsonResponse(eval(f'{BaseExercise.CLASSES[selected_element.exercise_type]}.process_request(request, selected_element)'))
 
         elif selected_element.element_type == 1:
-            return JsonResponse(eval(f'{BaseStaticElement.ELEMENT_CLASSES[selected_element.static_element_type]}.process_request(request, selected_element)'))
+            return JsonResponse(eval(f'{BaseStaticElement.CLASSES[selected_element.static_element_type]}.process_request(request, selected_element)'))
 
         return redirect(reverse('editor:open_project', kwargs={'project_id': project_id}))
 

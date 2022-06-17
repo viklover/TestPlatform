@@ -62,6 +62,27 @@ class Project(BaseProject, BaseTestInfo):
 
         return None
 
+    def create_fact(self, test_fact):
+
+        test_fact.save()
+
+        for task in self.get_tasks():
+            task.create_fact(test_fact)
+
+        return test_fact
+
+    def publish(self):
+
+        if not self.published:
+            test = Test.objects.create(project=self)
+            test.copy_fields_from(self)
+            test.save()
+
+            self.published = True
+            self.save()
+        # else:
+        #     test = Test.objects.get(project=self)
+
     def get_tasks(self):
         return ProjectTask.objects.filter(project=self).order_by('number')
 
@@ -108,6 +129,18 @@ class ProjectTask(BaseProject, BaseTask):
 
         return None
 
+    def create_fact(self, test_fact):
+
+        task_fact = TaskFact().copy_fields_from(self)
+        print(task_fact, test_fact)
+        task_fact.test = test_fact
+        task_fact.save()
+
+        for element in self.get_elements():
+            element.create_fact(task_fact)
+
+        return task_fact
+
     def get_elements(self):
         return ProjectTaskElement.objects.filter(task_id=self.id).order_by('order')
 
@@ -124,7 +157,7 @@ class ProjectTaskElement(BaseProject, BaseElement):
     order = models.IntegerField(default=0, verbose_name='Порядковый номер')
 
     def get_child(self):
-        return eval(f'{BaseElement.ELEMENT_PROCESSORS[self.element_type]}.get_child_by_element(self)')
+        return eval(f'{BaseElement.PROCESSORS[self.element_type]}.get_child_by_element(self)')
 
     def render(self):
         return self.render_template('editor/elements/base.html')
@@ -139,17 +172,25 @@ class ProjectExercise(ProjectTaskElement):
     EXERCISE_TYPE = -1
 
     id = models.AutoField(primary_key=True, unique=True)
-    exercise_type = models.IntegerField(choices=BaseExercise.EXERCISE_TYPES, default=0)
+    exercise_type = models.IntegerField(choices=BaseExercise.TYPES, default=0)
 
     def save(self, *args, **kwargs):
         self.element_type = 0
         self.exercise_type = self.EXERCISE_TYPE
         return super().save(*args, **kwargs)
 
+    def create_fact(self, task_fact):
+        element = eval(f'Fact{BaseExercise.CLASSES[self.exercise_type]}()')
+        element.task = task_fact
+        element.order = task_fact.get_elements().count() + 1
+        element.save()
+
+        return element
+
     def get_info(self):
         return {
             'exercise': self,
-            'exercise_type': BaseExercise.EXERCISE_TYPES[self.exercise_type][1]
+            'exercise_type': BaseExercise.TYPES[self.exercise_type][1]
         }
 
     def render(self):
@@ -158,7 +199,7 @@ class ProjectExercise(ProjectTaskElement):
     @staticmethod
     def get_child_by_element(element):
         exercise_parent = ProjectExercise.objects.get(projecttaskelement_ptr_id=element.element_id)
-        classname = f'Project{BaseExercise.EXERCISE_CLASSES[exercise_parent.exercise_type]}'
+        classname = f'Project{BaseExercise.CLASSES[exercise_parent.exercise_type]}'
 
         return eval(f'{classname}.objects.get(projectexercise_ptr_id={exercise_parent.id})')
 
@@ -167,17 +208,27 @@ class ProjectStaticElement(ProjectTaskElement):
     STATIC_ELEMENT_TYPE = -1
 
     id = models.AutoField(primary_key=True, unique=True)
-    static_element_type = models.IntegerField(choices=BaseStaticElement.ELEMENT_TYPES, default=0)
+    static_element_type = models.IntegerField(choices=BaseStaticElement.TYPES, default=0)
 
     def save(self, *args, **kwargs):
         self.element_type = 1
         self.static_element_type = self.STATIC_ELEMENT_TYPE
         return super().save(*args, **kwargs)
 
+    def create_fact(self, task_fact):
+        parent = self.get_child_by_element(self)
+
+        element = eval(f'Fact{BaseStaticElement.CLASSES[self.static_element_type]}().copy_fields_from(parent)')
+        element.task = task_fact
+        element.order = task_fact.get_elements().count() + 1
+        element.save()
+
+        return element
+
     def get_info(self):
         return {
             'element': self,
-            'element_type': BaseStaticElement.ELEMENT_TYPES[self.static_element_type][1]
+            'element_type': BaseStaticElement.TYPES[self.static_element_type][1]
         }
 
     def render(self):
@@ -186,7 +237,7 @@ class ProjectStaticElement(ProjectTaskElement):
     @staticmethod
     def get_child_by_element(element):
         element_parent = ProjectStaticElement.objects.get(projecttaskelement_ptr_id=element.element_id)
-        classname = f'Project{BaseStaticElement.ELEMENT_CLASSES[element_parent.static_element_type]}'
+        classname = f'Project{BaseStaticElement.CLASSES[element_parent.static_element_type]}'
 
         return eval(f'{classname}.objects.get(projectstaticelement_ptr_id={element_parent.id})')
 
@@ -196,18 +247,23 @@ TEST MODEL
 """
 
 
-class Test(BaseTestInfo):
+class Test(BaseModel):
+    project = models.ForeignKey(to=Project, on_delete=models.CASCADE)
 
     def __render_template(self, context=None):
         if context is None:
             context = {}
+        context = {
+            'test': self,
+            **context
+        }
         template = loader.get_template('tests/test_card.html')
-        return template.render()
+        return template.render(context)
 
     def __str__(self):
         return self.__render_template()
 
-    def render(self, user):
+    def render(self, user=None):
         return self.__render_template({
             **super().get_json(),
             'user': user,
@@ -215,6 +271,10 @@ class Test(BaseTestInfo):
             'in_progress': TestFact.objects.filter(completed=False, user=user).exists(),
             'never_opened': TestFact.objects.filter(user=user).exists()
         })
+
+    def start(self, user):
+        test_fact = TestFact(test=self, user=user)
+        return self.project.create_fact(test_fact)
 
     def get_statistics(self, user):
         return self.__render_template(
@@ -235,6 +295,14 @@ class Test(BaseTestInfo):
         )
 
 
+class TestComment(BaseModel):
+    message = models.TextField(null=False)
+    test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
+    published_at = models.DateTimeField(default=timezone.now)
+
+
+
 class TestFact(BaseModel):
     test = models.ForeignKey(to=Test, on_delete=models.SET_NULL, null=True)
     started_at = models.DateTimeField(default=timezone.now)
@@ -243,24 +311,89 @@ class TestFact(BaseModel):
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE, verbose_name='Испытуемый',
                              related_name='person')
 
+    @staticmethod
+    def has_session(user, test_id):
+        return TestFact.objects.filter(user=user, test_id=test_id, completed=False).count() != 0
+
+    @staticmethod
+    def get_session(user, test_id):
+        return TestFact.objects.get(user=user, test_id=test_id, completed=False)
+
+    def get_tasks(self):
+        return TaskFact.objects.filter(test=self).order_by('number')
+
     def finish(self):
         self.finished_at = datetime.datetime.now()
         self.completed = True
         self.save()
 
+class TaskFact(BaseTask):
+    test = models.ForeignKey(to=TestFact, on_delete=models.SET_NULL, null=True)
 
-class TestComment(BaseModel):
-    message = models.TextField(null=False)
-    test = models.ForeignKey(to=Test, on_delete=models.CASCADE)
-    user = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, null=True)
-    published_at = models.DateTimeField(default=timezone.now)
+    def get_elements(self):
+        return TaskFactElement.objects.filter(task_id=self.id).order_by('order')
 
 
-class Task(BaseTask):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    test = models.ForeignKey(to=Test, on_delete=models.SET_NULL, null=True, verbose_name='Тест')
+class TaskFactElement(BaseElement):
+    element_id = models.AutoField(primary_key=True, unique=True, db_column='element_id')
+    task = models.ForeignKey(to=TaskFact, on_delete=models.CASCADE, null=True)
+    order = models.IntegerField(default=0, verbose_name='Порядковый номер')
+
+    def get_child(self):
+        return eval(f'{BaseElement.ELEMENT_PROCESSORS[self.element_type]}.get_child_by_element(self)')
+
+
+class TestFactExercise(TaskFactElement):
+    EXERCISE_TYPE = -1
+
+    id = models.AutoField(primary_key=True, unique=True)
+    exercise_type = models.IntegerField(choices=BaseExercise.TYPES, default=0)
+
+    def save(self, *args, **kwargs):
+        self.element_type = 0
+        self.exercise_type = self.EXERCISE_TYPE
+        return super().save(*args, **kwargs)
+
+    def get_info(self):
+        return {
+            'exercise': self,
+            'exercise_type': BaseExercise.TYPES[self.exercise_type][1]
+        }
+
+    @staticmethod
+    def get_child_by_element(element):
+        exercise_parent = TestFactExercise.objects.get(taskfactelement_ptr_id=element.element_id)
+        classname = f'Fact{BaseExercise.CLASSES[exercise_parent.exercise_type]}'
+
+        return eval(f'{classname}.objects.get(testfactexercise_ptr_id={exercise_parent.id})')
+
+class TestFactStaticElement(TaskFactElement):
+    STATIC_ELEMENT_TYPE = -1
+
+    id = models.AutoField(primary_key=True, unique=True)
+    static_element_type = models.IntegerField(choices=BaseStaticElement.TYPES, default=0)
+
+    def save(self, *args, **kwargs):
+        self.element_type = 1
+        self.static_element_type = self.STATIC_ELEMENT_TYPE
+        return super().save(*args, **kwargs)
+
+    def get_info(self):
+        return {
+            'element': self,
+            'element_type': BaseStaticElement.TYPES[self.static_element_type][1]
+        }
+
+    def render(self):
+        return self.render_template('tests/elements/base_element.html', context=self.get_info())
+
+    @staticmethod
+    def get_child_by_element(element):
+        element_parent = TestFactStaticElement.objects.get(testfactelement_ptr_id=element.element_id)
+        classname = f'Project{BaseStaticElement.CLASSES[element_parent.static_element_type]}'
+
+        return eval(f'{classname}.objects.get(testfactelement_ptr_id={element_parent.id})')
 
 
 """
@@ -323,14 +456,29 @@ class ChronologyExercise(BaseChronologyExercise):
 
 class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
 
+    def create_fact(self, task_fact):
+        chronology = super().create_fact(task_fact)
+
+        for variant in self.get_variants():
+            new_variant = VariantChronologyExercise().copy_fields_from(variant)
+            new_variant.exercise = chronology
+            new_variant.save()
+
+        return chronology
+
     def render(self):
         return super().render(self.get_info())
+
+
+class FactChronologyExercise(ChronologyExercise, TestFactExercise):
+    pass
 
 
 class VariantChronologyExercise(BaseModel):
     exercise = models.ForeignKey(to=ChronologyExercise, on_delete=models.CASCADE)
     content = models.TextField()
     order = models.IntegerField(verbose_name='Порядковый номер')
+
 
 
 """
@@ -373,11 +521,35 @@ class MatchExercise(BaseMatchExercise):
     def get_wrong_variants(self):
         return VariantMatchExercise.objects.filter(exercise=self, column=None)
 
-
 class ProjectMatchExercise(MatchExercise, ProjectExercise):
+
+    def create_fact(self, task_fact):
+        match = super().create_fact(task_fact)
+
+        columns = {
+            None: None
+        }
+
+        for column in self.get_columns():
+            new_column = ColumnMatchExercise().copy_fields_from(column)
+            new_column.exercise = match
+            new_column.save()
+
+            columns[column.id] = new_column.id
+
+        for variant in self.get_variants():
+            new_variant = VariantMatchExercise().copy_fields_from(variant)
+            new_variant.exercise = match
+            new_variant.column_id = columns[variant.column_id]
+            new_variant.save()
+
+        return match
 
     def render(self):
         return super().render(self.get_info())
+
+class FactMatchExercise(MatchExercise, TestFactExercise):
+    pass
 
 
 class ColumnMatchExercise(BaseModel):
@@ -426,7 +598,6 @@ class ColumnMatchExercise(BaseModel):
 
     def get_variants(self):
         return VariantMatchExercise.objects.filter(column=self)
-
 
 class VariantMatchExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
@@ -519,11 +690,23 @@ class RadioExercise(BaseRadioExercise):
 
         return response
 
-
 class ProjectRadioExercise(RadioExercise, ProjectExercise):
+
+    def create_fact(self, task_fact):
+        radio = super().create_fact(task_fact)
+
+        for variant in self.get_variants():
+            new_variant = VariantRadioExercise().copy_fields_from(variant)
+            new_variant.exercise = radio
+            new_variant.save()
+
+        return radio
 
     def render(self):
         return super().render(self.get_info())
+
+class FactRadioExercise(RadioExercise, TestFactExercise):
+    pass
 
 
 class VariantRadioExercise(BaseModel):
@@ -587,11 +770,23 @@ class StatementsExercise(BaseStatementsExercise):
 
         return response
 
-
 class ProjectStatementsExercise(StatementsExercise, ProjectExercise):
+
+    def create_fact(self, task_fact):
+        statements = super().create_fact(task_fact)
+
+        for variant in self.get_variants():
+            new_variant = VariantStatementsExercise().copy_fields_from(variant)
+            new_variant.exercise = statements
+            new_variant.save()
+
+        return statements
 
     def render(self):
         return super().render(self.get_info())
+
+class FactStatementsExercise(StatementsExercise, TestFactExercise):
+    pass
 
 
 class VariantStatementsExercise(BaseModel):
@@ -622,12 +817,19 @@ class InputExercise(BaseInputExercise):
             exercise.save()
         return {}
 
-
 class ProjectInputExercise(InputExercise, ProjectExercise):
+
+    def create_fact(self, task_fact):
+        input_exercise = super().create_fact(task_fact)
+        input_exercise = self.prepared_answer
+        input_exercise.save()
+        return input_exercise
 
     def render(self):
         return super().render(self.get_info())
 
+class FactInputExercise(InputExercise, TestFactExercise):
+    pass
 
 """
 ANSWER EXERCISE MODEL
@@ -651,12 +853,19 @@ class AnswerExercise(BaseAnswerExercise):
             exercise.save()
         return {}
 
-
 class ProjectAnswerExercise(AnswerExercise, ProjectExercise):
+
+    def create_fact(self, task_fact):
+        answer = super().create_fact(task_fact)
+        answer = self.correct_answer
+        answer.save()
+        return answer
 
     def render(self):
         return super().render(self.get_info())
 
+class FactAnswerExercise(AnswerExercise, TestFactExercise):
+    pass
 
 """
 IMAGES EXERCISE MODEL
@@ -716,8 +925,21 @@ class PictureImagesExercise(BaseModel):
 
 class ProjectImagesExercise(ImagesExercise, ProjectExercise):
 
+    def create_fact(self, task_fact):
+        images = super().create_fact(task_fact)
+
+        for picture in self.get_pictures():
+            new_picture = PictureImagesExercise().copy_fields_from(picture)
+            new_picture.exercise = images
+            new_picture.save()
+
+        return images
+
     def render(self):
         return super().render(self.get_info())
+
+class FactImagesExercise(ImagesExercise, TestFactExercise):
+    pass
 
 
 class UploadImageFrom(ModelForm):
@@ -749,8 +971,6 @@ class MatchListExercise(BaseMatchListExercise):
     def process_request(request, exercise):
 
         new_elements = {'new_ids': {}}
-
-        print(json.loads(request.POST.get('pairs')))
 
         for key_data, value_data in json.loads(request.POST.get('pairs')):
 
@@ -793,11 +1013,33 @@ class MatchListExercise(BaseMatchListExercise):
     def get_values(self):
         return ValueMatchListExercise.objects.filter(exercise=self)
 
-
 class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
+
+    def create_fact(self, task_fact):
+        matchlist = super().create_fact(task_fact)
+
+        keys = {}
+
+        for key in self.get_keys():
+            new_key = KeyMatchListExercise().copy_fields_from(key)
+            new_key.exercise = matchlist
+            new_key.save()
+
+            keys[key.id] = new_key.id
+
+        for value in self.get_values():
+            new_value = ValueMatchListExercise().copy_fields_from(value)
+            new_value.exercise = matchlist
+            new_value.key_id = keys[value.key_id]
+            new_value.save()
+
+        return matchlist
 
     def render(self):
         return super().render(self.get_info())
+
+class FactMatchListExercise(MatchListExercise, TestFactExercise):
+    pass
 
 
 class KeyMatchListExercise(BaseModel):
@@ -843,11 +1085,13 @@ class TitleElement(BaseTitleElement):
             element.save()
         return {}
 
-
 class ProjectTitleElement(TitleElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
+
+class FactTitleElement(TitleElement, TestFactStaticElement):
+    pass
 
 
 """
@@ -875,12 +1119,13 @@ class PictureElement(BasePictureElement):
 
         return {}
 
-
 class ProjectPictureElement(PictureElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
 
+class FactPictureElement(PictureElement, TestFactStaticElement):
+    pass
 
 class UploadPictureFrom(ModelForm):
     picture = forms.ImageField()
@@ -915,12 +1160,13 @@ class QuoteElement(BaseQuoteElement):
         exercise.save()
         return {}
 
-
 class ProjectQuoteElement(QuoteElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
 
+class FactQuoteElement(QuoteElement, TestFactStaticElement):
+    pass
 
 """
 DOCUMENT ELEMENT MODEL
@@ -947,12 +1193,13 @@ class DocumentElement(BaseDocumentElement):
         exercise.save()
         return {}
 
-
 class ProjectDocumentElement(DocumentElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
 
+class FactDocumentElement(DocumentElement, TestFactStaticElement):
+    pass
 
 """
 DOCUMENT ELEMENT MODEL
@@ -976,8 +1223,10 @@ class YandexMapsElement(BaseYandexMapsElement):
         exercise.save()
         return {}
 
-
 class ProjectYandexMapsElement(YandexMapsElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
+
+class FactYandexMapsElement(YandexMapsElement, TestFactStaticElement):
+    pass
