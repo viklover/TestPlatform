@@ -67,7 +67,7 @@ def open_task(request, test_id, task_number):
     context = {
         'test': Test.objects.get(id=test_id),
         'task': current_task,
-        'elements': current_task.get_elements(),
+        'elements': [obj.get_child() for obj in current_task.get_elements()],
         'tasks': tasks
     }
     return render(request, 'tests/test/task_page.html', context)
@@ -116,3 +116,12 @@ def fact_page(request, fact_id):
         return redirect(reverse('tests:tests_page'))
 
     return render(request, 'tests/test_result.html', context)
+
+
+@login_required
+def remove_fact(request, fact_id):
+    fact = TestFact.objects.get(id=fact_id)
+    test_id = fact.test_id
+    fact.delete()
+
+    return redirect(reverse('tests:test_page', kwargs={'test_id': test_id}))

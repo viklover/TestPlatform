@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.urls import path
 
 from tests.views import test_page, open_test, tests_page, upload_comment, open_task, open_tasks_page, result_page, \
-    finish_test, fact_page
+    finish_test, fact_page, remove_fact
 
 app_name = 'tests'
 
@@ -15,5 +15,6 @@ urlpatterns = [
     path('<int:test_id>/tasks/', open_tasks_page, name='open_tasks_page'),
     path('<int:test_id>/finish', finish_test, name='finish_test'),
     path('results/<int:fact_id>/', fact_page, name='fact_page'),
+    path('results/<int:fact_id>/remove', remove_fact, name='remove_fact'),
     path('<int:test_id>/result', result_page, name='result_page')
 ]

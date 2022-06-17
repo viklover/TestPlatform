@@ -5,14 +5,14 @@
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'tests/exercises/exercises.css' %}">
-    <link rel="stylesheet" href="{% static 'tests/tasks/header.css' %}">
     <link rel="stylesheet" href="{% static 'tests/tasks/style.css' %}">
     <link rel="stylesheet" href="{% static 'tests/tasks/test.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
 {% endblock %}
 
 {% block content %}
 
-    {% include "tests/test/test_header.html" %}
+    {% include "header.html" %}
 
     <div class="content">
 
@@ -61,16 +61,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="elements-list">
+            {% for element in elements %}
+                {{ element.render_user }}
+            {% endfor %}
+        </div>
+
+        <div class="button button-receive">
+            Принять ответ
+        </div>
+
     </div>
-
-    <main>
-
-        {% for element in elements %}
-            {{ element }}
-        {% endfor %}
-
-    </main>
-
     {% include 'footer.html' %}
 
 {% endblock %}

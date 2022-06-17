@@ -2,6 +2,7 @@ import collections
 import datetime
 import functools
 import json
+import random
 import operator
 
 from django import forms
@@ -68,6 +69,8 @@ class Project(BaseProject, BaseTestInfo):
 
         for task in self.get_tasks():
             task.create_fact(test_fact)
+
+        test_fact.update_max_points()
 
         return test_fact
 
@@ -139,6 +142,8 @@ class ProjectTask(BaseProject, BaseTask):
         for element in self.get_elements():
             element.create_fact(task_fact)
 
+        task_fact.update_max_points()
+
         return task_fact
 
     def get_elements(self):
@@ -155,6 +160,9 @@ class ProjectTaskElement(BaseProject, BaseElement):
     element_id = models.AutoField(primary_key=True, unique=True, db_column='element_id')
     task = models.ForeignKey(to=ProjectTask, on_delete=models.CASCADE, null=True)
     order = models.IntegerField(default=0, verbose_name='Порядковый номер')
+
+    def create_fact(self, task_fact):
+        return self.get_child().create_fact(task_fact)
 
     def get_child(self):
         return eval(f'{BaseElement.PROCESSORS[self.element_type]}.get_child_by_element(self)')
@@ -174,15 +182,22 @@ class ProjectExercise(ProjectTaskElement):
     id = models.AutoField(primary_key=True, unique=True)
     exercise_type = models.IntegerField(choices=BaseExercise.TYPES, default=0)
 
+    max_points = models.IntegerField(default=1)
+
     def save(self, *args, **kwargs):
         self.element_type = 0
         self.exercise_type = self.EXERCISE_TYPE
+
+        if self.exercise_type == 1:
+            self.max_points = 0
+
         return super().save(*args, **kwargs)
 
     def create_fact(self, task_fact):
         element = eval(f'Fact{BaseExercise.CLASSES[self.exercise_type]}()')
         element.task = task_fact
         element.order = task_fact.get_elements().count() + 1
+        element.prepare_exercise()
         element.save()
 
         return element
@@ -193,11 +208,21 @@ class ProjectExercise(ProjectTaskElement):
             'exercise_type': BaseExercise.TYPES[self.exercise_type][1]
         }
 
+    def create_fact(self, task_fact):
+        parent = self.get_child_by_element(self)
+        element = eval(f'Fact{BaseExercise.CLASSES[self.exercise_type]}().copy_fields_from(parent)')
+        element.task = task_fact
+        element.order = task_fact.get_elements().count() + 1
+        element.save()
+
+        return element
+
     def render(self):
         return self.render_template('editor/elements/base_exercise.html', context=self.get_info())
 
     @staticmethod
     def get_child_by_element(element):
+        print(element, element.element_id)
         exercise_parent = ProjectExercise.objects.get(projecttaskelement_ptr_id=element.element_id)
         classname = f'Project{BaseExercise.CLASSES[exercise_parent.exercise_type]}'
 
@@ -217,7 +242,6 @@ class ProjectStaticElement(ProjectTaskElement):
 
     def create_fact(self, task_fact):
         parent = self.get_child_by_element(self)
-
         element = eval(f'Fact{BaseStaticElement.CLASSES[self.static_element_type]}().copy_fields_from(parent)')
         element.task = task_fact
         element.order = task_fact.get_elements().count() + 1
@@ -311,6 +335,27 @@ class TestFact(BaseModel):
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE, verbose_name='Испытуемый',
                              related_name='person')
 
+    max_points = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
+
+    def update(self, *args, **kwargs):
+        self.points = self.count_points()
+        self.save()
+
+    def update_max_points(self):
+        self.max_points = 0
+
+        for task in self.get_tasks():
+            self.max_points += task.points
+
+        self.save()
+
+    def count_points(self):
+        points = 0
+        for task in self.get_tasks():
+            points += task.count_points()
+        return points
+
     @staticmethod
     def has_session(user, test_id):
         return TestFact.objects.filter(user=user, test_id=test_id, completed=False).count() != 0
@@ -330,6 +375,28 @@ class TestFact(BaseModel):
 class TaskFact(BaseTask):
     test = models.ForeignKey(to=TestFact, on_delete=models.SET_NULL, null=True)
 
+    max_points = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
+
+    def update(self, *args, **kwargs):
+        self.points = self.count_points()
+        self.save()
+
+    def update_max_points(self):
+        self.max_points = 0
+        for exercise in self.get_exercises():
+            self.max_points += exercise.max_points
+        self.save()
+
+    def count_points(self):
+        points = 0
+        for exercise in self.get_exercises():
+            points += exercise.count_points()
+        return points
+
+    def get_exercises(self):
+        return [obj.get_child() for obj in TaskFactElement.objects.filter(task_id=self.id, element_type=0)]
+
     def get_elements(self):
         return TaskFactElement.objects.filter(task_id=self.id).order_by('order')
 
@@ -341,7 +408,7 @@ class TaskFactElement(BaseElement):
     order = models.IntegerField(default=0, verbose_name='Порядковый номер')
 
     def get_child(self):
-        return eval(f'{BaseElement.ELEMENT_PROCESSORS[self.element_type]}.get_child_by_element(self)')
+        return eval(f'{BaseElement.FACT_PROCESSORS[self.element_type]}.get_child_by_element(self)')
 
 
 class TestFactExercise(TaskFactElement):
@@ -350,10 +417,27 @@ class TestFactExercise(TaskFactElement):
     id = models.AutoField(primary_key=True, unique=True)
     exercise_type = models.IntegerField(choices=BaseExercise.TYPES, default=0)
 
+    max_points = models.IntegerField(default=1)
+    points = models.IntegerField(default=0)
+    success = models.IntegerField(default=-1)
+
     def save(self, *args, **kwargs):
         self.element_type = 0
         self.exercise_type = self.EXERCISE_TYPE
         return super().save(*args, **kwargs)
+
+    def finish(self):
+        self.points = self.count_points()
+        self.save()
+
+    def count_points(self):
+        return 0
+
+    def prepare_exercise(self):
+        return
+
+    def render_user(self):
+        return self.render_template('tests/elements/base_exercise.html')
 
     def get_info(self):
         return {
@@ -451,6 +535,7 @@ class ChronologyExercise(BaseChronologyExercise):
         return response
 
     def get_variants(self):
+        print(self.exercise_id)
         return VariantChronologyExercise.objects.filter(exercise_id=self.exercise_id).order_by('order')
 
 
@@ -471,13 +556,53 @@ class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
 
 
 class FactChronologyExercise(ChronologyExercise, TestFactExercise):
-    pass
 
+    def count_points(self):
+
+        is_valid = True
+
+        for variant in self.get_variants():
+            if variant.current_order != variant.order:
+                is_valid = False
+                break
+
+        return self.max_points if is_valid else 0
+
+    def process_choice(self, request):
+
+        if 'variants' in request.POST:
+            ordering_variants = request.POST.get('variants')
+
+            available_ids = [variant.id for variant in self.get_variants()]
+
+            for variant_data in ordering_variants:
+                if variant_data['id'] in available_ids:
+                    variant = VariantChronologyExercise.objects.get(id=variant_data['id'])
+                    variant.current_order = variant_data['order']
+                    variant.save()
+
+    def prepare_exercise(self):
+        i = 0
+        for variant in sorted(self.get_variants(), key=lambda x: random.random()):
+            variant.current_order = i + 1
+            variant.save()
+
+    def get_variants(self):
+        print(super().get_variants())
+        return super().get_variants().order_by('current_order')
+
+    def render_user(self):
+        context = {
+            'variants': self.get_variants(),
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/chronology_exercise.html', context)
 
 class VariantChronologyExercise(BaseModel):
     exercise = models.ForeignKey(to=ChronologyExercise, on_delete=models.CASCADE)
     content = models.TextField()
     order = models.IntegerField(verbose_name='Порядковый номер')
+    current_order = models.IntegerField(verbose_name='Выбранный номер', default=-1)
 
 
 

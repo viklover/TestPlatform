@@ -46,6 +46,8 @@ a .link {
 .content {
     width: 320px;
     margin: auto;
+    position: relative;
+    padding-bottom: 50px;
 }
 
 a .link_blue {
@@ -196,6 +198,12 @@ a .link_blue {
         display: flex;
         flex-direction: row;
         gap: 317px;
+    }
+
+    .button-receive {
+        position: absolute;
+        right: 0;
+        bottom: 0;
     }
 }
 

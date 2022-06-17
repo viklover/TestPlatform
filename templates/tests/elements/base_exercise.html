@@ -1,0 +1,10 @@
+{% extends 'tests/elements/base.html' %}
+
+{% block element_type %}0{% endblock %}
+
+{% block precontent %}
+    <main class="{% block exercise_class %}{% endblock %}" data-id="{{ exercise.id }}" data-element-id="{{ exercise.element_id }}">
+        {% block content %}
+        {% endblock %}
+    </main>
+{% endblock %}

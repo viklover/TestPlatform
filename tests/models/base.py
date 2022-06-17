@@ -130,6 +130,10 @@ class BaseElement(BaseModel):
         0: 'ProjectExercise',
         1: 'ProjectStaticElement'
     }
+    FACT_PROCESSORS = {
+        0: 'TestFactExercise',
+        1: 'TestFactStaticElement'
+    }
     element_type = models.IntegerField(choices=TYPES, default=0, verbose_name='Тип элемента')
 
     class Meta:
