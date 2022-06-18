@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models import ForeignKey
 from django.template import loader
 from django.template.defaulttags import register
 from django.utils import timezone
@@ -60,8 +61,9 @@ class BaseModel(models.Model):
     def copy_fields_from(self, model, except_fields=None):
         if except_fields is None:
             except_fields = ['id']
-        for field in model._meta.local_fields:
-            if field.name not in except_fields:
+        # for field in model._meta.local_fields:
+        for field in model._meta.fields:
+            if field.name not in except_fields and 'id' not in field.name and '_ptr' not in field.name and not isinstance(field, ForeignKey):
                 print(field.name)
                 exec(f'self.{field.name} = getattr(model, field.name)')
                 # self._meta.local_fields[field.name] = getattr(model, field.name)

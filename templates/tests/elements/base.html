@@ -1,8 +1,8 @@
-<div class="elements-list__item" data-element-type="{% block element_type %}{% endblock %}">
-    <header>
-        <h3></h3>
-    </header>
-
+<div class="elements-list__item {% block class %}{% endblock %}"
+     data-type="{% block type %}{% endblock %}"
+     data-element-type="{% block element_type %}{% endblock %}"
+     data-id="{{ element.element_id }}"
+>
     {% block precontent %}
     {% endblock %}
 </div>

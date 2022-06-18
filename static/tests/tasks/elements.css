@@ -1,0 +1,17 @@
+
+.elements-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+
+.elements-list__item {
+
+}
+
+.elements-list__item header h3 {
+    font-weight: normal;
+    font-size: 20px;
+}

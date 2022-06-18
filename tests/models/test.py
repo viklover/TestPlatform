@@ -65,6 +65,7 @@ class Project(BaseProject, BaseTestInfo):
 
     def create_fact(self, test_fact):
 
+        test_fact.number_of_tasks = self.number_of_tasks
         test_fact.save()
 
         for task in self.get_tasks():
@@ -135,9 +136,10 @@ class ProjectTask(BaseProject, BaseTask):
     def create_fact(self, test_fact):
 
         task_fact = TaskFact().copy_fields_from(self)
-        print(task_fact, test_fact)
         task_fact.test = test_fact
         task_fact.save()
+
+        print(task_fact, test_fact)
 
         for element in self.get_elements():
             element.create_fact(task_fact)
@@ -193,18 +195,18 @@ class ProjectExercise(ProjectTaskElement):
 
         return super().save(*args, **kwargs)
 
-    def create_fact(self, task_fact):
-        element = eval(f'Fact{BaseExercise.CLASSES[self.exercise_type]}()')
-        element.task = task_fact
-        element.order = task_fact.get_elements().count() + 1
-        element.prepare_exercise()
-        element.save()
-
-        return element
+    # def create_fact(self, task_fact):
+    #     element = eval(f'Fact{BaseExercise.CLASSES[self.exercise_type]}()')
+    #     element.task = task_fact
+    #     element.order = task_fact.get_elements().count() + 1
+    #     element.save()
+    #
+    #     return element
 
     def get_info(self):
         return {
             'exercise': self,
+            'element': self,
             'exercise_type': BaseExercise.TYPES[self.exercise_type][1]
         }
 
@@ -214,6 +216,9 @@ class ProjectExercise(ProjectTaskElement):
         element.task = task_fact
         element.order = task_fact.get_elements().count() + 1
         element.save()
+
+        print('hello', element, element.title)
+        print(parent._meta.fields)
 
         return element
 
@@ -373,7 +378,7 @@ class TestFact(BaseModel):
         self.save()
 
 class TaskFact(BaseTask):
-    test = models.ForeignKey(to=TestFact, on_delete=models.SET_NULL, null=True)
+    test = models.ForeignKey(to=TestFact, on_delete=models.CASCADE, null=True)
 
     max_points = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
@@ -442,6 +447,7 @@ class TestFactExercise(TaskFactElement):
     def get_info(self):
         return {
             'exercise': self,
+            'element': self,
             'exercise_type': BaseExercise.TYPES[self.exercise_type][1]
         }
 
@@ -544,10 +550,14 @@ class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
     def create_fact(self, task_fact):
         chronology = super().create_fact(task_fact)
 
+        print(chronology)
+
         for variant in self.get_variants():
             new_variant = VariantChronologyExercise().copy_fields_from(variant)
             new_variant.exercise = chronology
             new_variant.save()
+
+        chronology.prepare_exercise()
 
         return chronology
 
@@ -586,6 +596,7 @@ class FactChronologyExercise(ChronologyExercise, TestFactExercise):
         for variant in sorted(self.get_variants(), key=lambda x: random.random()):
             variant.current_order = i + 1
             variant.save()
+            i += 1
 
     def get_variants(self):
         print(super().get_variants())
@@ -596,6 +607,7 @@ class FactChronologyExercise(ChronologyExercise, TestFactExercise):
             'variants': self.get_variants(),
             **self.get_info()
         }
+        print('a', context['variants'])
         return self.render_template('tests/elements/chronology_exercise.html', context)
 
 class VariantChronologyExercise(BaseModel):
@@ -662,6 +674,8 @@ class ProjectMatchExercise(MatchExercise, ProjectExercise):
 
             columns[column.id] = new_column.id
 
+        print(columns)
+
         for variant in self.get_variants():
             new_variant = VariantMatchExercise().copy_fields_from(variant)
             new_variant.exercise = match
@@ -674,7 +688,15 @@ class ProjectMatchExercise(MatchExercise, ProjectExercise):
         return super().render(self.get_info())
 
 class FactMatchExercise(MatchExercise, TestFactExercise):
-    pass
+
+    def render_user(self):
+        context = {
+            'columns': self.get_columns(),
+            'variants': self.get_variants(),
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/match_exercise.html', context)
+
 
 
 class ColumnMatchExercise(BaseModel):
@@ -728,6 +750,8 @@ class VariantMatchExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
     column = models.ForeignKey(to=ColumnMatchExercise, on_delete=models.SET_NULL, null=True)
     content = models.CharField(max_length=100)
+
+    current_column = models.ForeignKey(to=ColumnMatchExercise, null=True, on_delete=models.SET_NULL, related_name='current_column')
 
     def __str__(self):
         return self.content

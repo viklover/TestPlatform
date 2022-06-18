@@ -184,7 +184,7 @@
 @media(min-width: 768px) {
 
     .chronology .variant {
-        width: calc(100% - 36px);
+        width: calc(100% - 40px);
     }
 
     .radio .variant {
@@ -197,7 +197,7 @@
     /*}*/
 
     .match .variant {
-        width: 836px;
+        width: 644px;
         margin: 0 auto;
     }
 }
@@ -207,6 +207,10 @@
     /*.match {*/
     /*    flex-direction: row;*/
     /*}*/
+
+    .match .variant {
+        width: 839px;
+    }
 
 }
 

@@ -9,7 +9,7 @@
     background: #644AFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
-    margin: auto auto 112px;
+    margin: auto auto 10px;
 }
 
 .border_blue .text_number {
@@ -46,8 +46,20 @@ a .link {
 .content {
     width: 320px;
     margin: auto;
-    position: relative;
-    padding-bottom: 50px;
+    /*position: relative;*/
+    padding-bottom: 55px;
+}
+
+.content-footer .hidden {
+    display: block;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.content-footer .hidden:hover {
+    opacity: 0.5;
+    background-color: #3300FF;
+    color: white;
 }
 
 a .link_blue {
@@ -82,6 +94,11 @@ a .link_blue {
 
 .tasks-list {
     display: none;
+}
+
+.content-footer {
+    margin-top: 20px;
+    position: relative;
 }
 
 @media (min-width: 768px) {
@@ -200,10 +217,14 @@ a .link_blue {
         gap: 317px;
     }
 
-    .button-receive {
+    .button-save-changes {
         position: absolute;
         right: 0;
         bottom: 0;
+    }
+
+    .content-footer {
+        margin-top: 55px;
     }
 }
 

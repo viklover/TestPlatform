@@ -17,8 +17,6 @@ def index(request):
         context = {
             'tests': Test.objects.all()[:3]
         }
-        for test in context['tests']:
-            print(test.name, test.description)
         return render(request, 'index.html', context)
 
     return your_page(request)

@@ -199,8 +199,13 @@ a {
     grid-row-gap: 20px;
 }
 
+.content {
+    width: 320px;
+    margin: auto;
+}
 
-@media(min-width: 700px) {
+
+@media(min-width: 768px) {
 
     .content {
         width: 700px;

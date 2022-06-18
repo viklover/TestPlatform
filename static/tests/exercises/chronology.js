@@ -42,7 +42,7 @@ class Chronology extends Exercise {
                 variant.style.position = 'absolute';
 
                 let parentElement = event.path[1]
-                console.log(event.path);
+                console.log('hello', event.path);
                 let variants = getVariants(event);
 
                 function moveElement(event) {

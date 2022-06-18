@@ -1,5 +1,5 @@
 .form-login {
-    width: 245px;
+    width: 320px;
     box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin: 20px auto;
@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 20px;
 }
 
 .form-login input {
@@ -126,18 +127,30 @@ input[type="file"] p {
 
 @media (min-width: 320px) {
     .form-login {
-        width: 245px;
+        width: 280px;
+    }
+
+    .form-login .button {
+        width: 100%;
     }
 }
 
 @media (min-width: 768px) {
     .form-login {
-        width: 534px;
+        width: 344px;
+    }
+
+    .form-registration {
+        width: 444px;
     }
 
     input[type="file"] {
         width: 100%;
         margin: 0 auto;
+    }
+
+    .form-login .button {
+        /*width: 150px;*/
     }
 }
 

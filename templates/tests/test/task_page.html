@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="{% static 'tests/tasks/style.css' %}">
     <link rel="stylesheet" href="{% static 'tests/tasks/test.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/elements.css' %}">
 {% endblock %}
 
 {% block content %}
 
     {% include "header.html" %}
 
-    <div class="content">
+    <div class="content content-task">
 
         <div class="tasks-list unselectable">
             <div class="arrow arrow-left"></div>
@@ -68,9 +69,11 @@
             {% endfor %}
         </div>
 
-        <div class="button button-receive">
-            Принять ответ
-        </div>
+        <footer class="content-footer">
+            <div class="button button-save-changes hidden unselectable">
+                Сохранить ответ
+            </div>
+        </footer>
 
     </div>
     {% include 'footer.html' %}
@@ -80,6 +83,9 @@
 {% block js_scripts %}
     <script src="{% static 'dragscroll.js' %}"></script>
     <script src="{% static 'tests/tasks/script.js' %}"></script>
+    <script src="{% static 'editor/changes.js' %}"></script>
+    <script src="{% static 'tests/tasks/exercises.js' %}"></script>
+    <script src="{% static 'tests/tasks/elements-list.js' %}"></script>
 {% endblock %}
 
 {#    <div class="content">#}

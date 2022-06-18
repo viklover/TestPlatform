@@ -125,8 +125,8 @@
     .yearRule {
         font-size: 18px;
         color: #FFFFFF;
-        margin: auto;
-        padding: 0 0 10px;
+        /*margin: auto;*/
+        padding: 20px 0;
         width: max-content;
     }
 
@@ -149,6 +149,7 @@
         color: #FFFFFF;
         text-align: center;
         width: max-content;
+        margin: auto;
     }
 
     .descriptionFooter {
@@ -175,6 +176,7 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+        margin-top: 20px;
     }
 
     .foot .authors-label {
