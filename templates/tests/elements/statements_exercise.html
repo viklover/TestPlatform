@@ -1,14 +1,12 @@
 {% extends 'tests/elements/base_exercise.html' %}
 
-{% block exercise_class %}chronology variants{% endblock %}
-{% block type %}chronology{% endblock %}
+{% block exercise_class %}statements{% endblock %}
+{% block type %}statements{% endblock %}
 
 {% block content %}
-
     {% for variant in variants %}
-        <div class="variant" data-id="{{ variant.id }}" draggable="true" >
+        <div class="variant{% if variant.current_state %} selected{% endif %}" data-id="{{ variant.id }}">
             {{ variant.content }} {{ variant.id }}
         </div>
     {% endfor %}
-
 {% endblock %}

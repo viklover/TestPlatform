@@ -441,6 +441,10 @@ class TestFactExercise(TaskFactElement):
     def prepare_exercise(self):
         return
 
+    def process_client(self, data):
+        print(self, data)
+        return {}
+
     def render_user(self):
         return self.render_template('tests/elements/base_exercise.html')
 
@@ -544,7 +548,6 @@ class ChronologyExercise(BaseChronologyExercise):
         print(self.exercise_id)
         return VariantChronologyExercise.objects.filter(exercise_id=self.exercise_id).order_by('order')
 
-
 class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
@@ -563,7 +566,6 @@ class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
-
 
 class FactChronologyExercise(ChronologyExercise, TestFactExercise):
 
@@ -598,8 +600,25 @@ class FactChronologyExercise(ChronologyExercise, TestFactExercise):
             variant.save()
             i += 1
 
+    def process_client(self, data):
+        print(self, data)
+
+        variants = list(self.get_variants())
+
+        if len(data) != len(variants):
+            return {'status': False}
+
+        variants_ids = [obj.id for obj in variants]
+
+        for variant_id in data:
+            if variant_id in variants_ids:
+                variant = variants[variants_ids.index(variant_id)]
+                variant.current_order = (data.index(variant_id) + 1)
+                variant.save()
+
+        return {'status': True}
+
     def get_variants(self):
-        print(super().get_variants())
         return super().get_variants().order_by('current_order')
 
     def render_user(self):
@@ -607,8 +626,8 @@ class FactChronologyExercise(ChronologyExercise, TestFactExercise):
             'variants': self.get_variants(),
             **self.get_info()
         }
-        print('a', context['variants'])
         return self.render_template('tests/elements/chronology_exercise.html', context)
+
 
 class VariantChronologyExercise(BaseModel):
     exercise = models.ForeignKey(to=ChronologyExercise, on_delete=models.CASCADE)
@@ -674,8 +693,6 @@ class ProjectMatchExercise(MatchExercise, ProjectExercise):
 
             columns[column.id] = new_column.id
 
-        print(columns)
-
         for variant in self.get_variants():
             new_variant = VariantMatchExercise().copy_fields_from(variant)
             new_variant.exercise = match
@@ -688,6 +705,57 @@ class ProjectMatchExercise(MatchExercise, ProjectExercise):
         return super().render(self.get_info())
 
 class FactMatchExercise(MatchExercise, TestFactExercise):
+
+    def process_client(self, data):
+        print(self, data)
+
+        columns = self.get_columns()
+        columns_ids = [obj.id for obj in columns]
+
+        variants = self.get_variants()
+        variants_ids = [obj.id for obj in variants]
+
+        for column_id in data:
+            if int(column_id) not in columns_ids:
+                continue
+
+            column = columns[columns_ids.index(int(column_id))]
+
+            print(column)
+
+            for variant_id in data[column_id]:
+                if variant_id not in variants_ids:
+                    continue
+
+                variant = variants[variants_ids.index(variant_id)]
+                variant.current_column = column
+                variant.save()
+
+        for variant_id in data['-1']:
+            if variant_id not in variants_ids:
+                continue
+
+            variant = variants[variants_ids.index(variant_id)]
+            variant.current_column = None
+            variant.save()
+
+        # variants = list(self.get_variants())
+        #
+        # if len(data) != len(variants):
+        #     return {'status': False}
+        #
+        # variants_ids = [obj.id for obj in variants]
+        #
+        # for variant_id in data:
+        #     if variant_id in variants_ids:
+        #         variant = variants[variants_ids.index(variant_id)]
+        #         variant.current_order = (data.index(variant_id) + 1)
+        #         variant.save()
+
+        return {'status': True}
+
+    def get_not_chosen_variants(self):
+        return VariantMatchExercise.objects.filter(current_column=None, exercise=self)
 
     def render_user(self):
         context = {
@@ -742,6 +810,9 @@ class ColumnMatchExercise(BaseModel):
         new_elements['wrong-variants'] = VariantMatchExercise.process_request(exercise, None, wrong_variants_data)
 
         return new_elements
+
+    def get_current_variants(self):
+        return VariantMatchExercise.objects.filter(current_column=self)
 
     def get_variants(self):
         return VariantMatchExercise.objects.filter(column=self)
@@ -849,13 +920,44 @@ class ProjectRadioExercise(RadioExercise, ProjectExercise):
             new_variant.exercise = radio
             new_variant.save()
 
+        radio.prepare_exercise()
+
         return radio
 
     def render(self):
         return super().render(self.get_info())
 
 class FactRadioExercise(RadioExercise, TestFactExercise):
-    pass
+
+    def prepare_exercise(self):
+
+        variants = self.get_variants()
+        selected_variant = variants[random.randint(0, variants.count() - 1)]
+
+        print('variants', variants)
+        print('selected_variant', selected_variant)
+
+        selected_variant.current_state = True
+        selected_variant.save()
+
+        print(selected_variant.current_state)
+
+    def process_client(self, data):
+
+        for variant in self.get_variants():
+            if variant.id == data:
+                variant.current_state = True
+            else:
+                variant.current_state = False
+            variant.save()
+
+    def render_user(self):
+        context = {
+            'variants': self.get_variants(),
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/radio_exercise.html', context)
+
 
 
 class VariantRadioExercise(BaseModel):
@@ -863,6 +965,7 @@ class VariantRadioExercise(BaseModel):
     content = models.TextField()
     is_correct = models.BooleanField(default=False)
 
+    current_state = models.BooleanField(default=False)
 
 """
 STATEMENTS EXERCISE MODEL
@@ -935,13 +1038,31 @@ class ProjectStatementsExercise(StatementsExercise, ProjectExercise):
         return super().render(self.get_info())
 
 class FactStatementsExercise(StatementsExercise, TestFactExercise):
-    pass
+
+    def process_client(self, data):
+
+        for variant in self.get_variants():
+            if variant.id in data:
+                variant.current_state = True
+            else:
+                variant.current_state = False
+            variant.save()
+
+    def render_user(self):
+        context = {
+            'variants': self.get_variants(),
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/statements_exercise.html', context)
+
 
 
 class VariantStatementsExercise(BaseModel):
     exercise = models.ForeignKey(to=StatementsExercise, on_delete=models.CASCADE)
     content = models.TextField()
     is_correct = models.BooleanField(default=False)
+
+    current_state = models.BooleanField(default=False)
 
 
 """

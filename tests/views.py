@@ -1,16 +1,18 @@
+import json
+
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from tests.models import Test
-from tests.models.test import TestComment, TestFact
+from tests.models.test import TestComment, TestFact, ProjectExercise, ProjectTaskElement, TaskFactElement
 
 
 @login_required
 def tests_page(request):
     context = {
-        'tests': [test.render() for test in Test.objects.all()]
+        'tests': [test.render(request.user) for test in Test.objects.all()]
     }
     return render(request, 'tests/tests_page.html', context)
 
@@ -22,7 +24,8 @@ def test_page(request, test_id):
         'test': test,
         'number_of_tasks': test.project.number_of_tasks,
         'number_of_facts': TestFact.objects.filter(test=test).count(),
-        'comments': TestComment.objects.filter(test_id=test_id).order_by('-published_at')
+        'comments': TestComment.objects.filter(test_id=test_id).order_by('-published_at'),
+        'in_progress': TestFact.objects.filter(completed=False, test=test, user=request.user).exists()
     }
     return render(request, 'tests/test_page.html', context)
 
@@ -55,6 +58,17 @@ def open_task(request, test_id, task_number):
 
     if not TestFact.has_session(request.user, test_id):
         return redirect(reverse('tests:test_page', kwargs={'test_id': test_id}))
+
+    if request.POST:
+        data = json.loads(request.POST.get('json', '{}'))
+
+        print(data)
+
+        for exercise_id in data:
+            exercise = TaskFactElement.objects.get(element_id=int(exercise_id)).get_child()
+            exercise.process_client(data[exercise_id])
+
+        return JsonResponse({})
 
     session = TestFact.get_session(request.user, test_id)
     tasks = session.get_tasks()

@@ -2,6 +2,9 @@
 class Exercise {
 
     constructor(body) {
+        if (body === undefined || body === null) {
+            return;
+        }
         this.exercise_id = body.dataset.id;
         this.body = body;
     }
@@ -10,8 +13,16 @@ class Exercise {
         this.manager = manager;
     }
 
+    initEventListeners() {
+
+    }
+
     getId() {
         return this.exercise_id;
+    }
+
+    getData() {
+        return [];
     }
 }
 
@@ -366,7 +377,7 @@ class Match extends Exercise {
     getData() {
         let elements = this.body.querySelectorAll('.element');
 
-        let data = {};
+        let data = {'-1': []};
 
         for (let element of elements) {
             let index = parseInt(element.dataset.id);
@@ -375,7 +386,80 @@ class Match extends Exercise {
                 data[index].push(parseInt(variant.dataset.id));
             }
         }
+
+        for (let variant of this.body.querySelector('.variants').querySelectorAll('.variant')) {
+            data['-1'].push(parseInt(variant.dataset.id))
+        }
+
         return data;
     }
 }
 
+
+
+class Statements extends Exercise {
+
+    constructor(body) {
+        super(body);
+        this.variants = this.body.querySelectorAll('.variant');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        for (let variant of this.variants) {
+            variant.addEventListener('click', function (){
+                variant.classList.toggle('selected');
+                obj.manager.check();
+            })
+        }
+    }
+
+    getData() {
+        let data = []
+        this.variants.forEach(function (variant) {
+            if (variant.classList.contains('selected')) {
+                data.push(parseInt(variant.dataset.id));
+            }
+        })
+        return data;
+    }
+}
+
+
+class Radio extends Exercise {
+
+    constructor(body) {
+        super(body);
+        this.variants = this.body.querySelectorAll('.variant');
+        this.initEventListeners();
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        for (let variant of this.variants) {
+
+            variant.addEventListener('click', function () {
+
+                obj.body.querySelectorAll('.variant').forEach(function (i) {
+                    i.classList.remove('selected');
+                });
+
+                variant.classList.toggle('selected');
+
+                obj.manager.check();
+            })
+        }
+    }
+
+    getData() {
+
+        let variant = this.body.querySelector('.selected');
+
+        if (variant !== undefined)
+            return parseInt(this.body.querySelector('.selected').dataset.id);
+    }
+}

@@ -15,6 +15,12 @@
                     <div class="line"></div>
                     <div class="cell">
 
+                        {% for variant in column.get_current_variants %}
+                            <div class="variant" data-id="{{ variant.id }}">
+                                {{ variant.content }}
+                            </div>
+                        {% endfor %}
+
                     </div>
                 </div>
             {% endfor %}
@@ -24,7 +30,7 @@
         </header>
         <div class="variants-section">
             <div class="variants">
-                {% for variant in variants %}
+                {% for variant in exercise.get_not_chosen_variants %}
                     <div class="variant" data-id="{{ variant.id }}">
                         {{ variant.content }}
                     </div>

@@ -38,9 +38,13 @@
             <div class="icon_test" style="--icon-url: url('/media/{{ test.project.icon }}');"></div>
             <h2 class="name_test">{{ test.project.name }}</h2>
             <p class="description_test">{{ test.project.description }}</p>
-            <a href="/tests/{{ test.id }}/start">
-                <div class="button">Начать прохождение</div>
-            </a>
+                <a href="/tests/{{ test.id }}/start">
+                    {% if in_progress %}
+                        <div class="button">Продолжить прохождение</div>
+                    {% else %}
+                        <div class="button">Начать прохождение</div>
+                    {% endif %}
+                </a>
         </div>
     </div>
         <div class="border_open_file">

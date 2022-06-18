@@ -40,12 +40,13 @@
     }
 
     .statements .variant {
-        width: 100%;
+        width: calc(100% - 40px);
         border: 2px solid #C9C9C9;
         border-radius: 5px;
         padding: 18px;
         font-size: 20px;
         margin: 0 0 23px;
+        cursor: pointer;
     }
 
 
@@ -60,6 +61,7 @@
         padding: 18px;
         font-size: 20px;
         margin: 0 0 23px;
+        cursor: pointer;
     }
 
 
