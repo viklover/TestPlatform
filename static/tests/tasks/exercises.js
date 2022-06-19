@@ -514,3 +514,32 @@ class Answer extends Exercise {
     }
 
 }
+
+class Images extends Exercise {
+
+    constructor(body) {
+        super(body);
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        for (let picture of this.body.querySelectorAll('.picture')) {
+            picture.addEventListener('click', function () {
+                picture.classList.toggle('checked');
+                obj.manager.check();
+            })
+        }
+    }
+
+    getData() {
+        let data = [];
+        for (let picture of this.body.querySelectorAll('.picture')) {
+            if (picture.classList.contains('checked'))
+                data.push(parseInt(picture.dataset.id));
+        }
+        return data;
+    }
+
+}

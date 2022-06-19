@@ -1,0 +1,14 @@
+{% extends 'tests/elements/base_exercise.html' %}
+
+{% block exercise_class %}images{% endblock %}
+{% block type %}images{% endblock %}
+
+{% block content %}
+    {% for picture in pictures %}
+        <div class="picture{% if picture.checked %} checked{% endif %}" data-id="{{ picture.id }}">
+            <div class="picture-borders">
+                <img class="image" src="/media/{{ picture.image }}">
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

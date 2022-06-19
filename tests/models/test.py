@@ -1226,6 +1226,8 @@ class PictureImagesExercise(BaseModel):
     image = models.ImageField(upload_to='project/images_exercise')
     checked = models.BooleanField(default=False)
 
+    current_checked = models.BooleanField(default=False)
+
 
 class ProjectImagesExercise(ImagesExercise, ProjectExercise):
 
@@ -1244,7 +1246,22 @@ class ProjectImagesExercise(ImagesExercise, ProjectExercise):
 
 
 class FactImagesExercise(ImagesExercise, TestFactExercise):
-    pass
+
+    def render_user(self):
+        context = {
+            'pictures': self.get_pictures(),
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/images_exercise.html', context)
+
+    def process_client(self, data):
+
+        for picture in self.get_pictures():
+            if picture.id in data:
+                picture.current_checked = True
+            else:
+                picture.current_checked = False
+            picture.save()
 
 
 class UploadImageFrom(ModelForm):

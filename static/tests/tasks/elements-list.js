@@ -36,6 +36,9 @@ class TaskManager {
                 case 'answer':
                     obj = new Answer(exercise);
                     break;
+                case 'images':
+                    obj = new Images(exercise);
+                    break;
             }
 
             obj.setManager(this);
