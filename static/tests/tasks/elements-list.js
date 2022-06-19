@@ -116,30 +116,3 @@ $(function () {
         darkMode: true
     });
 });
-
-Pred.onclick = function() {
-
-    Pred.classList.toggle("choice-chosed")
-
-    let tdPred = Pred.querySelectorAll("td")
-    if (Pred.classList.contains("choice-chosed")) {
-        let done = document.createElement("div")
-        done.classList.add("material-symbols-outlined")
-        done.classList.add("btn")
-        done.classList.add("done-btn")
-        done.textContent = "check_circle"
-        tdPred[tdPred.length - 1].append(done)
-    } else {
-        tdPred[tdPred.length - 1].removeChild(Pred.querySelector('.done-btn'));
-    }
-
-    for (let q = 0; q < trPreds.length; q++) {
-        if (trPreds[q].dataset.id !== Pred.dataset.id) {
-            if (trPreds[q].classList.contains("choice-chosed")) {
-                let td_elems = trPreds[q].querySelectorAll('td');
-                td[td_elems.length - 1].removeChild(td_elems.querySelector('.done-btn'));
-            }
-            trPreds[q].classList.remove("choice-chosed")
-        }
-    }
-}
