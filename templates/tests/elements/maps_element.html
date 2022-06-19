@@ -1,0 +1,10 @@
+{% extends 'tests/elements/base_element.html' %}
+
+{% block element_class %}maps{% endblock %}
+{% block type %}maps{% endblock %}
+
+{% block content %}
+    <div class="iframe-content">
+        {{ element.frame|safe }}
+    </div>
+{% endblock %}

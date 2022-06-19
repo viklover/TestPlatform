@@ -50,6 +50,10 @@ a .link {
     padding-bottom: 55px;
 }
 
+.content-footer .button {
+    width: calc(100% - 24px);
+}
+
 .content-footer .hidden {
     display: block;
     opacity: 0.5;
@@ -225,6 +229,10 @@ a .link_blue {
 
     .content-footer {
         margin-top: 55px;
+    }
+
+    .content-footer .button {
+        width: max-content;
     }
 }
 

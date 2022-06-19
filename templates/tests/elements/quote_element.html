@@ -1,0 +1,13 @@
+{% extends 'tests/elements/base_element.html' %}
+
+{% block element_class %}quote{% endblock %}
+{% block type %}quote{% endblock %}
+
+{% block content %}
+    <main class="quote-content">
+        <p>{{ content }}</p>
+    </main>
+    <footer class="author-section">
+        <h4>{{ author }}</h4>
+    </footer>
+{% endblock %}

@@ -1330,7 +1330,7 @@ class MatchListExercise(BaseMatchListExercise):
         return data
 
     def get_keys(self):
-        return KeyMatchListExercise.objects.filter(exercise=self)
+        return KeyMatchListExercise.objects.filter(exercise=self).order_by('order')
 
     def get_values(self):
         return ValueMatchListExercise.objects.filter(exercise=self)
@@ -1355,6 +1355,8 @@ class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
             new_key.exercise = matchlist
             new_key.value_id = values[key.value_id]
             new_key.save()
+
+        matchlist.prepare_exercise()
 
         return matchlist
 
@@ -1384,6 +1386,14 @@ class FactMatchListExercise(MatchListExercise, TestFactExercise):
                 key = keys[keys_ids.index(int(key_id))]
                 key.set_value(value_id)
 
+    def prepare_exercise(self):
+        i = 0
+        for key in sorted(self.get_keys(), key=lambda x: random.random()):
+            key.order = i + 1
+            key.save()
+            i += 1
+
+
 
 class ValueMatchListExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchListExercise, on_delete=models.CASCADE)
@@ -1397,6 +1407,8 @@ class KeyMatchListExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchListExercise, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
     value = models.ForeignKey(to=ValueMatchListExercise, on_delete=models.CASCADE, related_name='value')
+
+    order = models.IntegerField(default=0)
 
     current_value = models.ForeignKey(to=ValueMatchListExercise, on_delete=models.CASCADE, null=True, related_name='current_value')
 
@@ -1446,7 +1458,13 @@ class ProjectTitleElement(TitleElement, ProjectStaticElement):
 
 
 class FactTitleElement(TitleElement, TestFactStaticElement):
-    pass
+
+    def render_user(self):
+        context = {
+            'content': self.title,
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/title_element.html', context)
 
 
 """
@@ -1532,7 +1550,15 @@ class ProjectQuoteElement(QuoteElement, ProjectStaticElement):
 
 
 class FactQuoteElement(QuoteElement, TestFactStaticElement):
-    pass
+
+    def render_user(self):
+        context = {
+            'content': self.quote,
+            'author': self.author,
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/quote_element.html', context=context)
+
 
 
 """
@@ -1608,4 +1634,7 @@ class ProjectYandexMapsElement(YandexMapsElement, ProjectStaticElement):
 
 
 class FactYandexMapsElement(YandexMapsElement, TestFactStaticElement):
-    pass
+
+    def render_user(self):
+        return self.render_template('tests/elements/maps_element.html', self.get_info())
+
