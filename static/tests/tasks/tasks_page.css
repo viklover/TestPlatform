@@ -89,6 +89,10 @@ a {
     gap: 15px;
 }
 
+.buttons .button {
+    width: 100%;
+}
+
 @media (min-width: 768px) {
     .flex_task_text_much {
         display: flex;
@@ -166,6 +170,10 @@ a {
 
     .header_padding {
         padding-bottom: 0;
+    }
+
+    .buttons .button {
+        width: max-content;
     }
 }
 

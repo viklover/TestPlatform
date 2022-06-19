@@ -51,13 +51,13 @@
                 </div>
             </a>
         </div>
-        <div class="relative">
+        <div class="relative" id="header-task-info">
             <div class="border_blue">
                 <div class="text_number">
                     Задание №{{task.number}}
                 </div>
             </div>
-            <div class="border_white">
+            <div class="border_white" id="task-info-title">
                 <div class="text_border_white">
                     {{ task.title }}
                 </div>
@@ -87,6 +87,12 @@
     <script src="{% static 'editor/changes.js' %}"></script>
     <script src="{% static 'tests/tasks/exercises.js' %}"></script>
     <script src="{% static 'simplebox.min.js' %}"></script>
+    <script>
+        $(function() {
+            var height = $( '#task-info-title' ).height();
+            $( '#header-task-info' ).height(height);
+        });
+    </script>
     <script src="{% static 'tests/tasks/elements-list.js' %}"></script>
 {% endblock %}
 

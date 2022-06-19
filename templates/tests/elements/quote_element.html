@@ -7,7 +7,9 @@
     <main class="quote-content">
         <p>{{ content }}</p>
     </main>
-    <footer class="author-section">
-        <h4>{{ author }}</h4>
-    </footer>
+    {% if author != '' %}
+        <footer class="author-section">
+            <h4>{{ author }}</h4>
+        </footer>
+    {% endif %}
 {% endblock %}

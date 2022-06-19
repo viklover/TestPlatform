@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 30px;
-    margin-top: 40px;
+    margin-top: 90px;
 }
 
 
@@ -20,6 +20,6 @@
 
 @media (min-width: 768px) {
     .elements-list {
-        margin-top: 25px;
+        margin-top: 70px;
     }
 }
