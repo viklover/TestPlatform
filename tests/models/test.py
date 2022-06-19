@@ -331,7 +331,6 @@ class TestComment(BaseModel):
     published_at = models.DateTimeField(default=timezone.now)
 
 
-
 class TestFact(BaseModel):
     test = models.ForeignKey(to=Test, on_delete=models.SET_NULL, null=True)
     started_at = models.DateTimeField(default=timezone.now)
@@ -377,6 +376,7 @@ class TestFact(BaseModel):
         self.completed = True
         self.save()
 
+
 class TaskFact(BaseTask):
     test = models.ForeignKey(to=TestFact, on_delete=models.CASCADE, null=True)
 
@@ -404,7 +404,6 @@ class TaskFact(BaseTask):
 
     def get_elements(self):
         return TaskFactElement.objects.filter(task_id=self.id).order_by('order')
-
 
 
 class TaskFactElement(BaseElement):
@@ -462,6 +461,7 @@ class TestFactExercise(TaskFactElement):
 
         return eval(f'{classname}.objects.get(testfactexercise_ptr_id={exercise_parent.id})')
 
+
 class TestFactStaticElement(TaskFactElement):
     STATIC_ELEMENT_TYPE = -1
 
@@ -479,15 +479,14 @@ class TestFactStaticElement(TaskFactElement):
             'element_type': BaseStaticElement.TYPES[self.static_element_type][1]
         }
 
-    def render(self):
+    def render_user(self):
         return self.render_template('tests/elements/base_element.html', context=self.get_info())
 
     @staticmethod
     def get_child_by_element(element):
-        element_parent = TestFactStaticElement.objects.get(testfactelement_ptr_id=element.element_id)
-        classname = f'Project{BaseStaticElement.CLASSES[element_parent.static_element_type]}'
-
-        return eval(f'{classname}.objects.get(testfactelement_ptr_id={element_parent.id})')
+        element_parent = TestFactStaticElement.objects.get(taskfactelement_ptr_id=element.element_id)
+        classname = f'Fact{BaseStaticElement.CLASSES[element_parent.static_element_type]}'
+        return eval(f'{classname}.objects.get(testfactstaticelement_ptr_id={element_parent.id})')
 
 
 """
@@ -548,6 +547,7 @@ class ChronologyExercise(BaseChronologyExercise):
         print(self.exercise_id)
         return VariantChronologyExercise.objects.filter(exercise_id=self.exercise_id).order_by('order')
 
+
 class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
@@ -566,6 +566,7 @@ class ProjectChronologyExercise(ChronologyExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactChronologyExercise(ChronologyExercise, TestFactExercise):
 
@@ -636,7 +637,6 @@ class VariantChronologyExercise(BaseModel):
     current_order = models.IntegerField(verbose_name='Выбранный номер', default=-1)
 
 
-
 """
 MATCH EXERCISE MODEL
 """
@@ -677,6 +677,7 @@ class MatchExercise(BaseMatchExercise):
     def get_wrong_variants(self):
         return VariantMatchExercise.objects.filter(exercise=self, column=None)
 
+
 class ProjectMatchExercise(MatchExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
@@ -703,6 +704,7 @@ class ProjectMatchExercise(MatchExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactMatchExercise(MatchExercise, TestFactExercise):
 
@@ -766,7 +768,6 @@ class FactMatchExercise(MatchExercise, TestFactExercise):
         return self.render_template('tests/elements/match_exercise.html', context)
 
 
-
 class ColumnMatchExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
@@ -817,12 +818,14 @@ class ColumnMatchExercise(BaseModel):
     def get_variants(self):
         return VariantMatchExercise.objects.filter(column=self)
 
+
 class VariantMatchExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchExercise, on_delete=models.CASCADE)
     column = models.ForeignKey(to=ColumnMatchExercise, on_delete=models.SET_NULL, null=True)
     content = models.CharField(max_length=100)
 
-    current_column = models.ForeignKey(to=ColumnMatchExercise, null=True, on_delete=models.SET_NULL, related_name='current_column')
+    current_column = models.ForeignKey(to=ColumnMatchExercise, null=True, on_delete=models.SET_NULL,
+                                       related_name='current_column')
 
     def __str__(self):
         return self.content
@@ -910,6 +913,7 @@ class RadioExercise(BaseRadioExercise):
 
         return response
 
+
 class ProjectRadioExercise(RadioExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
@@ -926,6 +930,7 @@ class ProjectRadioExercise(RadioExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactRadioExercise(RadioExercise, TestFactExercise):
 
@@ -959,13 +964,13 @@ class FactRadioExercise(RadioExercise, TestFactExercise):
         return self.render_template('tests/elements/radio_exercise.html', context)
 
 
-
 class VariantRadioExercise(BaseModel):
     exercise = models.ForeignKey(to=RadioExercise, on_delete=models.CASCADE)
     content = models.TextField()
     is_correct = models.BooleanField(default=False)
 
     current_state = models.BooleanField(default=False)
+
 
 """
 STATEMENTS EXERCISE MODEL
@@ -1022,6 +1027,7 @@ class StatementsExercise(BaseStatementsExercise):
 
         return response
 
+
 class ProjectStatementsExercise(StatementsExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
@@ -1036,6 +1042,7 @@ class ProjectStatementsExercise(StatementsExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactStatementsExercise(StatementsExercise, TestFactExercise):
 
@@ -1054,7 +1061,6 @@ class FactStatementsExercise(StatementsExercise, TestFactExercise):
             **self.get_info()
         }
         return self.render_template('tests/elements/statements_exercise.html', context)
-
 
 
 class VariantStatementsExercise(BaseModel):
@@ -1087,19 +1093,33 @@ class InputExercise(BaseInputExercise):
             exercise.save()
         return {}
 
+
 class ProjectInputExercise(InputExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
         input_exercise = super().create_fact(task_fact)
-        input_exercise = self.prepared_answer
+        input_exercise.prepared_answer = self.prepared_answer
         input_exercise.save()
         return input_exercise
 
     def render(self):
         return super().render(self.get_info())
 
+
 class FactInputExercise(InputExercise, TestFactExercise):
-    pass
+    current_answer = models.TextField()
+
+    def render_user(self):
+        context = {
+            'current_answer': self.current_answer,
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/input_exercise.html', context)
+
+    def process_client(self, data):
+        self.current_answer = data
+        self.save()
+
 
 """
 ANSWER EXERCISE MODEL
@@ -1123,19 +1143,33 @@ class AnswerExercise(BaseAnswerExercise):
             exercise.save()
         return {}
 
+
 class ProjectAnswerExercise(AnswerExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
         answer = super().create_fact(task_fact)
-        answer = self.correct_answer
+        answer.correct_answer = self.correct_answer
         answer.save()
         return answer
 
     def render(self):
         return super().render(self.get_info())
 
+
 class FactAnswerExercise(AnswerExercise, TestFactExercise):
-    pass
+    current_answer = models.TextField()
+
+    def render_user(self):
+        context = {
+            'current_answer': self.current_answer,
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/answer_exercise.html', context)
+
+    def process_client(self, data):
+        self.current_answer = data
+        self.save()
+
 
 """
 IMAGES EXERCISE MODEL
@@ -1207,6 +1241,7 @@ class ProjectImagesExercise(ImagesExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactImagesExercise(ImagesExercise, TestFactExercise):
     pass
@@ -1283,6 +1318,7 @@ class MatchListExercise(BaseMatchListExercise):
     def get_values(self):
         return ValueMatchListExercise.objects.filter(exercise=self)
 
+
 class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
 
     def create_fact(self, task_fact):
@@ -1307,6 +1343,7 @@ class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactMatchListExercise(MatchListExercise, TestFactExercise):
     pass
@@ -1355,10 +1392,12 @@ class TitleElement(BaseTitleElement):
             element.save()
         return {}
 
+
 class ProjectTitleElement(TitleElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactTitleElement(TitleElement, TestFactStaticElement):
     pass
@@ -1389,13 +1428,16 @@ class PictureElement(BasePictureElement):
 
         return {}
 
+
 class ProjectPictureElement(PictureElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
 
+
 class FactPictureElement(PictureElement, TestFactStaticElement):
     pass
+
 
 class UploadPictureFrom(ModelForm):
     picture = forms.ImageField()
@@ -1430,13 +1472,16 @@ class QuoteElement(BaseQuoteElement):
         exercise.save()
         return {}
 
+
 class ProjectQuoteElement(QuoteElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
 
+
 class FactQuoteElement(QuoteElement, TestFactStaticElement):
     pass
+
 
 """
 DOCUMENT ELEMENT MODEL
@@ -1463,13 +1508,23 @@ class DocumentElement(BaseDocumentElement):
         exercise.save()
         return {}
 
+
 class ProjectDocumentElement(DocumentElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
 
+
 class FactDocumentElement(DocumentElement, TestFactStaticElement):
-    pass
+
+    def render_user(self):
+        context = {
+            'title': self.name,
+            'content': self.content,
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/document_element.html', context=context)
+
 
 """
 DOCUMENT ELEMENT MODEL
@@ -1493,10 +1548,12 @@ class YandexMapsElement(BaseYandexMapsElement):
         exercise.save()
         return {}
 
+
 class ProjectYandexMapsElement(YandexMapsElement, ProjectStaticElement):
 
     def render(self):
         return super().render(self.get_info())
+
 
 class FactYandexMapsElement(YandexMapsElement, TestFactStaticElement):
     pass

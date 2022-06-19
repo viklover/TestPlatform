@@ -1,0 +1,10 @@
+{% extends 'tests/elements/base_exercise.html' %}
+
+{% block exercise_class %}input{% endblock %}
+{% block type %}input{% endblock %}
+
+{% block content %}
+    <label>
+        <textarea type="text" placeholder="Напишите развёрнутый ответ" contenteditable>{{ current_answer }}</textarea>
+    </label>
+{% endblock %}

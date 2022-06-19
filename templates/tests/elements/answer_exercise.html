@@ -1,0 +1,8 @@
+{% extends 'tests/elements/base_exercise.html' %}
+
+{% block exercise_class %}answer{% endblock %}
+{% block type %}answer{% endblock %}
+
+{% block content %}
+    <input type="text" placeholder="Введите ответ" value="{{ current_answer }}">
+{% endblock %}

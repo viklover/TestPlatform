@@ -463,3 +463,54 @@ class Radio extends Exercise {
             return parseInt(this.body.querySelector('.selected').dataset.id);
     }
 }
+
+
+class Input extends Exercise {
+
+    constructor(body) {
+        super(body);
+        this.textarea = this.body.querySelector('textarea');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.textarea.addEventListener(
+            "input",
+            function () {
+              this.style.height = 'auto';
+              this.style.height = (this.scrollHeight) + 'px';
+              obj.manager.check();
+            },
+            false
+        );
+    }
+
+    getData() {
+        return this.textarea.value;
+    }
+}
+
+
+class Answer extends Exercise {
+
+    constructor(body) {
+        super(body);
+        this.input = this.body.querySelector('input');
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        this.input.addEventListener('input', function () {
+            obj.manager.check();
+        });
+    }
+
+    getData() {
+        return this.input.value;
+    }
+
+}

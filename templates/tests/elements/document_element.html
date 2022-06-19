@@ -1,0 +1,15 @@
+{% extends 'tests/elements/base_element.html' %}
+
+{% block element_class %}document{% endblock %}
+{% block type %}document{% endblock %}
+
+{% block content %}
+    <div>
+        <header>
+            <h4>{{ title }}</h4>
+        </header>
+        <main class="document-content">
+            <p>{{ content }}</p>
+        </main>
+    </div>
+{% endblock %}

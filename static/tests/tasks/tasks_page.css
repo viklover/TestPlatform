@@ -38,7 +38,8 @@
 
 .border_relative {
     position: initial;
-    width: 233px;
+    /*width: 233px;*/
+    width: 321px;
     height: 36px;
     background: #F3F3F3;
     border-radius: 50px;
@@ -61,7 +62,8 @@ a {
 
 .border_absolute {
     position: absolute;
-    width: 116px;
+    /*width: 116px;*/
+    width: 148px;
     height: 36px;
     background: #4200FE;
     border-radius: 50px;
@@ -75,6 +77,16 @@ a {
     text-align: center;
     color: #FFFFFF;
     margin: auto;
+}
+
+.header_padding {
+    padding-bottom: 30px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 15px;
 }
 
 @media (min-width: 768px) {
@@ -150,6 +162,10 @@ a {
     .button_completed_test:hover {
         background-color: #FFFFFF;
         color: #644AFF;
+    }
+
+    .header_padding {
+        padding-bottom: 0;
     }
 }
 

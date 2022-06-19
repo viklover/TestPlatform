@@ -2,6 +2,8 @@
 
 {% block element_type %}1{% endblock %}
 
+{% block class %}element{% endblock %}
+
 {% block precontent %}
     <main class="{% block element_class %}{% endblock %}" data-id="{{ element.id }}" data-element-id="{{ element.element_id }}">
         {% block content %}

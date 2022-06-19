@@ -30,6 +30,12 @@ class TaskManager {
                 case 'radio':
                     obj = new Radio(exercise);
                     break;
+                case 'input':
+                    obj = new Input(exercise);
+                    break;
+                case 'answer':
+                    obj = new Answer(exercise);
+                    break;
             }
 
             obj.setManager(this);

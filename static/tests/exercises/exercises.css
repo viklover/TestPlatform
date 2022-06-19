@@ -156,7 +156,7 @@
         border: 2px solid #C9C9C9;
         border-radius: 5px;
         outline: none;
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .input p {
@@ -181,6 +181,24 @@
     .cell .variant {
         box-shadow: 0px 0px 0px 0px rgba(34, 60, 80, 0.2);
     }
+
+    .document h4 {
+        font-size: 16.5px;
+        margin-bottom: 10px;
+    }
+
+    .document .document-content {
+        font-style: italic;
+        font-size: 18px;
+        /*box-shadow: 0 0 10px rgb(0 0 0 / 25%);*/
+        border: 1.8px solid rgb(0 0 0 / 10%);
+        border-radius: 5px;
+    }
+
+    .document .document-content p {
+        margin: 0;
+        padding: 10px;
+    }
 }
 
 @media(min-width: 768px) {
@@ -201,6 +219,11 @@
     .match .variant {
         width: 644px;
         margin: 0 auto;
+    }
+
+    .document h4 {
+        font-size: 18px;
+        margin-top: 0;
     }
 }
 
