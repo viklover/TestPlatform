@@ -1299,17 +1299,17 @@ class MatchListExercise(BaseMatchListExercise):
             is_exist = 'id' in key_data
 
             if is_exist:
-                key = KeyMatchListExercise.objects.get(id=key_data['id'])
-                value = ValueMatchListExercise.objects.get(key=key)
+                value = ValueMatchListExercise.objects.get(id=value_data['id'])
+                key = KeyMatchListExercise.objects.get(value=value)
             else:
-                key = KeyMatchListExercise(exercise=exercise)
-                value = ValueMatchListExercise(exercise=exercise, key=key)
+                value = ValueMatchListExercise(exercise=exercise)
+                key = KeyMatchListExercise(exercise=exercise, value=value)
 
             key.content = key_data['content']
             value.content = value_data['content']
 
-            key.save()
             value.save()
+            key.save()
 
             if not is_exist:
                 new_elements['new_ids'][str(key_data['pair_id'])] = {}
@@ -1326,7 +1326,7 @@ class MatchListExercise(BaseMatchListExercise):
     def get_pairs(self):
         data = []
         for key in self.get_keys():
-            data.append([key, key.get_value()])
+            data.append([key, key.value])
         return data
 
     def get_keys(self):
@@ -1341,20 +1341,20 @@ class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
     def create_fact(self, task_fact):
         matchlist = super().create_fact(task_fact)
 
-        keys = {}
-
-        for key in self.get_keys():
-            new_key = KeyMatchListExercise().copy_fields_from(key)
-            new_key.exercise = matchlist
-            new_key.save()
-
-            keys[key.id] = new_key.id
+        values = {}
 
         for value in self.get_values():
             new_value = ValueMatchListExercise().copy_fields_from(value)
             new_value.exercise = matchlist
-            new_value.key_id = keys[value.key_id]
             new_value.save()
+
+            values[value.id] = new_value.id
+
+        for key in self.get_keys():
+            new_key = KeyMatchListExercise().copy_fields_from(key)
+            new_key.exercise = matchlist
+            new_key.value_id = values[key.value_id]
+            new_key.save()
 
         return matchlist
 
@@ -1363,31 +1363,60 @@ class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
 
 
 class FactMatchListExercise(MatchListExercise, TestFactExercise):
-    pass
 
+    def render_user(self):
+        context = {
+            'keys': self.get_keys(),
+            'values': self.get_values(),
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/matchlist_exercise.html', context)
 
-class KeyMatchListExercise(BaseModel):
-    exercise = models.ForeignKey(to=MatchListExercise, on_delete=models.CASCADE)
-    content = models.CharField(max_length=100)
+    def process_client(self, data):
 
-    def __str__(self):
-        return self.content
+        keys = self.get_keys()
+        keys_ids = [obj.id for obj in keys]
+        values_ids = [obj.id for obj in self.get_values()] + [None]
 
-    def get_value(self):
-        return ValueMatchListExercise.objects.get(key=self)
+        for key_id in data:
+            value_id = data[key_id]
+            if value_id in values_ids and int(key_id) in keys_ids:
+                key = keys[keys_ids.index(int(key_id))]
+                key.set_value(value_id)
 
 
 class ValueMatchListExercise(BaseModel):
     exercise = models.ForeignKey(to=MatchListExercise, on_delete=models.CASCADE)
-    key = models.ForeignKey(to=KeyMatchListExercise, on_delete=models.CASCADE)
     content = models.TextField()
 
     def __str__(self):
         return self.content
 
-    def get_key(self):
-        return self.key
 
+class KeyMatchListExercise(BaseModel):
+    exercise = models.ForeignKey(to=MatchListExercise, on_delete=models.CASCADE)
+    content = models.CharField(max_length=100)
+    value = models.ForeignKey(to=ValueMatchListExercise, on_delete=models.CASCADE, related_name='value')
+
+    current_value = models.ForeignKey(to=ValueMatchListExercise, on_delete=models.CASCADE, null=True, related_name='current_value')
+
+    def __str__(self):
+        return self.content
+
+    def set_value(self, value_id):
+        if value_id is None:
+            self.current_value = None
+        else:
+            self.current_value = ValueMatchListExercise.objects.get(id=value_id)
+        self.save()
+
+    def get_value(self):
+        return self.value
+
+    def delete(self, using=None, keep_parents=False):
+        if self.value is not None:
+            self.value.delete()
+        super().delete(using, keep_parents)
 
 """
 TITLE ELEMENT MODEL
@@ -1453,7 +1482,13 @@ class ProjectPictureElement(PictureElement, ProjectStaticElement):
 
 
 class FactPictureElement(PictureElement, TestFactStaticElement):
-    pass
+
+    def render_user(self):
+        context = {
+            **self.get_info()
+        }
+        return self.render_template('tests/elements/picture_element.html', context=context)
+
 
 
 class UploadPictureFrom(ModelForm):

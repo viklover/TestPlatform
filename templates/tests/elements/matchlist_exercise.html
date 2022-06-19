@@ -1,14 +1,20 @@
 {% extends 'tests/elements/base_exercise.html' %}
 
-{% block exercise_class %}images{% endblock %}
-{% block type %}images{% endblock %}
+{% block exercise_class %}matchlist{% endblock %}
+{% block type %}matchlist{% endblock %}
 
 {% block content %}
-    {% for picture in pictures %}
-        <div class="picture{% if picture.checked %} checked{% endif %}" data-id="{{ picture.id }}">
-            <div class="picture-borders">
-                <img class="image" src="/media/{{ picture.image }}">
-            </div>
+    {% for key in keys %}
+        <div class="key" data-id="{{ key.id }}">
+            <p>
+                {{ key.content }}
+                — <select name="value" class="select-value">
+                    <option value=""></option>
+                    {% for value in values %}
+                        <option value="{{ value.id }}" {% if value.id == key.current_value.id %}selected{% endif %}>{{ value.content }}</option>
+                    {% endfor %}
+                </select>
+            </p>
         </div>
     {% endfor %}
 {% endblock %}

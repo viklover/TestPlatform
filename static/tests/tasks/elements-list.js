@@ -39,6 +39,9 @@ class TaskManager {
                 case 'images':
                     obj = new Images(exercise);
                     break;
+                case 'matchlist':
+                    obj = new MatchList(exercise);
+                    break;
             }
 
             obj.setManager(this);
@@ -102,7 +105,14 @@ class TaskManager {
     }
 }
 
-let manager = new TaskManager(document.querySelector('.elements-list'))
-manager.initObjs();
-manager.initEventListeners();
+let task_manager = new TaskManager(document.querySelector('.elements-list'))
+task_manager.initObjs();
+task_manager.initEventListeners();
 
+
+$(function () {
+    $(".slb").simplebox({
+        fadeSpeed: 200,
+        darkMode: true
+    });
+});

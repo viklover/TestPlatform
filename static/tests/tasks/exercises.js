@@ -543,3 +543,38 @@ class Images extends Exercise {
     }
 
 }
+
+class MatchList extends Exercise {
+
+    constructor(body) {
+        super(body);
+    }
+
+    initEventListeners() {
+
+        let obj = this;
+
+        for (let key of this.body.querySelectorAll('.key')) {
+            let select = key.querySelector('.select-value');
+            select.onchange = function () {
+                obj.manager.check()
+            }
+        }
+    }
+
+    getData() {
+        let data = {};
+        for (let key of this.body.querySelectorAll('.key')) {
+            let value = key.querySelector('.select-value').value;
+            if (value === '') {
+                value = null;
+            } else {
+                value = parseInt(value);
+            }
+            data[key.dataset.id] = value;
+        }
+        console.log(data);
+        return data;
+    }
+
+}
