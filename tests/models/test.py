@@ -339,6 +339,8 @@ class TestFact(BaseModel):
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE, verbose_name='Испытуемый',
                              related_name='person')
 
+    percent = models.FloatField(default=0.0)
+
     max_points = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
 
@@ -368,12 +370,26 @@ class TestFact(BaseModel):
     def get_session(user, test_id):
         return TestFact.objects.get(user=user, test_id=test_id, completed=False)
 
+    @staticmethod
+    def get_finished_tests(user):
+        tests = []
+        tests_ids = []
+
+        facts = TestFact.objects.filter(user=user, completed=True)
+        for fact in facts.order_by('percent'):
+            if fact.test.id not in tests_ids:
+                tests.append(fact.test)
+                tests_ids.append(fact.test.id)
+
+        return tests
+
     def get_tasks(self):
         return TaskFact.objects.filter(test=self).order_by('number')
 
     def finish(self):
         self.finished_at = datetime.datetime.now()
         self.completed = True
+
         self.save()
 
 

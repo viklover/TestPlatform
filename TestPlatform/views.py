@@ -51,7 +51,7 @@ def user_page(request, user_id):
         'finished_tests': []
     }
 
-    for test in TestFact.objects.filter(completed=True):
+    for test in TestFact.get_finished_tests(context['user_page']):
         context['finished_tests'].append(test.get_statistics_differences(request.user, context['user_page']))
 
     return render(request=request, template_name="users/user.html", context=context)
