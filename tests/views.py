@@ -122,12 +122,18 @@ def result_page(request, test_id):
 
 @login_required
 def fact_page(request, fact_id):
-    context = {
-        'fact': TestFact.objects.get(id=fact_id)
-    }
+    fact = TestFact.objects.get(id=fact_id)
 
-    if not context['fact'].user.id == request.user.id:
+    if not fact.user.id == request.user.id:
         return redirect(reverse('tests:tests_page'))
+
+    if not fact.completed:
+        return redirect(reverse('tests:open_task', kwargs={'test_id': fact.test_id, 'task_number': 1}))
+
+    context = {
+        'fact': fact,
+        'percent': round(fact.percent * 100)
+    }
 
     return render(request, 'tests/test_result.html', context)
 
