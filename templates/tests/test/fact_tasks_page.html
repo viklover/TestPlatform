@@ -36,18 +36,16 @@
                         <div class="border_relative">
                             <p class="p-border_relative">? / 10</p>
                         </div>
-                        <p style="text-align: left;
-    margin: 0;
-    padding: 10px;">{{ task.title }}</p>
+                        <p style="text-align: left; margin: 0; padding: 10px;">{{ task.title }}</p>
                     </div>
                 </a>
             </div>
         {% endfor %}
-        <div class="hr"></div>
-        <div class="buttons">
-            <button class="button button_completed_test">Завершить тест</button>
-            <button class="button button_completed_test">Продолжить решение</button>
-        </div>
+{#        <div class="hr"></div>#}
+{#        <div class="buttons">#}
+{#            <button class="button button_completed_test">Завершить тест</button>#}
+{#            <button class="button button_completed_test">Продолжить решение</button>#}
+{#        </div>#}
     </div>
 
     {% include 'footer.html' %}
