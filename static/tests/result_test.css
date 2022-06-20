@@ -60,6 +60,7 @@
     align-items: center;
     text-align: center;
     margin: 20px auto;
+    animation: bounce .0s alternate infinite ease-in;
 }
 
 .percents {
@@ -77,6 +78,37 @@
 
 .result .button {
     margin-top: 20px;
+}
+
+@media screen and (min-width:701px) {
+  @keyframes bounce {
+    0% {
+      transform: translateX(50%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .percent {
+    color: green;
+  }
+}
+
+@media screen and (max-width:700px) {
+  @keyframes bounce {
+    0% {
+      transform: translateY(-200%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .percent {
+    color: green;
+    display: block; /* needed to trigger update */
+  }
 }
 
 @media (min-width: 768px) {
