@@ -69,11 +69,15 @@
                 {{ element.render_user }}
             {% endfor %}
         </div>
-
-        <div class="border_open_file" style="padding-top: 10px">
+        {% if task.description_md == '' %}
+            <div class="border_open_file editor-preview-active, editor-preview-active-side" style="display: none">
+                <textarea id="description_test" style="display: none">{{ task.description_md }}</textarea>
+            </div>
+        {% else %}
+            <div class="border_open_file" style="padding-top: 10px">
                 <textarea id="description_test">{{ task.description_md }}</textarea>
-        </div>
-
+            </div>
+        {% endif %}
     </div>
     {% include 'footer.html' %}
 
