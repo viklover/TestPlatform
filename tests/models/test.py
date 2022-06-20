@@ -360,7 +360,6 @@ class TestFact(BaseModel):
         points = 0
         for task in self.get_tasks():
             points += task.count_points()
-            task.update()
         return points
 
     @staticmethod
@@ -392,6 +391,9 @@ class TestFact(BaseModel):
         self.completed = True
         self.update()
 
+        for task in self.get_tasks():
+            task.finish()
+
         self.percent = self.points / self.max_points
 
         self.save()
@@ -412,6 +414,10 @@ class TaskFact(BaseTask):
         for exercise in self.get_exercises():
             self.max_points += exercise.max_points
         self.save()
+
+    def finish(self):
+        for exercise in self.get_exercises():
+            exercise.finish()
 
     def count_points(self):
         print(f'Task #{self.number}')
@@ -456,6 +462,7 @@ class TestFactExercise(TaskFactElement):
 
     def finish(self):
         self.points = self.count_points()
+        self.success = int(self.points > 0)
         self.save()
 
     def count_points(self):
@@ -475,7 +482,8 @@ class TestFactExercise(TaskFactElement):
         return {
             'exercise': self,
             'element': self,
-            'exercise_type': BaseExercise.TYPES[self.exercise_type][1]
+            'exercise_type': BaseExercise.TYPES[self.exercise_type][1],
+            'fact': self.task.test
         }
 
     @staticmethod
@@ -1161,6 +1169,10 @@ class ProjectInputExercise(InputExercise, ProjectExercise):
 
 class FactInputExercise(InputExercise, TestFactExercise):
     current_answer = models.TextField()
+
+    def finish(self):
+        self.success = 2
+        self.save()
 
     def render_user(self):
         context = {

@@ -45,8 +45,8 @@
         {% endfor %}
         <div class="hr"></div>
         <div class="buttons">
-            <button class="button button_completed_test">Завершить тест</button>
-            <button class="button button_completed_test">Продолжить решение</button>
+            <button class="button button_completed_test" data-url="/tests/{{ test.id }}/finish">Завершить тест</button>
+            <button class="button button_completed_test" data-url="/tests/{{ test.id }}/start">Продолжить решение</button>
         </div>
     </div>
 
