@@ -360,6 +360,7 @@ class TestFact(BaseModel):
         points = 0
         for task in self.get_tasks():
             points += task.count_points()
+            task.update()
         return points
 
     @staticmethod
