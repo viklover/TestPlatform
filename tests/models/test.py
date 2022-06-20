@@ -1438,7 +1438,7 @@ class FactMatchListExercise(MatchListExercise, TestFactExercise):
         is_valid = True
 
         for key in self.get_keys():
-            if key.value.content.lower() != key.current_value.content.lower():
+            if key.current_value is None or key.value.content.lower() != key.current_value.content.lower():
                 is_valid = False
                 break
 
