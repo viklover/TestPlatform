@@ -1021,6 +1021,9 @@ class FactRadioExercise(RadioExercise, TestFactExercise):
         variants = self.get_variants()
         selected_variant = variants[random.randint(0, variants.count() - 1)]
 
+        while selected_variant.current_state != selected_variant.is_correct:
+            selected_variant = variants[random.randint(0, variants.count() - 1)]
+
         selected_variant.current_state = True
         selected_variant.save()
 
