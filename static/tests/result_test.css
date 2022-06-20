@@ -60,7 +60,7 @@
     align-items: center;
     text-align: center;
     margin: 20px auto;
-    animation: bounce .0s alternate infinite ease-in;
+    animation: bounce 1s alternate infinite ease-in;
 }
 
 .percents {
