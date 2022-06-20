@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'tests/tasks/test.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
     <link rel="stylesheet" href="{% static 'tests/tasks/elements.css' %}">
-    <link rel="stylesheet" href="{% static 'simplebox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">SSSS
 {% endblock %}
 
 {% block content %}
@@ -70,11 +70,9 @@
             {% endfor %}
         </div>
 
-        <footer class="content-footer">
-            <div class="button button-save-changes hidden unselectable">
-                Сохранить ответ
-            </div>
-        </footer>
+        <div class="border_open_file" style="padding-top: 10px">
+                <textarea id="description_test">{{ task.description_md }}</textarea>
+        </div>
 
     </div>
     {% include 'footer.html' %}
@@ -85,7 +83,6 @@
     <script src="{% static 'dragscroll.js' %}"></script>
     <script src="{% static 'tests/tasks/script.js' %}"></script>
     <script src="{% static 'editor/changes.js' %}"></script>
-    <script src="{% static 'tests/tasks/exercises.js' %}"></script>
     <script src="{% static 'simplebox.min.js' %}"></script>
     <script>
         $(function() {
@@ -94,6 +91,21 @@
         });
     </script>
     <script src="{% static 'tests/tasks/elements-list.js' %}"></script>
+    <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
+    <script>
+        let simplemde = new SimpleMDE({
+            autoDownloadFontAwesome: undefined,
+            element: document.getElementById("description_test"),
+            spellChecker: false,
+            autofocus: true,
+            togglePreview: true,
+            toolbar: false,
+            status: false
+            {#toolbar: []#}
+        });
+        simplemde.togglePreview(true);
+    </script>
+    <script src="{% static 'tests/test_page.js' %}"></script>
 {% endblock %}
 
 {#    <div class="content">#}
