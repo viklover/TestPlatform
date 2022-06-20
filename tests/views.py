@@ -25,6 +25,7 @@ def test_page(request, test_id):
         'number_of_tasks': test.project.number_of_tasks,
         'number_of_facts': TestFact.objects.filter(test=test).count(),
         'comments': TestComment.objects.filter(test_id=test_id).order_by('-published_at'),
+        'average_percent': TestFact.get_average_percent(test_id),
         'in_progress': TestFact.objects.filter(completed=False, test=test, user=request.user).exists()
     }
     return render(request, 'tests/test_page.html', context)

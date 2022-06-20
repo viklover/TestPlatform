@@ -313,13 +313,27 @@ class Test(BaseModel):
         )
 
     def get_statistics_differences(self, user, user_page):
+
+        context = {
+            'user' : None,
+            'user_page': None
+        }
+
+        if TestFact.exists_fact(user, self):
+            context['user'] = user
+            context['user_res'] = TestFact.get_best_session(user, self).percent
+
+        if user != user_page and TestFact.exists_fact(user_page, self):
+            context['user_page'] = user
+            print(TestFact.get_best_session(user_page, self).percent)
+            context['user_page_res'] = TestFact.get_best_session(user_page, self).percent
+
+        print(context)
+
         return self.__render_template(
             context={
                 'with_statistics': True,
-                'user': user,
-                'user_res': 0.16,
-                'user_page': user_page,
-                'user_page_res': 0.687431
+                **context
             }
         )
 
@@ -371,6 +385,14 @@ class TestFact(BaseModel):
         return TestFact.objects.get(user=user, test_id=test_id, completed=False)
 
     @staticmethod
+    def get_best_session(user, test):
+        return TestFact.objects.filter(user=user, test=test, completed=True).order_by('-percent').first()
+
+    @staticmethod
+    def exists_fact(user, test):
+        return TestFact.objects.filter(user=user, test=test, completed=True).exists()
+
+    @staticmethod
     def get_finished_tests(user):
         tests = []
         tests_ids = []
@@ -382,6 +404,11 @@ class TestFact(BaseModel):
                 tests_ids.append(fact.test.id)
 
         return tests
+
+    @staticmethod
+    def get_average_percent(test_id):
+        facts = [fact.percent * 100 for fact in TestFact.objects.filter(test_id=test_id, completed=True)]
+        return round(sum(facts) / len(facts))
 
     def get_tasks(self):
         return TaskFact.objects.filter(test=self).order_by('number')
@@ -418,6 +445,7 @@ class TaskFact(BaseTask):
     def finish(self):
         for exercise in self.get_exercises():
             exercise.finish()
+        self.update()
 
     def count_points(self):
         print(f'Task #{self.number}')
