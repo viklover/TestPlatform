@@ -122,7 +122,6 @@ a .link_blue {
         height: 38px;
         background-image: url('hidelist_gradient.png');
         background-size: cover;
-        z-index: 10;
         /*background: linear-arrow(270deg, #FFFFFF 49.22%, rgba(255, 255, 255, 0) 86.05%);*/
     }
 
@@ -161,6 +160,12 @@ a .link_blue {
         width: 34px;
         border-radius: 50%;
         background-color: #D9D9D9;
+    }
+
+    .circle_p_grey:hover {
+        background-color: #917eff;
+        border-radius: 50%;
+        color: #FFFFFF;
     }
 
     .task_test_blue {

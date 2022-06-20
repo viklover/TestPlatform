@@ -173,7 +173,7 @@ a {
     }
 
     .buttons .button {
-        width: max-content;
+        width: 100%;
     }
 }
 
@@ -195,6 +195,6 @@ a {
     }
 
     .buttons {
-        gap: 587px;
+        gap: 519px;
     }
 }

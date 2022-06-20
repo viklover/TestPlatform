@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ test.name }}: Задание {{ task.number }}{% endblock %}
+{% block title %}Задание № {{ task.number }}{% endblock %}
 
 {% block css_styles %}
     <link rel="stylesheet" href="{% static 'tests/exercises/exercises.css' %}">
