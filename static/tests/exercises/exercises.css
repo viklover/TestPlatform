@@ -55,7 +55,7 @@
     }
 
     .radio .variant {
-        width: 268px;
+        /*width: 268px;*/
         border: 2px solid #C9C9C9;
         border-radius: 5px;
         padding: 18px;
@@ -322,9 +322,9 @@
         width: calc(100% - 40px);
     }
 
-    .radio .variant {
-        width: 560px;
-    }
+    /*.radio .variant {*/
+    /*    width: 560px;*/
+    /*}*/
 
     /*.match .element {*/
     /*    width: 600px;*/
