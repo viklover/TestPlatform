@@ -1,0 +1,13 @@
+<form class="modal-window" action="{% block action %}{% endblock action %}" id="{% block id %}{% endblock %}" method="POST">
+    {% csrf_token %}
+    <header>
+        <h3 class="modal-window__header">{% block title %}{% endblock %}</h3>
+    </header>
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+    <footer>
+        <button type="submit" name="submit-button" class="button modal-window__button {% block button_class %}{% endblock %}">{% block button_label %}{% endblock %}</button>
+    </footer>
+</form>
+<div class="modal-background"></div>

@@ -1,0 +1,12 @@
+{% extends 'editor/elements/base_exercise.html' %}
+
+{% block element_type %}input{% endblock %}
+{% block element_class %}input-exercise{% endblock %}
+
+{% block content %}
+    <p style="margin-top: 0">Заготовленный ответ:</p>
+    <textarea class="input-content">{{ exercise.prepared_answer }}</textarea>
+{% endblock %}
+
+{% block buttons_bar %}
+{% endblock %}

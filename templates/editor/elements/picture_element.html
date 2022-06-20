@@ -1,0 +1,17 @@
+{% extends 'editor/elements/base_element.html' %}
+
+{% block element_type %}picture{% endblock %}
+
+{% block element_class %}picture-element{% endblock %}
+
+{% block content %}
+    <img src="/media/{{ element.picture }}" class="picture">
+    <form class="file-uploader-form" method="POST" action="change_element">
+        <input type="text" class="hidden" value="{{ element.element_id }}" name="element_id">
+        <input type="file" class="picture-uploader hidden" name="picture">
+    </form>
+{% endblock %}
+
+{% block buttons_bar %}
+    <div class="button button-secondary-reverse button-update-picture">Обновить изображение</div>
+{% endblock %}

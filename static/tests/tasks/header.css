@@ -1,39 +1,244 @@
+.head {
+    width: 100%;
+    height: 72px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.head .burger {
+    width: 41px;
+    height: 27px;
+    background: url("/static/users/burger.png") no-repeat center;
+    background-size: 41px;
+    padding: 21px;
+    display: block;
+}
+
+.head .image_account {
+    width: 54px;
+    background: var(--avatar-url) no-repeat center;
+    background-size: 46px;
+    border-radius: 5px;
+    padding-right: 32px;
+    height: 69px;
+}
+
+/*окно при наведении*/
+.dropdown {
+    position: relative;
+    display: flex;
+}
+
+.dropdown_0 {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 220px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    margin: 10px 0 0 -168px;
+    border-radius: 5px;
+    top: 55px;
+    right: 15px;
+}
+
+.dropdown-content_0 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 176px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    /*margin: 1px 0 0 7px;*/
+    border-radius: 5px;
+    top: 55px;
+    left: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content_0 a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.dropdown-content_0 a:hover {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    border-radius: 5px;
+}
+
+.dropdown_0:hover .dropdown-content_0 {
+    display: block;
+    border-radius: 5px;
+}
+
+/*окно закончилось*/
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    top: 80px;
+}
+
+.name_surname {
+    display: none;
+}
+
+.icon_test {
+    display: none;
+}
+
+.name_test {
+    display: none;
+}
+
+.dropdown {
+    padding-right: 10px;
+    width: max-content;
+}
 
 @media (min-width: 320px) {
+    .header_padding {
+        margin-top: 66px;
+    }
 
-    header .container {
+    .head .current-user_avatar {
+        width: 54px;
+        background: var(--avatar-url) no-repeat center;
+        background-size: 46px;
+        border-radius: 5px;
+        padding-right: 0;
+        height: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .header_padding {
+        margin-top: 90px;
+    }
+
+    .name_surname {
+        display: block;
+        width: max-content;
+        height: 31px;
+        font-weight: 700;
+        font-size: 23px;
+        line-height: 27px;
+        text-align: right;
+        position: relative;
+        padding: 23px;
+        left: 0;
+    }
+
+    .name_surname {
+        padding: 1px;
+    }
+
+    .head .pages {
+        padding-right: 171px;
+    }
+
+    header .burger {
+        display: none;
+    }
+
+    .icon_test {
+        display: block;
+        background: url("/static/users/icon_tests.png") no-repeat center;
+        width: 45px;
+        height: 46px;
+        background-size: 45px;
+        padding: 11px 15px;
+    }
+
+    header .image_account {
+        width: 54px;
+        padding-right: 0;
+    }
+
+    .flex_header {
         display: flex;
         flex-direction: row;
-        justify-content: center;
-        vertical-align: center;
-        align-items: center;
-        gap: 10px;
-        height: 48px;
-        background: #FFFFFF;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-        padding: 10px;
+        gap: 40px;
     }
 
-    header .container .favicon {
-        width: 40px;
-        height: 40px;
-        background-image: var(--icon-url);
-        background-size: contain;
+    .dropdown_0 {
+        display: none;
     }
 
-    header .container h1 {
-        font-size: 23px;
-        text-align: center;
-    }
-
-
-
-    .descriptionHeader {
-        width: max-content;
-        font-style: normal;
-        margin: auto;
-        font-weight: bold;
+    .name_test {
+        width: 100%;
+        height: 29px;
+        font-weight: 700;
         font-size: 25px;
         line-height: 29px;
+        padding: 18px 0;
+    }
+
+    .dropdown {
+        margin-right: 10px;
+    }
+
+    .flex_header_iconName {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .head .current_user-bar .username {
+         /* display: block; */
+        position: absolute;
+        text-align: right;
+        top: 0;
+        right: 70px;
+        width: max-content;
+    }
+
+    .dropdown {
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    header .image_account {
+        width: 80px;
+        padding-right: 0;
+    }
+
+    .head .content {
+        justify-content: center;
+        gap: 25px;
+    }
+
+    .head .pages {
+        padding-right: 264px;
+    }
+
+    .dropdown {
+        width: 287px;
     }
 }

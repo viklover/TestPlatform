@@ -1,0 +1,42 @@
+{% extends 'tests/elements/base_exercise.html' %}
+
+{% block exercise_class %}match{% endblock %}
+{% block type %}match{% endblock %}
+
+{% block content %}
+
+    <div class="match" draggable="false">
+        <div class="elements">
+            {% for column in columns %}
+                <div class="element" data-id="{{ column.id }}">
+                    <div class="content">
+                        {{ column.content }}
+                    </div>
+                    <div class="line"></div>
+                    <div class="cell">
+
+                        {% for variant in column.get_current_variants %}
+                            <div class="variant" data-id="{{ variant.id }}">
+                                {{ variant.content }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <header>
+            <h2>Варианты ответов</h2>
+        </header>
+        <div class="variants-section">
+            <div class="variants">
+                {% for variant in exercise.get_not_chosen_variants %}
+                    <div class="variant" data-id="{{ variant.id }}">
+                        {{ variant.content }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

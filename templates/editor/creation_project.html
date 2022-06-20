@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Новый тест{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/creation_page/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'editor/header.html' %}
+
+    <div class="content">
+        <div class="created_project_text">
+            Создание проекта
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-content">
+                <div class="flex form-field">
+                    <div class="text_name">Название</div>
+                    <div class="input_name">
+                        <input placeholder="Введите название проекта" name="project_name" required>
+                    </div>
+                </div>
+                <div class="flex form-field">
+                    <div class="text_name">Описание</div>
+                    <div class="input_name">
+                        <textarea placeholder="Введите описание" name="description" required></textarea>
+                    </div>
+                </div>
+                <div class="flex form-field">
+                    <div class="text_icon">Иконка</div>
+                    <div class="icon_loader">
+                        <div class="border_icon">
+                            <img class="image_icon" src="{% static 'editor/templates_icon.png' %}" alt="DefaultProjectIcon"/>
+                        </div>
+                        <div class="button button-secondary upload-file-button" style="margin: 0 0 0 20px;">
+                            Загрузить иконку
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="file" name="icon" class="file-uploader">
+            <button style="margin: 0;" type="submit" name="submit-button" class="button button_created_project"/>Создать проект</button>
+        </form>
+    </div>
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static 'editor/creation_page/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'editor/elements/base_element.html' %}
+
+{% block element_type %}quote{% endblock %}
+
+{% block element_class %}quote-element{% endblock %}
+
+{% block content %}
+    <p style="margin-top: 0">Цитата:</p>
+    <textarea class="input-content">{{ element.quote }}</textarea>
+    <input placeholder="Автор цитаты" type="text" name="author" value="{{ element.author }}">
+{% endblock %}
+
+{% block buttons_bar %}
+
+
+{% endblock %}

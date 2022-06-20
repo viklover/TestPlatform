@@ -1,0 +1,62 @@
+.modal-window {
+    width: 430px;
+    height: 273px;
+    background: #FFFFFF;
+    box-shadow: inset 0 4px 4px 6px rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    margin: 240px auto;
+}
+
+.modal-window:hover {
+    margin: 240px auto;
+    width: 430px;
+    background: #FFFFFF;
+    box-shadow: 1px -2px 0 8px rgb(0 0 0 / 21%);
+    height: 273px;
+    border-radius: 5px;
+}
+
+.content {
+    width: 380px;
+    height: 241px;
+    margin: 16px auto;
+}
+
+.text_create_task {
+    width: 236px;
+    height: 22px;;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    padding: 16px 0;
+}
+
+.hr {
+    width: 380px;
+    height: 0;
+    border: 2px solid #D5D5D5;
+}
+
+label {
+    width: 99px;
+    height: 23px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+}
+
+.input_name_task {
+    box-sizing: border-box;
+    width: 380px;
+    height: 34px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    outline-color: blue;
+}
+
+select {
+    margin-bottom: 40px;
+    outline: none;
+}

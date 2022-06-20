@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Редактор тестов{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'editor/header.html' %}
+
+    <div class="content">
+
+        {% if development_tests_exists %}
+
+            <section class="tests-list tests-list__development">
+                <header>
+                    <h2>Ваши неопубликованные проекты</h2>
+                </header>
+                {{ development_tests_table }}
+            </section>
+
+        {% endif %}
+
+        {% if published_tests_exists %}
+
+            <section class="tests-list tests-list__published">
+                <header>
+                    <h2>Опубликованные тесты</h2>
+                </header>
+                {{ published_tests_table }}
+            </section>
+
+        {% endif %}
+
+        {% if not published_tests_exists and not development_tests_exists %}
+
+            <h2>Добро пожаловать в редакторе тестов!</h2>
+            <p>
+                В этом разделе сайта вы можете реализовывать свои тесты на основе заготовленных
+                типов заданий. Создайте свой первый проект и опубликуйте, когда посчитаете его готовым.
+            </p>
+
+            <div class="button" data-url="/editor/create_project" style="margin: 0">
+                Создать новый проект
+            </div>
+
+        {% endif %}
+
+    </div>
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

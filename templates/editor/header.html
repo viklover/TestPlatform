@@ -1,0 +1,43 @@
+<div class="head head-editor" style="">
+    <div class="content">
+        <div class="dropdown-menu">
+            <div class="burger-menu" id="burger"></div>
+            <div class="dropdown-content_0" style="left: 0;">
+                <a href="/editor">Главная страница</a>
+                <a href="/editor/create_project">Создать проект</a>
+                <a href="/editor/templates">Шаблоны</a>
+                <a href="/editor/stats">Статистика</a>
+            </div>
+        </div>
+        <a href="/editor" data-tooltip="Главная страница">
+            <div class="our_icon" id="our_icon"></div>
+        </a>
+        <div class="pages">
+            <a href="/editor/create_project" data-tooltip="Создать проект">
+                <div class="menu-button create_test" id="icon_tests"></div>
+            </a>
+            <a href="/editor/templates" data-tooltip="Шаблоны">
+                <div class="menu-button templates_icon" id="society"></div>
+            </a>
+            <a href="/editor/stats" data-tooltip="Статистика">
+                <div class="menu-button stats" id="ratings"></div>
+            </a>
+        </div>
+        <div class="current_user-bar" id="current-user_avatar">
+            {% if user.is_authenticated %}
+                <div class="dropdown-user">
+                    <p class="username" id="username">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                    <div class="current-user_avatar" style="--avatar-url: url('/media/{{ request.user.avatar }}')"></div>
+                    <div class="dropdown-content">
+                        <a href="/users/{{ user.id }}" class="first_name_lastName">{{ user.first_name }} {{ user.last_name }}</a>
+                        <a href="/users/you">Моя страница</a>
+                        <a href="/users/you/settings">Настройки</a>
+                        <a href="/">Вернуться к платформе</a>
+                        <a href="/accounts/logout" style="color: red;">Выйти из аккаунта</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="header_padding"></div>

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}список заданий{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'tests/tasks/header.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/style.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/test.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/tasks_page.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include "header.html" %}
+
+    <div class="content">
+
+    <div class="flex_task_text_much">
+        <div class="text_task">
+            Задания теста
+        </div>
+        <div class="much_tasks">? / {{ fact.max_points }}</div>
+    </div>
+
+        {% for task in tasks %}
+            <div class="borders">
+                <a href="{% url 'tests:open_task' test_id=test.id task_number=task.number %}">
+                    <div class="border">
+                        <div class="border_absolute">
+                            <p class="p-border_absolute">
+                               <span>Задание №</span> {{ task.number }}
+                            </p>
+                        </div>
+                        <div class="border_relative">
+                            <p class="p-border_relative">? / {{ task.max_points }}</p>
+                        </div>
+                        <p style="text-align: left;
+    margin: 0;
+    padding: 10px;">{{ task.title }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="hr"></div>
+        <div class="buttons">
+            <button class="button button_completed_test" data-url="/tests/{{ test.id }}/finish">Завершить тест</button>
+            <button class="button button_completed_test" data-url="/tests/{{ test.id }}/start">Продолжить решение</button>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}{% endblock %}

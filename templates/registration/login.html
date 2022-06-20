@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'tests/style.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="form-login">
+            <header>
+                <label class="auth-label">Авторизация</label>
+            </header>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="flex-row nickname">
+                    <label for="username">Логин или email</label>
+                    <input type="text" id="username" name="username" placeholder="Введите логин или email" required>
+                </div>
+                <div class="flex-row password">
+                    <label for="password">Пароль</label>
+                    <input type="password" name="password" id="password" placeholder="Введите пароль" required >
+                </div>
+              <button class="button" type="submit" name="submit-button" style="margin-top: 5px">Войти</button>
+            </form>
+        </div>
+    <div class="href_enter">
+        <p>или <a href="/registration">Зарегистрируйтесь на сайте</a></p>
+    </div>
+    </main>
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

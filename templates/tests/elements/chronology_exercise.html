@@ -1,0 +1,14 @@
+{% extends 'tests/elements/base_exercise.html' %}
+
+{% block exercise_class %}chronology variants{% endblock %}
+{% block type %}chronology{% endblock %}
+
+{% block content %}
+
+    {% for variant in variants %}
+        <div class="variant" data-id="{{ variant.id }}" draggable="true" >
+            {{ variant.content }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

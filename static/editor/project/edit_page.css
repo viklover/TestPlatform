@@ -1,0 +1,78 @@
+
+.project-info {
+    padding-bottom: 50px;
+}
+
+.project-info .field {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.project-info {
+    display: flex;
+    gap: 20px;
+}
+
+.project-info .field_name {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.project-info input[type="text"] {
+    width: 328px;
+    height: 34px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+.project-info textarea {
+    width: 370px;
+    height: 112px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 10px 10px;
+    outline-color: blue;
+    font-size: 15px;
+    font-family: 'ProximaNova', sans-serif;
+}
+
+.upload-file-button {
+    position: absolute;
+    left: 20px;
+    bottom: 65px;
+}
+
+.buttons-submit {
+    position: absolute;
+    right: 25px;
+    bottom: 20px;
+}
+
+.file-uploader {
+    display: none;
+}
+
+@media(min-width: 1024px) {
+
+    .project-info input[type="text"] {
+        width: 527px;
+    }
+
+    .project-info textarea {
+        width: 572px;
+    }
+
+    .buttons-submit {
+        right: 23px;
+        bottom: 20px;
+    }
+
+}

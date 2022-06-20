@@ -1,0 +1,178 @@
+
+.content {
+    width: 320px;
+    margin: auto;
+}
+
+.iconANDname {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin: auto;
+}
+
+.iconANDname .icon {
+    width: 57px;
+    height: 62px;
+    background: url("icon_network.png") no-repeat center 19px;
+    background-size: 57px;
+    padding-left: 6px;
+}
+
+.iconANDname .name {
+    width: 152px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    margin: 25px 0;
+}
+
+.border {
+    width: 100%;
+    height: 119px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    position: relative;
+}
+
+.border .image {
+    --size: 60px;
+    width: var(--size);
+    height: var(--size);
+    background: var(--avatar-url) no-repeat;
+    background-size: var(--size);
+    border-radius: 5px;
+    position: absolute;
+    left: 15px;
+    top: 10px;
+}
+
+.name_nickname .name {
+    width: 198px;
+    height: 22px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.name_nickname {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 90px;
+    padding: 16px 0;
+}
+
+.name_nickname .nickname {
+    width: 198px;
+    height: 22px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #656565;
+    padding-top: 5px;
+}
+
+.button_user_page {
+    width: 294px;
+    height: 28px;
+    left: 13px;
+    bottom: 10px;
+    background: #3300FF;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    color: #FFFFFF;
+    position: absolute;
+    border: 2px solid #3300FF;
+    padding: 0;
+}
+
+.button_user_page:hover {
+    background-color: #FFFFFF;
+    color: #3300FF;
+}
+
+.borders {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content_1 {
+    margin: auto;
+}
+
+
+@media (min-width: 320px) {
+    .icon_link_account {
+        display: none;
+    }
+}
+
+@media (min-width: 700px) {
+    .iconANDname {
+        width: 490px;
+        justify-content: flex-start;
+    }
+
+    .border {
+        width: 413px;
+        margin: auto;
+    }
+
+    .border .image {
+        position: relative;
+    }
+
+    .name_nickname {
+        position: absolute;
+    }
+
+    .button_user_page {
+        display: none;
+    }
+
+    .flex {
+        flex-direction: row;
+    }
+
+    .icon_link_account {
+        display: block;
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        border-radius: 5px;
+        background: url("icon_link_account.png") no-repeat center;
+        background-size: 45px;
+        right: 10px;
+        top: 15px;
+        cursor: pointer;
+    }
+
+    .border {
+        height: 80px;
+    }
+}
+
+@media (min-width: 700px) {
+
+    .content {
+        width: 700px;
+    }
+
+    .border {
+        width: 497px;
+        position: relative;
+    }
+}

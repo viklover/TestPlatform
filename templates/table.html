@@ -1,0 +1,13 @@
+<table class="table {{ class }}" id="{% block id %}{% endblock %}">
+    <thead>
+        <tr>
+            {% for column in columns %}
+                <th scope="col">{{ column }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% block table_content %}
+        {% endblock %}
+    </tbody>
+</table>

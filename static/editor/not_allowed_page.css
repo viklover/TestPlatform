@@ -1,0 +1,23 @@
+.text_about_edit {
+    font-weight: 700;
+    font-size: 25px;
+    text-align: center;
+    padding: 71px 47px 15px 50px;
+    margin: auto;
+}
+
+.image {
+    width: 125px;
+    height: 138px;
+    background: url("icon_testPlatform.png") no-repeat;
+    background-size: 125px;
+    margin: auto auto 18px;
+}
+
+@media (min-width: 768px) {
+    .text_about_edit {
+        width: max-content;
+        padding: 71px 47px 0 50px;
+        height: 50px;
+    }
+}

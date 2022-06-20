@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ test.project.name }}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'tests/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'header.html' %}
+
+    <div class="content">
+        <div class="min_border">
+        <div class="tags">
+            <div class="tag tag_1">
+                Средняя сложность
+            </div>
+            <div class="tag tag_2">
+                Заданий: {{ number_of_tasks }}
+            </div>
+            <div class="tag tag_1_new">
+                <div class="tag-content">
+                    <p>Количество прохождений: {{ number_of_facts }}</p>
+                </div>
+            </div>
+            {% if number_of_facts > 0 %}
+                <div class="tag tag_2_new">
+                    <div class="tag-content">
+                        <p>Средний результат: {{ average_percent }}%</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="border_top">
+            <div class="icon_test" style="--icon-url: url('/media/{{ test.project.icon }}');"></div>
+            <h2 class="name_test">{{ test.project.name }}</h2>
+            <p class="description_test">{{ test.project.description }}</p>
+                <a href="/tests/{{ test.id }}/start">
+                    {% if in_progress %}
+                        <div class="button">Продолжить прохождение</div>
+                    {% else %}
+                        <div class="button">Начать прохождение</div>
+                    {% endif %}
+                </a>
+        </div>
+    </div>
+        <div class="border_open_file">
+            <textarea id="description_test">{{ test.project.description_md }}</textarea>
+        </div>
+        <div class="comment_title">Комментарии</div>
+        <div class="border_comment">
+
+            <form method="POST" id="form-comments" action="/tests/{{ test.id }}/upload_comment" class="form-comments">
+                {% csrf_token %}
+                <input type="text" id="input" name="text"/>
+                <button type="submit" class="button button_start_test button_create_comment" id="sent_comment">Отправить</button>
+            </form>
+
+            {% if comments|length %}
+
+                <div class="hr_border_comment"></div>
+
+                {% for comment in comments %}
+                    <div class="comment">
+                        <div class="avatar" style="--avatar-url: url('/media/{{ comment.user.avatar }}')"></div>
+                        <div class="description_comment_index">
+                            <div class="name">{{ comment.user.first_name }} {{ comment.user.last_name }}</div>
+                            <div class="description_comment" id="description_comment">
+                                {{ comment.message }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+        </div>
+    </div>
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
+    <script>
+        let simplemde = new SimpleMDE({
+            autoDownloadFontAwesome: undefined,
+            element: document.getElementById("description_test"),
+            spellChecker: false,
+            autofocus: true,
+            togglePreview: true,
+            toolbar: false,
+            status: false
+            {#toolbar: []#}
+        });
+        simplemde.togglePreview(true);
+    </script>
+    <script src="{% static 'tests/test_page.js' %}"></script>
+
+
+{% endblock %}

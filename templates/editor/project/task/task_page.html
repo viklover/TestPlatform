@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/task_page.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/elements.css' %}">
+    <link rel="stylesheet" href="{% static 'modal_window.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'editor/header.html' %}
+
+    <div class="content">
+
+        <p class="path"><a href="{% url 'editor:open_project' project_id=project.id %}" class="active-link">{{ project.project_name }}</a> > {{ task.name }}</p>
+
+        <section class="preview-project">
+            <p class="task-number">Задание №{{ task.number }}</p>
+            <p class="task-name">{{ task.title }}</p>
+            <div class="buttons-edit">
+                <div class="button button-change-info" data-url="{% url 'editor:edit_task' project_id=project.id task_id=task.id %}"></div>
+                <div class="button button-remove" data-modalwindow="#remove_task"></div>
+            </div>
+        </section>
+
+        <section class="tabs-menu unselectable">
+            <header class="tabs-buttons">
+                <h2 data-content="project-tasks" class="tab-button active">Схема</h2>
+                <h2 data-content="edit-info" class="tab-button">Объяснение задания</h2>
+            </header>
+            <div class="tabs-line"></div>
+        </section>
+
+        <section class="tab project-tasks">
+            <main>
+                <div class="elements-list">
+                    {% for element in elements %}
+                        {{ element.render }}
+                    {% endfor %}
+                </div>
+            </main>
+            <div class="editor-buttons-list">
+                <div class="button button-secondary button-editor button-create-exercise" data-modalwindow="#creation_exercise">
+                    Создать упражнение
+                </div>
+                <div class="button button-secondary button-editor button-create-element" data-modalwindow="#creation_element">
+                    Создать элемент
+                </div>
+            </div>
+            <div class="button button-editor button-save-changes hidden" id="save_schema">
+                Сохранить порядок элементов схемы
+            </div>
+        </section>
+
+        <section class="tab edit-info tab-relative not-visible" id="#edit-info">
+            <form action="upload_description/" method="POST" id="edit-info-form">
+                {% csrf_token %}
+                <button type="sumbit" name="SEND UPDATES" class="button button-save-md not-allowed">Сохранить</button>
+                <textarea id="edit-info" name="markdown_field">
+{{ task.description_md }}</textarea>
+            </form>
+        </section>
+
+    </div>
+
+    {% include 'editor/project/modal_window/creation_exercise.html' %}
+    {% include 'editor/project/modal_window/creation_element.html' %}
+    {% include 'editor/project/modal_window/remove_task.html' %}
+    {% include 'editor/project/modal_window/remove_element.html' %}
+
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static 'editor/project/tabs-menu.js' %}"></script>
+    <script src="{% static 'editor/changes.js' %}"></script>
+    <script src="{% static 'editor/project/elements.js' %}"></script>
+    <script src="{% static 'editor/project/exercises-list.js' %}"></script>
+    <script src="{% static 'editor/task/script.js' %}"></script>
+    <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
+    <script src="{% static 'editor/project/md-editor.js' %}"></script>
+{% endblock %}

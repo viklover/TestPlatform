@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Сообщество{% endblock %}
+
+{% block css_styles %}
+<link href="/static/users/users_page.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'header.html' %}
+
+    <div class="content">
+
+        <div class="iconANDname">
+            <div class="icon"></div>
+            <div class="name">
+                Сообщество
+            </div>
+        </div>
+
+        <div class="borders">
+
+            {% for user in users %}
+
+                <div class="border">
+                    <div class="content_1">
+                        <div class="flex">
+                            <div class="image" style="--avatar-url: url('/media/{{ user.avatar }}')"></div>
+                            <div class="name_nickname">
+                                <div class="name">{{ user.first_name }} {{ user.last_name }}</div>
+                                <div class="nickname">{{ user.username }}</div>
+                            </div>
+                            <a href="/users/{{ user.id }}">
+                                <div class="icon_link_account"></div>
+                            </a>
+                            <button class="button button_user_page" data-url="/users/{{ user.id }}">
+                                Перейти
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+    
+{% endblock %}

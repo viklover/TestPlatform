@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Платформа тестов{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'test-card.css' %}">
+{% endblock %}
+
+{% block content %}
+{#    {% include 'header.html' %}#}
+
+    <div class="content">
+
+        <div class="image"></div>
+        <div class="adaptive_768px">
+            <div class="text_adaptive_768px">
+                <div class="about_platform">
+                    <h3>Что это за платформа такая?</h3>
+                </div>
+                <div class="description_about_platform">
+                    <p>
+                        Это открытый сайт для прохождения и создания тестов. Каждый пользователь имеет возможность делиться своей статистикой с остальными пользователями и сорвеноваться в рейтинге
+                    </p>
+                </div>
+            </div>
+            <div class="image_1"></div>
+        </div>
+
+        <div class="popular_test_our">
+            <p>Популярные тесты на нашем сайте</p>
+        </div>
+        <div class="cards">
+            {% for test in tests %}
+                {{ test }}
+            {% endfor %}
+        </div>
+        <div style="width: 233px;" class="button new-window" data-url="/tests/{{ test.id }}">
+            Перейти к списку тестов
+        </div>
+        <div class="what_wait">
+            Чего вы ждёте? Зарегистрируйтесь прямо сейчас!
+        </div>
+        <div class="buttons">
+            <div style="width: 233px;" class="button_end_page button new-window" data-url="/registration/{{ test.id }}">
+                Регистрация
+            </div>
+                <div style="width: 233px;" class="button_end_page button new-window" data-url="/accounts/login/{{ test.id }}">
+                У меня уже есть аккаунт
+            </div>
+        </div>
+
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

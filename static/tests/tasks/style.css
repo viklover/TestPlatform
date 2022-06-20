@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'Roboto';
     src: url('../../Roboto-Regular.ttf');
@@ -20,7 +19,7 @@
     .content {
         width: 320px;
         margin: 15px auto auto;
-        animation: appear 1s ease-in-out;
+        animation: appear 0.2s ease-in-out;
     }
 
     .content .question-list {

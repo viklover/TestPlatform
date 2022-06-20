@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ user_page.first_name }} {{ user_page.last_name }}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
+    <link rel="stylesheet" href="{% static 'test-card.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'header.html' %}
+
+    <div class="content">
+
+        <div class="user">
+            <div class="avatar" style="--avatar-url: url('/media/{{ user_page.avatar }}'); border-radius: 5px; ">
+                <div class="rating">1 место</div>
+            </div>
+            <div class="user-info">
+                <div class="flex_user_name">
+                    <p class="user_name">{{ user_page.first_name }} {{ user_page.last_name }}</p>
+                    {% if request.user == user_page %}
+                        <div class="button button-change-info" data-url="/users/you/edit"></div>
+                    {% endif %}
+                </div>
+                <p class="registration_when">{{ user_page.date_joined }}</p>
+            </div>
+        </div>
+
+        <div class="burger_border_js" id="burger_1">
+            <p class="index_page_href">Главная страница</p>
+            <div class="hr_burger"></div>
+            <p class="index_page_href">Список всех тестов</p>
+            <div class="hr_burger"></div>
+            <p class="index_page_href">Рейтинг</p>
+        </div>
+
+
+        <div class="settings" id="settings">
+            {% if user.is_authenticated %}
+                <p class="name_surname" id="name_surname">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+            {% else %}{% endif %}
+            <div class="hr_account_settings"></div>
+            <p class="myPage">Моя страница</p>
+            <div class="hr_account_settings"></div>
+            <p class="">Настройки</p>
+            <div class="hr_account_settings"></div>
+            <p class="">Мастерская тестов</p>
+            <div class="hr_account_settings"></div>
+            <p class="log_out_account">Выйти из аккаунта</p>
+        </div>
+
+        {% if created_tests|length %}
+            <section class="created_tests">
+                <p class="label">Созданные тесты</p>
+                <div class="tests-list created_tests-list">
+                    {% for test in created_tests %}
+                        {{ test }}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+
+        {% if finished_tests|length %}
+            <section class="finished_tests">
+                <p class="label">Пройденные тесты</p>
+                <div class="tests-list finished_tests-list">
+                    {% for test in finished_tests %}
+                        {{ test }}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block js_scripts %}
+<script src="/static/users/user.js"></script>
+{% endblock %}

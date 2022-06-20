@@ -25,6 +25,153 @@
 }
 
 main {
-    width: 600px;
     margin: 0 auto;
+}
+
+.image {
+    width: 100%;
+    height: 310px;
+    background: url("../img_index_start_header/icon_ourPlatform.png") no-repeat center;
+    background-size: 230px;
+}
+
+.about_platform {
+    font-size: 20px;
+}
+
+.about_platform h3 {
+    padding: 0 16px;
+}
+
+.description_about_platform {
+    font-size: 23px;
+    line-height: 27px;
+    margin-bottom: 87px;
+}
+
+.description_about_platform p {
+    padding: 0 16px;
+}
+
+.image_1 {
+    height: 269px;
+    background: url("../img_index_start_header/icon_test_platform.png") no-repeat center;
+    background-size: 293px;
+}
+
+.popular_test_our {
+    font-size: 27px;
+    width: 100%;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+}
+
+.what_wait {
+    width: 281px;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 32px;
+    margin: auto;
+    padding: 41px 0 29px;
+}
+
+.content {
+    width: 320px;
+    margin: 0 auto;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+}
+
+.button_end_page {
+    display: block;
+    margin: auto;
+}
+
+.cards {
+    display: grid;
+    row-gap: 30px;
+    margin: auto auto 15px;
+}
+
+@media (min-width: 768px) {
+
+    .content {
+        width: 700px;
+    }
+
+    .image {
+        width: 100%;
+        height: 310px;
+        background: url("../img_index_start_header/icon_ourPlatform_768px.png") no-repeat center;
+        background-size: 390px;
+    }
+
+    .adaptive_768px {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .image_1 {
+        width: 730px;
+    }
+
+    .text_adaptive_768px {
+        width: 1200px;
+    }
+
+    .popular_test_our {
+        width: 100%;
+    }
+
+    .popular_test_our p {
+        text-align: center;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 30px;
+        width: 630px;
+    }
+
+    .what_wait {
+        width: 100%;
+        text-align: center;
+    }
+
+    .buttons {
+        flex-direction: row;
+        gap: 9px;
+    }
+
+    .button_end_page {
+        margin: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .content {
+        width: 1024px;
+    }
+
+    .image_1 {
+        background-size: 261px;
+        height: 261px;
+    }
+
+    .text_adaptive_768px {
+        width: 822px;
+        padding-left: 97px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+        width: 950px;
+    }
 }

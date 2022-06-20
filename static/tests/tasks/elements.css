@@ -1,0 +1,24 @@
+.elements-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 90px;
+}
+
+
+.elements-list__item {
+
+}
+
+.elements-list__item header h3 {
+    font-weight: normal;
+    font-size: 19px;
+    margin-top: 0;
+}
+
+@media (min-width: 768px) {
+    .elements-list {
+        margin-top: 70px;
+    }
+}

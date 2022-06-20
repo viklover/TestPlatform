@@ -33,3 +33,105 @@ body {
     background-color: rgba(0,0,0,0.5);
     /*border-radius: 100px;*/
 }
+
+.button {
+    display: block;
+    background-color: #3300FF;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    padding: 7px 12px;
+    width: max-content;
+    margin: 0 auto;
+    border: 2px solid #2C00DE;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.17s;
+}
+
+.button:hover {
+    background-color: white;
+    color: #2C00DE;
+}
+
+
+.button-secondary {
+    background: #3E3E3E;
+    border: 2px solid #3E3E3E;
+    color: #FFFFFF;
+}
+
+.button-secondary:hover {
+    background-color: #FFFFFF;
+    color: #3E3E3E;
+}
+
+.button-secondary-reverse {
+    background-color: #FFFFFF;
+    color: #3E3E3E;
+    border: 2px solid #3E3E3E;
+}
+
+.button-secondary-reverse:hover {
+    background: #3E3E3E;
+    color: #FFFFFF;
+}
+
+.button-red {
+    background-color: red;
+    border-color: darkred;
+    color: white;
+}
+
+.button-red:hover {
+    color: darkred;
+    background-color: white;
+}
+
+.button-red-secondary {
+    color: darkred;
+    background-color: white;
+    border-color: darkred;
+}
+
+.button-red-secondary:hover {
+    background-color: red;
+    border-color: darkred;
+    color: white;
+}
+
+.button-remove-secondary {
+    --size: 20px;
+    background-size: var(--size);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('editor/remove_icon_hover.png');
+    background-color: white;
+    border-color: darkred;
+    padding: 15px;
+    color: darkred;
+}
+
+.button-remove-secondary:hover {
+    background-image: url('editor/remove_icon.png');
+    background-color: red;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.font-bold {
+    font-weight: bold;
+}

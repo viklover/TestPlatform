@@ -1,0 +1,159 @@
+.content {
+    width: 250px;
+    margin: auto;
+}
+
+.result {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    position: absolute;
+}
+
+.image-mark {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+}
+
+
+.great-result .image-mark {
+    background-image: url("../tests/results/green_check.png");
+}
+
+.great-result {
+    color: green;
+}
+
+.good-result .image-mark {
+    background-image: url("../tests/results/blue_check.png");
+}
+
+.good-result {
+    color: #2C00DE;
+}
+
+.bad-result .image-mark {
+    background-image: url("../tests/results/is_not_valid.png");
+}
+
+.bad-result {
+    color: #DF0000;
+}
+
+.question-result .image-mark {
+    background-image: url("../tests/results/yellow_check.png");
+}
+
+.question-result {
+    color: #D78A00;
+}
+
+.text_result {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: auto;
+    width: 170px;
+}
+
+.name_res {
+    width: 118px;
+    height: 36px;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.percent {
+    width: max-content;
+    height: 40px;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 59px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px auto;
+    animation: bounce 1s alternate ease-in-out;
+}
+
+.percents {
+    margin-left: 20px;
+}
+
+.recommendation {
+    /*height: 23px;*/
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 18px;
+    text-align: center;
+    margin-top: 35px;
+    animation: appear 1s alternate ease-in-out;
+}
+
+.result .button {
+    margin-top: 20px;
+    font-size: 14px;
+    animation: appear 1s alternate ease-in-out;
+}
+
+@keyframes bounce {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    10% {
+        /*opacity: 0.4;*/
+        /*transform: translateY(10%);*/
+    }
+    50% {
+        opacity: 0.4;
+        transform: translateY(-25px);
+    }
+    75% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width:701px) {
+
+  .percent {
+    /*color: green;*/
+  }
+}
+
+@media screen and (max-width:700px) {
+
+  .percent {
+    /*color: green;*/
+    /*display: block; !* needed to trigger update *!*/
+  }
+}
+
+@media (min-width: 768px) {
+    .content {
+        width: 700px;
+        margin: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .content {
+        width: 1000px;
+        margin: auto;
+    }
+}

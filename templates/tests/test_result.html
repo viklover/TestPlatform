@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Платформа тестов{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/result_test.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+
+        <div class="result">
+           {% if percent < 50 %}
+               <div class="percent bad-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
+               </div>
+               <div class="recommendation">
+                   Не расстраивайся: у тебя бесконечное число попыток
+               </div>
+           {% elif percent < 70 and percent >= 50 %}
+               <div class="percent question-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
+               </div>
+               <div class="recommendation">
+                   А ты неплох, но рекомендуем получше подготовиться и перепройти тест
+               </div>
+           {% elif percent < 85 and percent >= 70 %}
+                <div class="percent good-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
+               </div>
+                <div class="recommendation">
+                   Молодец
+               </div>
+           {% elif percent >= 85 %}
+                <div class="percent great-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
+               </div>
+               <div class="recommendation">
+                   Отлично
+               </div>
+           {% endif %}
+            <a href="/tests/results/{{ fact.id }}/tasks" style="text-decoration: none">
+                <button class="button">Посмотреть разбор заданий</button>
+            </a>
+{#            <button class="button">Перейти к своей странице</button>#}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

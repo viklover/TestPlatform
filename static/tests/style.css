@@ -1,14 +1,430 @@
 
-main {
-    width: 768px;
+.header {
+    width: 100% ;
+    height: 72px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.burger {
+    width: 41px;
+    height: 100%;
+    background: url("../users/burger.png") no-repeat center 21px;
+    background-size: 41px;
+    margin: 0 10px;
+}
+
+a .avatar {
+    width: 80px;
+    height: 100%;
+    background: var(--avatar-url) no-repeat center;
+    background-size: 55px;
+    border-radius: 5px;
+}
+
+.min_border {
+    margin-top: 22px;
+    width: 100%;
+    background: linear-gradient(180.81deg, #FFFFFF 0.69%, rgba(246, 246, 246, 0.964497) 0.69%, rgba(246, 246, 246, 0.964497) 0.69%, #FFFFFF 0.69%, #FFFFFF 0.7%, #FFFFFF 3.01%, rgba(0, 0, 0, 0) 45.15%);
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+.tags {
+    padding: 10px;
+}
+
+.tags .tag {
+    display: inline-block;
+    font-size: 15px;
+    padding: 7px 14px;
+    margin: 0 4px;
+}
+
+.tags .tag_1 {
+    background: linear-gradient(269.61deg, #FF8A00 26.56%, #FF0099 103.97%);
+    border-radius: 5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.tags .tag_2 {
+    background: linear-gradient(90.39deg, #6100FF 5.24%, #00FF66 100.05%);
+    border-radius: 5px;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.tags .tag_1_new .tag-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.tags .tag_1_new {
+    width: max-content;
+    background: linear-gradient(269.61deg, #0038FF 26.56%, #00A3FF 103.97%);
+    border-radius: 5px;
+    margin: 12px 2px 0;
+    padding: 6px 0;
+}
+
+.tags .tag_1_new p {
+    font-weight: 700;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 6px;
+    margin: 0;
+}
+
+.hr {
+    width: 20px;
+    border: 4px solid #FFFFFF;
+    transform: rotate(90deg);
+}
+
+.tags .tag_2_new .tag-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.tags .tag_2_new {
+    width: max-content;
+    background: linear-gradient(269.61deg, #0038FF 26.56%, #00A3FF 103.97%);
+    border-radius: 5px;
+    margin: 12px 2px 0;
+    padding: 6px 0;
+}
+
+
+.tags .tag_2_new p {
+    font-weight: 700;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 6px;
+    margin: 0;
+}
+
+.min_border .border_top {
+    width: 100%;
+    height: 320px;
+    background: #FFFFFF;
+    border-radius: 5px;
     margin: auto;
 }
 
-.button {
+.icon_test {
+    width: 100%;
+    height: 130px;
+    background: var(--icon-url) no-repeat center 24px;
+    background-size: 99px;
+}
+
+.name_test {
+    width: 100%;
+    height: 34px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    text-align: center;
+    color: #000000;
+    margin: auto;
+}
+
+.description_test {
+    width: 100%;
+    height: 86px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    color: #000000;
+    margin: auto;
+}
+
+.button_start_test {
     display: inline-block;
     padding: 5px 10px;
     color: white;
-    margin: 0;
+    width: 224px;
     background-color: blue;
     cursor: pointer;
+    margin: auto;
+}
+
+.button_start_test {
+    background-color: #3300FF;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: auto;
+    border: 2px solid #2C00DE;
+}
+
+.button_start_test:hover {
+    background-color: #FFFFFF;
+    border: 2px solid #2C00DE;
+    border-radius: 5px;
+    color: #3300FF;
+}
+
+a {
+    text-decoration: none;
+}
+
+.border_open_file {
+    height: max-content;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.open_description_file {
+    height: 33px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 0;
+}
+
+.form-comments {
+    text-align: center;
+    padding: 15px;
+}
+
+.comment_title {
+    width: 174px;
+    height: 39px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+    margin: auto;
+    padding: 36px 36px 10px;
+    text-align: center;
+}
+
+.border_comment {
+    width: 100%;
+    height: max-content;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.border_comment input[type="text"] {
+    box-sizing: border-box;
+    width: 296px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    margin: 11px auto;
+    display: grid;
+    padding: 7px;
+    font-size: 15px;
+}
+
+.hr_border_comment {
+    width: 295px;
+    border: 2px solid #D5D5D5;
+    margin: 11px auto 11px auto;
+}
+
+.description_comment {
+    max-width: 230px;
+}
+
+input[type="text"] {
+    outline: blue;
+}
+
+@media (min-width: 320px) {
+    a .icon_Platform {
+        display: none;
+    }
+    .content {
+        width: 320px;
+        margin: auto;
+    }
+
+    a .icon_tests {
+        display: none;
+    }
+
+    .icon_ratings {
+        display: none;
+    }
+
+    .header {
+        justify-content: space-between;
+    }
+
+    .comment {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        width: 296px;
+        margin: auto auto 21px;
+    }
+
+    .comment .avatar {
+        width: 45px;
+        height: 45px;
+        background: var(--avatar-url) no-repeat center;
+        background-size: 45px;
+        border-radius: 5px;
+    }
+
+    .name {
+        width: 130px;
+        height: 15px;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+        color: #000000;
+    }
+
+    .description_comment_index {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .button_create_comment {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        justify-content: space-around;
+    }
+
+    .content {
+        width: 700px;
+    }
+
+    .burger {
+        display: none;
+    }
+
+    a .icon_Platform {
+        display: block;
+        width: 168px;
+        height: 70px;
+        background: url("../logos/logo_short.png") no-repeat center 11px;
+        background-size: 168px;
+    }
+
+    a .icon_tests {
+        display: block;
+        width: 45px;
+        height: 70px;
+        background: url("../users/icon_tests.png") no-repeat center 11px;
+        background-size: 45px;
+    }
+
+    .icon_ratings {
+        display: block;
+        width: 45px;
+        height: 70px;
+        background: url("../users/ratings.png") no-repeat center 11px;
+        background-size: 45px;
+    }
+
+    .tags_top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .min_border {
+        width: 602px;
+        margin: 67px auto 50px;
+    }
+
+    .border_open_file {
+        width: 572px;
+        margin: auto;
+    }
+
+    .form-comments {
+        text-align: right;
+    }
+
+    .border_comment {
+        width: 602px;
+        margin: auto;
+    }
+
+    .border_comment input[type="text"] {
+        margin: 0;
+        width: 100%;
+    }
+
+    .comment {
+        justify-content: flex-start;
+        width: 554px;
+    }
+
+    .hr_border_comment {
+        width: 554px;
+    }
+
+    .button_create_comment {
+        width: max-content;
+    }
+
+    .button_create_comment {
+        margin-top: 10px;
+    }
+
+    .description_comment {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .content {
+        width: 900px;
+    }
+
+    .min_border {
+        width: 819px;
+    }
+
+    .border_open_file {
+        width: 789px;
+    }
+
+    .border_comment {
+        width: 819px;
+    }
+
+    .hr_border_comment {
+        width: 762px;
+    }
+
+    .comment {
+        width: 762px;
+    }
+
+    .description_comment {
+        max-width: 700px;
+    }
 }

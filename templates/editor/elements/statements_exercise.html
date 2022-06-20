@@ -1,0 +1,24 @@
+{% extends 'editor/elements/base_exercise.html' %}
+
+{% block element_type %}statements{% endblock %}
+{% block element_class %}statements-exercise{% endblock %}
+
+{% block content %}
+
+    <div class="variants {% if not variants|length %}hidden{% endif %}">
+        {% for variant in variants %}
+            <div class="variant" data-id="{{ variant.id }}">
+                <div class="button button-remove-secondary button-remove-variant"></div>
+                <input type="checkbox" {% if variant.is_correct %}checked{% endif %} name="radio{{ exercise.id }}">
+                <input value="{{ variant.content }}" type="text" class="variant-content">
+            </div>
+        {% endfor %}
+    </div>
+
+    <p class="description {% if variants|length %}hidden{% endif %}">Пока здесь нет ни одного утверждения</p>
+
+{% endblock %}
+
+{% block buttons_bar %}
+    <div class="button button-secondary-reverse button-add-variant">Добавить новое утверждение</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<div class="elements-list__item" data-id="{% block id %}{% endblock %}" data-type="{% block element_type %}{% endblock %}">
+    <header>
+        <div class="arrows">
+            <div class="arrow arrow-up"></div>
+            <div class="arrow arrow-down"></div>
+        </div>
+        <h3 class="header-title">{% block head %}{% endblock %}</h3>
+    </header>
+    <main class="item-content {% block element_class %}{% endblock %}">
+        {% block precontent %}
+        {% endblock %}
+    </main>
+    <footer>
+        <hr class="border">
+        <div class="buttons-bar">
+            {% block prebuttons_bar %}
+            {% endblock %}
+            <div class="button hidden button-save-changes">Сохранить изменения</div>
+            <div class="button button-red-secondary button-remove-element">Удалить элемент</div>
+        </div>
+    </footer>
+</div>

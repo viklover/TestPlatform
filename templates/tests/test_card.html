@@ -1,0 +1,41 @@
+{% load test_math %}
+<div class="card">
+    <div class="image_card">
+        <div class="icon" style="--icon-url: url('/media/{{ test.project.icon }}')"></div>
+        <div class="title_description">
+            <div class="title">
+                {{ test.project.name }}
+            </div>
+            {% if not with_statistics %}
+                <div class="description">
+                    {{ test.project.description }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if with_statistics %}
+        <div class="statistics">
+            {% if user %}
+                <div class="stats progress_beau">
+                    <div class="stats-label">Вы прошли на {% multiply user_res 100 %}%</div>
+                    <div class="progress-bar">
+                        <div class="line progress" style="--progress: {% to_str user_res %};"></div>
+                        <div class="line background"></div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if user_page %}
+                <div class="stats current_user">
+                    <div class="stats-label">Пройдено {% multiply user_page_res 100 %}%</div>
+                    <div class="progress-bar">
+                        <div class="line progress" style="--progress: {% to_str user_page_res %};"></div>
+                        <div class="line background"></div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="button button_start_page" data-url="/tests/{{ test.id }}">
+        Перейти к тесту
+    </div>
+</div>

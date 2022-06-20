@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ task.name }}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/header.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/style.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/task_page.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/task/edit_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'editor/header.html' %}
+
+    <div class="content">
+
+        <p class="path">
+            <a href="{% url 'editor:open_project' project_id=project.id %}" class="active-link">{{ project.project_name }}</a> >
+            <a class="active-link" href="{% url 'editor:open_task' project_id=project.id task_id=task.id %}">{{ task.name }}</a>
+        </p>
+
+        <form class="preview-project" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p class="task-number">Задание №{{ task.number }}</p>
+            <div class="field">
+                <p class="field_name">Название задания</p>
+                <input type="text" name="name" maxlength="50" value="{{ task.name }}"/>
+            </div>
+            <div class="field">
+                <p class="field_name">Заголовок</p>
+                <input type="text" name="title" value="{{ task.title }}"/>
+            </div>
+            <input type="submit" class="button buttons-submit" value="Сохранить"/>
+        </form>
+
+    </div>
+
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

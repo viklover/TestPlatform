@@ -1,0 +1,240 @@
+.flex_name_icon_settings {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: 182px;
+}
+
+.icon_settings {
+    width: 46px;
+    height: 46px;
+    background: url("icon_settings.png") no-repeat center;
+    background-size: 46px;
+}
+
+.text_settings {
+    width: 129px;
+    height: 28px;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 45px;
+    text-align: center;
+}
+
+.flex_tags {
+    display: flex;
+    flex-direction: row;
+    margin: 18px 0 26px 15px;
+    gap: 24px;
+}
+
+.top_settings {
+    width: 101px;
+    height: 10px;
+    background: #DFDFDF;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+    padding: 8px 17px 17px 12px;
+}
+
+.account_settings {
+    width: 101px;
+    height: 10px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    padding: 8px 17px 17px 12px;
+    text-align: center;
+}
+
+.theme_name {
+    width: 56px;
+    height: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    padding: 0 0 11px 15px;
+}
+
+.flex_chose_theme {
+    display: flex;
+    flex-direction: column;
+}
+
+.choose_type_theme {
+    width: 290px;
+    height: 34px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin: 11px auto 25px 15px;
+    outline: none;
+}
+
+.choose_type_theme .name_1 {
+    width: 158px;
+    height: 19px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #727272;
+}
+
+.schedule_dark_theme {
+    width: 290px;
+    height: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    margin: 25px auto 19px 15px;
+}
+
+.timeOn_dark_theme {
+    width: 290px;
+    height: 20px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 19px auto 11px 15px;
+}
+
+.timeOn_input {
+    box-sizing: border-box;
+    width: 290px;
+    height: 34px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin-left: 15px;
+    font-family: ProximaNova;
+    margin-bottom: 17px;
+}
+
+.timeOut_input {
+    box-sizing: border-box;
+    width: 290px;
+    height: 34px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin-left: 15px;
+    font-family: ProximaNova;
+}
+
+.flex_password_change {
+    display: flex;
+    flex-direction: row;
+    width: 290px;
+    gap: 60px;
+    margin: auto 0 0 15px;
+}
+
+.text_password {
+    width: 74px;
+    height: 25px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.password_change {
+    width: 164px;
+    height: 18px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    color: #7A7A7A;
+}
+
+.password_input {
+    width: 283px;
+    height: 34px;
+    background: #FFFFFF;
+    border: 2px solid rgba(159, 159, 159, 0.47);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+.text_mail {
+    width: 286px;
+    height: 25px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    margin: 22px auto 0 15px;
+}
+
+.button {
+    margin-top: 38px;
+}
+
+.padding {
+    padding-left: 10px;
+}
+
+.by_time {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .choose_type_theme {
+        width: 659px;
+    }
+
+    .timeOn_input {
+        width: 659px;
+    }
+
+    .timeOut_input {
+        width: 659px;
+    }
+
+    .flex_name_icon_settings {
+        margin: auto 0 0 15px;
+    }
+
+    .password_input {
+        width: 659px;
+    }
+
+    .content {
+        width: 659px;
+        margin: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .choose_type_theme {
+        width: 900px;
+    }
+
+    .timeOn_input {
+        width: 900px;
+    }
+
+    .timeOut_input {
+        width: 900px;
+    }
+
+    .password_input {
+        width: 900px;
+    }
+
+    .content {
+        margin: auto;
+        width: 900px;
+    }
+}

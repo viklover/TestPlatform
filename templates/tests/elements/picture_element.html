@@ -1,0 +1,8 @@
+{% extends 'tests/elements/base_element.html' %}
+
+{% block element_class %}picture-element{% endblock %}
+{% block type %}picture{% endblock %}
+
+{% block content %}
+    <img src="/media/{{ element.picture }}" class="picture slb slb--invert">
+{% endblock %}

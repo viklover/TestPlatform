@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Задание № {{ task.number }}{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'tests/exercises/exercises.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/style.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/test.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'tests/tasks/elements.css' %}">
+    <link rel="stylesheet" href="{% static 'editor/project/simplemde.min.css' %}">SSSS
+{% endblock %}
+
+{% block content %}
+
+    {% include "header.html" %}
+
+    <div class="content content-task">
+
+        <div class="tasks-list unselectable">
+            <div class="arrow arrow-left"></div>
+            <div class="flex_circle dragscroll unselectable">
+                {% for task_test in tasks %}
+                    <a class="text_direction_none unselectable" href="{% url 'tests:fact_task_page' fact_id=fact.id task_number=task_test.number %}">
+                        {% if task_test.number == task.number %}
+                            <div class="circle blue task-selected unselectable">
+                                <p class="task_test_blue unselectable">{{ task_test.number }}</p>
+                            </div>
+                        {% else %}
+                            <div class="circle unselectable">
+                                <p class="circle_p_grey unselectable">{{ task_test.number }}</p>
+                            </div>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="arrow arrow-right"></div>
+        </div>
+
+        <div class="flex_link">
+            <a href="{% url 'tests:fact_tasks_page' fact_id=fact.id %}">
+                <div class="link">
+                    Перейти к списку всех заданий
+                </div>
+            </a>
+
+{#            <a href="{% url 'tests:finish_test' test_id=test.id %}">#}
+{#                <div class="link link_blue">#}
+{#                    Завершить тест#}
+{#                </div>#}
+{#            </a>#}
+        </div>
+        <div class="relative" id="header-task-info">
+            <div class="border_blue">
+                <div class="text_number">
+                    Задание №{{task.number}}
+                </div>
+            </div>
+            <div class="border_white" id="task-info-title">
+                <div class="text_border_white">
+                    {{ task.title }}
+                </div>
+            </div>
+        </div>
+
+        <div class="elements-list">
+            {% for element in elements %}
+                {{ element.render_user }}
+            {% endfor %}
+        </div>
+        {% if task.description_md == '' %}
+            <div class="border_open_file editor-preview-active, editor-preview-active-side" style="display: none">
+                <textarea id="description_test" style="display: none">{{ task.description_md }}</textarea>
+            </div>
+        {% else %}
+            <div class="border_open_file" style="padding-top: 10px">
+                <textarea id="description_test">{{ task.description_md }}</textarea>
+            </div>
+        {% endif %}
+    </div>
+    {% include 'footer.html' %}
+
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="{% static 'dragscroll.js' %}"></script>
+    <script src="{% static 'tests/tasks/script.js' %}"></script>
+    <script src="{% static 'simplebox.min.js' %}"></script>
+    <script>
+        $(function() {
+            var height = $( '#task-info-title' ).height();
+            $( '#header-task-info' ).height(height);
+        });
+    </script>
+    <script src="{% static 'tests/tasks/elements-list.js' %}"></script>
+    <script src="{% static 'editor/project/simplemde.min.js' %}"></script>
+    <script>
+        let simplemde = new SimpleMDE({
+            autoDownloadFontAwesome: undefined,
+            element: document.getElementById("description_test"),
+            spellChecker: false,
+            autofocus: false,
+            togglePreview: true,
+            toolbar: false,
+            status: false
+            {#toolbar: []#}
+        });
+        simplemde.togglePreview(true);
+    </script>
+    <script src="{% static 'tests/test_page.js' %}"></script>
+{% endblock %}
+
+{#    <div class="content">#}
+{##}
+{#        <div class="question-list">#}
+{#            <div class="current-question">#}
+{#                Задание №{{ task.number }}#}
+{#            </div>#}
+{#        <hr color="gray">#}
+{#        </div>#}
+{##}
+{#        <div class="question" id="question">#}
+{#            <p>{{ task.title }}</p>#}
+{#        </div>#}
+{##}
+{#        <button class="accept-button">#}
+{#            <div class="text">#}
+{#                Принять ответ#}
+{#            </div>#}
+{#        </button>#}
+{#    </div>#}

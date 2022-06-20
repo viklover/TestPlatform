@@ -1,0 +1,19 @@
+{% extends 'modal_window.html' %}
+{% load static %}
+
+{% block id %}creation_element{% endblock %}
+{% block title %}Создать элемент{% endblock %}
+{% block action %}create_element{% endblock action %}
+
+{% block content %}
+    {% for f in creation_element_form %}
+        <div class="modal-window__field">
+            <h4 class="field-name">{{ f.label }}</h4>
+            {{ f }}
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block button_label %}
+    Создать
+{% endblock %}
