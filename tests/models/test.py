@@ -352,7 +352,7 @@ class TestFact(BaseModel):
         self.max_points = 0
 
         for task in self.get_tasks():
-            self.max_points += task.points
+            self.max_points += task.max_points
 
         self.save()
 
@@ -389,7 +389,7 @@ class TestFact(BaseModel):
     def finish(self):
         self.finished_at = datetime.datetime.now()
         self.completed = True
-
+        self.update()
         self.save()
 
 
@@ -410,9 +410,13 @@ class TaskFact(BaseTask):
         self.save()
 
     def count_points(self):
+        print(f'Task #{self.number}')
         points = 0
         for exercise in self.get_exercises():
-            points += exercise.count_points()
+            exercise_points = exercise.count_points()
+            points += exercise_points
+            print(' -', exercise, ':', exercise_points)
+        print()
         return points
 
     def get_exercises(self):
@@ -723,6 +727,17 @@ class ProjectMatchExercise(MatchExercise, ProjectExercise):
 
 
 class FactMatchExercise(MatchExercise, TestFactExercise):
+
+    def count_points(self):
+
+        is_valid = True
+
+        for variant in self.get_variants():
+            if variant.current_column != variant.column:
+                is_valid = False
+                break
+
+        return self.max_points if is_valid else 0
 
     def process_client(self, data):
         print(self, data)
@@ -1174,6 +1189,10 @@ class ProjectAnswerExercise(AnswerExercise, ProjectExercise):
 
 class FactAnswerExercise(AnswerExercise, TestFactExercise):
     current_answer = models.TextField()
+
+    def count_points(self):
+        is_valid = self.correct_answer.lower() == self.current_answer.lower()
+        return self.max_points if is_valid else 0
 
     def render_user(self):
         context = {

@@ -139,3 +139,56 @@ def remove_fact(request, fact_id):
     fact.delete()
 
     return redirect(reverse('tests:test_page', kwargs={'test_id': test_id}))
+
+
+@login_required
+def update_fact(request, test_id, task_number):
+    session = TestFact.get_session(request.user, test_id)
+    session.update()
+    return redirect(f'/tests/{test_id}/tasks/{task_number}')
+
+
+@login_required
+def fact_task_page(request, fact_id, task_number):
+    fact = TestFact.objects.get(id=fact_id)
+
+    if not fact.user.id == request.user.id:
+        return redirect(reverse('tests:tests_page'))
+
+    tasks = fact.get_tasks()
+    task = tasks.filter(number=task_number).first()
+
+    context = {
+        'task': task,
+        'elements': [obj.get_child() for obj in task.get_elements()],
+        'tasks': tasks,
+        'fact': fact
+    }
+    return render(request, 'tests/test/fact_task_page.html', context)
+
+
+"""
+@login_required
+def open_tasks_page(request, test_id):
+
+    if not TestFact.has_session(request.user, test_id):
+        return redirect(reverse('tests:test_page', kwargs={'test_id': test_id}))
+
+    context = {
+        'test': Test.objects.get(id=test_id),
+        'tasks': TestFact.get_session(request.user, test_id).get_tasks()
+    }
+    return render(request, 'tests/test/tasks_page.html', context)
+"""
+
+
+@login_required
+def fact_tasks_page(request, fact_id):
+
+    fact = TestFact.objects.get(id=fact_id)
+
+    context = {
+        'fact' : fact,
+        'tasks': fact.get_tasks()
+    }
+    return render(request, 'tests/test/fact_tasks_page.html', context)

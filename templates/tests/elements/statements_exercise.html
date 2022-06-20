@@ -6,7 +6,7 @@
 {% block content %}
     {% for variant in variants %}
         <div class="variant{% if variant.current_state %} selected{% endif %}" data-id="{{ variant.id }}">
-            {{ variant.content }} {{ variant.id }}
+            {{ variant.content }}
         </div>
     {% endfor %}
 {% endblock %}
