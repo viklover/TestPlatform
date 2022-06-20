@@ -13,12 +13,35 @@
     <div class="content">
 
         <div class="result">
-            <div class="percent">
-                <div class="image_good_result"></div><span class="percents">{{ percent }}%</span>
-            </div>
-            <div class="recommendation">
-                Ты молодец, но можешь лучше!
-            </div>
+           {% if percent < 50 %}
+               <div class="percent">
+                   <div class="image_bad_result"></div><span class="percents">{{ percent }}%</span>
+               </div>
+               <div class="recommendation" style="color: red">
+                   не расстраивайся: у тебя бесконечное число попыток
+               </div>
+           {% elif percent < 70 and percent >= 50 %}
+               <div class="percent">
+                   <div class="image_question_result"></div><span class="percents">{{ percent }}%</span>
+               </div>
+               <div class="recommendation" style="color: darkorange">
+                   а ты неплох, но рекомендуем получше подготовиться и перепройти тест
+               </div>
+           {% elif percent < 85 and percent >= 70 %}
+                <div class="percent">
+                   <div class="image_good_result"></div><span class="percents">{{ percent }}%</span>
+               </div>
+                <div class="recommendation" style="color: blue">
+                   молодец
+               </div>
+           {% elif percent >= 85 %}
+                <div class="percent">
+                   <div class="image_good_result"></div><span class="percents">{{ percent }}%</span>
+               </div>
+               <div class="recommendation" style="color: green">
+                   отлично
+               </div>
+           {% endif %}
             <a href="/tests/results/{{ fact.id }}/tasks" style="text-decoration: none">
                 <button class="button">Посмотреть разбор заданий</button>
             </a>
