@@ -60,7 +60,7 @@
     align-items: center;
     text-align: center;
     margin: 20px auto;
-    animation: bounce 1s alternate infinite ease-in;
+    animation: bounce 1s alternate ease-in-out;
 }
 
 .percents {
@@ -80,15 +80,26 @@
     margin-top: 20px;
 }
 
-@media screen and (min-width:701px) {
-  @keyframes bounce {
+@keyframes bounce {
     0% {
-      transform: translateX(50%);
+        opacity: 0;
+        transform: translateY(100px);
     }
-    100% {
-      transform: translateX(-50%);
+    10% {
+        /*opacity: 0.4;*/
+        /*transform: translateY(10%);*/
     }
-  }
+    50% {
+        opacity: 0.4;
+        transform: translateY(-25px);
+    }
+    75% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media screen and (min-width:701px) {
 
   .percent {
     color: green;
@@ -96,18 +107,10 @@
 }
 
 @media screen and (max-width:700px) {
-  @keyframes bounce {
-    0% {
-      transform: translateY(-200%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
 
   .percent {
     color: green;
-    display: block; /* needed to trigger update */
+    /*display: block; !* needed to trigger update *!*/
   }
 }
 
