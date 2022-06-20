@@ -21,7 +21,7 @@
         <div class="text_task">
             Задания теста
         </div>
-        <div class="much_tasks">? / 40</div>
+        <div class="much_tasks">? / {{ fact.max_points }}</div>
     </div>
 
         {% for task in tasks %}
@@ -34,7 +34,7 @@
                             </p>
                         </div>
                         <div class="border_relative">
-                            <p class="p-border_relative">? / 10</p>
+                            <p class="p-border_relative">? / {{ task.max_points }}</p>
                         </div>
                         <p style="text-align: left;
     margin: 0;

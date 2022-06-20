@@ -93,9 +93,12 @@ def open_tasks_page(request, test_id):
     if not TestFact.has_session(request.user, test_id):
         return redirect(reverse('tests:test_page', kwargs={'test_id': test_id}))
 
+    fact = TestFact.get_session(request.user, test_id)
+
     context = {
         'test': Test.objects.get(id=test_id),
-        'tasks': TestFact.get_session(request.user, test_id).get_tasks()
+        'tasks': fact.get_tasks(),
+        'fact': fact
     }
     return render(request, 'tests/test/tasks_page.html', context)
 
@@ -108,7 +111,7 @@ def finish_test(request, test_id):
         test_fact.finish()
         return redirect(reverse('tests:fact_page', kwargs={'fact_id': test_fact.id}))
 
-    return redirect(reverse('tests:tests_page'))
+    return redirect(reverse('tests:index'))
 
 
 
@@ -125,7 +128,7 @@ def fact_page(request, fact_id):
     fact = TestFact.objects.get(id=fact_id)
 
     if not fact.user.id == request.user.id:
-        return redirect(reverse('tests:tests_page'))
+        return redirect(reverse('tests:index'))
 
     if not fact.completed:
         return redirect(reverse('tests:open_task', kwargs={'test_id': fact.test_id, 'task_number': 1}))
@@ -159,7 +162,7 @@ def fact_task_page(request, fact_id, task_number):
     fact = TestFact.objects.get(id=fact_id)
 
     if not fact.user.id == request.user.id:
-        return redirect(reverse('tests:tests_page'))
+        return redirect(reverse('tests:index'))
 
     tasks = fact.get_tasks()
     task = tasks.filter(number=task_number).first()
@@ -171,21 +174,6 @@ def fact_task_page(request, fact_id, task_number):
         'fact': fact
     }
     return render(request, 'tests/test/fact_task_page.html', context)
-
-
-"""
-@login_required
-def open_tasks_page(request, test_id):
-
-    if not TestFact.has_session(request.user, test_id):
-        return redirect(reverse('tests:test_page', kwargs={'test_id': test_id}))
-
-    context = {
-        'test': Test.objects.get(id=test_id),
-        'tasks': TestFact.get_session(request.user, test_id).get_tasks()
-    }
-    return render(request, 'tests/test/tasks_page.html', context)
-"""
 
 
 @login_required
