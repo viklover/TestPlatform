@@ -390,6 +390,9 @@ class TestFact(BaseModel):
         self.finished_at = datetime.datetime.now()
         self.completed = True
         self.update()
+
+        self.percent = self.points / self.max_points
+
         self.save()
 
 
@@ -965,18 +968,24 @@ class ProjectRadioExercise(RadioExercise, ProjectExercise):
 
 class FactRadioExercise(RadioExercise, TestFactExercise):
 
+    def count_points(self):
+
+        is_valid = True
+
+        for variant in self.get_variants():
+            if variant.is_correct != variant.current_state:
+                is_valid = False
+                break
+
+        return self.max_points if is_valid else 0
+
     def prepare_exercise(self):
 
         variants = self.get_variants()
         selected_variant = variants[random.randint(0, variants.count() - 1)]
 
-        print('variants', variants)
-        print('selected_variant', selected_variant)
-
         selected_variant.current_state = True
         selected_variant.save()
-
-        print(selected_variant.current_state)
 
     def process_client(self, data):
 
@@ -1077,6 +1086,17 @@ class ProjectStatementsExercise(StatementsExercise, ProjectExercise):
 
 class FactStatementsExercise(StatementsExercise, TestFactExercise):
 
+    def count_points(self):
+
+        is_valid = True
+
+        for variant in self.get_variants():
+            if variant.is_correct != variant.current_state:
+                is_valid = False
+                break
+
+        return self.max_points if is_valid else 0
+
     def process_client(self, data):
 
         for variant in self.get_variants():
@@ -1130,6 +1150,7 @@ class ProjectInputExercise(InputExercise, ProjectExercise):
     def create_fact(self, task_fact):
         input_exercise = super().create_fact(task_fact)
         input_exercise.prepared_answer = self.prepared_answer
+        input_exercise.max_points = 0
         input_exercise.save()
         return input_exercise
 
@@ -1282,6 +1303,17 @@ class ProjectImagesExercise(ImagesExercise, ProjectExercise):
 
 class FactImagesExercise(ImagesExercise, TestFactExercise):
 
+    def count_points(self):
+
+        is_valid = True
+
+        for picture in self.get_pictures():
+            if picture.checked != picture.current_checked:
+                is_valid = False
+                break
+
+        return self.max_points if is_valid else 0
+
     def render_user(self):
         context = {
             'pictures': self.get_pictures(),
@@ -1400,6 +1432,17 @@ class ProjectMatchListExercise(MatchListExercise, ProjectExercise):
 
 
 class FactMatchListExercise(MatchListExercise, TestFactExercise):
+
+    def count_points(self):
+
+        is_valid = True
+
+        for key in self.get_keys():
+            if key.current_value is None or key.value.content.lower() != key.current_value.content.lower():
+                is_valid = False
+                break
+
+        return self.max_points if is_valid else 0
 
     def render_user(self):
         context = {
