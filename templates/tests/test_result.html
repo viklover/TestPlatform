@@ -14,32 +14,32 @@
 
         <div class="result">
            {% if percent < 50 %}
-               <div class="percent">
-                   <div class="image_bad_result"></div><span class="percents">{{ percent }}%</span>
+               <div class="percent bad-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
                </div>
-               <div class="recommendation" style="color: red">
-                   не расстраивайся: у тебя бесконечное число попыток
+               <div class="recommendation">
+                   Не расстраивайся: у тебя бесконечное число попыток
                </div>
            {% elif percent < 70 and percent >= 50 %}
-               <div class="percent">
-                   <div class="image_question_result"></div><span class="percents">{{ percent }}%</span>
+               <div class="percent question-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
                </div>
-               <div class="recommendation" style="color: darkorange">
-                   а ты неплох, но рекомендуем получше подготовиться и перепройти тест
+               <div class="recommendation">
+                   А ты неплох, но рекомендуем получше подготовиться и перепройти тест
                </div>
            {% elif percent < 85 and percent >= 70 %}
-                <div class="percent">
-                   <div class="image_good_result"></div><span class="percents">{{ percent }}%</span>
+                <div class="percent good-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
                </div>
-                <div class="recommendation" style="color: blue">
-                   молодец
+                <div class="recommendation">
+                   Молодец
                </div>
            {% elif percent >= 85 %}
-                <div class="percent">
-                   <div class="image_good_result"></div><span class="percents">{{ percent }}%</span>
+                <div class="percent great-result">
+                   <div class="image-mark"></div><span class="percents">{{ percent }}%</span>
                </div>
-               <div class="recommendation" style="color: green">
-                   отлично
+               <div class="recommendation">
+                   Отлично
                </div>
            {% endif %}
             <a href="/tests/results/{{ fact.id }}/tasks" style="text-decoration: none">

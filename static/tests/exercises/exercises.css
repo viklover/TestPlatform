@@ -16,9 +16,9 @@
         border: 2px solid #C9C9C9;
         border-radius: 5px;
         background: #FFFFFF;
-        padding: 18px;
+        padding: 14px;
         margin: 0;
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 600;
     }
 
@@ -44,7 +44,7 @@
         border: 2px solid #C9C9C9;
         border-radius: 5px;
         padding: 18px;
-        font-size: 20px;
+        font-size: 18px;
         margin: 0 0 23px;
         cursor: pointer;
     }
@@ -156,7 +156,7 @@
         border: 2px solid #C9C9C9;
         border-radius: 5px;
         outline: none;
-        font-size: 17px;
+        font-size: 15px;
     }
 
     .input p {
@@ -313,6 +313,59 @@
 
     .title h3 {
         margin-bottom: 0;
+    }
+
+
+    .mark-div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        margin-top: 5px;
+    }
+
+    .check p {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .check .mark {
+        width: 35px;
+        height: 35px;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .check-line {
+        height: 4px;
+    }
+
+    .not-success .mark {
+        background-image: url('../results/is_not_valid.png');
+    }
+
+    .not-success .check-line {
+        background-color: #DF0000;
+    }
+
+    .success .mark {
+        background-image: url('../results/green_check.png');
+    }
+
+    .success .check-line {
+        background-color: green;
+    }
+
+    .question-result .mark {
+        background-image: url('../results/blue_check.png');
+    }
+
+    .question-result .check-line {
+        background-color: #2C00DE;
+    }
+
+    .border_open_file {
+        margin-top: 30px;
     }
 }
 

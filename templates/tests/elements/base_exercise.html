@@ -14,4 +14,23 @@
         {% block content %}
         {% endblock %}
     </main>
+    {% if fact.completed %}
+        <footer class="check {% if exercise.success == 0 %}not-success{% elif exercise.success == 1 %}success{% elif exercise.success == 2 %}question-result{% endif %}">
+            <hr class="check-line">
+
+            <div class="mark-div">
+                <div class="mark"></div>
+                {% if exercise.success == 0 %}
+                    <p><b>Неверно</b>
+                {% elif exercise.success == 1 %}
+                    <p><b>Верно</b>
+                {% elif exercise.success == 2 %}
+                    <p><b>Сверяйте с заготовленным ответом</b>
+                {% endif %}
+
+                {% block answer %} {% endblock %}</p>
+            </div>
+
+        </footer>
+    {% endif %}
 {% endblock %}

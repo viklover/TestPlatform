@@ -10,25 +10,43 @@
     position: absolute;
 }
 
-.image_good_result {
+.image-mark {
     width: 50px;
     height: 50px;
-    background: url("../tests/results/result_good.png") no-repeat center;
-    background-size: 50px;
+    background-size: contain;
 }
 
-.image_bad_result {
-    width: 37px;
-    height: 37px;
-    background: url("../tests/results/result_bad.png") no-repeat center;
-    background-size: 37px;
+
+.great-result .image-mark {
+    background-image: url("../tests/results/green_check.png");
 }
 
-.image_question_result {
-    width: 37px;
-    height: 37px;
-    background: url("../tests/results/result_question.png") no-repeat center;
-    background-size: 37px;
+.great-result {
+    color: green;
+}
+
+.good-result .image-mark {
+    background-image: url("../tests/results/blue_check.png");
+}
+
+.good-result {
+    color: #2C00DE;
+}
+
+.bad-result .image-mark {
+    background-image: url("../tests/results/is_not_valid.png");
+}
+
+.bad-result {
+    color: #DF0000;
+}
+
+.question-result .image-mark {
+    background-image: url("../tests/results/yellow_check.png");
+}
+
+.question-result {
+    color: #D78A00;
 }
 
 .text_result {
@@ -68,16 +86,19 @@
 }
 
 .recommendation {
-    height: 23px;
+    /*height: 23px;*/
     font-weight: 700;
     font-size: 20px;
     line-height: 18px;
     text-align: center;
     margin-top: 35px;
+    animation: appear 1s alternate ease-in-out;
 }
 
 .result .button {
     margin-top: 20px;
+    font-size: 14px;
+    animation: appear 1s alternate ease-in-out;
 }
 
 @keyframes bounce {
@@ -99,17 +120,26 @@
     }
 }
 
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 @media screen and (min-width:701px) {
 
   .percent {
-    color: green;
+    /*color: green;*/
   }
 }
 
 @media screen and (max-width:700px) {
 
   .percent {
-    color: green;
+    /*color: green;*/
     /*display: block; !* needed to trigger update *!*/
   }
 }

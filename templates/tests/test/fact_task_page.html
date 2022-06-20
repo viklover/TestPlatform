@@ -86,7 +86,6 @@
 {% block js_scripts %}
     <script src="{% static 'dragscroll.js' %}"></script>
     <script src="{% static 'tests/tasks/script.js' %}"></script>
-    <script src="{% static 'editor/changes.js' %}"></script>
     <script src="{% static 'simplebox.min.js' %}"></script>
     <script>
         $(function() {
@@ -101,7 +100,7 @@
             autoDownloadFontAwesome: undefined,
             element: document.getElementById("description_test"),
             spellChecker: false,
-            autofocus: true,
+            autofocus: false,
             togglePreview: true,
             toolbar: false,
             status: false

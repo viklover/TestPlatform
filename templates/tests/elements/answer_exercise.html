@@ -6,3 +6,5 @@
 {% block content %}
     <input type="text" placeholder="Введите ответ" value="{{ current_answer }}">
 {% endblock %}
+
+{% block answer %}(правильный ответ - {{ exercise.correct_answer }}){% endblock %}
