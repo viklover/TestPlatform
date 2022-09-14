@@ -2,6 +2,8 @@ Test Platform
 ===============
 Each user has the ability to create and pass other peoples tests.
 
+[Preview presentation](Презентация.pdf)
+
 Technology stack:
 * Python 3.6
 * Django 4.0+
